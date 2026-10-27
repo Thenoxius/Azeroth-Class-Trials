@@ -403,10 +403,10 @@ export function Battle({ sel, kit, trial, settings, sessionMeta, onEnd, onExit, 
           {pet && <PetBar state={state} pet={pet} bar={build.pet && build.pet.bar} onCommand={(c) => doPetCommand(c)} onPetAbility={doPetAbility} onToggleAuto={doToggleAuto} onHover={(x, isPet) => setHover(x ? { id: x, pet: isPet } : null)} />}
         </div>
         <div className="b-help">
-          {hover ? (
-            <AbilityTooltip state={state} u={P} id={hover.id} petUnit={hover.pet ? pet : null} />
-          ) : (
-            <div className="controls-help">
+          {/* The tooltip floats over the help text so the footer (and the battlefield) never resizes. */}
+          {hover && <AbilityTooltip state={state} u={P} id={hover.id} petUnit={hover.pet ? pet : null} />}
+          {(
+            <div className="controls-help" style={hover ? { visibility: 'hidden' } : undefined}>
               <b>Move</b> WASD / arrows or click the ground · <b>Target</b> click a unit, Tab{showParty ? ', F1–F5 or a party frame' : ''} · <b>Cast</b> 1–0, -, = or click · <b>Pause</b> Space{pet ? ' · Pet: Shift+1–6, right-click an enemy to send it' : ''}
               {build.loopHint && <div className="loop-hint">{build.loopHint}</div>}
             </div>

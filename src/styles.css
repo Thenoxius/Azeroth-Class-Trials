@@ -1714,10 +1714,16 @@ textarea {
   background: #aad372;
 }
 .b-help {
+  position: relative;
   grid-area: help;
   min-width: 0;
 }
 .tooltip {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 30;
   background: linear-gradient(#141018f2, #0c0a0ef2);
   border-radius: 6px;
   box-shadow: 0 0 0 1px #000, 0 0 0 2px #5a4e63;
