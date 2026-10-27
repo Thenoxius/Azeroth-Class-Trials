@@ -6,6 +6,7 @@
 import { registerAbilities, registerTemplates, registerBehavior } from '../../engine/registry.js';
 import * as G from '../../engine/geometry.js';
 import { roll, val, RACIALS } from './shared.js';
+import { applyRace, validRace, racesFor } from '../races.js';
 import { deriveStats, petStats, buffTotals, GEAR, WEAPONS, AMMO } from '../stats.js';
 
 const OFF = (note, src = 'bz-dd-hunter') => ({ status: 'confirmed-official', src, note });
@@ -675,7 +676,13 @@ export const KIT = {
     ],
   },
   rolesFor: () => ['dps'],
-  build({ level, spec, trialId, groupBuffs = [] }) {
+  // The race picks portrait, racials and base attributes; see content/races.js.
+  races: () => racesFor('hunter'),
+  build(opts) {
+    const race = validRace('hunter', opts.race);
+    return applyRace(this.buildBase({ ...opts, race }), { classId: 'hunter', race });
+  },
+  buildBase({ level, spec, trialId, groupBuffs = [], race }) {
     const L = snap(level);
     const sp = L === 10 ? null : spec && TALENTS[spec + L] ? spec : 'bm';
     const key = L === 10 ? 10 : sp + L;
@@ -685,7 +692,7 @@ export const KIT = {
     // Orc Hunter: Classic base stats + gear profile; Lightning Reflexes is +15 % Agility, Survivalist +10 % health.
     // A Marksman's own Trueshot Aura (talent below) replaces the raid's.
     const buffs = buffTotals(groupBuffs.filter((n) => !(tal.trueshot && n === 'trueshot')), L);
-    const S = deriveStats({ classId: 'hunter', race: 'orc', level: L, gear: GEAR.hunter[L], buffs, pct: { agi: tal.lightningReflexes || 0 }, hpPct: tal.survivalist || 0 });
+    const S = deriveStats({ classId: 'hunter', race, level: L, gear: GEAR.hunter[L], buffs, pct: { agi: tal.lightningReflexes || 0 }, hpPct: tal.survivalist || 0 });
     const range = 35 + (tal.hawkEye || 0);
     const stats = { ...S.stats, hit: S.stats.hit + (tal.hit || 0) };
     stats.critPhys += tal.lethalAttacks || 0;

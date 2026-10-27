@@ -34,9 +34,9 @@ export function Battle({ sel, kit, trial, settings, sessionMeta, onEnd, onExit, 
   const endedRef = useRef(false);
 
   if (!stateRef.current) {
-    stateRef.current = createBattle(trial, { classId: kit.id, level: sel.level, spec: sel.spec, role: sel.role, trialId: trial.id, kit, seed: sessionMeta.seed });
+    stateRef.current = createBattle(trial, { classId: kit.id, level: sel.level, spec: sel.spec, role: sel.role, race: sel.race, trialId: trial.id, kit, seed: sessionMeta.seed });
     fxRef.current = createFx();
-    trackerRef.current = createTracker({ ...sessionMeta, trialId: trial.id, classId: kit.id, level: sel.level, spec: sel.spec, role: sel.role, kind: trial.kind });
+    trackerRef.current = createTracker({ ...sessionMeta, trialId: trial.id, classId: kit.id, level: sel.level, spec: sel.spec, role: sel.role, race: sel.race, kind: trial.kind });
     const p = stateRef.current.units[stateRef.current.playerId];
     if (p) p.flags.wandMacro = settings.wandMacro !== false;
   }

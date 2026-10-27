@@ -70,10 +70,10 @@ registerAbilities({
 });
 
 export function spawnPlayer(state, api, pos = {}) {
-  const { kit, level, spec, role, trialId } = state.opts;
+  const { kit, level, spec, role, trialId, race } = state.opts;
   // Group trials name the class buffs your NPC party or raid would give you.
   const groupBuffs = state.encounter.groupBuffs ? state.encounter.groupBuffs(state.opts) : [];
-  const b = kit.build({ level, spec, role, trialId, groupBuffs });
+  const b = kit.build({ level, spec, role, trialId, groupBuffs, race });
   const consumables = b.consumables || ['item.rest', 'item.healpot', 'item.manapot'];
   const tpl = b.template;
   const p = api.spawnUnit(state, {

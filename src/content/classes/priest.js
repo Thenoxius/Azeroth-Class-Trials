@@ -5,6 +5,7 @@
 // 2026-10-27); character stats come from Classic rules and a gear profile (../stats.js).
 import { registerAbilities } from '../../engine/registry.js';
 import { roll, val, addStacks, wandAbility, RACIALS } from './shared.js';
+import { applyRace, validRace, racesFor } from '../races.js';
 import { deriveStats, buffTotals, GEAR, WEAPONS } from '../stats.js';
 
 const OFF = (note, src = 'bz-dd-priest') => ({ status: 'confirmed-official', src, note });
@@ -595,7 +596,13 @@ export const KIT = {
     return role === 'healer' ? all.filter((s) => s.id !== 'shadow') : all.filter((s) => s.id === 'shadow');
   },
   rolesFor: (trialId) => (trialId === 't3' || trialId === 't5' ? ['dps', 'healer'] : ['dps']),
-  build({ level, spec, role, groupBuffs = [] }) {
+  // The race picks portrait, racials and base attributes; see content/races.js.
+  races: () => racesFor('priest'),
+  build(opts) {
+    const race = validRace('priest', opts.race);
+    return applyRace(this.buildBase({ ...opts, race }), { classId: 'priest', race });
+  },
+  buildBase({ level, spec, role, groupBuffs = [], race }) {
     const L = snap(level);
     let sp = null;
     if (L > 10) sp = role === 'healer' ? (spec === 'holy' ? 'holy' : 'disc') : 'shadow';
@@ -603,7 +610,7 @@ export const KIT = {
     const tal = L === 10 ? { wandSpec: 0.13 } : TALENTS[key];
     // Undead Priest: Classic base stats + gear profile (healing gear for healers) + self-buffs.
     const healer = sp && sp !== 'shadow';
-    const S = deriveStats({ classId: 'priest', race: 'undead', level: L, gear: healer ? GEAR.priestHealer[L] : GEAR.priest[L], buffs: buffTotals([...SELF_BUFFS, ...groupBuffs], L) });
+    const S = deriveStats({ classId: 'priest', race, level: L, gear: healer ? GEAR.priestHealer[L] : GEAR.priest[L], buffs: buffTotals([...SELF_BUFFS, ...groupBuffs], L) });
     const stats = { ...S.stats };
     const regen = { ...S.regen };
     // Spiritual Guidance (Forever): healing +25 % of Spirit, spell damage +8 % of Spirit.

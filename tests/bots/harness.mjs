@@ -62,7 +62,7 @@ export function makeController(state) {
   };
 }
 
-export function runTrial({ classId, trialId, level, spec, role, seed = 1, policy, maxSeconds = 900, dt = 0.05, keepEvents = false, encounter }) {
+export function runTrial({ classId, trialId, level, spec, role, race, seed = 1, policy, maxSeconds = 900, dt = 0.05, keepEvents = false, encounter }) {
   const kit = KITS[classId];
   if (!kit) throw new Error('No kit ' + classId);
   const trial = encounter || TRIALS.find((t) => t.id === trialId);
@@ -70,7 +70,7 @@ export function runTrial({ classId, trialId, level, spec, role, seed = 1, policy
   const lvl = level ?? trial.level;
   const specs = (kit.specs && kit.specs[lvl]) || [];
   const roles = trial.rolesFor ? trial.rolesFor(classId) : ['dps'];
-  const state = createBattle(trial, { classId, level: lvl, spec: spec ?? (specs[0] && specs[0].id) ?? null, role: role ?? roles[0], trialId: trial.id, kit, seed });
+  const state = createBattle(trial, { classId, level: lvl, spec: spec ?? (specs[0] && specs[0].id) ?? null, role: role ?? roles[0], race, trialId: trial.id, kit, seed });
   const ctl = makeController(state);
   const events = [];
   while (!state.outcome && state.t < maxSeconds) {

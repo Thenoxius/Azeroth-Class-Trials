@@ -5,6 +5,7 @@
 // 2026-10-27); character stats come from Classic rules and a gear profile (../stats.js).
 import { registerAbilities } from '../../engine/registry.js';
 import { roll, val, stacksOf, addStacks, consumeStack, breakCC, wandAbility, RACIALS, NOTE_NUMBERS } from './shared.js';
+import { applyRace, validRace, racesFor } from '../races.js';
 import { deriveStats, buffTotals, GEAR, WEAPONS } from '../stats.js';
 
 const IV = (src, note) => ({ status: 'reported-guide', src, note });
@@ -599,14 +600,20 @@ export const KIT = {
     ],
   },
   rolesFor: () => ['dps'],
-  build({ level, spec, trialId, groupBuffs = [] }) {
+  // The race picks portrait, racials and base attributes; see content/races.js.
+  races: () => racesFor('mage'),
+  build(opts) {
+    const race = validRace('mage', opts.race);
+    return applyRace(this.buildBase({ ...opts, race }), { classId: 'mage', race });
+  },
+  buildBase({ level, spec, trialId, groupBuffs = [], race }) {
     const L = snap(level);
     const sp = L === 10 ? null : spec && TALENTS[spec + L] ? spec : 'frost';
     const key = L === 10 ? 10 : sp + L;
     const tal = L === 10 ? {} : TALENTS[key];
     // Undead Mage: Classic base stats + gear profile + Arcane Intellect (and any group buffs);
     // Arcane Mind is +10 % Intellect.
-    const S = deriveStats({ classId: 'mage', race: 'undead', level: L, gear: GEAR.mage[L], buffs: buffTotals(['arcaneIntellect', ...groupBuffs], L), pct: { int: tal.arcaneMind ? 0.1 : 0 } });
+    const S = deriveStats({ classId: 'mage', race, level: L, gear: GEAR.mage[L], buffs: buffTotals(['arcaneIntellect', ...groupBuffs], L), pct: { int: tal.arcaneMind ? 0.1 : 0 } });
     const [wMin, wMax, wSpeed] = WEAPONS.wand[L];
     const tweaks = {};
     if (tal.impFrostbolt) tweaks['mage.frostbolt'] = { ct: (L === 10 ? 1.8 : 3.0) - tal.impFrostbolt };

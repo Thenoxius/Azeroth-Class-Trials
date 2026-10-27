@@ -137,9 +137,27 @@ export function buffTotals(names, level) {
 
 // Build the stat block. pct: talent multipliers on attributes, e.g. { agi: 0.15 }.
 // buffs: flat attribute buffs the character keeps on itself (Arcane Intellect, Fortitude …).
+// Base attributes for a class/race pair. Pairs that are new in Forever (Orc Mage) take the
+// class's own row plus the race's attribute offset; races are offset the same way in every class.
+// Skyborne has no published attribute offset, so it gets none (the Human baseline).
+const RACE_REF = 'warrior';
+function raceOffset(race, L) {
+  const ref = ATTR[RACE_REF];
+  if (!ref[race] || !ref.human) return [0, 0, 0, 0, 0];
+  return ref[race][L].map((v, i) => v - ref.human[L][i]);
+}
+export function baseAttrs(classId, race, L) {
+  const rows = ATTR[classId];
+  if (rows[race]) return rows[race][L];
+  const known = Object.keys(rows).find((r) => ATTR[RACE_REF][r]);
+  const base = rows[known][L];
+  const off = raceOffset(race, L), offKnown = raceOffset(known, L);
+  return base.map((v, i) => v + off[i] - offKnown[i]);
+}
+
 export function deriveStats({ classId, race, level, gear, buffs = {}, pct = {}, hpPct = 0 }) {
   const L = snapLevel(level);
-  const [str0, agi0, sta0, int0, spi0] = ATTR[classId][race][L];
+  const [str0, agi0, sta0, int0, spi0] = baseAttrs(classId, race, L);
   const [baseHp, baseMana] = BASE[classId][L];
   const g = gear || {};
   const a = (k, base) => Math.round((base + (g[k] || 0) + (buffs[k] || 0)) * (1 + (pct[k] || 0)));

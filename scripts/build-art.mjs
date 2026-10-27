@@ -27,7 +27,8 @@ const ICON_PX = 56;
 
 // Race/class portraits: the playable combinations plus every combination an
 // NPC ally uses in the encounters.
-const PLAYABLE = ['orc-hunter', 'undead-mage', 'undead-priest'];
+const { CLASS_RACES } = await import(pathToFileURL(resolve(root, 'src/content/races.js')).href);
+const PLAYABLE = Object.entries(CLASS_RACES).flatMap(([cls, races]) => races.map((r) => r + '-' + cls));
 const ICON_OK = new Set(['verified-forever-spell-name-and-icon', 'verified-classic-spell-name-and-icon', 'user-approved-presentation-choice']);
 
 const contentFiles = () => [

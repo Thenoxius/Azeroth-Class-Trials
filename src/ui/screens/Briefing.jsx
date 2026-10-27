@@ -3,23 +3,27 @@ import { Portrait } from '../art/Portrait.jsx';
 import { AbilityIcon } from '../art/AbilityIcon.jsx';
 import { getAbility, resolveAbility } from '../../engine/registry.js';
 import { STATUS_LABEL, STATUS_SHORT, CLASS_COLORS, cx } from '../util.js';
+import { RACES, validRace } from '../../content/races.js';
 
 const { useState, useMemo } = React;
 
-export function Briefing({ trial, kit, level, initialSpec, initialRole, onStart, onBack, onSwitchClass, classOrder, kits }) {
+export function Briefing({ trial, kit, level, initialSpec, initialRole, initialRace, onStart, onBack, onSwitchClass, classOrder, kits }) {
   const roles = trial.rolesFor ? trial.rolesFor(kit.id) : ['dps'];
   const [role, setRole] = useState(roles.includes(initialRole) ? initialRole : roles[0]);
   const specsFor = (r) => (kit.specsFor ? kit.specsFor(level, r) : (kit.specs && kit.specs[level])) || [];
   const specs = specsFor(role);
   const [specPick, setSpec] = useState(initialSpec);
+  const races = kit.races ? kit.races() : [];
+  const [racePick, setRace] = useState(initialRace);
+  const race = validRace(kit.id, racePick);
   const spec = specs.find((s) => s.id === specPick) ? specPick : specs[0] ? specs[0].id : null;
   const build = useMemo(() => {
     try {
-      return kit.build({ level, spec, role, trialId: trial.id });
+      return kit.build({ level, spec, role, race, trialId: trial.id });
     } catch (e) {
       return { bar: [], error: String(e) };
     }
-  }, [kit, level, spec, role, trial.id]);
+  }, [kit, level, spec, role, race, trial.id]);
   const intro = trial.intro ? trial.intro(kit.id, level, role) : { text: '', goals: [], tips: [] };
   const newIds = new Set((build.newSince && build.newSince.ids) || []);
   const abilities = (build.bar || []).map((id) => {
@@ -63,10 +67,31 @@ export function Briefing({ trial, kit, level, initialSpec, initialRole, onStart,
           <div className="kit-head">
             <span className="kit-portrait"><Portrait id={build.template && build.template.portrait ? build.template.portrait : kit.portrait} size={72} /></span>
             <div>
-              <div className="kit-name">{kit.race ? kit.race + ' ' : ''}{kit.name}</div>
+              <div className="kit-name">{RACES[race] ? RACES[race].name + ' ' : ''}{kit.name}</div>
               <div className="muted small">{kit.tagline || ''}</div>
             </div>
           </div>
+          {races.length > 1 && (
+            <div className="choice">
+              <div className="panel-title">Race</div>
+              <div className="race-row" role="radiogroup" aria-label="Race">
+                {races.map((r) => (
+                  <button type="button" key={r} role="radio" aria-checked={race === r} className={cx('race-card', race === r && 'on')} onClick={() => setRace(r)}>
+                    <Portrait id={r + '-' + kit.id} size={44} title={RACES[r].name + ' ' + kit.name} />
+                    <b>{RACES[r].name}</b>
+                  </button>
+                ))}
+              </div>
+              {build.racials && build.racials.length > 0 && (
+                <ul className="racials">
+                  {build.racials.map((p) => (
+                    <li key={p.name}><b>{p.name}</b> — {p.desc}</li>
+                  ))}
+                </ul>
+              )}
+              {RACES[race] && RACES[race].note && <p className="muted small">{RACES[race].note}</p>}
+            </div>
+          )}
           {specs.length > 0 && (
             <div className="choice">
               <div className="panel-title">Specialisation at level {level}</div>
@@ -144,7 +169,7 @@ ${STATUS_LABEL[(ab.forever || {}).status] || ''}${ab.forever && ab.forever.note 
           </div>
           {build.newSince && build.newSince.ids && build.newSince.ids.length > 0 && <p className="muted small">Marked “new”: learned since level {build.newSince.from}.</p>}
           <p className="muted small">Badges show where each ability comes from: Blizzard, guide sites, beta reports, Classic (unconfirmed for Forever) or our own approximation. Spell numbers are the datamined Forever ranks; your health, mana and power come from Classic rules and an estimated set of gear for this level.</p>
-          <button type="button" className="btn primary big" onClick={() => onStart({ spec, role })} disabled={!!build.error}>
+          <button type="button" className="btn primary big" onClick={() => onStart({ spec, role, race })} disabled={!!build.error}>
             Begin the trial
           </button>
         </section>

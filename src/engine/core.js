@@ -882,6 +882,8 @@ export function dealDamage(state, src, dst, p) {
     amt += p.coef * (statOf(src, powerKey) + modAdd(dst, 'attackerPower', powerKey));
   }
   if (src) amt *= modMultFor(src, 'dmgDone', school, kind);
+  // Creature-type bonuses (Beast Slaying, Elemental Insight): mods.dmgVsTag = { beast: 1.05 }.
+  if (src && dst.tags) for (const a of src.auras) { const v = a.def.mods && a.def.mods.dmgVsTag; if (v) for (const tag of dst.tags) if (v[tag]) amt *= v[tag]; }
   amt *= modMultFor(dst, 'dmgTaken', school, kind);
   // Debuffs that only amplify their own caster's damage (Improved Shadow Bolt, Shadow Weaving, Improved Scorch).
   if (src) for (const a of dst.auras) {
@@ -1087,7 +1089,7 @@ export function healUnit(state, src, dst, p) {
   let crit = false;
   if (src && !p.isTick && p.canCrit !== false && state.rng() < (src.stats.critSpell || 0) + modAdd(src, 'healCrit') + (p.critBonus || 0)) {
     crit = true;
-    amt *= 1.5;
+    amt *= 1.5 * modMult(src, 'critHeal');
   }
   const pk = { amount: amt, crit, ability: p.ability, isTick: p.isTick };
   runHooks(state, src, 'beforeHeal', { pk, dst });
@@ -1197,6 +1199,8 @@ export function applyAura(state, src, dst, def, opts = {}) {
     dst.dr[def.dr] = d;
   }
   if (def.pvpDuration && (dst.kind === 'opponent' || dst.kind === 'player') && hostile(src, dst)) duration = Math.min(duration, def.pvpDuration);
+  // Stun-duration reduction on the target (Orc Hardiness).
+  if (list.includes('stun') && dst !== src) duration *= modMult(dst, 'stunDuration');
   const key = def.unique === 'target' ? def.id : def.id + '@' + (src ? src.id : 'env');
   let a = dst.auras.find((x) => x.key === key);
   if (a) {
@@ -1784,6 +1788,7 @@ export function step(state, dt) {
   for (const u of list) if (u.alive) updateCasting(state, u, dt);
   for (const u of list) if (u.alive) updateAutoAttacks(state, u, dt);
   for (const u of list) if (u.alive) updateRegen(state, u, dt);
+  for (const u of list) if (u.alive && u.hooks && u.hooks.onTick) runHooks(state, u, 'onTick', { dt });
   updateProjectiles(state, dt);
   updateZones(state, dt);
   updateThreatAndCombat(state, dt);

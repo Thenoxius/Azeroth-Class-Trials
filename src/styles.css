@@ -1963,3 +1963,46 @@ textarea {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Race picker (briefing) */
+.race-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.race-card {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 12px 4px 4px;
+  border-radius: 999px;
+  background: #1a1620;
+  border: 1px solid #3a3242;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+.race-card .portrait {
+  border-radius: 50%;
+  border: 2px solid #3a3242;
+}
+.race-card.on {
+  border-color: var(--cc);
+  background: #241d2b;
+}
+.race-card.on .portrait {
+  border-color: var(--cc);
+}
+.race-card:focus-visible {
+  outline: 2px solid var(--cc);
+  outline-offset: 2px;
+}
+.racials {
+  margin: 8px 0 0;
+  padding-left: 18px;
+  font-size: 0.85rem;
+  color: var(--ash);
+}
+.racials li {
+  margin: 2px 0;
+}
