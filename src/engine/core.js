@@ -289,8 +289,10 @@ function emptyCC() {
 function computeCC(u) {
   const cc = emptyCC();
   let maxSlow = 0, maxSpeed = 0;
+  let stance = null;
   for (const a of u.auras) {
     const d = a.def;
+    if (d.stance) stance = d.stance;
     const list = d.cc ? (Array.isArray(d.cc) ? d.cc : [d.cc]) : [];
     for (const c of list) {
       if (c === 'stun') cc.stun = true;
@@ -311,6 +313,8 @@ function computeCC(u) {
   cc.slow = maxSlow;
   cc.haste = maxSpeed;
   u.cc = cc;
+  // Warrior stance: the permanent stance aura carries def.stance (read by requiresStance).
+  u.stance = stance;
 }
 
 export function canAct(u) {

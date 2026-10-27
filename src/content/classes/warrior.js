@@ -11,6 +11,33 @@ const DM = (note) => ({ status: 'beta-observation', src: 'wh-forever', note });
 const T = (u) => (u.meta && u.meta.talents) || {};
 const REVENGE_READY = { id: 'warrior.revenge.ready', name: 'Revenge ready', icon: 'shield', duration: 5 };
 
+// ---------------------------------------------------------------- stances
+// Forever tooltips: Battle (1) balanced; Defensive (10) −10 % damage taken and done, +30 %
+// threat; Berserker (30) +3 % crit, +10 % damage taken. 1 s cooldown, no global cooldown.
+// Tactical Mastery (baseline at 14) keeps up to 10 rage on a swap, Improved Tactical
+// Mastery (Arms) 15 more.
+export const STANCES = {
+  battle: { id: 'warrior.stance.battle', name: 'Battle Stance', icon: 'sword', stance: 'battle', permanent: true, mods: {} },
+  defensive: { id: 'warrior.stance.defensive', name: 'Defensive Stance', icon: 'shield', stance: 'defensive', permanent: true, mods: { dmgTaken: { all: 0.9 }, dmgDone: { all: 0.9 }, threat: 1.3 } },
+  berserker: { id: 'warrior.stance.berserker', name: 'Berserker Stance', icon: 'beast-wrath', stance: 'berserker', permanent: true, mods: { crit: { all: 0.03 }, dmgTaken: { all: 1.1 } } },
+};
+export function rageKept(u) {
+  if (u.level < 14) return 0;
+  return 10 + (T(u).impTacticalMastery ? 15 : 0);
+}
+function switchStance({ state, u, api }, key) {
+  for (const a of [...u.auras]) if (a.def.stance) api.removeAura(state, u, a, 'removed');
+  api.applyAura(state, u, u, STANCES[key], { silent: false });
+  if (u.res.rage) u.res.rage.cur = Math.min(u.res.rage.cur, rageKept(u));
+}
+const stanceAbility = (key, learn, desc) => ({
+  name: STANCES[key].name, icon: STANCES[key].icon, school: 'physical', mechanic: 'physical', category: 'stance',
+  tags: ['stance'], target: 'self', gcd: 0, cooldown: 1, learn, desc, stanceSwitch: key,
+  forever: DM('Forever stance tooltip.'),
+  canUse: ({ u }) => (u.stance === key ? 'custom:Already in that stance' : true),
+  effects: [{ type: 'custom', to: 'self', fn: (x) => switchStance(x, key) }],
+});
+
 function weaponHit(state, api, u) {
   const m = u.melee;
   return m.min + (m.max - m.min) * state.rng() + (m.coef || 0) * api.statOf(u, 'ap');
@@ -41,6 +68,9 @@ function warriorOnAvoid({ state, u, api, avoid }) {
 }
 
 registerAbilities({
+  'warrior.stance.battle': stanceAbility('battle', 1, 'A balanced combat stance. Needed for Charge, Overpower and Mocking Blow.'),
+  'warrior.stance.defensive': stanceAbility('defensive', 10, 'Damage taken and dealt −10 %, threat +30 %. Needed for Taunt, Revenge, Shield Block and Shield Wall.'),
+  'warrior.stance.berserker': stanceAbility('berserker', 30, 'Critical strike chance +3 %, damage taken +10 %. Needed for Intercept, Whirlwind, Pummel and Berserker Rage.'),
   'warrior.sunder': {
     name: 'Sunder Armor', icon: 'axe', school: 'physical', mechanic: 'physical', category: 'debuff', tags: ['core', 'threat'], range: 5,
     desc: 'Sunders the target’s armor (stacks 5 times, 30 s) with a high amount of threat.',
@@ -206,7 +236,7 @@ export const KIT = {
     const def = tal.anticipation ? 0.008 : 0;
     const stats = { ...S.stats, parry: 0.05 + def, dodge: S.stats.dodge + def, block: 0.05 + (tal.shieldSpec ? 0.05 : 0) + def, blockValue: SHIELD_VALUE[L] + Math.round(S.attrs.str / 20) };
     const [min, max, speed] = WEAPONS.tank1h[L];
-    const auras = [{ id: 'warrior.defstance', name: 'Defensive Stance', icon: 'shield', permanent: true, mods: { dmgTaken: { all: 0.9 }, dmgDone: { all: 0.9 * (tal.bastion || 1) }, threat: 1.3 * (tal.defiance || 1) } }];
+    const auras = [{ id: 'warrior.defstance', name: 'Defensive Stance', icon: 'shield', stance: 'defensive', permanent: true, mods: { dmgTaken: { all: 0.9 }, dmgDone: { all: 0.9 * (tal.bastion || 1) }, threat: 1.3 * (tal.defiance || 1) } }];
     const bar = ['warrior.sunder', 'warrior.revenge', 'warrior.shieldblock', 'warrior.hs', 'warrior.cleave', 'warrior.thunderclap', 'warrior.demoshout', 'warrior.taunt', 'warrior.shieldbash', 'warrior.bloodrage', 'warrior.shieldwall', 'warrior.laststand', ...(L >= 60 ? ['warrior.shieldslam'] : [])];
     const tweaks = {};
     const rageOff = (id, n) => { if (n) tweaks[id] = { ...(tweaks[id] || {}), costMultFn: (u, ab) => Math.max(0, (val(ab, ab.cost.rage) - n) / val(ab, ab.cost.rage)) }; };
