@@ -131,11 +131,14 @@ export function escapeZones(state, u) {
   return true;
 }
 
+const STEALTH_DETECT = 0.35;
+
 export function checkAggro(state, u) {
   if (!u.aggroRadius || u.evading) return;
   for (const x of state.list) {
-    if (!x.alive || x.side === u.side || x.hidden || x.flags.feigned || x.flags.stealthed) continue;
-    const r = u.aggroRadius + (x.level < u.level ? 0 : 0);
+    if (!x.alive || x.side === u.side || x.hidden || x.flags.feigned) continue;
+    // Stealth: noticed only at close range (approximation of Classic stealth detection).
+    const r = u.aggroRadius * (x.flags.stealthed ? STEALTH_DETECT : 1);
     if (G.dist(u, x) <= r && G.hasLoS(state.arena, u, x)) {
       engage(state, u, x);
       return;

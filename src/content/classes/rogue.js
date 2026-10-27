@@ -31,7 +31,19 @@ function mainHand(state, api, u) {
   return m.min + (m.max - m.min) * state.rng() + (m.speed / 14) * api.statOf(u, 'ap');
 }
 
+// Stealth (Forever tooltip): sneak at −30 % speed until cancelled; 10 s cooldown. Any action
+// other than a stealth-keeping one (Sap) ends it, and so do dealing or taking damage.
+export const STEALTH = { id: 'rogue.stealth', name: 'Stealth', icon: 'fade', school: 'physical', stealth: true, permanent: true, cancelOnAction: true, breakOnDamage: true, mods: { slow: 0.3 } };
+
 registerAbilities({
+  'rogue.stealth': {
+    name: 'Stealth', icon: 'fade', school: 'physical', mechanic: 'physical', category: 'utility', tags: ['stealth'],
+    target: 'self', gcd: 0, cooldown: 10, outOfCombat: true, learn: 1, keepsAura: 'rogue.stealth',
+    desc: 'Sneak around at 30 % less speed until you act, deal damage or take damage. Openers (Ambush, Cheap Shot, Garrote) need it. 10 s cooldown.',
+    forever: DM('Forever Stealth tooltip: 10 s cooldown.'),
+    canUse: ({ u }) => (u.flags.stealthed ? 'custom:Already stealthed' : true),
+    effects: [{ type: 'aura', to: 'self', aura: STEALTH }],
+  },
   'rogue.ss': {
     name: 'Sinister Strike', icon: 'sword', school: 'physical', mechanic: 'physical', category: 'filler', tags: ['core', 'filler'], range: 5,
     desc: 'Main-hand weapon damage plus a bonus. Awards a combo point.',

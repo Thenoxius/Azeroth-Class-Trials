@@ -39,3 +39,35 @@ console.log('phase4 engine ok');
   assert.equal(startCast(state, w, 'warrior.stance.berserker').ok, false, 'cannot re-enter the same stance');
 }
 console.log('stances ok');
+
+// Stealth: the aura sets u.flags.stealthed, slows, hides from aggro beyond close range,
+// and breaks when the rogue acts or is hit.
+{
+  const { KITS } = await import('../src/content/index.js');
+  const { createBattle, step, startCast, dealDamage } = await import('../src/engine/core.js');
+  const { spawnClassMember } = await import('../src/content/party.js');
+  const { getAbility } = await import('../src/engine/registry.js');
+  let r, mob;
+  const enc = {
+    id: 'stealth', level: 30, arena: { w: 60, h: 30, obstacles: [] },
+    setup(state, api) {
+      r = spawnClassMember(state, api, { classId: 'rogue', role: 'dps', name: 'R' }, { x: 10, y: 15, level: 30 });
+      mob = api.spawnUnit(state, { name: 'Mob', side: 'enemy', kind: 'enemy', level: 30, maxHp: 5000, x: 30, y: 15, speed: 0, aggroRadius: 10, ai: { type: 'idle' }, melee: null });
+    },
+    checkOutcome: () => null,
+  };
+  const state = createBattle(enc, { classId: 'mage', level: 30, kit: KITS.mage, trialId: 'stealth', seed: 1 });
+  r.ai = null;
+  r.ab['rogue.stealth'] = { ...getAbility('rogue.stealth') };
+  assert.equal(startCast(state, r, 'rogue.stealth').ok, true);
+  step(state, 0.05);
+  assert.equal(r.flags.stealthed, true, 'stealthed');
+  assert.ok(r.cc.slow >= 0.3, 'stealth slows');
+  r.x = mob.x - 6; // inside the 10-yard aggro radius, outside 35 % of it
+  for (let i = 0; i < 10; i++) step(state, 0.05);
+  assert.equal(mob.engaged, false, 'not noticed at 6 yards while stealthed');
+  for (let i = 0; i < 10 && r.flags.stealthed; i++) { dealDamage(state, mob, r, { amount: 10, school: 'fire', kind: 'spell', ability: 'test' }); step(state, 0.05); }
+  step(state, 0.05);
+  assert.equal(r.flags.stealthed, false, 'taking damage breaks stealth');
+}
+console.log('stealth ok');

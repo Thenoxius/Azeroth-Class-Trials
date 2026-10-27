@@ -289,10 +289,11 @@ function emptyCC() {
 function computeCC(u) {
   const cc = emptyCC();
   let maxSlow = 0, maxSpeed = 0;
-  let stance = null;
+  let stance = null, stealth = false;
   for (const a of u.auras) {
     const d = a.def;
     if (d.stance) stance = d.stance;
+    if (d.stealth) stealth = true;
     const list = d.cc ? (Array.isArray(d.cc) ? d.cc : [d.cc]) : [];
     for (const c of list) {
       if (c === 'stun') cc.stun = true;
@@ -315,6 +316,8 @@ function computeCC(u) {
   u.cc = cc;
   // Warrior stance: the permanent stance aura carries def.stance (read by requiresStance).
   u.stance = stance;
+  // Stealth comes from an aura with def.stealth (Rogue Stealth, Vanish); see STEALTH in rogue.js.
+  u.flags.stealthed = stealth;
 }
 
 export function canAct(u) {
@@ -1042,6 +1045,8 @@ export function dealDamage(state, src, dst, p) {
         }
       }
     }
+    // Dealing damage reveals a stealthed attacker.
+    if (src && src.flags.stealthed) for (const a of [...src.auras]) if (a.def.stealth) removeAura(state, src, a, 'broken');
     for (const a of [...dst.auras]) {
       if (a.def.breakOnDamage && !(p.isTick && a.def.ignoreTicks)) {
         if (a.srcId === (src && src.id) && a.def.selfDamageOk) continue;
@@ -1701,6 +1706,7 @@ function updateAutoAttacks(state, u, dt) {
   if (!canAct(u)) return;
   let t = U(state, u.target);
   if (u.isPlayer && (u.autoRanged || u.autoMelee) && (!t || !t.alive)) stopAutoAttacks(u);
+  if (u.flags.stealthed) return; // no white swings from stealth; an opener breaks it
   if (u.assistId && t && !hostile(u, t)) {
     const a = U(state, u.assistId);
     if (a && a.alive && !a.hidden && hostile(u, a)) t = a;
