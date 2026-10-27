@@ -143,8 +143,26 @@ artifact.
 ## Decisions
 
 - 2026-10-27, Thomas: the Warrior can **tank** in the dungeon (T3) and the raid (T5), next to DPS. Tanking is a role choice in the briefing; the NPC tank Gorrak steps aside (dungeon: a DPS takes his place; raid: he becomes off-tank).
+- 2026-10-27, Thomas: **character roster instead of a class grid.** When the site
+  loads you create (or pick) a few characters of your choice: race + class (+ a
+  name). The Hall shows all of them together, each with its own row of trials
+  and its own progress; every character is visible at once. This replaces the
+  fixed three-class columns and the per-class race memory ()
+  — a character *is* a race/class pair. Only playable classes can be created;
+  existing progress maps to the three current default characters
+  (Orc Hunter, Undead Mage, Undead Priest). Telemetry and analysis then compare
+  characters, grouped by class.
+- 2026-10-27, Thomas: class order after Warrior and Rogue does not matter. We do
+  **Warlock and Shaman next** (their NPC kits exist), then Paladin and Druid.
 
-## Open questions for Thomas
+## Work added by the roster decision (UI step 6)
 
-- Title screen and Hall: five classes side by side, or a class picker first?
-- After Warrior and Rogue: Warlock and Shaman next, then Paladin and Druid?
+- Character creation screen on first load: pick race and class (only valid Horde
+  pairs, portrait preview), optional name; create several; edit/delete later.
+- Store: ;
+  runs and sessions keyed by character id (migration from class keys).
+- Hall: one row (or card) per character with its trials; "suggested next"
+  per character; add-character button.
+- Briefing: no race picker any more (the character fixes it); spec and role stay.
+- Analysis: per character and per class; the verdict still compares classes.
+
