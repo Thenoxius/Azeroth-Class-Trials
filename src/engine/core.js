@@ -339,6 +339,9 @@ export const REASONS = {
   range: 'Out of range',
   minrange: 'Target is too close',
   los: 'Target not in line of sight',
+  stance: 'Wrong stance',
+  stealth: 'You must be stealthed',
+  behind: 'You must be behind your target',
   moving: "Can't do that while moving",
   combat: "Can't do that while in combat",
   nopet: 'You have no pet',
@@ -350,6 +353,12 @@ export const REASONS = {
   rooted: "Can't do that while rooted",
   disarmed: 'You are disarmed',
 };
+
+// u stands behind t: outside the 180° cone t is facing (Backstab, Ambush, Garrote).
+export function isBehind(u, t) {
+  const a = Math.atan2(u.y - t.y, u.x - t.x) - (t.facing || 0);
+  return Math.cos(a) < 0;
+}
 
 export function reasonText(reason, ab, u) {
   if (!reason) return '';
@@ -477,6 +486,9 @@ export function canCast(state, u, id, opts = {}) {
   if ((u.cds[id] || 0) > 1e-6) return { ok: false, reason: 'cooldown', ab };
   if (!hasCost(u, ab)) return { ok: false, reason: 'nores', ab };
   if (ab.outOfCombat && inCombat(state, u)) return { ok: false, reason: 'combat', ab };
+  // Phase 4 gates: Warrior stances, Rogue stealth openers.
+  if (ab.requiresStance && !ab.requiresStance.includes(u.stance)) return { ok: false, reason: 'stance', ab };
+  if (ab.requiresStealth && !u.flags.stealthed) return { ok: false, reason: 'stealth', ab };
   const ct = castTimeOf(u, ab);
   if ((ct > 0 || ab.channel) && u.moving && !ab.castWhileMoving) return { ok: false, reason: 'moving', ab };
   const r = resolveTarget(state, u, ab, opts);
@@ -488,6 +500,7 @@ export function canCast(state, u, id, opts = {}) {
     const minR = num(ab, ab.minRange, 0);
     if (minR && gap(u, t) < minR) return { ok: false, reason: 'minrange', ab, t };
     if (!ab.ignoreLoS && !G.hasLoS(state.arena, u, t)) return { ok: false, reason: 'los', ab, t };
+    if (ab.requiresBehind && !isBehind(u, t)) return { ok: false, reason: 'behind', ab, t };
   }
   if (t && ab.target === 'pet' && !ab.noRangeCheck && ab.range && G.dist(u, t) > num(ab, ab.range)) return { ok: false, reason: 'range', ab, t };
   if (ab.target === 'point' && opts.point && ab.range && G.dist(u, opts.point) > num(ab, ab.range) + 0.5) return { ok: false, reason: 'range', ab };
