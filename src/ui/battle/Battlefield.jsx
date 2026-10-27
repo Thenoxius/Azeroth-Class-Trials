@@ -238,6 +238,9 @@ function Effect({ f, t }) {
   return null;
 }
 
+// Yards of slack around a token that still count as clicking that unit.
+const PICK_SLACK = 1.2;
+
 export function Battlefield({ state, fx, kitColor, targeting, hoverRing, onGround, onUnit, onHover }) {
   const svgRef = useRef(null);
   const A = state.arena;
@@ -269,7 +272,19 @@ export function Battlefield({ state, fx, kitColor, targeting, hoverRing, onGroun
   };
   const handleDown = (e) => {
     const w = toWorld(e);
-    if (w) onGround(w, e);
+    if (!w) return;
+    // A click just beside a unit (its name, bar or the edge of its token) picks it
+    // instead of walking towards it — walking onto a mob would pull it.
+    if (!targeting) {
+      let best = null, bestD = Infinity;
+      for (const u of units) {
+        if ((!u.alive && !u.lootable) || u.id === state.playerId || u.ownerId === state.playerId) continue;
+        const d = Math.hypot(u.x - w.x, u.y - w.y) - tokenR(u);
+        if (d < PICK_SLACK && d < bestD) { best = u; bestD = d; }
+      }
+      if (best) { onUnit(best, e); return; }
+    }
+    onGround(w, e);
   };
   const handleMove = (e) => {
     if (!onHover) return;

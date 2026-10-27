@@ -251,10 +251,10 @@ registerAbilities({
   },
   'hunter.mark': {
     ...SHOT, minRange: 0, startsAutoShot: false, name: "Hunter's Mark", icon: 'mark', school: 'arcane', category: 'utility', tags: ['optional-utility'], learn: 6,
-    desc: 'Marks the target for 2 min: ranged attacks against it gain ranged attack power, and it cannot hide in stealth.',
+    desc: 'Marks the target for 2 min: ranged attacks against it gain ranged attack power, and it cannot hide in stealth. Marking does not pull the target.',
     forever: OFF('Improved Hunter’s Mark is baseline: datamined ranks are 30 % stronger than Classic (+143 ranged attack power at 60).'),
     cost: { mana: 'mana' },
-    effects: [{ type: 'custom', fn: ({ state, u, t, ab, api }) => api.applyAura(state, u, t, { id: 'hunter.mark', name: "Hunter's Mark", icon: 'mark', school: 'arcane', debuff: true, duration: 120, dispel: 'magic', mods: { attackerPower: { rap: val(ab, 'markRap', 0) } } }) }, { type: 'threat', mode: 'add', value: 5 }],
+    effects: [{ type: 'custom', fn: ({ state, u, t, ab, api }) => api.applyAura(state, u, t, { id: 'hunter.mark', name: "Hunter's Mark", icon: 'mark', school: 'arcane', debuff: true, duration: 120, dispel: 'magic', mods: { attackerPower: { rap: val(ab, 'markRap', 0) } } }) }],
     byLevel: { 10: { mana: 15, range: 100, markRap: 26 }, 30: { mana: 30, range: 100, markRap: 59 }, 60: { mana: 60, range: 100, markRap: 143 } },
   },
   'hunter.concussive': {

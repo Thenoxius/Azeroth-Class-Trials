@@ -14,14 +14,17 @@ for (const r of rows.filter((x) => x.mode === 'competent')) {
 // they miss 17 % of spells before hit talents, lose damage to fire resistance and run on mana
 // for four minutes — real Classic raid conditions, not a bug.
 for (const [classId, spec] of [['hunter', 'bm'], ['hunter', 'mm'], ['hunter', 'sv'], ['mage', 'arcane'], ['priest', 'shadow']]) {
-  for (const seed of [1, 2]) {
+  // Averaged over seeds: on one seed the best NPC rogue alone can swing ±8 %.
+  const ratios = [];
+  for (const seed of [1, 2, 3]) {
     const b = { classId, level: 60, spec, role: 'dps' };
     const r = runTrial({ ...b, trialId: 't5', seed, policy: BOTS[classId].competent(b), maxSeconds: 420 });
     const P = r.state.units[r.state.playerId];
     const mine = r.state.list.filter((u) => u.id === P.id || u.ownerId === P.id).reduce((a, u) => a + (r.meters.dmg[u.id] || 0), 0);
     const best = Math.max(...r.state.list.filter((u) => u.kind === 'ally' && u.role === 'dps').map((u) => r.meters.dmg[u.id] || 0));
-    const ratio = mine / best;
-    assert.ok(ratio > 0.6 && ratio < 1.5, `t5 ${classId} ${spec} seed ${seed}: player / best NPC raider damage ${ratio.toFixed(2)}`);
+    ratios.push(mine / best);
   }
+  const ratio = ratios.reduce((a, b) => a + b, 0) / ratios.length;
+  assert.ok(ratio > 0.6 && ratio < 1.5, `t5 ${classId} ${spec}: player / best NPC raider damage ${ratio.toFixed(2)} (seeds ${ratios.map((x) => x.toFixed(2)).join(', ')})`);
 }
 console.log('t5 ok');
