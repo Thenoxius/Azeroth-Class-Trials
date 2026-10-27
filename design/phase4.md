@@ -147,7 +147,7 @@ artifact.
   loads you create (or pick) a few characters of your choice: race + class (+ a
   name). The Hall shows all of them together, each with its own row of trials
   and its own progress; every character is visible at once. This replaces the
-  fixed three-class columns and the per-class race memory ()
+  fixed three-class columns and the per-class race memory (`progress.last.race`)
   — a character *is* a race/class pair. Only playable classes can be created;
   existing progress maps to the three current default characters
   (Orc Hunter, Undead Mage, Undead Priest). Telemetry and analysis then compare
@@ -159,7 +159,7 @@ artifact.
 
 - Character creation screen on first load: pick race and class (only valid Horde
   pairs, portrait preview), optional name; create several; edit/delete later.
-- Store: ;
+- Store: `progress.characters = [{ id, name, race, classId, createdAt }]`;
   runs and sessions keyed by character id (migration from class keys).
 - Hall: one row (or card) per character with its trials; "suggested next"
   per character; add-character button.
