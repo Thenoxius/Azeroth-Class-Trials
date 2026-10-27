@@ -140,9 +140,11 @@ value, and the Codex labels it.
 Each step ends with the full suite green, a rebuild and a publish to the same
 artifact.
 
+## Decisions
+
+- 2026-10-27, Thomas: the Warrior can **tank** in the dungeon (T3) and the raid (T5), next to DPS. Tanking is a role choice in the briefing; the NPC tank Gorrak steps aside (dungeon: a DPS takes his place; raid: he becomes off-tank).
+
 ## Open questions for Thomas
 
-- Warrior tank in the dungeon and raid: should you be able to tank, or only
-  deal damage? (Tanking changes T3/T5 the most.)
 - Title screen and Hall: five classes side by side, or a class picker first?
 - After Warrior and Rogue: Warlock and Shaman next, then Paladin and Druid?
