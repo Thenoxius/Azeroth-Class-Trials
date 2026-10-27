@@ -35,6 +35,29 @@ function mainHand(state, api, u) {
 // other than a stealth-keeping one (Sap) ends it, and so do dealing or taking damage.
 export const STEALTH = { id: 'rogue.stealth', name: 'Stealth', icon: 'fade', school: 'physical', stealth: true, permanent: true, cancelOnAction: true, breakOnDamage: true, mods: { slow: 0.3 } };
 
+// ---------------------------------------------------------------- poisons
+// Forever tooltips (rank at the snapshot level): proc chance per landed strike, effect.
+// Charges are not modelled (a trial never runs a coating dry).
+export const POISONS = {
+  instant: { name: 'Instant Poison', learn: 20, chance: 0.2, byLevel: { 30: { dmg: [20, 26] }, 60: { dmg: [76, 100] } } },
+  deadly: { name: 'Deadly Poison', learn: 30, chance: 0.3, byLevel: { 30: { dot: 24 }, 60: { dot: 92 } } },
+  crippling: { name: 'Crippling Poison', learn: 20, chance: 0.3, byLevel: { 30: { slow: 0.5 }, 60: { slow: 0.7 } } },
+  mindnumbing: { name: 'Mind-numbing Poison', learn: 24, chance: 0.2, byLevel: { 30: { castSlow: 0.4, dur: 10 }, 60: { castSlow: 0.6, dur: 14 } } },
+};
+const rankOf = (p, level) => p.byLevel[level >= 60 ? 60 : 30];
+
+// onWeaponHit hook: each hand's poison may proc on a landed strike.
+export function poisonOnHit({ state, u, dst, hand, api }) {
+  const id = (u.meta.poisons || {})[hand];
+  const p = id && POISONS[id];
+  if (!p || u.level < p.learn || !api.hostile(u, dst) || state.rng() >= p.chance) return;
+  const r = rankOf(p, u.level);
+  if (id === 'instant') api.dealDamage(state, u, dst, { amount: r.dmg[0] + (r.dmg[1] - r.dmg[0]) * state.rng(), school: 'nature', kind: 'spell', ability: 'rogue.poison.instant' });
+  else if (id === 'deadly') api.applyAura(state, u, dst, { id: 'rogue.poison.deadly', name: 'Deadly Poison', icon: 'serpent', school: 'nature', debuff: true, duration: 12, maxStacks: 5, refresh: true, dispel: 'poison', stackMods: true, tick: { interval: 3, type: 'damage', school: 'nature', amount: r.dot / 4, perStack: true } });
+  else if (id === 'crippling') api.applyAura(state, u, dst, { id: 'rogue.poison.crippling', name: 'Crippling Poison', icon: 'concussive', school: 'nature', debuff: true, duration: 12, dispel: 'poison', mods: { slow: r.slow } });
+  else if (id === 'mindnumbing') api.applyAura(state, u, dst, { id: 'rogue.poison.mindnumbing', name: 'Mind-numbing Poison', icon: 'silence', school: 'nature', debuff: true, duration: r.dur, dispel: 'poison', mods: { castSlow: r.castSlow } });
+}
+
 registerAbilities({
   'rogue.stealth': {
     name: 'Stealth', icon: 'fade', school: 'physical', mechanic: 'physical', category: 'utility', tags: ['stealth'],

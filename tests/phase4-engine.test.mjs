@@ -71,3 +71,37 @@ console.log('stances ok');
   assert.equal(r.flags.stealthed, false, 'taking damage breaks stealth');
 }
 console.log('stealth ok');
+
+// Poisons: a landed melee strike fires onWeaponHit; Instant and Deadly Poison proc at their rates.
+{
+  const { KITS } = await import('../src/content/index.js');
+  const { createBattle, step, dealDamage } = await import('../src/engine/core.js');
+  const { spawnClassMember } = await import('../src/content/party.js');
+  const { poisonOnHit } = await import('../src/content/classes/rogue.js');
+  let r, mob;
+  const enc = {
+    id: 'poison', level: 60, arena: { w: 40, h: 30, obstacles: [] },
+    setup(state, api) {
+      r = spawnClassMember(state, api, { classId: 'rogue', role: 'dps', name: 'R' }, { x: 10, y: 15, level: 60 });
+      mob = api.spawnUnit(state, { name: 'Mob', side: 'enemy', kind: 'enemy', level: 60, maxHp: 1e7, x: 11.5, y: 15, speed: 0, ai: { type: 'idle' }, melee: null, flags: { noEvade: true } });
+    },
+    checkOutcome: () => null,
+  };
+  const state = createBattle(enc, { classId: 'mage', level: 60, kit: KITS.mage, trialId: 'poison', seed: 4 });
+  r.ai = null;
+  r.meta.poisons = { mh: 'instant', oh: 'deadly' };
+  r.hooks = { ...r.hooks, onWeaponHit: poisonOnHit };
+  let instant = 0, hitsMh = 0;
+  for (let i = 0; i < 400; i++) {
+    const before = state.meters.dmg[r.id] || 0;
+    dealDamage(state, r, mob, { amount: 100, school: 'physical', kind: 'melee', ability: 'test', hand: i % 2 ? 'oh' : 'mh' });
+    step(state, 0.01);
+  }
+  const ev = (await import('../src/engine/core.js')).drainEvents(state);
+  instant = ev.filter((e) => e.type === 'damage' && e.ability === 'rogue.poison.instant').length;
+  hitsMh = ev.filter((e) => e.type === 'damage' && e.ability === 'test' && e.amount > 0).length / 2;
+  const deadly = mob.auras.find((a) => a.id === 'rogue.poison.deadly');
+  assert.ok(instant > hitsMh * 0.1 && instant < hitsMh * 0.3, `Instant Poison procs ~20 % (${instant} of ${hitsMh})`);
+  assert.ok(deadly && deadly.stacks === 5, 'Deadly Poison stacks to 5');
+}
+console.log('poisons ok');

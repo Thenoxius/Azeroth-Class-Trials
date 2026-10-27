@@ -1025,6 +1025,8 @@ export function dealDamage(state, src, dst, p) {
   }
   if (dst.res.rage && final > 0) gainRage(dst, (2.5 * final) / rageConversion(dst.level));
   emit(state, { type: 'damage', src: src && src.id, owner: ownerId, dst: dst.id, ability: p.ability, amount: final, absorbed, overkill, crit: pk.crit, blocked: !!pk.blocked, school, kind, tick: !!p.isTick });
+  // A landed weapon strike or swing (Rogue poisons, weapon procs). hand: 'mh' | 'oh'.
+  if (src && kind === 'melee' && !p.isTick && dst.alive) runHooks(state, src, 'onWeaponHit', { dst, pk, hand: p.hand || 'mh' });
   if (src && dst.threat) {
     const thr = (final + absorbed) * (p.threat ?? 1) + (p.flatThreat || 0);
     addThreat(state, dst, src, thr);
