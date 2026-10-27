@@ -129,3 +129,27 @@ console.log('poisons ok');
   assert.ok(dodged > 5, `onAttackAvoided saw dodges (${dodged})`);
 }
 console.log('warrior hooks ok');
+
+// Dual wield: an off-hand weapon swings on its own timer for half damage, as hand 'oh'.
+{
+  const { KITS } = await import('../src/content/index.js');
+  const { createBattle, step, drainEvents } = await import('../src/engine/core.js');
+  let u, mob;
+  const enc = {
+    id: 'dw', level: 30, arena: { w: 40, h: 30, obstacles: [] },
+    setup(state, api) {
+      mob = api.spawnUnit(state, { name: 'Mob', side: 'enemy', kind: 'enemy', level: 30, maxHp: 1e7, x: 11.5, y: 15, speed: 0, ai: { type: 'idle' }, melee: null, flags: { noEvade: true } });
+      u = api.spawnUnit(state, { name: 'DW', side: 'player', kind: 'ally', level: 30, maxHp: 2000, x: 10, y: 15, speed: 0, autoMelee: true, ai: null, melee: { min: 40, max: 40, speed: 2, coef: 0, dualWield: true, oh: { min: 40, max: 40, speed: 1.5, coef: 0 } } });
+      u.target = mob.id;
+    },
+    checkOutcome: () => null,
+  };
+  const state = createBattle(enc, { classId: 'mage', level: 30, kit: KITS.mage, trialId: 'dw', seed: 5 });
+  const hands = { mh: 0, oh: 0 };
+  let ohDmg = 0;
+  u.hooks = { onWeaponHit: ({ hand, pk }) => { hands[hand]++; if (hand === 'oh') ohDmg = Math.max(ohDmg, pk.amount); } };
+  for (let i = 0; i < 1200; i++) { step(state, 0.05); drainEvents(state); }
+  assert.ok(hands.mh > 15 && hands.oh > 15, `both hands land hits (${hands.mh} / ${hands.oh})`);
+  assert.ok(ohDmg <= 41 && ohDmg >= 15, `off hand hits for about half (${Math.round(ohDmg)})`);
+}
+console.log('dual wield ok');

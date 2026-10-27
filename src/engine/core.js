@@ -1726,6 +1726,17 @@ function updateAutoAttacks(state, u, dt) {
       u.facing = G.angleTo(u, t);
       emit(state, { type: 'swing', src: u.id, dst: t.id });
     }
+    // Real off-hand (Rogue, Fury): its own swing timer, half damage, the dual-wield miss
+    // penalty (melee.dualWield) and its own poison (hand 'oh').
+    const oh = u.melee.oh;
+    if (oh) {
+      u.ohSwingT = Math.max(0, (u.ohSwingT ?? oh.speed / 2) - dt * (1 + modAdd(u, 'meleeHaste')));
+      if (u.ohSwingT <= 0 && u.autoMelee && t && t.alive && hostile(u, t) && !t.hidden && !u.cc.disarm && !(u.casting && !u.casting.ab.meleeWhileCasting) && gap(u, t) <= (u.melee.range || MELEE_RANGE) && !u.flags.feigned && !u.flags.noMelee) {
+        const amount = (oh.min + (oh.max - oh.min) * state.rng()) * (oh.mult ?? 0.5);
+        dealDamage(state, u, t, { amount, school: 'physical', kind: 'melee', ability: 'melee', hand: 'oh', threat: u.melee.threat ?? 1, coef: (oh.coef ?? oh.speed / 14) * (oh.mult ?? 0.5) });
+        u.ohSwingT = oh.speed;
+      }
+    }
   }
   if (u.ranged) {
     u.rangedT = Math.max(0, u.rangedT - dt * (1 + modAdd(u, 'rangedHaste')));

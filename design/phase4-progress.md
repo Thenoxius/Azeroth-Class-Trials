@@ -14,23 +14,38 @@ Plan and decisions: `design/phase4.md`. Data: `research/forever-warrior-rogue.js
   exported `isBehind(u, t)`: outside the 180° cone the target faces). Failure
   texts `stance` / `stealth` / `behind` in `REASONS`. Test:
   `tests/phase4-engine.test.mjs`. Suite 14/14.
+- 2026-10-29 — Engine step 1 finished (all in , suite 14/14):
+  - **Stances** ( , abilities ):
+    a permanent aura with  sets  in ; swap removes the
+    old stance and keeps rage up to  (Tactical Mastery 10 from level 14,
+    +15 with ). The NPC tank's Defensive Stance aura carries
+    .
+  - **Stealth** ( , ability ):     sets ; −30 % speed (slow), breaks on action
+    (; Sap-like abilities use ), on damage
+    taken and on damage dealt; no white swings while stealthed; mobs notice a
+    stealthed unit at 35 % of their aggro radius (, approximation).
+  - **Poisons**: engine hook  after every landed melee
+    hit;   +  (Instant, Deadly ×5, Crippling,
+    Mind-numbing; Forever ranks at 30/60), poison per hand in .
+  - **Warrior hooks**:  for the attacker on a
+    dodge/parry (Overpower readiness);  restarts the swing timer when
+    the cast lands (Slam). Charge/Intercept need no engine work:  effect +
+    stun aura +  /  already exist (see ).
+  - **Dual wield**:  swings on its own
+    timer () for 50 %, with the  miss penalty, hand 'oh'.
 
-## Next (in order, from design/phase4.md "Order of work" step 1)
+## Next (plan step 2: Warrior kit)
 
-1. Stances: a stance aura sets `u.stance` (battle / defensive / berserker),
-   stance swap ability (1 s GCD, rage capped by Tactical Mastery), stance mods
-   (Defensive: −10 % damage taken, +threat; Berserker: +crit, more damage taken).
-   Who sets `u.stance` today: nobody — add it in `spawnUnit` from the template.
-2. Stealth: aura that sets `u.flags.stealthed`, speed penalty, breaks on damage
-   dealt/taken and on any non-stealth ability; enemies notice at reduced
-   aggro radius (`ai.js checkAggro` already skips stealthed units entirely —
-   change that to a shorter radius).
-3. Poisons: `onWeaponHit` hook from melee swings and strikes; Instant, Deadly
-   (stacks to 5), Crippling, Wound, Mind-numbing.
-4. Charge / Intercept (dash + stun, `noRoot` already blocks while rooted),
-   Overpower / Revenge / Execute readiness, Slam swing reset.
-5. Player dual wield (real off-hand swings).
-Then Warrior kit (step 2 of the plan), Rogue kit, trials, roster UI, Codex.
+1. : level 10/30/60 player builds for Arms, Fury, Protection
+   from  (ranks via );
+   abilities Charge, Rend, Hamstring, Overpower (ready aura via onAttackAvoided),
+   Execute (≤20 %, extra rage → damage), Slam (resetsSwing), Mortal Strike /
+   Bloodthirst / Whirlwind / Shield Slam (trained at 48 in Forever), Victory Rush,
+   Intercept, Pummel, Berserker Rage, Battle Shout, Intimidating Shout, Retaliation,
+   Recklessness; talent picks per spec (21 pts at 30, 51 at 60).
+   Keep  builds (Protection NPC tank) working — .
+2.  competent/careless; add warrior to    only when T1/T2 pass for it (the trial tests loop over CLASS_ORDER).
+3. Then Rogue kit (plan step 3), trials T3/T5 tank role, T4, roster UI, Codex.
 
 ## How to resume
 
