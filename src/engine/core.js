@@ -658,6 +658,8 @@ function resolveCast(state, u, ab, t, point) {
   emit(state, { type: 'cast', src: u.id, dst: t ? t.id : null, ability: ab.id, cat: ab.category, tags: ab.tags || null, x: point ? point.x : null, y: point ? point.y : null });
   runHooks(state, u, 'onCast', { ab, t, point });
   if (ab.onCast) ab.onCast({ state, u, t, ab, point, api });
+  // Slam: finishing the cast restarts the main-hand swing timer.
+  if (ab.resetsSwing && u.melee) u.swingT = u.melee.speed;
   if (ab.projectile && t && t !== u) {
     spawnProjectile(state, u, t, { speed: ab.projectile.speed ?? 28, visual: ab.projectile.visual || ab.school, ab, effects: ab.effects || [], point });
   } else {
@@ -972,6 +974,8 @@ export function dealDamage(state, src, dst, p) {
     if (roll < edge || avoid) {
       emit(state, { type: 'miss', src: src.id, dst: dst.id, ability: p.ability, school, kind, resist: kind === 'spell' && !avoid, avoid });
       if (avoid) runHooks(state, dst, 'onAvoid', { src, avoid, pk });
+      // The attacker's side of a dodge/parry (Warrior Overpower).
+      if (avoid) runHooks(state, src, 'onAttackAvoided', { dst, avoid, pk });
       if (dst.threat) addThreat(state, dst, src, 1);
       combatTouch(state, src, dst);
       return 0;

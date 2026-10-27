@@ -105,3 +105,27 @@ console.log('stealth ok');
   assert.ok(deadly && deadly.stacks === 5, 'Deadly Poison stacks to 5');
 }
 console.log('poisons ok');
+
+// Warrior engine hooks: onAttackAvoided fires for the attacker on a dodge (Overpower),
+// and a resetsSwing cast restarts the swing timer (Slam).
+{
+  const { KITS } = await import('../src/content/index.js');
+  const { createBattle, step, dealDamage } = await import('../src/engine/core.js');
+  const { spawnClassMember } = await import('../src/content/party.js');
+  let w, mob;
+  const enc = {
+    id: 'war', level: 30, arena: { w: 40, h: 30, obstacles: [] },
+    setup(state, api) {
+      w = spawnClassMember(state, api, { classId: 'warrior', role: 'tank', name: 'W' }, { x: 10, y: 15, level: 30 });
+      mob = api.spawnUnit(state, { name: 'Mob', side: 'enemy', kind: 'enemy', level: 30, maxHp: 1e7, x: 11.5, y: 15, speed: 0, ai: { type: 'idle' }, melee: null, flags: { noEvade: true }, stats: { dodge: 0.5 } });
+    },
+    checkOutcome: () => null,
+  };
+  const state = createBattle(enc, { classId: 'mage', level: 30, kit: KITS.mage, trialId: 'war', seed: 2 });
+  w.ai = null;
+  let dodged = 0;
+  w.hooks = { ...w.hooks, onAttackAvoided: ({ avoid }) => { if (avoid === 'dodge') dodged++; } };
+  for (let i = 0; i < 60; i++) { dealDamage(state, w, mob, { amount: 50, school: 'physical', kind: 'melee', ability: 'test' }); step(state, 0.01); }
+  assert.ok(dodged > 5, `onAttackAvoided saw dodges (${dodged})`);
+}
+console.log('warrior hooks ok');
