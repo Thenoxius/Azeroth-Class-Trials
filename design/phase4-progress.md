@@ -63,6 +63,21 @@ Plan and decisions: `design/phase4.md`. Data: `research/forever-warrior-rogue.js
     Revisit in the balance pass (talent values, gear, maybe Forever's rage numbers).
   - Warrior is **not yet in `CLASS_ORDER`**: T3/T4/T5 and the UI need it first.
 
+- 2026-10-28 — **Character roster** (Thomas asked for it early; plan UI step pulled forward):
+  - `progress.characters = [{ id, name, race, classId, createdAt }]`. A fresh start
+    goes Title → Roster (`ui/screens/Roster.jsx`: pick class, then race, optional name;
+    remove characters). Old saves get three legacy characters (Orc Hunter / Undead Mage /
+    Undead Priest, or the race last picked per class).
+  - Hall columns are characters (rotated per trial); runs stay keyed per **class**
+    (`runKey`), so two characters of one class share progress — revisit if Thomas wants
+    per-character progress. "Characters" button in the Hall header.
+  - Briefing: a character fixes the race (`raceLocked`), racial traits stay listed.
+  - `content/index.js`: `KITS` now includes warrior; `PLAYABLE` (roster classes) and
+    `trialSupports(trialId, classId)` — Warrior plays T1/T2; T3–T5 show "Not available
+    yet". `CLASS_ORDER` (analysis, shared trial tests) is still Hunter/Mage/Priest.
+  - Checked in the local preview: fresh roster → Tauren Warrior + Troll Mage → Hall →
+    Fury briefing (race locked) → fight starts in Berserker Stance.
+
 ## Next
 
 1. Rogue kit (plan step 3): `classes/rogue.js` player builds Assassination / Combat /

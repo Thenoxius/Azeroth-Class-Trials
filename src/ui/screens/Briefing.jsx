@@ -7,7 +7,7 @@ import { RACES, validRace } from '../../content/races.js';
 
 const { useState, useMemo } = React;
 
-export function Briefing({ trial, kit, level, initialSpec, initialRole, initialRace, onStart, onBack, onSwitchClass, classOrder, kits }) {
+export function Briefing({ trial, kit, level, initialSpec, initialRole, initialRace, raceLocked, onStart, onBack, onSwitchClass, classOrder, kits }) {
   const roles = trial.rolesFor ? trial.rolesFor(kit.id) : ['dps'];
   const [role, setRole] = useState(roles.includes(initialRole) ? initialRole : roles[0]);
   const specsFor = (r) => (kit.specsFor ? kit.specsFor(level, r) : (kit.specs && kit.specs[level])) || [];
@@ -71,17 +71,17 @@ export function Briefing({ trial, kit, level, initialSpec, initialRole, initialR
               <div className="muted small">{kit.tagline || ''}</div>
             </div>
           </div>
-          {races.length > 1 && (
+          {(races.length > 1 || raceLocked) && (
             <div className="choice">
-              <div className="panel-title">Race</div>
-              <div className="race-row" role="radiogroup" aria-label="Race">
+              <div className="panel-title">{raceLocked ? `Racial traits — ${RACES[race].name}` : 'Race'}</div>
+              {!raceLocked && <div className="race-row" role="radiogroup" aria-label="Race">
                 {races.map((r) => (
                   <button type="button" key={r} role="radio" aria-checked={race === r} className={cx('race-card', race === r && 'on')} onClick={() => setRace(r)}>
                     <Portrait id={r + '-' + kit.id} size={44} title={RACES[r].name + ' ' + kit.name} />
                     <b>{RACES[r].name}</b>
                   </button>
                 ))}
-              </div>
+              </div>}
               {build.racials && build.racials.length > 0 && (
                 <ul className="racials">
                   {build.racials.map((p) => (

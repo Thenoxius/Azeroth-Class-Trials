@@ -2006,3 +2006,22 @@ textarea {
 .racials li {
   margin: 2px 0;
 }
+
+/* Character roster */
+.roster { max-width: 1100px; margin: 0 auto; padding: 16px; }
+.roster-intro { max-width: 70ch; margin: 4px 0 16px; }
+.roster-body { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 16px; align-items: start; }
+@media (max-width: 760px) { .roster-body { grid-template-columns: 1fr; } }
+.roster-create { display: flex; flex-direction: column; gap: 12px; }
+.roster-preview { display: flex; justify-content: center; }
+.roster-preview .portrait { border-radius: 50%; border: 2px solid #3a3242; }
+.roster-empty { width: 96px; height: 96px; border-radius: 50%; border: 2px dashed #3a3242; display: grid; place-items: center; font-size: 2rem; color: var(--ash); }
+.class-card { padding: 8px 14px; }
+.roster-name { display: flex; flex-direction: column; gap: 4px; }
+.roster-name input { background: #141018; border: 1px solid #3a3242; color: inherit; border-radius: 6px; padding: 8px 10px; font: inherit; }
+.roster-name input:focus-visible { outline: 2px solid var(--gold, #c9a54a); outline-offset: 1px; }
+.roster-list { display: flex; flex-direction: column; gap: 8px; }
+.roster-row { display: flex; align-items: center; gap: 10px; padding: 6px; border-radius: 8px; border-left: 3px solid var(--cc); background: #1a1620; }
+.roster-row .portrait { border-radius: 50%; border: 2px solid var(--cc); }
+.roster-row-text { display: flex; flex-direction: column; flex: 1; min-width: 0; }
+.tc.st-locked { opacity: 0.55; cursor: default; }
