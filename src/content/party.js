@@ -123,7 +123,7 @@ const MELEE = { warrior: true, rogue: true };
 //        kickChance, curse, spot, groupBuffs }
 export function classMemberTemplate(state, level, def) {
   const kit = NPC_KITS[def.classId];
-  const b = kit.build({ level, spec: def.spec, role: def.role === 'healer' ? 'healer' : 'dps', trialId: state.opts.trialId, groupBuffs: def.groupBuffs || [], race: def.race });
+  const b = kit.build({ level, spec: def.spec, role: def.role === 'healer' ? 'healer' : 'dps', trialId: state.opts.trialId, groupBuffs: def.groupBuffs || [], race: def.race, npc: true });
   const ai = {
     type: BEHAVIOUR[def.role] || (MELEE[def.classId] ? 'mdps' : 'rdps'),
     react: def.react ?? 1.1, skill: def.skill ?? 0.8, spot: def.spot,

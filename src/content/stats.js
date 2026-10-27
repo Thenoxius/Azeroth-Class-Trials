@@ -67,7 +67,14 @@ export const GEAR = {
     60: { int: 130, spi: 100, sta: 130, armor: 800, sp: 230, heal: 230, critSpell: 0.01, spellHit: 0.02 },
   },
   // NPC party and raid classes (same estimate: quest greens at 30, fresh dungeon blues at 60).
+  // Player Warriors (phase 4): DPS plate and a tank set. Our estimate like the rest.
+  warriorDps: {
+    10: { str: 10, agi: 5, sta: 8, armor: 300 },
+    30: { str: 75, agi: 35, sta: 45, armor: 1500, critPhys: 0.02, hit: 0.02 },
+    60: { str: 250, agi: 110, sta: 190, armor: 4600, ap: 60, critPhys: 0.05, hit: 0.06 },
+  },
   warriorTank: {
+    10: { str: 8, agi: 5, sta: 10, armor: 450 },
     30: { str: 40, agi: 25, sta: 55, armor: 2300 },
     60: { str: 110, agi: 70, sta: 260, armor: 6400, hit: 0.02 },
   },
@@ -100,7 +107,10 @@ export const WEAPONS = {
   hunterDual: { 30: [40, 60, 1.9], 60: [120, 163, 1.9] },
   hunterMH: { 30: [26, 46, 2.4], 60: [80, 150, 2.7] },
   wand: { 10: [9, 15, 1.5], 30: [28, 42, 1.6], 60: [58, 86, 1.6] },
-  tank1h: { 30: [30, 53, 2.6], 60: [72, 135, 2.7] },
+  tank1h: { 10: [8, 15, 2.5], 30: [30, 53, 2.6], 60: [72, 135, 2.7] },
+  // Warrior DPS: Arms two-hander; Fury main hand + off hand (real off-hand swings).
+  twoHand: { 10: [18, 28, 3.3], 30: [68, 104, 3.5], 60: [160, 255, 3.7] },
+  fury1h: { 10: [9, 17, 2.5], 30: [36, 66, 2.6], 60: [95, 165, 2.6] },
   // Rogues: main hand for abilities, and main hand + off hand (50 % + Dual Wield Specialization) as one weapon for white swings.
   rogueMH: { 30: [27, 51, 2.6], 60: [80, 150, 2.7] },
   rogueDual: { 30: [40, 54, 1.9], 60: [118, 152, 1.9] },

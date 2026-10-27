@@ -1023,9 +1023,15 @@ export function dealDamage(state, src, dst, p) {
   state.meters.taken[dst.id] = (state.meters.taken[dst.id] || 0) + final;
   // Rage (Classic 1.12): a white hit gives 15d/(4c) + f·s/2 (at most 15d/c, f 3.5 or 7 on a crit,
   // s weapon speed); damage taken gives 2.5d/c, with c the level's rage conversion value.
+  // Forever (Blizzard dev notes): player Warriors gain 100 % more rage from a critical basic
+  // attack, and rage gains were "rebalanced for armor in the 20–40 % range" (details not
+  // published) — modelled as rage counting the damage before armor.
   if (src && src.res.rage && p.ability === 'melee' && !pk.noRage && final > 0) {
     const c = rageConversion(src.level);
-    gainRage(src, Math.min((15 * final) / c, (15 * final) / (4 * c) + ((pk.crit ? 7 : 3.5) * (src.melee ? src.melee.speed : 2)) / 2));
+    const player = src.isPlayer || src.kind === 'player';
+    const d = player && school === 'physical' ? final / Math.max(0.5, 1 - mitigationOf(src, dst, school, p)) : final;
+    const r = Math.min((15 * d) / c, (15 * d) / (4 * c) + ((pk.crit ? 7 : 3.5) * (src.melee ? src.melee.speed : 2)) / 2);
+    gainRage(src, r * (player && pk.crit ? 2 : 1));
   }
   if (dst.res.rage && final > 0) gainRage(dst, (2.5 * final) / rageConversion(dst.level));
   emit(state, { type: 'damage', src: src && src.id, owner: ownerId, dst: dst.id, ability: p.ability, amount: final, absorbed, overkill, crit: pk.crit, blocked: !!pk.blocked, school, kind, tick: !!p.isTick });

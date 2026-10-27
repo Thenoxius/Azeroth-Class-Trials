@@ -2,6 +2,9 @@
 // the racials work in the engine, and a competent bot still wins with every race.
 import assert from 'node:assert/strict';
 import { KITS } from '../src/content/index.js';
+import { NPC_KITS } from '../src/content/party.js';
+// Classes not yet in CLASS_ORDER (phase 4) are checked through their kit directly.
+const kitOf = (c) => KITS[c] || NPC_KITS[c];
 import { CLASS_RACES, validRace } from '../src/content/races.js';
 import { PORTRAIT_IMG } from '../src/ui/art/art-images.gen.js';
 import { BOTS } from './bots/trial-suite.mjs';
@@ -11,7 +14,7 @@ for (const [classId, races] of Object.entries(CLASS_RACES)) {
   assert.equal(validRace(classId, 'gnome'), races[0], 'unknown race falls back to the default');
   for (const race of races) {
     for (const level of [10, 30, 60]) {
-      const b = KITS[classId].build({ level, race, trialId: 't1' });
+      const b = kitOf(classId).build({ level, race, trialId: 't1' });
       assert.equal(b.race, race);
       assert.equal(b.template.portrait, `${race}-${classId}`);
       assert.ok(PORTRAIT_IMG[b.template.portrait] !== undefined, `bundled portrait for ${race}-${classId}`);
@@ -34,7 +37,7 @@ assert.ok(Math.abs(crit('orc') - crit('troll') - 0.01) < 0.002, 'Savage: Orc +1 
 assert.ok(KITS.hunter.build({ level: 60, race: 'skyborne', trialId: 't1' }).template.auras.some((a) => a.id === 'race.windblessed'));
 
 // A competent bot wins T1 with every race (the racials must not break a fight).
-for (const [classId, races] of Object.entries(CLASS_RACES)) {
+for (const [classId, races] of Object.entries(CLASS_RACES).filter(([c]) => BOTS[c])) {
   for (const race of races) {
     const r = runTrial({ classId, trialId: 't1', level: 30, race, seed: 1, policy: BOTS[classId].competent({ level: 30 }), maxSeconds: 600 });
     console.log(`${classId.padEnd(7)} ${race.padEnd(9)} T1 L30: ${r.outcome && r.outcome.result} in ${Math.round(r.t)} s`);

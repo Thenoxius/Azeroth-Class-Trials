@@ -19,6 +19,7 @@ export const CLASS_RACES = {
   hunter: ['orc', 'troll', 'tauren', 'skyborne'],
   mage: ['undead', 'troll', 'orc'],
   priest: ['undead', 'troll'],
+  warrior: ['orc', 'troll', 'tauren', 'undead', 'skyborne'],
 };
 export const defaultRace = (classId) => (CLASS_RACES[classId] || ['orc'])[0];
 export const racesFor = (classId) => CLASS_RACES[classId] || [defaultRace(classId)];
