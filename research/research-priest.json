@@ -1,0 +1,1851 @@
+{
+ "topic": "Priest in World of Warcraft: Forever (Discipline / Holy / Shadow), levels 1-60, with focus on Shadow leveling feel",
+ "overview": "WoW: Forever keeps the Priest as a cloth caster with two healing trees and one Shadow DPS tree, but all three talent trees are reworked. Talents still start at level 10, the 11/21/31-point milestone talents stay, a new 16-point milestone is added, and dual spec opens at 40. Blizzard has confirmed these baseline changes: every race trains Fear Ward and Devouring Plague at 20, so Dwarves and Undead lose those exclusives. Divine Spirit is baseline at 30 and Shadow Word: Death is a new baseline spell at 32. Prayer of Healing now heals the target's party, Renew stacks across Priests, and Fade's threat drop is doubled. Each race still gets two race-only priest spells (at 10 and 20), all re-evaluated. Gnome Priests are new (Confounding Flash, Contingency Plan). Humans swap Desperate Prayer for Divine Grace, Dwarves gain Chastise, and Undead keep Touch of Weakness and gain Dark Sacrifice.\n\nDiscipline becomes a standalone damage-prevention healer. It gets Soul Warding (16-pt), Penance (21-pt channel that heals or damages), Renewed Hope, Divine Aegis and a reworked Power Infusion, and Wand Specialization drops to 2 points. Holy stays the reactive multi-target healer with Binding Heal (16-pt), Prayer of Mending (31-pt) and Litany of Light, which rewards alternating heals. Lightwell and Improved Prayer of Healing leave the tree. Shadow is pushed toward personal damage and mana sustain. Shadowform now halves Shadow spell costs, doubles the crit damage bonus and only blocks healing spells. Vampiric Embrace moves earlier (16-pt, earliest level 25), lasts 30 s with a 30 s cooldown, and lets Spirit Tap trigger on any affected death. Shadow Weaving becomes a self-buff and Silence also interrupts. New talents are Improved Mind Flay, Dark Inspiration, Devouring Contagion and Early Demise.\n\nOn the player's 'DoT + wand until ~25' concern: no core Shadow spell moves earlier. Mind Flay is still a 10-point talent (earliest level 20) and Shadowform the 30-point capstone (earliest level 40; up to 5 levels sooner only with the Legacy 'Talented' perk). Icy Veins, Wowhead and Warcraft Tavern all describe early Shadow as SW:P + Mind Blast + wand. They say Mind Flay only pays off around level 24-28 and the spec feels like Shadow at Shadowform. The beta capped at 30 and ended Oct 23. All level 31-60 talents and level-60 rotations are untested projections.",
+ "specs": [
+  {
+   "name": "Discipline",
+   "role": "Healer (also solid solo damage via Holy Fire/Smite/Penance)",
+   "identity": "Proactive damage-prevention healer: Power Word: Shield centred (Improved PW:S, Soul Warding, Renewed Hope), Divine Aegis absorbs on crit heals, Penance as a damage-or-heal channel, Power Infusion external. Icy Veins: 'Rather than repairing damage, Discipline Priests focus more on preventing damage through shielding and mitigation.' Strong single-target/tank healing, weaker AoE healing; Wowhead says Holy taking the shield talents competes closely.",
+   "keyNewTalents": [
+    "Penance (new, 21-point gold medal, earliest level 30)",
+    "Soul Warding (new, 16-point gold medal: -4 s PW:S cooldown, -15% cost)",
+    "Renewed Hope (new: crit on Weakened Soul targets, shortens Weakened Soul)",
+    "Divine Aegis (new: crit heals -> 12 s absorb)",
+    "Power in Light (new: Smite/Penance vs your Holy Fire or SW:P targets)",
+    "Twin Disciplines (new: instant-cast damage/healing)",
+    "Holy Precision (new: up to 18% Holy hit)",
+    "Power Infusion (changed: requires Penance, +20% spell damage and healing 15 s)",
+    "Meditation (changed: 50% regen while casting at 3/3)",
+    "Wand Specialization (changed: 2 ranks, 25%)"
+   ],
+   "level60Rotation": "PROJECTION from Warcraft Tavern; level 60 was never playable in beta. Tank healing priority: Renew on tank; Power Word: Shield (Soul Warding removes the 4 s cooldown; Weakened Soul 15 s still limits re-shielding a target, and Renewed Hope shortens it when you heal shielded targets); Penance for burst (12 s cooldown, first tick instant); Flash Heal or Binding Heal for quick heals; Greater Heal + Inner Focus for known big hits; Power Infusion on an allied caster. Divine Aegis turns crit heals into absorbs. Icy Veins level-30 loop: PW:S to buy time, Heal as main heal, Renew for chip damage, Flash Heal only in emergencies (mana-expensive), Prayer of Healing for party-wide damage, Cure Disease/Dispel Magic when worth it. Solo damage loop: Holy Fire -> Smite -> Penance on the Holy Fire target -> Mind Blast -> Shadow Word: Pain -> wand.",
+   "rotationStatus": "Level 30 loop: reported-guide (Icy Veins, Wowhead, beta-tested). Level 60: reported-guide projection (Warcraft Tavern 31/20/0), unverified.",
+   "sourceUrl": "https://www.warcrafttavern.com/forever/guides/discipline-priest/"
+  },
+  {
+   "name": "Holy",
+   "role": "Healer",
+   "identity": "Classic reactive, direct-heal healer, expanded for multi-target and split damage (Binding Heal, Prayer of Mending, Holy Nova). Litany of Light rewards alternating different heals instead of spamming one. Icy Veins calls it 'The Low Skill Floor All-Rounder': beginner-friendly but a bit weaker than specialists; 'mildly outshined by their Discipline counterpart in single-target healing'. Wowhead: heals online from level 1; Holy only really separates at Spirit of Redemption.",
+   "keyNewTalents": [
+    "Binding Heal (new, 16-point gold medal, earliest 25: 1.5 s, heals target and self, tuned like Flash Heal)",
+    "Prayer of Mending (new, 31-point gold medal, earliest 40)",
+    "Litany of Light (new: mana refund when the heal differs from the previous one)",
+    "Twilight Focus (renamed from Healing Focus: pushback protection on all spells)",
+    "Searing Light (redesigned: Holy damage, Holy Fire ticks can make Holy Nova free)",
+    "Spirit of Redemption (15 s, was 10 s)",
+    "Spiritual Guidance (spell damage portion reduced to ~1/3)",
+    "Improved Healing (now also Penance and Prayer of Mending)",
+    "Removed: Lightwell, Improved Prayer of Healing"
+   ],
+   "level60Rotation": "PROJECTION from Warcraft Tavern ('Healers don't follow a set rotation'). Group/raid: Renew on as many targets as possible; Power Word: Shield where damage is coming; Flash Heal or Binding Heal for quick heals; Greater Heal for big known hits (pair with Inner Focus); Holy Nova or Prayer of Mending for AoE; plus Prayer of Healing for party-wide damage (all guides). Alternate heal spells to trigger Litany of Light; dispel with Dispel Magic / Abolish Disease; Fade before pulling aggro. Wowhead level-30 dungeon loop: shield the tank (skip rage tanks), Renew on tank, Heal as main heal, Flash Heal when someone drops, Binding Heal when you and the tank are both hurt, Prayer of Healing only when most of the party is low; wand trash so the 5-second rule passes.",
+   "rotationStatus": "Level 30 loop: reported-guide (beta-tested). Level 60: reported-guide projection (Warcraft Tavern 18/33/0), unverified.",
+   "sourceUrl": "https://www.warcrafttavern.com/forever/guides/holy-priest/"
+  },
+  {
+   "name": "Shadow",
+   "role": "Ranged DPS (DoT/channel caster with party healing via Vampiric Embrace)",
+   "identity": "Vampiric DoT caster: Shadow Word: Pain, Devouring Plague (now baseline), Mind Blast, Mind Flay filler, new Shadow Word: Death execute (Early Demise). Reworked Shadowform is a mana-efficiency and crit-damage form that only blocks healing spells. Vampiric Embrace gives party healing and Spirit Tap procs. Shadow Weaving is now a personal buff, so value comes from the Priest's own damage instead of a raid debuff. Weak AoE (SW:P multi-DoT only), no mobility. Icy Veins: identity 'only shows up pretty late in the game, around the same time the spec gains access to Shadowform.'",
+   "keyNewTalents": [
+    "Shadowform (changed: +10% Shadow dmg, -50% Shadow mana cost, +100% crit damage bonus, -15% physical taken; blocks only healing spells)",
+    "Vampiric Embrace (changed: 16-point gold medal, earliest 25, 30 s duration, 30 s cooldown, kills under VE trigger Spirit Tap)",
+    "Improved Mind Flay (new: each tick +10/20% over the previous)",
+    "Dark Inspiration (new Oct 15: Mind Blast/full Mind Flay give you and your party Spirit)",
+    "Devouring Contagion (new: -25/50% DP cost, DP spreads to 2 enemies on death)",
+    "Early Demise (new: SW:D crit +15/30% at or below 20% health)",
+    "Silence (changed: also interrupts, no Improved Psychic Scream prerequisite)",
+    "Shadow Weaving (changed: self-only, 3 ranks)",
+    "Spirit Tap (changed: also procs from Vampiric Embrace deaths)",
+    "Removed: Improved Vampiric Embrace, Improved Fade, Shadow Affinity (datamine)"
+   ],
+   "level60Rotation": "PROJECTION from Warcraft Tavern; level 60 untested. Opener: pre-cast Fade, pre-cast Mind Blast, Shadow Word: Pain, Devouring Plague, Shadow Word: Death, Vampiric Embrace, Mind Blast, Mind Flay (full channel). Priority: 1) keep Shadow Word: Pain up; 2) keep Devouring Plague up (24 s duration = 24 s cooldown); 3) Mind Blast on cooldown (Wowhead: 4 points Improved Mind Blast -> 6 s); 4) Shadow Word: Death on cooldown (18 s; best under 20% with Early Demise; 10% max-health backlash if the target survives); 5) keep Vampiric Embrace up (~100% uptime possible); 6) fill with Mind Flay and do not clip it (Improved Mind Flay puts the damage in the 3rd tick). AoE: SW:P on all targets is 'the most impactful part of your multi-target'; DP on primary; SW:D/Mind Blast only under 4 targets. Stay in Shadowform. Stats: Hit > Spell/Shadow Power > Crit > Intellect > Spirit.",
+   "rotationStatus": "Leveling (1-30) script: reported-guide, beta-tested (Icy Veins/Wowhead). Level 60 raid priority: reported-guide projection only (Warcraft Tavern 14/3/34).",
+   "sourceUrl": "https://www.warcrafttavern.com/forever/guides/shadow-priest/"
+  }
+ ],
+ "abilities": [
+  {
+   "name": "Smite",
+   "spec": "baseline",
+   "kind": "changed-in-forever",
+   "level": 1,
+   "school": "Holy",
+   "castTime": "1.5 s (R1) to 2.5 s (R8)",
+   "cost": "20 Mana (R1) ... 280 Mana (R8)",
+   "description": "Direct Holy damage, R1 14-18 (Classic 15-20). Ranks at 1,6,14,22,30,38,46,54. Base damage reduced by up to ~58% at R8 vs Classic; Icy Veins says the caster nerfs are offset by higher spell coefficients. Ranks 1-4 retuned Oct 8 so new ranks are always an upgrade. Early-level opener until Mind Flay/Holy Fire.",
+   "status": "beta-observation",
+   "sourceUrl": "https://www.wowhead.com/forever/changes/spellbook/priest"
+  },
+  {
+   "name": "Lesser Heal",
+   "spec": "baseline",
+   "kind": "changed-in-forever",
+   "level": 1,
+   "school": "Holy",
+   "castTime": "1.5 / 2 / 2.5 s",
+   "cost": "30 / 45 / 75 Mana",
+   "description": "Ranks at 1, 4, 10. R1 heals 47-57, R3 157-181 (R2/R3 buffed ~17%/~10% vs Classic).",
+   "status": "beta-observation",
+   "sourceUrl": "https://www.wowhead.com/forever/changes/spellbook/priest"
+  },
+  {
+   "name": "Power Word: Fortitude",
+   "spec": "baseline",
+   "kind": "changed-in-forever",
+   "level": 1,
+   "school": "Holy",
+   "castTime": "Instant",
+   "cost": "60 Mana (R1) ... 1695 (R6)",
+   "description": "Stamina buff, now 1 hour (Classic 30 min). Ranks at 1,12,24,36,48,60; R6 +70 Stamina. (Wowhead's Disc guide says it is learned at level 2.)",
+   "status": "beta-observation",
+   "sourceUrl": "https://www.wowhead.com/forever/changes/spellbook/priest"
+  },
+  {
+   "name": "Shoot (Wand)",
+   "spec": "baseline",
+   "kind": "changed-in-forever",
+   "level": 1,
+   "school": "varies by wand",
+   "castTime": "auto-attack",
+   "cooldown": "wand speed",
+   "cost": "none",
+   "description": "Wand auto-attack, the core of early Priest leveling (Icy Veins: 40-50% of early damage). Official dev notes: wands no longer gain damage from spell damage (Sep 24 build) and require standing still 0.5 s before shooting (Oct 15). Wanding does not reset the 5-second rule. Enchanting wands: Novice's Practice Wand (1), Lesser Magic Wand (5), Greater Magic Wand (13).",
+   "status": "confirmed-official",
+   "sourceUrl": "https://us.forums.blizzard.com/en/wow/t/wow-forever-beta-development-notes-%E2%80%93-updated-october-15/2360696"
+  },
+  {
+   "name": "Shadow Word: Pain",
+   "spec": "baseline",
+   "kind": "changed-in-forever",
+   "level": 4,
+   "school": "Shadow",
+   "castTime": "Instant",
+   "cost": "25 Mana (R1) ... 470 (R8)",
+   "description": "'A word of darkness that causes 30 Shadow damage over 18 sec' (R1), ticking every 3 s; R8 762. Ranks at 4,10,18,26,34,42,50,58; values 9-23% below Classic. Improved Shadow Word: Pain adds +6 s (Wowhead: 'up to 33%' more damage). Main DoT and multi-DoT tool. No snapshotting: DoTs update with current stats.",
+   "status": "beta-observation",
+   "sourceUrl": "https://www.wowhead.com/forever/changes/spellbook/priest"
+  },
+  {
+   "name": "Power Word: Shield",
+   "spec": "baseline",
+   "kind": "changed-in-forever",
+   "level": 6,
+   "school": "Holy",
+   "castTime": "Instant",
+   "cooldown": "4 s (0 with Soul Warding)",
+   "cost": "45 Mana (R1) ... 500 (R10)",
+   "description": "Absorbs 48 (R1) to 950 (R10) for 30 s; 'While the shield holds, spellcasting will not be interrupted by damage'; target gets Weakened Soul (cannot be shielded again for 15 s). Ranks every 6 levels 6-60. Official Sep 24: it can always overwrite an existing PW:S on a target without Weakened Soul. Guides: pre-pull on self; skip on rage tanks (may starve rage). Cannot crit (Wowhead).",
+   "status": "beta-observation",
+   "sourceUrl": "https://www.wowhead.com/forever/changes/spellbook/priest"
+  },
+  {
+   "name": "Weakened Soul",
+   "spec": "baseline",
+   "kind": "baseline",
+   "level": 6,
+   "school": "Holy",
+   "description": "Debuff from Power Word: Shield: 'Cannot benefit from Power Word: Shield', 15 s. Shortened by Renewed Hope (Disc talent) and removed by Divine Grace (Human racial).",
+   "status": "beta-observation",
+   "sourceUrl": "https://www.wowhead.com/forever/changes/spellbook/priest"
+  },
+  {
+   "name": "Renew",
+   "spec": "baseline",
+   "kind": "changed-in-forever",
+   "level": 8,
+   "school": "Holy",
+   "castTime": "Instant",
+   "cost": "30 Mana (R1) ... 410 (R10)",
+   "description": "HoT, 45 over 15 s (R1), 830 (R10). Ranks 8,14,20,...,56,60; values 25-35% below Classic. Official: 'Renew can now be active from multiple Priests on the same target.' Dev notes: Renew can crit.",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301514/world-of-warcraft-forever-class-deep-dives-priest-and-warrior"
+  },
+  {
+   "name": "Fade",
+   "spec": "baseline",
+   "kind": "changed-in-forever",
+   "level": 8,
+   "school": "Shadow",
+   "castTime": "Instant",
+   "cooldown": "30 s",
+   "cost": "40 Mana (R1) ... 275 (R6)",
+   "description": "'Fade out, discouraging enemies from attacking you for 10 sec.' Official: 'Threat reduction effect doubled.' Wowhead: temporary; the threat returns when it ends. Ranks 8,20,30,40,50,60. Improved Fade talent removed.",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301514/world-of-warcraft-forever-class-deep-dives-priest-and-warrior"
+  },
+  {
+   "name": "Mind Blast",
+   "spec": "baseline",
+   "kind": "changed-in-forever",
+   "level": 10,
+   "school": "Shadow",
+   "castTime": "1.5 s",
+   "cooldown": "8 s (Improved Mind Blast -0.5 s/rank, up to -2.5 s)",
+   "cost": "50 Mana (R1) ... 350 (R9)",
+   "description": "'Blasts the target for 40 to 44 Shadow damage, but causes a high amount of threat' (R1); R9 485-511. Ranks 10,16,22,...,58; values 5-13% below Classic. Leveling pull spell; at 60 used on cooldown.",
+   "status": "beta-observation",
+   "sourceUrl": "https://www.wowhead.com/forever/changes/spellbook/priest"
+  },
+  {
+   "name": "Resurrection",
+   "spec": "baseline",
+   "kind": "baseline",
+   "level": 10,
+   "school": "Holy",
+   "castTime": "10 s",
+   "cost": "75% of base mana",
+   "description": "Out-of-combat revive; ranks 10,22,34,46,58; unchanged.",
+   "status": "beta-observation",
+   "sourceUrl": "https://www.wowhead.com/forever/changes/spellbook/priest"
+  },
+  {
+   "name": "Inner Fire",
+   "spec": "baseline",
+   "kind": "baseline",
+   "level": 12,
+   "school": "Holy",
+   "castTime": "Instant",
+   "cost": "30 Mana (R1) ... 315 (R6)",
+   "description": "Armor buff (+315 R1, +1395 R6), 20 charges consumed by melee/ranged hits, 10 min. Ranks 12,20,30,40,50,60. Improved Inner Fire adds armor and charges. (Icy Veins leveling pages claim it damages attackers; this is NOT in the datamined tooltip.)",
+   "status": "beta-observation",
+   "sourceUrl": "https://www.wowhead.com/forever/changes/spellbook/priest"
+  },
+  {
+   "name": "Cure Disease",
+   "spec": "baseline",
+   "kind": "baseline",
+   "level": 14,
+   "school": "Holy",
+   "castTime": "Instant",
+   "cost": "15% of base mana",
+   "description": "Removes 1 disease from a friendly target.",
+   "status": "beta-observation",
+   "sourceUrl": "https://www.wowhead.com/forever/changes/spellbook/priest"
+  },
+  {
+   "name": "Psychic Scream",
+   "spec": "baseline",
+   "kind": "baseline",
+   "level": 14,
+   "school": "Shadow",
+   "castTime": "Instant",
+   "cooldown": "30 s (Improved Psychic Scream -2/-4 s)",
+   "cost": "100 Mana (R1) ... 210 (R4)",
+   "description": "'causing 2 enemies within 8 yards to flee for 8 sec. Damage caused may interrupt the effect' (R1); R4 (level 56) 5 enemies. Ranks 14,28,42,56. Unchanged; guides warn fleeing mobs can pull more.",
+   "status": "beta-observation",
+   "sourceUrl": "https://www.wowhead.com/forever/changes/spellbook/priest"
+  },
+  {
+   "name": "Heal",
+   "spec": "baseline",
+   "kind": "changed-in-forever",
+   "level": 16,
+   "school": "Holy",
+   "castTime": "3 s (Divine Fury -0.5 s)",
+   "cost": "155 Mana (R1) ... 305 (R4)",
+   "description": "Efficient mid-size heal: 260-300 (R1), 634-713 (R4). Ranks 16,22,28,34; values 13-18% below Classic. Guides' 'bread and butter' dungeon heal.",
+   "status": "beta-observation",
+   "sourceUrl": "https://www.wowhead.com/forever/changes/spellbook/priest"
+  },
+  {
+   "name": "Dispel Magic",
+   "spec": "baseline",
+   "kind": "baseline",
+   "level": 18,
+   "school": "Holy",
+   "castTime": "Instant",
+   "cost": "18% of base mana",
+   "description": "Removes 1 (R1) / 2 (R2, level 36) harmful magic effects from a friend or beneficial magic effects from an enemy.",
+   "status": "beta-observation",
+   "sourceUrl": "https://www.wowhead.com/forever/changes/spellbook/priest"
+  },
+  {
+   "name": "Fear Ward",
+   "spec": "baseline",
+   "kind": "changed-in-forever",
+   "level": 20,
+   "school": "Holy",
+   "castTime": "Instant",
+   "cooldown": "3 min (Classic 30 s)",
+   "cost": "100 Mana",
+   "description": "Now trained by all Priests at 20 regardless of race (official; was Dwarf-only). 'The next Fear effect used against the target will fail, using up the ward. Lasts 3 min' (Classic 10 min) per datamine/BlizzardWatch.",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301514/world-of-warcraft-forever-class-deep-dives-priest-and-warrior"
+  },
+  {
+   "name": "Devouring Plague",
+   "spec": "baseline",
+   "kind": "changed-in-forever",
+   "level": 20,
+   "school": "Shadow",
+   "castTime": "Instant",
+   "cooldown": "24 s (Oct 15 build; was 1 min; Classic 3 min)",
+   "cost": "215 Mana (R1) ... 985 (R6); Devouring Contagion -25/50%",
+   "description": "Now trained by all Priests at 20 (Classic: Undead only). Disease: 128 Shadow damage over 24 s (R1; R6 848); 'Damage caused by the Devouring Plague heals the caster.' Can crit (Oct 1 fix). Ranks 20,28,36,44,52,60. Wowhead: 'quite Mana-hungry before talenting into Devouring Contagion'.",
+   "status": "confirmed-official",
+   "sourceUrl": "https://us.forums.blizzard.com/en/wow/t/wow-forever-beta-development-notes-%E2%80%93-updated-october-15/2360696"
+  },
+  {
+   "name": "Flash Heal",
+   "spec": "baseline",
+   "kind": "changed-in-forever",
+   "level": 20,
+   "school": "Holy",
+   "castTime": "1.5 s",
+   "cost": "125 Mana (R1) ... 380 (R7)",
+   "description": "Fast heal 184-223 (R1), 778-914 (R7). Ranks 20,26,32,38,44,50,56; values 8-13% below Classic. Guides: emergency use only, mana-expensive.",
+   "status": "beta-observation",
+   "sourceUrl": "https://www.wowhead.com/forever/changes/spellbook/priest"
+  },
+  {
+   "name": "Holy Fire",
+   "spec": "baseline",
+   "kind": "changed-in-forever",
+   "level": 20,
+   "school": "Holy",
+   "castTime": "3.5 s (Divine Fury -0.5 s)",
+   "cost": "85 Mana (R1) ... 255 (R8)",
+   "description": "53-65 Holy damage + 20 over 10 s (R1); values 33-53% below Classic. Ranks 20,24,30,36,42,48,54,60. Recommended opener from 20 for Disc/Holy (Power in Light synergy). Castable in Shadowform but gets no Shadow talent bonuses.",
+   "status": "beta-observation",
+   "sourceUrl": "https://www.wowhead.com/forever/changes/spellbook/priest"
+  },
+  {
+   "name": "Mind Soothe",
+   "spec": "baseline",
+   "kind": "baseline",
+   "level": 20,
+   "school": "Shadow",
+   "castTime": "Instant",
+   "cost": "50 Mana (R1)",
+   "description": "Reduces a humanoid's aggro range by 10 yd for 15 s; ranks 20,36,52.",
+   "status": "beta-observation",
+   "sourceUrl": "https://www.wowhead.com/forever/changes/spellbook/priest"
+  },
+  {
+   "name": "Shackle Undead",
+   "spec": "baseline",
+   "kind": "baseline",
+   "level": 20,
+   "school": "Holy",
+   "castTime": "1.5 s",
+   "cost": "90 / 120 / 150 Mana",
+   "description": "Shackles one undead up to 30/40/50 s (ranks 20,40,60); any damage releases it.",
+   "status": "beta-observation",
+   "sourceUrl": "https://www.wowhead.com/forever/changes/spellbook/priest"
+  },
+  {
+   "name": "Mind Vision",
+   "spec": "baseline",
+   "kind": "baseline",
+   "level": 22,
+   "school": "Shadow",
+   "cost": "65 / 150 Mana",
+   "description": "See through the target's eyes for 1 min (R2 at 44, unlimited range). Guides: battleground scouting (flag carriers).",
+   "status": "beta-observation",
+   "sourceUrl": "https://www.wowhead.com/forever/changes/spellbook/priest"
+  },
+  {
+   "name": "Mana Burn",
+   "spec": "baseline",
+   "kind": "baseline",
+   "level": 24,
+   "school": "Shadow",
+   "castTime": "3 s (Improved Mana Burn up to -1 s)",
+   "cost": "95 Mana (R1) ... 270 (R5)",
+   "description": "Drains 199-211 mana (R1); target takes 0.5 Shadow damage per mana drained. Ranks 24,32,40,48,56. Wowhead: 'rarely used outside of PvP', a PvP staple.",
+   "status": "beta-observation",
+   "sourceUrl": "https://www.wowhead.com/forever/changes/spellbook/priest"
+  },
+  {
+   "name": "Divine Spirit",
+   "spec": "baseline",
+   "kind": "changed-in-forever",
+   "level": 30,
+   "school": "Holy",
+   "castTime": "Instant",
+   "cost": "285 Mana (R1) ... 970 (R4)",
+   "description": "Now baseline at 30 (was a Disc talent). +17 Spirit (R1) to +40 (R4) for 1 hour (Classic 30 min). Ranks 30,40,50,60. Prayer of Spirit at 60.",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301514/world-of-warcraft-forever-class-deep-dives-priest-and-warrior"
+  },
+  {
+   "name": "Prayer of Healing",
+   "spec": "baseline",
+   "kind": "changed-in-forever",
+   "level": 30,
+   "school": "Holy",
+   "castTime": "3 s",
+   "cost": "410 Mana (R1) ... 1070 (R5)",
+   "description": "Official: 'Instead of healing the Priest's own party, this spell now heals all the members of the target's party and their pets.' Tooltip: 179-191 (R1); party members must be within 40 yd of the target (Classic: party within 30 yd of caster). Ranks 30,40,50,60,60. Expensive; for party-wide damage.",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301514/world-of-warcraft-forever-class-deep-dives-priest-and-warrior"
+  },
+  {
+   "name": "Mind Control",
+   "spec": "baseline",
+   "kind": "baseline",
+   "level": 30,
+   "school": "Shadow",
+   "castTime": "3 s",
+   "cost": "350 / 550 / 750 Mana",
+   "description": "Controls a humanoid (up to level 44 at R1) for up to 1 min; ranks 30,44,58. PvP highlight.",
+   "status": "beta-observation",
+   "sourceUrl": "https://www.wowhead.com/forever/changes/spellbook/priest"
+  },
+  {
+   "name": "Shadow Protection",
+   "spec": "baseline",
+   "kind": "baseline",
+   "level": 30,
+   "school": "Shadow",
+   "castTime": "Instant",
+   "cost": "250 Mana (R1)",
+   "description": "+30 to +60 Shadow resistance for 10 min (ranks 30,42,56); Prayer of Shadow Protection at 56 (party+raid, 20 min).",
+   "status": "beta-observation",
+   "sourceUrl": "https://www.wowhead.com/forever/changes/spellbook/priest"
+  },
+  {
+   "name": "Abolish Disease",
+   "spec": "baseline",
+   "kind": "baseline",
+   "level": 32,
+   "school": "Holy",
+   "castTime": "Instant",
+   "cost": "15% of base mana",
+   "description": "Cures 1 disease, then 1 more every 5 s for 20 s.",
+   "status": "beta-observation",
+   "sourceUrl": "https://www.wowhead.com/forever/changes/spellbook/priest"
+  },
+  {
+   "name": "Shadow Word: Death",
+   "spec": "baseline",
+   "kind": "new-in-forever",
+   "level": 32,
+   "school": "Shadow",
+   "castTime": "Instant",
+   "cooldown": "18 s (Oct 15 build; was 12 s; deep dive said 15 s)",
+   "cost": "175 Mana (R1) ... 340 (R4)",
+   "description": "New baseline spell: 'inflicts 294 to 311 Shadow damage' (R1; R4 447-474). 'If your target is not killed by Shadow Word: Death, you take backlash damage equal to 10% of your maximum health.' Ranks 32,40,48,56. Execute with Early Demise; benefits from Shadowform crit damage (Oct 15 fix); useful for Spirit Tap killing blows.",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301514/world-of-warcraft-forever-class-deep-dives-priest-and-warrior"
+  },
+  {
+   "name": "Levitate",
+   "spec": "baseline",
+   "kind": "changed-in-forever",
+   "level": 34,
+   "school": "Holy",
+   "castTime": "Instant",
+   "cost": "100 Mana + Light Feather",
+   "description": "Slow fall and walk on water for 2 min; 'Mounting or any damage taken will cancel the effect.'",
+   "status": "beta-observation",
+   "sourceUrl": "https://www.wowhead.com/forever/changes/spellbook/priest"
+  },
+  {
+   "name": "Greater Heal",
+   "spec": "baseline",
+   "kind": "changed-in-forever",
+   "level": 40,
+   "school": "Holy",
+   "castTime": "3 s (Divine Fury -0.5 s)",
+   "cost": "370 Mana (R1) ... 710 (R5)",
+   "description": "Big single-target heal 819-920 (R1), 1893-2108 (R5). Ranks 40,46,52,58,60. Paired with Inner Focus for big hits (Warcraft Tavern). Never playable in the level-30 beta.",
+   "status": "beta-observation",
+   "sourceUrl": "https://www.wowhead.com/forever/changes/spellbook/priest"
+  },
+  {
+   "name": "Lightwell",
+   "spec": "Holy",
+   "kind": "changed-in-forever",
+   "level": 40,
+   "school": "Holy",
+   "castTime": "1.5 s",
+   "cooldown": "10 min",
+   "cost": "225 / 295 / 365 Mana",
+   "description": "Officially listed under Holy 'Removed talents'. But the Wowhead datamine marks it 'A talent in Classic; trained without one now' (ranks 40,50,60: clickable well restoring 800-1600 health over 10 s, 3 min or 5 charges), and Icy Veins healer milestones list 'Lightwell' at 40. Availability UNRESOLVED; do not present it as confirmed.",
+   "status": "beta-observation",
+   "sourceUrl": "https://www.wowhead.com/forever/changes/talents/priest"
+  },
+  {
+   "name": "Prayer of Fortitude",
+   "spec": "baseline",
+   "kind": "changed-in-forever",
+   "level": 48,
+   "school": "Holy",
+   "castTime": "Instant",
+   "cost": "2600 / 3400 Mana + candle",
+   "description": "Now 'Power infuses all party and raid members' (Classic: target's party), +56/+70 Stamina for 1 hour; ranks 48, 60.",
+   "status": "beta-observation",
+   "sourceUrl": "https://www.wowhead.com/forever/changes/spellbook/priest"
+  },
+  {
+   "name": "Prayer of Spirit",
+   "spec": "baseline",
+   "kind": "changed-in-forever",
+   "level": 60,
+   "school": "Holy",
+   "castTime": "Instant",
+   "cost": "1940 Mana + Sacred Candle",
+   "description": "Baseline (no longer a talent). +40 Spirit to all party and raid members for 1 hour.",
+   "status": "beta-observation",
+   "sourceUrl": "https://www.wowhead.com/forever/changes/spellbook/priest"
+  },
+  {
+   "name": "Wand Specialization",
+   "spec": "Discipline",
+   "kind": "talent",
+   "level": 10,
+   "description": "Row 1, 2 ranks: +13% / +25% wand damage (Classic 5 ranks). Official: 'Now only requires two talent points for the same benefit.' Every leveling build takes it first at 10-11.",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301514/world-of-warcraft-forever-class-deep-dives-priest-and-warrior"
+  },
+  {
+   "name": "Power in Light",
+   "spec": "Discipline",
+   "kind": "talent",
+   "level": 10,
+   "description": "New, row 1, 5 ranks: Smite and Penance deal 2-10% more damage to targets with your Holy Fire (official) or Shadow Word: Pain (added Oct 15). Wowhead beta tooltip once showed 15% at max.",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301514/world-of-warcraft-forever-class-deep-dives-priest-and-warrior"
+  },
+  {
+   "name": "Twin Disciplines",
+   "spec": "Discipline",
+   "kind": "talent",
+   "level": 10,
+   "description": "New, row 1, 5 ranks: +1-5% damage and healing of instant-cast spells. Oct 15: now correctly benefits Shadow Word: Death, Mind Flay, Starshards and Penance.",
+   "status": "confirmed-official",
+   "sourceUrl": "https://us.forums.blizzard.com/en/wow/t/wow-forever-beta-development-notes-%E2%80%93-updated-october-15/2360696"
+  },
+  {
+   "name": "Silent Resolve",
+   "spec": "Discipline",
+   "kind": "talent",
+   "level": 15,
+   "description": "3 ranks: -10/20/30% threat from all spells and -5/10/15% Stun, Fear and Silence duration (absorbs the removed Unbreakable Will).",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301514/world-of-warcraft-forever-class-deep-dives-priest-and-warrior"
+  },
+  {
+   "name": "Holy Precision",
+   "spec": "Discipline",
+   "kind": "talent",
+   "level": 15,
+   "description": "New, 3 ranks: +6/12/18% Holy spell hit. Official: 'intended to remove the need for hit chance on healing Priests'. Also suggested for Shadow if Dispel Magic duty matters.",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301514/world-of-warcraft-forever-class-deep-dives-priest-and-warrior"
+  },
+  {
+   "name": "Mental Strength",
+   "spec": "Discipline",
+   "kind": "talent",
+   "level": 15,
+   "description": "5 ranks: +2-10% total Intellect (Classic: max mana). Moved to row 2 on Oct 15.",
+   "status": "confirmed-official",
+   "sourceUrl": "https://us.forums.blizzard.com/en/wow/t/wow-forever-beta-development-notes-%E2%80%93-updated-october-15/2360696"
+  },
+  {
+   "name": "Martyrdom",
+   "spec": "Discipline",
+   "kind": "talent",
+   "level": 15,
+   "description": "2 ranks: 50/100% chance to gain Focused Casting for 6 s after a melee/ranged crit (no pushback, +20% interrupt resistance). Icy Veins: mostly PvP.",
+   "status": "beta-observation",
+   "sourceUrl": "https://www.wowhead.com/forever/changes/talents/priest"
+  },
+  {
+   "name": "Mental Agility",
+   "spec": "Discipline",
+   "kind": "talent",
+   "level": 20,
+   "description": "3 ranks: -3/6/10% mana cost of Smite, Holy Fire and instant-cast spells (official: now 3 points, also covers Smite and Holy Fire).",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301514/world-of-warcraft-forever-class-deep-dives-priest-and-warrior"
+  },
+  {
+   "name": "Inner Focus",
+   "spec": "Discipline",
+   "kind": "talent",
+   "level": 20,
+   "cooldown": "3 min",
+   "description": "Next spell costs no mana and gets +25% crit 'if it is a non-periodic spell'. Oct 1: the crit bonus no longer applies to periodic effects; Oct 15: only consumed by one spell even when spell-queued into Penance. Combined with Greater Heal or Prayer of Healing.",
+   "status": "confirmed-official",
+   "sourceUrl": "https://us.forums.blizzard.com/en/wow/t/wow-forever-beta-development-notes-%E2%80%93-updated-october-15/2360696"
+  },
+  {
+   "name": "Improved Power Word: Shield",
+   "spec": "Discipline",
+   "kind": "talent",
+   "level": 20,
+   "description": "3 ranks: +7/14/20% absorb (Classic 15% max). Moved to row 3 Oct 15; prerequisite for Soul Warding.",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301514/world-of-warcraft-forever-class-deep-dives-priest-and-warrior"
+  },
+  {
+   "name": "Meditation",
+   "spec": "Discipline",
+   "kind": "talent",
+   "level": 20,
+   "description": "3 ranks: 17/33/50% of mana regeneration continues while casting (Classic 5/10/15%). Official: 'Mana benefit from spirit increased substantially.' Key leveling/healing mana talent; Icy Veins' Shadow plan takes it only around 51-53.",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301514/world-of-warcraft-forever-class-deep-dives-priest-and-warrior"
+  },
+  {
+   "name": "Improved Inner Fire",
+   "spec": "Discipline",
+   "kind": "talent",
+   "level": 25,
+   "description": "3 ranks: Inner Fire armor +15/30/45% and +4/8/12 charges.",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301514/world-of-warcraft-forever-class-deep-dives-priest-and-warrior"
+  },
+  {
+   "name": "Improved Mana Burn",
+   "spec": "Discipline",
+   "kind": "talent",
+   "level": 25,
+   "description": "2 ranks: Mana Burn cast time -0.5 / -1.0 s (Classic 0.25/0.5).",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301514/world-of-warcraft-forever-class-deep-dives-priest-and-warrior"
+  },
+  {
+   "name": "Soul Warding",
+   "spec": "Discipline",
+   "kind": "talent",
+   "level": 25,
+   "description": "New 16-point gold medal talent (requires Improved Power Word: Shield 3/3): 'Reduces the cooldown on your Power Word: Shield spell by 4 sec and reduces its mana cost by 15%.'",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301514/world-of-warcraft-forever-class-deep-dives-priest-and-warrior"
+  },
+  {
+   "name": "Penance",
+   "spec": "Discipline",
+   "kind": "talent",
+   "level": 30,
+   "school": "Holy",
+   "castTime": "2 s channel (ticks instantly and every 1 s)",
+   "cooldown": "12 s",
+   "cost": "150 Mana (R1), 220 (R2, 40), 270 (R3, 50), 385 (R4, 60)",
+   "description": "New 21-point gold medal talent: 'Can target enemies to deal damage every second, or allies to heal damage every second.' R1 45 damage or 134 healing per tick, 36 yd (datamine). Oct 8: damage/healing reduced (it was being treated as a 3 s channel), R1 cost +50%, healing raised on ranks 2 and 4, kept more mana-efficient than Heal/Greater Heal. Prerequisite for Power Infusion.",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301514/world-of-warcraft-forever-class-deep-dives-priest-and-warrior"
+  },
+  {
+   "name": "Renewed Hope",
+   "spec": "Discipline",
+   "kind": "talent",
+   "level": 30,
+   "description": "New, 5 ranks, requires Soul Warding: Flash Heal, Binding Heal, Lesser Heal, Heal, Greater Heal and Penance get +2-10% crit on targets with Weakened Soul and cut its remaining duration by 1-5 s.",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301514/world-of-warcraft-forever-class-deep-dives-priest-and-warrior"
+  },
+  {
+   "name": "Divine Aegis",
+   "spec": "Discipline",
+   "kind": "talent",
+   "level": 35,
+   "description": "New, 3 ranks: non-periodic crit heals create a 12 s absorb of 5/10/15% of the heal (cap 1200 in the Wowhead datamine, 1400 in the Icy Veins calculator). Official: 'This effect does not stack.'",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301514/world-of-warcraft-forever-class-deep-dives-priest-and-warrior"
+  },
+  {
+   "name": "Power Infusion",
+   "spec": "Discipline",
+   "kind": "talent",
+   "level": 40,
+   "castTime": "Instant",
+   "cooldown": "3 min",
+   "cost": "20% of base mana",
+   "description": "Disc capstone (row 7), requires Penance (Icy Veins): 'increasing their spell damage and healing done by 20% for 15 sec.' Warcraft Tavern: 'one of the single most powerful spells', usually cast on another caster.",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/priest-class-overview"
+  },
+  {
+   "name": "Twilight Focus",
+   "spec": "Holy",
+   "kind": "talent",
+   "level": 10,
+   "description": "Renamed from Healing Focus; 3 ranks (was 2): 23/47/70% chance for any spell not to lose casting time when damaged. Popular early pick for solo leveling.",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301514/world-of-warcraft-forever-class-deep-dives-priest-and-warrior"
+  },
+  {
+   "name": "Improved Renew",
+   "spec": "Holy",
+   "kind": "talent",
+   "level": 10,
+   "description": "3 ranks: +5/10/15% Renew healing (unchanged).",
+   "status": "beta-observation",
+   "sourceUrl": "https://www.wowhead.com/forever/changes/talents/priest"
+  },
+  {
+   "name": "Holy Specialization",
+   "spec": "Holy",
+   "kind": "talent",
+   "level": 10,
+   "description": "5 ranks: +1-5% crit with Holy spells (unchanged); feeds Divine Aegis/Renewed Hope in Disc builds.",
+   "status": "beta-observation",
+   "sourceUrl": "https://www.wowhead.com/forever/changes/talents/priest"
+  },
+  {
+   "name": "Divine Fury",
+   "spec": "Holy",
+   "kind": "talent",
+   "level": 15,
+   "description": "5 ranks: -0.1 to -0.5 s cast time on Smite, Holy Fire, Heal and Greater Heal; prerequisite for Searing Light. (Spell Warding, -2-10% spell damage taken, sits on the same row.)",
+   "status": "beta-observation",
+   "sourceUrl": "https://www.wowhead.com/forever/changes/talents/priest"
+  },
+  {
+   "name": "Holy Nova",
+   "spec": "Holy",
+   "kind": "talent",
+   "level": 20,
+   "school": "Holy",
+   "castTime": "Instant",
+   "cost": "185 Mana (R1); trained ranks 28,36,44,52,60 (290-750 Mana)",
+   "description": "Row 3 talent: 26-30 Holy damage to enemies within 10 yd and 50-57 healing to party within 10 yd (R1), 'These effects cause no threat.' The Priest's only AoE damage; free casts via Searing Light. Icy Veins: Shadow must leave Shadowform to cast it.",
+   "status": "beta-observation",
+   "sourceUrl": "https://www.wowhead.com/forever/changes/talents/priest"
+  },
+  {
+   "name": "Blessed Recovery",
+   "spec": "Holy",
+   "kind": "talent",
+   "level": 20,
+   "description": "3 ranks: after a melee/ranged crit OR any single hit above 30% of max health, heal 8-25% of the damage over 6 s.",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301514/world-of-warcraft-forever-class-deep-dives-priest-and-warrior"
+  },
+  {
+   "name": "Inspiration",
+   "spec": "Holy",
+   "kind": "talent",
+   "level": 20,
+   "description": "3 ranks: all non-periodic crit heals give the target +8-25% armor for 15 s.",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301514/world-of-warcraft-forever-class-deep-dives-priest-and-warrior"
+  },
+  {
+   "name": "Improved Healing",
+   "spec": "Holy",
+   "kind": "talent",
+   "level": 25,
+   "description": "3 ranks: -5-15% mana cost of Lesser Heal, Heal, Greater Heal, Penance and Prayer of Mending. (Holy Reach, +10/20% Smite/Holy Fire range and Prayer of Healing/Holy Nova radius, is on the same row.)",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301514/world-of-warcraft-forever-class-deep-dives-priest-and-warrior"
+  },
+  {
+   "name": "Searing Light",
+   "spec": "Holy",
+   "kind": "talent",
+   "level": 25,
+   "description": "Redesigned, 2 ranks, requires Divine Fury 5/5: +2/5% Holy damage; each periodic Holy Fire tick has a 5/10% chance to make the next Holy Nova cost no mana.",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301514/world-of-warcraft-forever-class-deep-dives-priest-and-warrior"
+  },
+  {
+   "name": "Binding Heal",
+   "spec": "Holy",
+   "kind": "talent",
+   "level": 25,
+   "school": "Holy",
+   "castTime": "1.5 s",
+   "cooldown": "none",
+   "cost": "155 Mana (R1) ... 380 (R6 at 56)",
+   "description": "New 16-point gold medal talent: heals the Priest and the current target (236-284 R1; R6 778-914, same as Flash Heal R7), low threat. Official: 'Tuned to be as good as Flash Heal even if the Priest needs no healing.'",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301514/world-of-warcraft-forever-class-deep-dives-priest-and-warrior"
+  },
+  {
+   "name": "Litany of Light",
+   "spec": "Holy",
+   "kind": "talent",
+   "level": 30,
+   "description": "New, 2 ranks: casting a healing spell refunds 5/10% of its base cost if your previous heal was a different spell (one Wowhead tooltip showed 20% at max). It is meant to reward weaving heals.",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301514/world-of-warcraft-forever-class-deep-dives-priest-and-warrior"
+  },
+  {
+   "name": "Spirit of Redemption",
+   "spec": "Holy",
+   "kind": "talent",
+   "level": 30,
+   "description": "On death, become the Spirit of Redemption for 15 s (Classic 10 s) and cast any healing spell free, then die. Prerequisite for Prayer of Mending.",
+   "status": "beta-observation",
+   "sourceUrl": "https://www.wowhead.com/forever/changes/talents/priest"
+  },
+  {
+   "name": "Spiritual Guidance",
+   "spec": "Holy",
+   "kind": "talent",
+   "level": 30,
+   "description": "5 ranks: spell healing up to 25% of Spirit, spell damage up to 8% of Spirit (official: damage bonus cut to ~1/3 of the healing bonus).",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301514/world-of-warcraft-forever-class-deep-dives-priest-and-warrior"
+  },
+  {
+   "name": "Spiritual Healing",
+   "spec": "Holy",
+   "kind": "talent",
+   "level": 35,
+   "description": "Now 3 ranks for the same benefit: +3/6/10% healing.",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301514/world-of-warcraft-forever-class-deep-dives-priest-and-warrior"
+  },
+  {
+   "name": "Prayer of Mending",
+   "spec": "Holy",
+   "kind": "talent",
+   "level": 40,
+   "school": "Holy",
+   "castTime": "Instant",
+   "cooldown": "10 s",
+   "cost": "210 Mana (R1), 305 (50), 390 (60)",
+   "description": "New 31-point gold medal talent (requires Spirit of Redemption). 30 s buff; heals the target the next time they take damage or receive non-periodic healing, then jumps to a party/raid member within 20 yd, up to 5 heals; one per target. R1 heal 172 + 42.9% of healing power (datamine).",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301514/world-of-warcraft-forever-class-deep-dives-priest-and-warrior"
+  },
+  {
+   "name": "Spirit Tap",
+   "spec": "Shadow",
+   "kind": "talent",
+   "level": 10,
+   "description": "Row 1, 5 ranks: 20-100% chance after killing a non-trivial target OR 'when an enemy afflicted by your Vampiric Embrace dies' to gain +100% Spirit for 15 s with 50% of mana regen continuing while casting. Guides call it Shadow's main early mana engine; you need the killing blow until you have VE.",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/priest-class-overview"
+  },
+  {
+   "name": "Blackout",
+   "spec": "Shadow",
+   "kind": "talent",
+   "level": 10,
+   "description": "Row 1 (moved up), 5 ranks: Shadow damage spells have a 2-10% chance to stun for 3 s; prerequisite for Improved Psychic Scream.",
+   "status": "beta-observation",
+   "sourceUrl": "https://www.wowhead.com/forever/changes/talents/priest"
+  },
+  {
+   "name": "Shadow Focus",
+   "spec": "Shadow",
+   "kind": "talent",
+   "level": 10,
+   "description": "Moved to row 1, 5 ranks: +1-5% hit with Shadow spells (Classic: reduced the target's resist chance).",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301514/world-of-warcraft-forever-class-deep-dives-priest-and-warrior"
+  },
+  {
+   "name": "Improved Mind Blast",
+   "spec": "Shadow",
+   "kind": "talent",
+   "level": 15,
+   "description": "5 ranks: Mind Blast cooldown -0.5 to -2.5 s; moved to row 2 Oct 15. Wowhead plans 4 points (6 s cooldown) at 60.",
+   "status": "confirmed-official",
+   "sourceUrl": "https://us.forums.blizzard.com/en/wow/t/wow-forever-beta-development-notes-%E2%80%93-updated-october-15/2360696"
+  },
+  {
+   "name": "Improved Shadow Word: Pain",
+   "spec": "Shadow",
+   "kind": "talent",
+   "level": 15,
+   "description": "2 ranks: +3/+6 s Shadow Word: Pain duration.",
+   "status": "beta-observation",
+   "sourceUrl": "https://www.wowhead.com/forever/changes/talents/priest"
+  },
+  {
+   "name": "Shadow Reach",
+   "spec": "Shadow",
+   "kind": "talent",
+   "level": 15,
+   "description": "Moved from row 4 to row 2, 2 ranks: +10/20% range of offensive Shadow spells.",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301514/world-of-warcraft-forever-class-deep-dives-priest-and-warrior"
+  },
+  {
+   "name": "Improved Psychic Scream",
+   "spec": "Shadow",
+   "kind": "talent",
+   "level": 20,
+   "description": "2 ranks: Psychic Scream cooldown -2/-4 s; Blackout is now its prerequisite. No longer required for Silence.",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301514/world-of-warcraft-forever-class-deep-dives-priest-and-warrior"
+  },
+  {
+   "name": "Mind Flay",
+   "spec": "Shadow",
+   "kind": "talent",
+   "level": 20,
+   "school": "Shadow",
+   "castTime": "3 s channel",
+   "cost": "45 Mana (R1); trained ranks 28,36,44,52,60 (70-205 Mana)",
+   "description": "Still a row-3 talent needing 10 Shadow points, so earliest level 20 (same as Classic). R1: 63 Shadow damage over 3 s (Classic 75) and a 50% slow, 20 yd; R6 390. Wowhead: little PvE use until ~level 24 because it barely beats a wand and resets the 5-second rule; later 'close to mana-neutral' with gear.",
+   "status": "beta-observation",
+   "sourceUrl": "https://www.wowhead.com/forever/changes/talents/priest"
+  },
+  {
+   "name": "Improved Mind Flay",
+   "spec": "Shadow",
+   "kind": "talent",
+   "level": 20,
+   "description": "New, 2 ranks, requires Mind Flay. Oct 15 version: 'Each instance of damage of Mind Flay deals 10/20% more damage than its previous instance of damage.' The Sep 30 deep dive also said more range and a weaker slow. Warcraft Tavern: most damage lands on the 3rd tick, so don't clip.",
+   "status": "confirmed-official",
+   "sourceUrl": "https://us.forums.blizzard.com/en/wow/t/wow-forever-beta-development-notes-%E2%80%93-updated-october-15/2360696"
+  },
+  {
+   "name": "Dark Inspiration",
+   "spec": "Shadow",
+   "kind": "talent",
+   "level": 25,
+   "description": "New row-4 talent (Oct 15), 5 ranks: Mind Blast and fully channeled Mind Flay give you and your party +3-15% Spirit for 10 s.",
+   "status": "confirmed-official",
+   "sourceUrl": "https://us.forums.blizzard.com/en/wow/t/wow-forever-beta-development-notes-%E2%80%93-updated-october-15/2360696"
+  },
+  {
+   "name": "Vampiric Embrace",
+   "spec": "Shadow",
+   "kind": "talent",
+   "level": 25,
+   "school": "Shadow",
+   "castTime": "Instant",
+   "cooldown": "30 s (Oct 15; was 1 min; Classic 10 s)",
+   "cost": "40 Mana",
+   "description": "Now the 16-point gold medal talent (Classic: 20-point), so earliest level 25. Debuff 'causes all party members to be healed for 20% of any Shadow spell damage you deal for 30 sec' (Classic 1 min). Can't be resisted (Oct 15). Deaths under VE trigger Spirit Tap. Party-only healing; Warcraft Tavern calls it the main reason to bring a Shadow Priest.",
+   "status": "confirmed-official",
+   "sourceUrl": "https://us.forums.blizzard.com/en/wow/t/wow-forever-beta-development-notes-%E2%80%93-updated-october-15/2360696"
+  },
+  {
+   "name": "Shadow Weaving",
+   "spec": "Shadow",
+   "kind": "talent",
+   "level": 25,
+   "description": "3 ranks (Classic 5): 33/66/100% chance on Shadow damage to raise the Shadow damage the target takes FROM YOU by 2% for 15 s, stacking 5 times. Official: 'Now benefits only the casting Priest and not other party or raid members.' Oct 1: can no longer fail to apply.",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301514/world-of-warcraft-forever-class-deep-dives-priest-and-warrior"
+  },
+  {
+   "name": "Silence",
+   "spec": "Shadow",
+   "kind": "talent",
+   "level": 30,
+   "school": "Shadow",
+   "castTime": "Instant",
+   "cooldown": "45 s",
+   "cost": "225 Mana",
+   "description": "Row 5, 1 point, no longer requires Improved Psychic Scream (official). Tooltip: 'preventing them from casting spells for 5 sec and interrupting their spellcasts for 3 sec' (Classic: silence only); 20 yd. The Priest's only interrupt.",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301514/world-of-warcraft-forever-class-deep-dives-priest-and-warrior"
+  },
+  {
+   "name": "Devouring Contagion",
+   "spec": "Shadow",
+   "kind": "talent",
+   "level": 30,
+   "description": "New row-5 talent, 2 ranks: Devouring Plague -25/50% mana cost; when a target dies with DP on it, DP jumps to 2 enemies within 5/10 yd for the remaining duration (official Oct 15: 'now spreads to 2 targets'; the bounce no longer costs mana).",
+   "status": "confirmed-official",
+   "sourceUrl": "https://us.forums.blizzard.com/en/wow/t/wow-forever-beta-development-notes-%E2%80%93-updated-october-15/2360696"
+  },
+  {
+   "name": "Early Demise",
+   "spec": "Shadow",
+   "kind": "talent",
+   "level": 35,
+   "description": "New row-6 talent, 2 ranks: +15/30% Shadow Word: Death crit chance on targets at or below 20% health (bug where it always applied fixed Oct 1).",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301514/world-of-warcraft-forever-class-deep-dives-priest-and-warrior"
+  },
+  {
+   "name": "Darkness",
+   "spec": "Shadow",
+   "kind": "talent",
+   "level": 35,
+   "description": "5 ranks: +2-10% Shadow damage done.",
+   "status": "beta-observation",
+   "sourceUrl": "https://www.wowhead.com/forever/changes/talents/priest"
+  },
+  {
+   "name": "Shadowform",
+   "spec": "Shadow",
+   "kind": "talent",
+   "level": 40,
+   "school": "Shadow",
+   "castTime": "Instant",
+   "cooldown": "1.5 s",
+   "cost": "40% of base mana",
+   "description": "Capstone (31st point, requires Vampiric Embrace), so earliest level 40 (35 with full Legacy Talented). 'increasing your Shadow damage by 10%, reducing the Mana cost of all Shadow spells by 50%, increasing the critical strike damage bonus of your Shadow spells by 100%, and reducing Physical damage taken by you by 15%. However, you may not cast healing spells while in this form.' Classic gave +15% damage and blocked all Holy spells.",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301514/world-of-warcraft-forever-class-deep-dives-priest-and-warrior"
+  },
+  {
+   "name": "Divine Grace",
+   "spec": "racial-Human",
+   "kind": "new-in-forever",
+   "level": 10,
+   "school": "Holy",
+   "castTime": "Instant",
+   "cooldown": "5 min (official) / 10 min (beta datamine)",
+   "description": "Replaces Desperate Prayer for Humans: 'Instantly heals a friendly target below 50% health and removes Weakened Soul from that target. Cannot be cast on self.' 146-181 heal at R1; 7 ranks to 58.",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301514/world-of-warcraft-forever-class-deep-dives-priest-and-warrior"
+  },
+  {
+   "name": "Feedback",
+   "spec": "racial-Human",
+   "kind": "baseline",
+   "level": 20,
+   "castTime": "Instant",
+   "cooldown": "3 min",
+   "cost": "55 Mana (R1; Classic 140)",
+   "description": "Officially 'Unchanged'. For 15 s, each successful spell cast against the Priest burns the attacker's mana (18 at R1) and deals that much Shadow damage. The datamine shows lower mana costs. Mostly PvP.",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301514/world-of-warcraft-forever-class-deep-dives-priest-and-warrior"
+  },
+  {
+   "name": "Desperate Prayer",
+   "spec": "racial-Dwarf",
+   "kind": "baseline",
+   "level": 10,
+   "school": "Holy",
+   "castTime": "Instant",
+   "cooldown": "10 min",
+   "description": "Dwarf only now (officially 'Unchanged'): instant self-heal 146-181 (R1) to 1318-1546 (R7, level 58).",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301514/world-of-warcraft-forever-class-deep-dives-priest-and-warrior"
+  },
+  {
+   "name": "Chastise",
+   "spec": "racial-Dwarf",
+   "kind": "new-in-forever",
+   "level": 20,
+   "school": "Holy",
+   "castTime": "Instant",
+   "cooldown": "2 min",
+   "cost": "50 Mana (R1)",
+   "description": "Replaces Fear Ward for Dwarves: 'Damages and immobilizes a target for 2 seconds. Only useable on Humanoids.' 43-49 Holy damage at R1, 20 yd, very low threat.",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301514/world-of-warcraft-forever-class-deep-dives-priest-and-warrior"
+  },
+  {
+   "name": "Starshards",
+   "spec": "racial-Night Elf",
+   "kind": "changed-in-forever",
+   "level": 10,
+   "school": "Arcane",
+   "castTime": "6 s channel (spell DB)",
+   "cooldown": "30 s",
+   "cost": "50 Mana (R1)",
+   "description": "'Damage increased substantially but now has a 30 second cooldown.' 162 Arcane over 6 s at R1 (Classic 84); R7 1800.",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301514/world-of-warcraft-forever-class-deep-dives-priest-and-warrior"
+  },
+  {
+   "name": "Elune's Grace",
+   "spec": "racial-Night Elf",
+   "kind": "changed-in-forever",
+   "level": 20,
+   "castTime": "Instant",
+   "cooldown": "5 min",
+   "cost": "3% of base mana",
+   "description": "'Now reduces the chance for melee and ranged attacks to hit the Priest by 50% for 15 seconds or until 3 attacks have missed.'",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301514/world-of-warcraft-forever-class-deep-dives-priest-and-warrior"
+  },
+  {
+   "name": "Confounding Flash",
+   "spec": "racial-Gnome",
+   "kind": "new-in-forever",
+   "level": 10,
+   "school": "Holy",
+   "castTime": "0.5 s",
+   "cooldown": "2 min",
+   "cost": "3% of base mana",
+   "description": "New Gnome Priest spell: 'Confuses up to 5 nearby enemies for 3 seconds. Effect broken by taking damage.' (8 yd per tooltip.)",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301514/world-of-warcraft-forever-class-deep-dives-priest-and-warrior"
+  },
+  {
+   "name": "Contingency Plan",
+   "spec": "racial-Gnome",
+   "kind": "new-in-forever",
+   "level": 20,
+   "school": "Holy",
+   "castTime": "Instant",
+   "cooldown": "5 min (official) / 10 min (beta datamine)",
+   "description": "30 s ward on a friendly target; if their health drops below 35% they instantly get an absorb shield (155 at R1) and a HoT (125 over 15 s at R1); stacks with Renew and Power Word: Shield; can crit (Sep 24). Icy Veins compares it to Guardian Spirit and expects possible nerfs.",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301514/world-of-warcraft-forever-class-deep-dives-priest-and-warrior"
+  },
+  {
+   "name": "Touch of Weakness",
+   "spec": "racial-Undead",
+   "kind": "changed-in-forever",
+   "level": 10,
+   "school": "Shadow",
+   "castTime": "Instant",
+   "cost": "25 Mana (R1)",
+   "description": "KEPT for Undead (official: 'Unchanged'). Datamine wording: the next melee attacker takes 8 Shadow damage (R1) and loses 43 melee attack power for 2 min (Classic: -2 damage); R6 56 damage / -204 AP. Pre-pull buff for leveling and PvP.",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301514/world-of-warcraft-forever-class-deep-dives-priest-and-warrior"
+  },
+  {
+   "name": "Dark Sacrifice",
+   "spec": "racial-Undead",
+   "kind": "new-in-forever",
+   "level": 20,
+   "castTime": "Instant",
+   "cooldown": "10 min (datamine)",
+   "cost": "health",
+   "description": "Replaces Undead-only Devouring Plague: 'Cannibalize your own health to gain Mana over time. Mana gain increased by Spirit.' Tooltip R1: 440 health over 15 s for (440 + Spirit) mana; R5 1640. No longer breaks damage-sensitive CC (Sep 24).",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301514/world-of-warcraft-forever-class-deep-dives-priest-and-warrior"
+  },
+  {
+   "name": "Hex of Weakness",
+   "spec": "racial-Troll",
+   "kind": "changed-in-forever",
+   "level": 10,
+   "school": "Shadow",
+   "castTime": "Instant",
+   "cost": "35 Mana (R1)",
+   "description": "Officially 'Unchanged'. Datamine wording: curse reducing melee attack power by 43 (R1) and healing effectiveness by 20% for 2 min. Icy Veins/Warcraft Tavern rate it lackluster.",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301514/world-of-warcraft-forever-class-deep-dives-priest-and-warrior"
+  },
+  {
+   "name": "Shadowguard",
+   "spec": "racial-Troll",
+   "kind": "baseline",
+   "level": 20,
+   "school": "Shadow",
+   "castTime": "Instant",
+   "cost": "50 Mana (R1)",
+   "description": "Officially 'Unchanged': 3 charges, 10 min; attackers hitting the Priest take Shadow damage (13 at R1 in the datamine, lower than Classic's 20), no threat. Mostly PvP.",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301514/world-of-warcraft-forever-class-deep-dives-priest-and-warrior"
+  }
+ ],
+ "facts": [
+  {
+   "claim": "Talents start at level 10; the 11/21/31-point milestone talents stay and a new 16-point milestone is added; respec (including Legacy talents) at a class trainer in major cities; Dual Specialization at level 40.",
+   "category": "talent",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301514/world-of-warcraft-forever-class-deep-dives-priest-and-warrior",
+   "evidence": "Talents become available starting at level 10 ... one-point milestone talents at 11, 21, and 31 points, now joined by a new 16-point milestone.",
+   "level": 10,
+   "spec": "any"
+  },
+  {
+   "claim": "Fear Ward and Devouring Plague are trained by all Priests at level 20 regardless of race; Divine Spirit is baseline at 30; Shadow Word: Death is a new baseline spell at 32.",
+   "category": "ability",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301514/world-of-warcraft-forever-class-deep-dives-priest-and-warrior",
+   "evidence": "Fear Ward and Devouring Plague are now available to all Priests at level 20, Divine Spirit is baseline at level 30",
+   "level": 20,
+   "spec": "any"
+  },
+  {
+   "claim": "No core Shadow spell moves earlier: Mind Flay is still a row-3 Shadow talent needing 10 points (earliest level 20) and Shadowform is still the 30-point capstone (earliest level 40).",
+   "category": "leveling",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.wowhead.com/forever/guide/classes/priest/shadow/level-30-dps-overview",
+   "evidence": "core spells like Mind Flay and Shadowform are not available until at least level 20 and level 40, respectively.",
+   "level": 20,
+   "spec": "Shadow"
+  },
+  {
+   "claim": "While leveling, Mind Flay sees little PvE use until about level 24: it barely beats wand damage, costs mana and resets the 5-second rule.",
+   "category": "leveling",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.wowhead.com/forever/guide/classes/priest/shadow/level-30-dps-overview",
+   "evidence": "it's not likely to see much use in your PvE rotation until at least around level 24.",
+   "level": 24,
+   "spec": "Shadow"
+  },
+  {
+   "claim": "Icy Veins says Shadow's identity only appears late, around Shadowform; before that it plays much like Holy/Discipline and often heals dungeons.",
+   "category": "spec",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/shadow-priest-ranged-dps-pve-guide",
+   "evidence": "this identity is something that only shows up pretty late in the game, around the same time the spec gains access to Shadowform.",
+   "level": 40,
+   "spec": "Shadow"
+  },
+  {
+   "claim": "Warcraft Tavern says the level-30 Shadow build only starts to shine around level 28 unless you have decent spell power.",
+   "category": "leveling",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.warcrafttavern.com/forever/guides/priest-leveling/",
+   "evidence": "This build doesn't start shining immensely until level 28 unless you have decent spell power",
+   "level": 28,
+   "spec": "Shadow"
+  },
+  {
+   "claim": "Early Shadow leveling is Shadow Word: Pain + Mind Blast and then the wand to save mana; Wand Specialization is the recommended first talent.",
+   "category": "leveling",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/shadow-priest-ranged-dps-pve-guide",
+   "evidence": "You'll often find yourself throwing Shadow Word: Pain and Mind Blast at enemies and then proceed to auto-attack with your wand to conserve mana.",
+   "level": 10,
+   "spec": "Shadow"
+  },
+  {
+   "claim": "Icy Veins estimates the wand does 40-50% of a Priest's early damage, so wand upgrades matter (Enchanting wands at 1, 5, 13; dungeon/quest wands later).",
+   "category": "leveling",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/shadow-priest-leveling",
+   "evidence": "About 40 to 50% of your total damage early on will come from auto-shoot.",
+   "level": null,
+   "spec": "any"
+  },
+  {
+   "claim": "Wands no longer scale with the user's spell damage (Sep 24 build), and wands now need 0.5 s of standing still before shooting (Oct 15 build).",
+   "category": "leveling",
+   "status": "confirmed-official",
+   "sourceUrl": "https://us.forums.blizzard.com/en/wow/t/wow-forever-beta-development-notes-%E2%80%93-updated-october-15/2360696",
+   "evidence": "Wands now require you to stand still for 0.5 seconds before shooting, matching early versions of World of Warcraft.",
+   "level": null,
+   "spec": "any"
+  },
+  {
+   "claim": "Icy Veins: Shadow mana improves at Vampiric Embrace (Spirit Tap from any death under VE) and 'drastically' at Shadowform (level 40), which halves Shadow spell costs.",
+   "category": "resource",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/shadow-priest-ranged-dps-pve-guide",
+   "evidence": "Upon reaching Level 40 and unlocking Shadowform, Shadow's situation improves drastically with the mana cost reduction provided by the buff.",
+   "level": 40,
+   "spec": "Shadow"
+  },
+  {
+   "claim": "Shadowform rework: +10% Shadow damage (down from 15%), -50% Shadow spell mana cost, +100% Shadow crit damage bonus, -15% physical damage taken; it blocks only healing spells.",
+   "category": "talent",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301514/world-of-warcraft-forever-class-deep-dives-priest-and-warrior",
+   "evidence": "Now allows all non-healing spells to be cast while in Shadowform, reduces the Mana cost of all Shadow spells by 50%",
+   "level": 40,
+   "spec": "Shadow"
+  },
+  {
+   "claim": "Vampiric Embrace is now the Shadow 16-point gold medal talent (earliest level 25). It lasts 30 s, and its cooldown was cut to 30 s in the Oct 15 build (was 1 min), so near-full uptime is possible.",
+   "category": "talent",
+   "status": "confirmed-official",
+   "sourceUrl": "https://us.forums.blizzard.com/en/wow/t/wow-forever-beta-development-notes-%E2%80%93-updated-october-15/2360696",
+   "evidence": "Changed Vampiric Embrace so that it can't be resisted. Vampiric Embrace cooldown reduced to 30 seconds (was 1 minute).",
+   "level": 25,
+   "spec": "Shadow"
+  },
+  {
+   "claim": "Spirit Tap now also triggers when an enemy afflicted by your Vampiric Embrace dies, so you no longer need the killing blow in groups.",
+   "category": "resource",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/priest-class-overview",
+   "evidence": "enemies affected by Vampiric Embrace can allow Spirit Tap to trigger when they die.",
+   "level": 25,
+   "spec": "Shadow"
+  },
+  {
+   "claim": "Silence no longer requires Improved Psychic Scream. Its tooltip now both silences for 5 s and interrupts casts for 3 s, giving Priests a true interrupt (45 s cooldown).",
+   "category": "talent",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301514/world-of-warcraft-forever-class-deep-dives-priest-and-warrior",
+   "evidence": "Silence: No longer requires Improved Psychic Scream as a pre-requisite.",
+   "level": 30,
+   "spec": "Shadow"
+  },
+  {
+   "claim": "Shadow Weaving now buffs only the casting Priest (not party/raid), ending the Classic role of one Shadow Priest brought to debuff for Warlocks.",
+   "category": "raid",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301514/world-of-warcraft-forever-class-deep-dives-priest-and-warrior",
+   "evidence": "Shadow Weaving: Now benefits only the casting Priest and not other party or raid members.",
+   "level": 25,
+   "spec": "Shadow"
+  },
+  {
+   "claim": "Devouring Plague's cooldown went from 1 min to 24 s in the Oct 15 build (Classic: 3 min, Undead only); it can crit since Oct 1.",
+   "category": "ability",
+   "status": "confirmed-official",
+   "sourceUrl": "https://us.forums.blizzard.com/en/wow/t/wow-forever-beta-development-notes-%E2%80%93-updated-october-15/2360696",
+   "evidence": "Devouring Plague cooldown reduced to 24 seconds (was 1 minute).",
+   "level": 20,
+   "spec": "Shadow"
+  },
+  {
+   "claim": "Shadow Word: Death's cooldown went to 18 s in the Oct 15 build (was 12 s; the Sep 30 deep dive said 15 s). If the target survives, the Priest takes 10% of max health.",
+   "category": "ability",
+   "status": "confirmed-official",
+   "sourceUrl": "https://us.forums.blizzard.com/en/wow/t/wow-forever-beta-development-notes-%E2%80%93-updated-october-15/2360696",
+   "evidence": "Shadow Word: Death cooldown increased to 18 seconds (was 12 seconds).",
+   "level": 32,
+   "spec": "Shadow"
+  },
+  {
+   "claim": "Oct 15 Shadow changes: Improved Mind Flay now ramps each tick by 10/20%; new row-4 talent Dark Inspiration (party Spirit buff); Devouring Contagion spreads to 2 targets; Improved Fade and 'Shadow Infinity' removed.",
+   "category": "talent",
+   "status": "confirmed-official",
+   "sourceUrl": "https://us.forums.blizzard.com/en/wow/t/wow-forever-beta-development-notes-%E2%80%93-updated-october-15/2360696",
+   "evidence": "Improved Fade removed. Shadow Infinity removed. Improved Mind Blast moved from Row 3 to Row 2. New talent (Row 4): Dark Inspiration",
+   "level": null,
+   "spec": "Shadow"
+  },
+  {
+   "claim": "The datamined Forever talent data lists Shadow Affinity as removed, although the Sep 30 deep dive listed it as buffed. The Oct 15 note 'Shadow Infinity removed' is probably this talent (inference).",
+   "category": "talent",
+   "status": "beta-observation",
+   "sourceUrl": "https://www.wowhead.com/forever/changes/talents/priest",
+   "evidence": "Shadow Affinity (Tier 2) status: removed; Classic text 'Reduces the threat generated by your Shadow spells by 8%.'",
+   "level": null,
+   "spec": "Shadow"
+  },
+  {
+   "claim": "Fade's threat reduction is doubled; Prayer of Healing now heals the target's party and their pets; Renew from several Priests can coexist on one target.",
+   "category": "utility",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301514/world-of-warcraft-forever-class-deep-dives-priest-and-warrior",
+   "evidence": "Fade: Threat reduction effect doubled. Prayer of Healing: ... now heals all the members of the target's party and their pets.",
+   "level": null,
+   "spec": "any"
+  },
+  {
+   "claim": "Power Word: Shield can always overwrite an existing PW:S on a target that does not have Weakened Soul, and Renew can now crit (Sep 24 build).",
+   "category": "healing",
+   "status": "confirmed-official",
+   "sourceUrl": "https://us.forums.blizzard.com/en/wow/t/wow-forever-beta-development-notes-%E2%80%93-updated-october-15/2360696",
+   "evidence": "Power Word: Shield can now always overwrite an existing Power Word: Shield on a target that does not have Weakened Soul.",
+   "level": 6,
+   "spec": "any"
+  },
+  {
+   "claim": "Penance is the new Discipline 21-point gold medal talent (earliest level 30): a 2 s channel on a 12 s cooldown that damages an enemy or heals an ally every second.",
+   "category": "talent",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301514/world-of-warcraft-forever-class-deep-dives-priest-and-warrior",
+   "evidence": "Penance: (New 21-point gold medal talent.) Channeled over 2 seconds with 12 second cooldown.",
+   "level": 30,
+   "spec": "Discipline"
+  },
+  {
+   "claim": "Oct 8 Penance tuning: damage/healing reduced (a bug treated it as a 3 s channel), Rank 1 cost +50%, healing raised on ranks 2 and 4, kept more mana-efficient than Heal/Greater Heal.",
+   "category": "healing",
+   "status": "confirmed-official",
+   "sourceUrl": "https://us.forums.blizzard.com/en/wow/t/wow-forever-beta-development-notes-%E2%80%93-updated-october-15/2360696",
+   "evidence": "Adjusted Penance mana costs so that it has a consistent advantage in mana efficiency over the Heal/Greater Heal family of spells.",
+   "level": 30,
+   "spec": "Discipline"
+  },
+  {
+   "claim": "Soul Warding (Disc 16-point gold medal) cuts PW:S cooldown by 4 s and cost by 15%. Renewed Hope raises crit on Weakened Soul targets and shortens Weakened Soul. Divine Aegis turns crit heals into a 12 s non-stacking absorb.",
+   "category": "talent",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301514/world-of-warcraft-forever-class-deep-dives-priest-and-warrior",
+   "evidence": "Soul Warding: This new 16-point gold medal talent reduces the cooldown on Power Word: Shield and its Mana cost.",
+   "level": 25,
+   "spec": "Discipline"
+  },
+  {
+   "claim": "Holy Precision (up to 18% Holy hit) is meant to remove the need for hit gear on healing Priests.",
+   "category": "talent",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301514/world-of-warcraft-forever-class-deep-dives-priest-and-warrior",
+   "evidence": "This talent is intended to remove the need for hit chance on healing Priests, who are not expected to wear gear that increased hit chance.",
+   "level": 15,
+   "spec": "Discipline"
+  },
+  {
+   "claim": "Meditation's Spirit-regen-while-casting is greatly increased: 50% at 3/3 in beta tooltips vs 15% in Classic. Earliest at level 20 (10 Disc points).",
+   "category": "resource",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301514/world-of-warcraft-forever-class-deep-dives-priest-and-warrior",
+   "evidence": "Meditation: Mana benefit from spirit increased substantially.",
+   "level": 20,
+   "spec": "Discipline"
+  },
+  {
+   "claim": "Binding Heal is the Holy 16-point gold medal talent (earliest 25): 1.5 s cast, no cooldown, heals the Priest and the target, tuned to match Flash Heal even if the Priest needs no healing.",
+   "category": "talent",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301514/world-of-warcraft-forever-class-deep-dives-priest-and-warrior",
+   "evidence": "Tuned to be as good as Flash Heal even if the Priest needs no healing.",
+   "level": 25,
+   "spec": "Holy"
+  },
+  {
+   "claim": "Prayer of Mending is the Holy 31-point gold medal talent (requires Spirit of Redemption, earliest 40): 10 s cooldown, 30 s duration, jumps within 20 yd for up to 5 heals.",
+   "category": "talent",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301514/world-of-warcraft-forever-class-deep-dives-priest-and-warrior",
+   "evidence": "It continues jumping until it heals a total of 5 times. Each target may only have one Prayer of Mending active.",
+   "level": 40,
+   "spec": "Holy"
+  },
+  {
+   "claim": "Litany of Light refunds part of a heal's mana cost when it differs from your previous heal, rewarding rotating heals over spamming one.",
+   "category": "resource",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301514/world-of-warcraft-forever-class-deep-dives-priest-and-warrior",
+   "evidence": "you are refunded part of its Mana cost if the name of the spell is different than the previous healing spell you cast.",
+   "level": 30,
+   "spec": "Holy"
+  },
+  {
+   "claim": "Lightwell and Improved Prayer of Healing are removed from the Holy tree; Healing Focus becomes Twilight Focus (pushback protection on all spells, 3 points). The datamine still shows Lightwell as a trained spell at 40, which is unresolved.",
+   "category": "talent",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301514/world-of-warcraft-forever-class-deep-dives-priest-and-warrior",
+   "evidence": "Removed talents: Improved Prayer of Healing, Lightwell.",
+   "level": 40,
+   "spec": "Holy"
+  },
+  {
+   "claim": "Blizzard's design summary: Priests are the most versatile healer (HoTs, direct heals and absorbs), Discipline leans into PW:S, Shadow does strong DoT damage with less utility than a Warlock, and Priests are fragile with few escapes.",
+   "category": "spec",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301514/world-of-warcraft-forever-class-deep-dives-priest-and-warrior",
+   "evidence": "Priests continue to be the most versatile healer in World of Warcraft which is identifiably their most important strength.",
+   "level": null,
+   "spec": "any"
+  },
+  {
+   "claim": "Icy Veins frames the two healing paths as Discipline = proactive prevention (shields, utility) and Holy = classic reactive healer with stronger multi-target tools; Disc rates higher for dungeons and single target.",
+   "category": "spec",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/discipline-priest-healer-pve-guide",
+   "evidence": "Rather than repairing damage, Discipline Priests focus more on preventing damage through shielding and mitigation.",
+   "level": null,
+   "spec": "Discipline"
+  },
+  {
+   "claim": "Holy is called the beginner-friendly all-rounder that is slightly outshined by Discipline in single-target healing and throughput.",
+   "category": "spec",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/holy-priest-healer-pve-guide",
+   "evidence": "they are mildly outshined by their Discipline counterpart in single-target healing and overall throughput.",
+   "level": null,
+   "spec": "Holy"
+  },
+  {
+   "claim": "5-second rule: mana regen stops for 5 s after a completed mana-costing cast; interrupted casts don't trigger it, wand attacks don't reset it, and MP5 always works.",
+   "category": "resource",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/holy-priest-healer-pve-guide",
+   "evidence": "This rule only applies when the cast completes, so if the cast is interrupted for any reason, it will not trigger the halt on mana regeneration.",
+   "level": null,
+   "spec": "any"
+  },
+  {
+   "claim": "Downranking is penalized: spell ranks far below your level get less benefit from spell damage/healing and a lower chance to trigger class procs.",
+   "category": "resource",
+   "status": "confirmed-official",
+   "sourceUrl": "https://us.forums.blizzard.com/en/wow/t/wow-forever-beta-development-notes-%E2%80%93-updated-october-15/2360696",
+   "evidence": "spells cast using spell ranks vastly below your current level receive less benefit from your Spell Damage and Spell Healing",
+   "level": null,
+   "spec": "any"
+  },
+  {
+   "claim": "Icy Veins still recommends downranking, wand filler and avoiding overheal to manage healer mana at level 30.",
+   "category": "healing",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/holy-priest-healer-pve-guide",
+   "evidence": "Downranking is the use of lower-rank versions of a spell to conserve mana ... Without utilizing downranking, your Mana resource will dwindle fast.",
+   "level": 30,
+   "spec": "Holy"
+  },
+  {
+   "claim": "Oct 8: low ranks of Smite (1-4), Lesser Heal (1-3) and Heal (1-2) were retuned so each new rank is always an upgrade.",
+   "category": "ability",
+   "status": "confirmed-official",
+   "sourceUrl": "https://us.forums.blizzard.com/en/wow/t/wow-forever-beta-development-notes-%E2%80%93-updated-october-15/2360696",
+   "evidence": "Paraphrase of Oct 8 notes: Smite ranks 1-4, Lesser Heal ranks 1-3 and Heal ranks 1-2 adjusted so new ranks are always an upgrade.",
+   "level": null,
+   "spec": "any"
+  },
+  {
+   "claim": "There is no DoT/HoT snapshotting in Forever: periodic effects update with your current stats.",
+   "category": "general",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/shadow-priest-ranged-dps-pve-guide",
+   "evidence": "Unlike original Classic, there is no direct snapshotting in Forever, meaning stats for DoTs dynamically update as your stats change.",
+   "level": null,
+   "spec": "any"
+  },
+  {
+   "claim": "Caster base damage was lowered and spell coefficients raised, with more spell power on gear from early levels.",
+   "category": "general",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/shadow-priest-ranged-dps-pve-guide",
+   "evidence": "Most caster specs, Shadow included, have received nerfs to the baseline damage of their spells. These nerfs have been compensated by increasing the spell coefficient",
+   "level": null,
+   "spec": "any"
+  },
+  {
+   "claim": "Undead keep Touch of Weakness and gain Dark Sacrifice (health to mana over time, scaling with Spirit) in place of their old exclusive Devouring Plague; Cannibalize now restores mana too.",
+   "category": "resource",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301514/world-of-warcraft-forever-class-deep-dives-priest-and-warrior",
+   "evidence": "Undead: Touch of Weakness: Unchanged. Dark Sacrifice: Learned at level 20. Cannibalize your own health to gain Mana over time.",
+   "level": 20,
+   "spec": "any"
+  },
+  {
+   "claim": "Gnomes can be Priests for the first time, with Confounding Flash (level 10, AoE confuse of 5) and Contingency Plan (level 20, emergency absorb + HoT ward).",
+   "category": "general",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301514/world-of-warcraft-forever-class-deep-dives-priest-and-warrior",
+   "evidence": "Confounding Flash: Learned at level 10. Confuses up to 5 nearby enemies for 3 seconds. Effect broken by taking damage.",
+   "level": 10,
+   "spec": "any"
+  },
+  {
+   "claim": "Human Priests swap Desperate Prayer for Divine Grace (heals a target below 50% and removes Weakened Soul); Dwarves swap Fear Ward for Chastise (2 s humanoid root).",
+   "category": "utility",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301514/world-of-warcraft-forever-class-deep-dives-priest-and-warrior",
+   "evidence": "Divine Grace: Learned at level 10. Instantly heals a friendly target below 50% health and removes Weakened Soul from that target.",
+   "level": 10,
+   "spec": "any"
+  },
+  {
+   "claim": "Shadow has no strong AoE: only Holy Nova (Holy talent, cast outside Shadowform) plus multi-target Shadow Word: Pain.",
+   "category": "dungeon",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/shadow-priest-ranged-dps-pve-guide",
+   "evidence": "Shadow doesn't have access to any strong AoE spells, with the only contender being Holy Nova, which requires leaving Shadowform",
+   "level": null,
+   "spec": "Shadow"
+  },
+  {
+   "claim": "Level-30 dungeon healing per Wowhead: Renew on the tank, Heal as the main heal, Flash Heal when someone drops, Binding Heal when you and the tank are both hurt, Prayer of Healing only when most of the party is low; drink every few pulls.",
+   "category": "dungeon",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.wowhead.com/forever/guide/classes/priest/holy/level-30-healer-overview",
+   "evidence": "Keep Renew on the Tank, use Heal as the efficient heal, and Flash Heal when someone drops.",
+   "level": 30,
+   "spec": "Holy"
+  },
+  {
+   "claim": "Beta observation: Power Word: Shield on a rage tank (Warrior/Druid) can starve them of rage; may change.",
+   "category": "dungeon",
+   "status": "beta-observation",
+   "sourceUrl": "https://www.wowhead.com/forever/guide/classes/priest/holy/level-30-healer-overview",
+   "evidence": "Skip Power Word: Shield on a rage tank. The absorb can starve them of rage. This may change through Beta.",
+   "level": null,
+   "spec": "any"
+  },
+  {
+   "claim": "Raids open December 9: Barrow Deeps (10), Hyjal Summit (20), Onyxia's Lair (40); no world buffs inside raids.",
+   "category": "raid",
+   "status": "confirmed-official",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/news/name-rservation-raids-campfire-and-more-in-forever-hallows-end-in-retail-new-patch-in-classic-wow-weekly-october-19-23/",
+   "evidence": "On December 9, level 60 players can put their preparation, teamwork, and mastery of their classes to the test in three raids",
+   "level": 60,
+   "spec": "any"
+  },
+  {
+   "claim": "Projected level-60 Shadow priority (Warcraft Tavern): keep SW:P and Devouring Plague up, Mind Blast and SW:D on cooldown, keep Vampiric Embrace up, fill with unclipped Mind Flay. Untested in beta.",
+   "category": "rotation",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.warcrafttavern.com/forever/guides/shadow-priest/",
+   "evidence": "Maintain Shadow Word: Pain uptime ... Cast Mind Blast when the cooldown is available ... Fill with Mind Flay ... do not interrupt the cast.",
+   "level": 60,
+   "spec": "Shadow"
+  },
+  {
+   "claim": "Shadow stat priority: Hit > Spell/Shadow Power > Crit > Intellect > Spirit at max level; leveling: Spell Power > Crit > Hit > Intellect/Stamina > MP5.",
+   "category": "spec",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.warcrafttavern.com/forever/guides/shadow-priest/",
+   "evidence": "Hit > Spell Power/Shadow Power > Critical Strike > Intellect > Spirit.",
+   "level": 60,
+   "spec": "Shadow"
+  },
+  {
+   "claim": "Wowhead calls Shadow a strong solo/duel PvP spec; Mind Flay's cheap slow and Mana Burn are PvP staples.",
+   "category": "pvp",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.wowhead.com/forever/guide/classes/priest/shadow/overview-pve-dps",
+   "evidence": "Strong solo PvP presence - Shadow Priest has a toolkit particularly well-suited for one-on-one PvP and this is unlikely to change in Forever.",
+   "level": null,
+   "spec": "Shadow"
+  },
+  {
+   "claim": "Forever has no Arena. Battlegrounds: WSG 10-60, Arathi Basin 20-60, new Darkspear Islands 30-60, Alterac Valley 51-60. Crits in PvP no longer have reduced efficacy (Oct 8).",
+   "category": "pvp",
+   "status": "confirmed-official",
+   "sourceUrl": "https://us.forums.blizzard.com/en/wow/t/wow-forever-beta-development-notes-%E2%80%93-updated-october-15/2360696",
+   "evidence": "Critical strikes in PvP no longer have reduced efficacy.",
+   "level": null,
+   "spec": "any"
+  },
+  {
+   "claim": "Legacy perk 'Talented' (up to 5 ranks, requires Well Rested) grants talent points from level 9 down to 5 instead of 10, so talents unlock up to 5 levels sooner; still max 51 points.",
+   "category": "leveling",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/legacy-system",
+   "evidence": "You gain talent points every level starting at level 9/8/7/6/5 instead of starting at level 10, but you still may not have more than 51",
+   "level": null,
+   "spec": "any"
+  },
+  {
+   "claim": "Inner Focus's +25% crit no longer applies to periodic effects (Oct 1), and Twin Disciplines now affects Shadow Word: Death, Mind Flay, Starshards and Penance (Oct 15).",
+   "category": "talent",
+   "status": "confirmed-official",
+   "sourceUrl": "https://us.forums.blizzard.com/en/wow/t/wow-forever-beta-development-notes-%E2%80%93-updated-october-15/2360696",
+   "evidence": "Discipline: Inner Focus no longer applies its Critical Strike increase to Periodic Effects.",
+   "level": null,
+   "spec": "Discipline"
+  },
+  {
+   "claim": "The beta (level cap 30) ended Oct 23, 2026 and launch is Nov 4. Priest talents past 30 points (Shadowform, Prayer of Mending, Power Infusion) and level-60 play were never testable.",
+   "category": "general",
+   "status": "confirmed-official",
+   "sourceUrl": "https://us.forums.blizzard.com/en/wow/t/wow-forever-beta-development-notes-%E2%80%93-updated-october-15/2360696",
+   "evidence": "Kaivax: 'We hope everyone has fun on this last day of the WoW Forever Beta.' Dev notes: 'Players can now level up to a maximum of level 30.'",
+   "level": 30,
+   "spec": "any"
+  },
+  {
+   "claim": "Wowhead (Disc level 30): Discipline feels like a generic 'Priest' until Penance at level 30; you get no in-combat mana regeneration until Meditation around level 20.",
+   "category": "leveling",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.wowhead.com/forever/guide/classes/priest/discipline/level-30-healer-overview",
+   "evidence": "during Beta you might just feel like a 'Priest' - at least until you unlock Penance at level 30.",
+   "level": 30,
+   "spec": "Discipline"
+  },
+  {
+   "claim": "Devouring Plague is mana-hungry while leveling (215 mana at rank 1) until Devouring Contagion (earliest 30) cuts its cost by up to 50% and spreads it on death.",
+   "category": "resource",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.wowhead.com/forever/guide/classes/priest/shadow/level-30-dps-overview",
+   "evidence": "Devouring Plague is quite Mana-hungry before talenting into Devouring Contagion",
+   "level": 20,
+   "spec": "Shadow"
+  }
+ ],
+ "levelingNotes": "Around level 10: Every spec plays the same: Smite (1), Lesser Heal (1), Power Word: Fortitude (1), Shadow Word: Pain (4), Power Word: Shield (6, pre-pull to stop pushback), Renew and Fade (8), Mind Blast (10). The first race spell comes from a class quest at 10, and the first talent points go into Wand Specialization (2 points, 25%). Wowhead says killing slows sharply around level 10 without a wand. Enchanting wands come at 1/5/13 and wands supply roughly 40-50% of early damage. Wands no longer scale with spell power and need 0.5 s standing still. Mana is the limiter under the 5-second rule, and Spirit Tap (row 1) is the early regen engine but needs killing blows. The core loop is PW:S, Mind Blast or Smite, SW:P, then wand to finish. This is exactly the 'DoT + wand' feel the player remembers, and Forever does not move Mind Flay or Shadowform earlier.\n\nAround 20-30: At 20 you get Devouring Plague (all races), Flash Heal, Holy Fire (the better opener for Disc/Holy), Fear Ward, the second race spell, and the earliest Mind Flay (talent). Holy Nova (Holy) and Meditation (Disc, first in-combat regen) are also possible here. Wowhead says Mind Flay sees little PvE use until about 24, and Warcraft Tavern says Shadow 'doesn't start shining' until about 28. Vampiric Embrace is possible at 25 (party healing, Spirit Tap from any death under VE), as are Binding Heal (Holy) and Soul Warding (Disc). At 30 you get Penance (Disc 20 points), Divine Spirit, Prayer of Healing, Mind Control, Shadow Protection, Silence and Devouring Contagion (Shadow 20 points), and Spirit of Redemption / Litany of Light (Holy). Shadow Word: Death arrives at 32. Legacy 'Talented' can pull every talent up to 5 levels earlier.\n\nAround 40-60 (never playable in beta; guide projections only): At 40 come Shadowform (Shadow 30 points; Icy Veins' leveling path lands it at 42), Greater Heal, Power Infusion and Prayer of Mending, plus the first mount and dual spec. Icy Veins and Warcraft Tavern say Shadow mana and damage 'improve drastically' with Shadowform's -50% cost. Icy Veins' plan takes Meditation only around 51-53 and suggests a 1-gold respec at 40-42 if you level as Disc/Meditation first. Spell ranks arrive every 2 levels (Wowhead). Expect frequent drinking without Meditation. Healers level slowly solo, so guides recommend Shadow talents for solo play and a respec for group healing.",
+ "groupRoleNotes": "Interrupt: only Silence (Shadow 21st-point talent, 45 s cooldown, 5 s silence + 3 s interrupt, 20 yd); Disc and Holy have no interrupt. CC: Psychic Scream (AoE fear, 30 s cooldown; feared mobs can pull more), Shackle Undead (up to 50 s, one target, damage breaks), Mind Control (humanoids), Mind Soothe (aggro radius). Race extras: Gnome Confounding Flash (AoE 3 s confuse), Dwarf Chastise (2 s humanoid root), Blackout random stuns. Dispels: Dispel Magic (18; removes magic debuffs from allies or buffs from enemies; Holy Precision suggested if Shadow is asked to dispel), Cure Disease (14), Abolish Disease (32); no curse or poison removal. Protection: Fear Ward on any race now (3 min cooldown, 3 min duration), Power Word: Shield (no pushback; avoid on rage tanks per beta reports), Contingency Plan (Gnome) and Divine Grace (Human) emergencies. Buffs: Power Word: Fortitude / Prayer of Fortitude (1 hour, now party+raid), Divine Spirit / Prayer of Spirit (baseline), Shadow Protection, Power Infusion (Disc external, +20% spell damage/healing). Dark Inspiration gives party Spirit. Threat: Mind Blast, Devouring Plague and heals are high-threat; Fade (doubled, but temporary) and Silent Resolve help. Healing duties: Discipline is the strongest single-target/tank healer (shields, Penance, Divine Aegis; Icy Veins dungeon rating 'Cream Of The Crop'). Holy covers group/split damage (Renew spread, Binding Heal, Prayer of Mending, Prayer of Healing, Holy Nova). Early dungeons: Renew the tank, Heal as main heal, Flash Heal for emergencies, wand trash so the 5-second rule passes, and drink between pulls. Shadow DPS brings Vampiric Embrace party healing (party only, not raid), DoT damage and Spirit Tap mana via VE deaths. It has weak AoE (multi-DoT SW:P; Holy Nova needs Holy points) and cannot heal in Shadowform but can still cast Dispel Magic, PW:S and Fear Ward. In raids (10/20/40 from Dec 9), Shadow Weaving no longer buffs others, so Shadow's raid spot depends on its own damage plus VE.",
+ "pvpNotes": "No Priest-specific PvP testing or official Priest PvP notes were found; the beta capped at 30 and level-60 PvP is untested. Official context: no Arena; battlegrounds are Warsong Gulch 10-60, Arathi Basin 20-60, new Darkspear Islands 30-60 (15v15) and Alterac Valley 51-60; seasonal rank system without decay; crits in PvP no longer have reduced efficacy (Oct 8). Priest PvP-relevant changes: Silence now also interrupts (3 s) with no Improved Psychic Scream prerequisite. Shadowform keeps -15% physical damage taken, blocks only healing, and halves Shadow mana costs, so Shadow can Dispel, Fear Ward, PW:S and use Holy damage spells in form. Fear Ward is on every race but now has a 3 min cooldown and 3 min duration. Psychic Scream is unchanged (8 s, 30 s cooldown; Improved Psychic Scream needs Blackout). Mind Flay is a cheap 50% slow (Improved Mind Flay trades slow for damage per the Sep 30 text). Mana Burn and Mind Control are described as PvP staples, and Mind Vision is used for scouting flag carriers. Martyrdom and Twilight Focus counter pushback; Shadow Word: Death adds burst with a 10% health backlash. Racials: Undead Will of the Forsaken is now a one-time cleanse on a 2 min cooldown (no immunity window); Gnome Escape Artist plus Confounding Flash; Human Will to Survive breaks CC; Human Feedback and Troll Shadowguard are mostly PvP; Night Elf Elune's Grace (-50% chance to be hit by melee/ranged). Wowhead: Shadow has a 'strong solo PvP presence'. A third-party tier list (leprestore.com, not read, content farm) put Discipline at A and Shadow at C for dueling; treat as speculative.",
+ "openQuestions": [
+  "Lightwell: the official post lists it under removed Holy talents, but the Wowhead datamine marks it 'trained without one now' (ranks 40/50/60) and Icy Veins milestone tables show 'Lightwell' at 40. Is it a baseline spell at 40 or gone?",
+  "Divine Grace and Contingency Plan cooldowns: official Sep 30 post says 5 min; beta datamine and Wowhead guides say 10 min. Which ships?",
+  "Shadow Affinity: the official post lists it as kept/buffed, but the datamine and Icy Veins calculator lack it, and the Oct 15 notes say 'Shadow Infinity removed'. Confirm it is this talent.",
+  "Improved Mind Flay: the Sep 30 text says more damage and RANGE and a weaker slow; the Oct 15 tooltip only has escalating tick damage. Do range and slow still change?",
+  "Vampiric Embrace earliest level: talent math and the guides give 25, but the Wowhead spell DB shows 'Requires level 30'.",
+  "Final values for 31+ point talents (Shadowform, Prayer of Mending, Power Infusion, Divine Aegis cap 1200 vs 1400, Litany of Light 10% vs 20%, Power in Light 10% vs 15%) and all level 40-60 spell ranks were never testable.",
+  "Is Holy Nova blocked by Shadowform? Icy Veins says Shadow must leave Shadowform; the rule is 'healing spells' and Holy Nova heals, so probably yes, but unconfirmed.",
+  "Icy Veins leveling pages say Inner Fire 'will damage enemies that hit you with physical damage'; the datamined tooltip has no damage component.",
+  "Does Power Word: Shield still starve rage tanks at launch (beta report says it may change)?",
+  "Shadow Priest raid viability at 60 now that Shadow Weaving is self-only; does Silence work on raid bosses (Wowhead: 'most non-Boss enemies')?",
+  "How Fade's 'threat reduction doubled' works in practice (Wowhead says threat returns after 10 s).",
+  "Live respec cost and whether a first character can realistically use the Legacy 'Talented' perk (needs Legacy points from account challenges).",
+  "Spell training cadence: Wowhead says new spells/ranks every two levels from level 2 and PW:F at level 2, while the datamined spellbook lists PW:F rank 1 at level 1.",
+  "No Priest PvP data from beta battlegrounds; balance of Silence, Mind Flay slow, Fear Ward 3 min and Gnome/Undead racials in PvP is unknown."
+ ],
+ "sources": [
+  {
+   "url": "https://worldofwarcraft.blizzard.com/en-us/news/24301514/world-of-warcraft-forever-class-deep-dives-priest-and-warrior",
+   "readOk": true,
+   "title": "World of Warcraft: Forever Class Deep Dives - Priest and Warrior (Blizzard, Sept 30 2026); re-verified 2026-10-25",
+   "kind": "official"
+  },
+  {
+   "url": "https://us.forums.blizzard.com/en/wow/t/wow-forever-beta-development-notes-%E2%80%93-updated-october-15/2360696",
+   "readOk": true,
+   "title": "WoW Forever Beta Development Notes - Updated October 15 (Kaivax); checked 2026-10-25: no newer posts",
+   "kind": "official"
+  },
+  {
+   "url": "https://massivelyop.com/2026/10/02/world-of-warcraft-forever-delves-into-class-design-philosophy-including-deep-dives-on-the-priest-and-warrior/",
+   "readOk": true,
+   "title": "MassivelyOP: WoW Forever delves into class design philosophy (Oct 2 2026), read via browser (WebFetch 403)",
+   "kind": "news"
+  },
+  {
+   "url": "https://www.icy-veins.com/wow-forever/priest-class-overview",
+   "readOk": true,
+   "title": "Icy Veins Priest Class Guide (Rainy, updated Oct 12 2026)",
+   "kind": "reported-guide"
+  },
+  {
+   "url": "https://www.icy-veins.com/wow-forever/shadow-priest-ranged-dps-pve-guide",
+   "readOk": true,
+   "title": "Icy Veins Shadow Priest Guide (Anshlun, updated Oct 17 2026; content read 2026-10-24, unchanged per Last Updated check)",
+   "kind": "reported-guide"
+  },
+  {
+   "url": "https://www.icy-veins.com/wow-forever/shadow-priest-leveling",
+   "readOk": true,
+   "title": "Icy Veins Shadow Priest Leveling Guide (Oct 17 2026; read 2026-10-24)",
+   "kind": "reported-guide"
+  },
+  {
+   "url": "https://www.icy-veins.com/wow-forever/discipline-priest-healer-pve-guide",
+   "readOk": true,
+   "title": "Icy Veins Discipline Priest Guide (Rainy, Oct 16 2026; read 2026-10-24)",
+   "kind": "reported-guide"
+  },
+  {
+   "url": "https://www.icy-veins.com/wow-forever/discipline-priest-leveling",
+   "readOk": true,
+   "title": "Icy Veins Discipline Priest Leveling (Oct 16 2026; read 2026-10-24)",
+   "kind": "reported-guide"
+  },
+  {
+   "url": "https://www.icy-veins.com/wow-forever/holy-priest-healer-pve-guide",
+   "readOk": true,
+   "title": "Icy Veins Holy Priest Guide (Rainy, Oct 16 2026; read 2026-10-24)",
+   "kind": "reported-guide"
+  },
+  {
+   "url": "https://www.icy-veins.com/wow-forever/holy-priest-leveling",
+   "readOk": true,
+   "title": "Icy Veins Holy Priest Leveling (Oct 16 2026; read 2026-10-24)",
+   "kind": "reported-guide"
+  },
+  {
+   "url": "https://static.icy-veins.com/json/forever-talent-calculator/priest.json",
+   "readOk": true,
+   "title": "Icy Veins Forever Priest talent calculator data (read 2026-10-24)",
+   "kind": "beta-observation"
+  },
+  {
+   "url": "https://www.wowhead.com/forever/changes/spellbook/priest",
+   "readOk": true,
+   "title": "Wowhead Priest Spellbook - Forever (datamine 1.60.1.70450 vs Classic Era 1.15.8)",
+   "kind": "beta-observation"
+  },
+  {
+   "url": "https://www.wowhead.com/forever/changes/talents/priest",
+   "readOk": true,
+   "title": "Wowhead Priest Talents - Forever (datamine 1.60.1.70450 vs Classic Era 1.15.8)",
+   "kind": "beta-observation"
+  },
+  {
+   "url": "https://www.wowhead.com/forever/guide/classes/priest/shadow/level-30-dps-overview",
+   "readOk": true,
+   "title": "Wowhead Level 30 Shadow Priest Guide (Jereico, Oct 13 2026)",
+   "kind": "reported-guide"
+  },
+  {
+   "url": "https://www.wowhead.com/forever/guide/classes/priest/shadow/overview-pve-dps",
+   "readOk": true,
+   "title": "Wowhead Shadow Priest Overview (Jereico, Oct 8 2026; pre-Oct-15 cooldowns)",
+   "kind": "reported-guide"
+  },
+  {
+   "url": "https://www.wowhead.com/forever/guide/classes/priest/shadow/level-20-dps-overview",
+   "readOk": true,
+   "title": "Wowhead Level 20 Shadow Priest Guide (Sep 29 2026)",
+   "kind": "reported-guide"
+  },
+  {
+   "url": "https://www.wowhead.com/forever/guide/classes/priest/shadow/dps-abilities",
+   "readOk": true,
+   "title": "Wowhead Shadow Priest Abilities Guide (Oct 8 2026)",
+   "kind": "reported-guide"
+  },
+  {
+   "url": "https://www.wowhead.com/forever/guide/classes/priest/discipline/level-30-healer-overview",
+   "readOk": true,
+   "title": "Wowhead Level 30 Discipline Priest Guide (Voulk, Oct 6 2026)",
+   "kind": "reported-guide"
+  },
+  {
+   "url": "https://www.wowhead.com/forever/guide/classes/priest/discipline/overview-pve-healer",
+   "readOk": true,
+   "title": "Wowhead Discipline Priest Overview (Voulk, Oct 7 2026)",
+   "kind": "reported-guide"
+  },
+  {
+   "url": "https://www.wowhead.com/forever/guide/classes/priest/holy/level-30-healer-overview",
+   "readOk": true,
+   "title": "Wowhead Level 30 Holy Priest Guide (Spanklord, Oct 6 2026)",
+   "kind": "reported-guide"
+  },
+  {
+   "url": "https://www.wowhead.com/forever/guide/classes/priest/holy/overview-pve-healer",
+   "readOk": true,
+   "title": "Wowhead Holy Priest Overview (Spanklord, Oct 7 2026)",
+   "kind": "reported-guide"
+  },
+  {
+   "url": "https://www.warcrafttavern.com/forever/guides/shadow-priest/",
+   "readOk": true,
+   "title": "Warcraft Tavern Shadow Priest Guide (Cyradys; level-60 projection; read 2026-10-24)",
+   "kind": "reported-guide"
+  },
+  {
+   "url": "https://www.warcrafttavern.com/forever/guides/holy-priest/",
+   "readOk": true,
+   "title": "Warcraft Tavern Holy Priest Guide (read 2026-10-24)",
+   "kind": "reported-guide"
+  },
+  {
+   "url": "https://www.warcrafttavern.com/forever/guides/discipline-priest/",
+   "readOk": true,
+   "title": "Warcraft Tavern Discipline Priest Guide (read 2026-10-24)",
+   "kind": "reported-guide"
+  },
+  {
+   "url": "https://www.warcrafttavern.com/forever/guides/priest-leveling/",
+   "readOk": true,
+   "title": "Warcraft Tavern Priest Leveling Guide (read 2026-10-24)",
+   "kind": "reported-guide"
+  },
+  {
+   "url": "https://www.warcrafttavern.com/forever/guides/priest/",
+   "readOk": true,
+   "title": "Warcraft Tavern Priest class overview (WebFetch summary only, 2026-10-24)",
+   "kind": "reported-guide"
+  },
+  {
+   "url": "https://blizzardwatch.com/2026/10/09/every-priest-racial-ability-wow-forever/",
+   "readOk": true,
+   "title": "BlizzardWatch: Every Priest racial ability in WoW Forever (Oct 9 2026; WebFetch summary)",
+   "kind": "news"
+  },
+  {
+   "url": "https://www.icy-veins.com/wow-forever/legacy-system",
+   "readOk": true,
+   "title": "Icy Veins Legacy System (Talented perk; read 2026-10-24 for global research)",
+   "kind": "reported-guide"
+  },
+  {
+   "url": "https://www.icy-veins.com/wow-forever/news/name-rservation-raids-campfire-and-more-in-forever-hallows-end-in-retail-new-patch-in-classic-wow-weekly-october-19-23/",
+   "readOk": true,
+   "title": "Icy Veins WoW Weekly Oct 19-23 quoting official Blizzard raid announcement (read 2026-10-24)",
+   "kind": "news"
+  },
+  {
+   "url": "https://www.icy-veins.com/wow-forever/pvp-overview",
+   "readOk": true,
+   "title": "Icy Veins PvP Overview (Sep 19 2026; read 2026-10-24 for global research)",
+   "kind": "reported-guide"
+  },
+  {
+   "url": "https://seemeta.com/en/wow-forever/pvp-tier-list",
+   "readOk": false,
+   "title": "seemeta PvP tier list (connection refused; not used)",
+   "kind": "content-farm"
+  },
+  {
+   "url": "https://leprestore.com/guides/world-of-warcraft-forever/wow-forever-best-pvp-class-tier-list/",
+   "readOk": false,
+   "title": "leprestore PvP tier list (only seen as search snippet; speculative)",
+   "kind": "content-farm"
+  }
+ ],
+ "rawFilesWritten": [
+  "C:/Users/thoma/OneDrive/Documents/projects/azeroth-class-trials/research/raw/priest-wowhead-spellbook-changes.txt",
+  "C:/Users/thoma/OneDrive/Documents/projects/azeroth-class-trials/research/raw/priest-wowhead-talent-changes.txt",
+  "C:/Users/thoma/OneDrive/Documents/projects/azeroth-class-trials/research/raw/priest-wowhead-shadow-guides.txt",
+  "C:/Users/thoma/OneDrive/Documents/projects/azeroth-class-trials/research/raw/priest-wowhead-healer-guides.txt",
+  "C:/Users/thoma/OneDrive/Documents/projects/azeroth-class-trials/research/raw/priest-news-misc-pvp.txt",
+  "C:/Users/thoma/OneDrive/Documents/projects/azeroth-class-trials/research/raw/priest-blizzard-class-deep-dive.txt",
+  "C:/Users/thoma/OneDrive/Documents/projects/azeroth-class-trials/research/raw/priest-icyveins-class-overview.txt",
+  "C:/Users/thoma/OneDrive/Documents/projects/azeroth-class-trials/research/raw/priest-icyveins-shadow-guide.txt",
+  "C:/Users/thoma/OneDrive/Documents/projects/azeroth-class-trials/research/raw/priest-icyveins-shadow-leveling.txt",
+  "C:/Users/thoma/OneDrive/Documents/projects/azeroth-class-trials/research/raw/priest-icyveins-discipline.txt",
+  "C:/Users/thoma/OneDrive/Documents/projects/azeroth-class-trials/research/raw/priest-icyveins-holy.txt",
+  "C:/Users/thoma/OneDrive/Documents/projects/azeroth-class-trials/research/raw/priest-icyveins-talent-tree-json.txt",
+  "C:/Users/thoma/OneDrive/Documents/projects/azeroth-class-trials/research/raw/priest-warcrafttavern-shadow.txt",
+  "C:/Users/thoma/OneDrive/Documents/projects/azeroth-class-trials/research/raw/priest-warcrafttavern-holy-disc-leveling.txt",
+  "C:/Users/thoma/OneDrive/Documents/projects/azeroth-class-trials/research/raw/priest-wowhead-forever-spelldb.txt"
+ ]
+}

@@ -1,0 +1,9 @@
+node_modules/
+dist/
+scratch/
+# Approved art masters (~86 MB, incl. original Blizzard icons). The bundled,
+# resized art is committed in src/ui/art/art-images.gen.js; regenerate it
+# locally with `npm run art`.
+art-source/
+# Raw page dumps the research JSON was distilled from.
+research/raw/

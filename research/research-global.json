@@ -1,0 +1,1448 @@
+{
+ "topic": "global",
+ "overview": "World of Warcraft: Forever is Blizzard's permanent (non-seasonal) \"Classic+\" mode. It runs alongside Retail and Classic, is included in a normal WoW subscription, and launches globally on November 4, 2026 at 3:00 p.m. PST (23:00 UTC). The level cap is 60, and Blizzard describes long-term horizontal progression rather than level-cap raises. The beta ran from September 17 to October 23. It opened at a level-20 cap (from a developer interview), the cap was raised to 30 in the October 1 build, and nothing carries over to live. Character creation and name reservation open October 27.\n\nAll nine original classes return. Officially, talents still start at level 10 with the same rows and the 11/21/31-point one-point milestones, plus a new 16-point milestone talent in every tree. Some 1.12 talents are unchanged, many changed, and several talent passives or buffs are now baseline: for example Divine Spirit, Improved Power Word: Fortitude, Improved Hunter's Mark, Aimed Shot and Magic Attunement. Respecs happen at a class trainer in a major city, and Dual Specialization unlocks at 40. There are no faction-locked classes. Six new race/class combos exist, including Human Hunter, Orc Mage and Gnome Priest. Undead Hunter is still impossible, while Undead Mage and Undead Priest are possible. The new neutral elf race Skyborne requires a paid pack. It can be Hunter, Rogue, Warrior or Druid on either faction, Mage only as Alliance and Shaman only as Horde, and never Priest. Every race was rebuilt to four racials.\n\nNew global systems:\n- **Camping:** sit about 1 minute at a shared campfire to get 1-hour profession buffs that are exclusive with the matching class buffs. Sources only describe buffs, rested XP and services; no source says camping makes eating or drinking faster.\n- **Cozy Sleeping Bag:** a 1–3% XP buff.\n- **Legacy:** account-wide points that buy per-character perks, such as faster rested XP, earlier talent points and health/mana on killing blows.\n- **Other:** transmog, SD/HD graphics, native gamepad support (Alpha), and a Cooldown Manager.\n\nContent at launch:\n- **Dungeons:** 35 five-player dungeons (9 new), levels 13–60.\n- **Raids:** Barrow Deeps (10), Hyjal Summit (20) and Onyxia's Lair (40) unlock December 9 with weekly lockouts and no flex sizing.\n- **PvP:** a reworked seasonal rank system with weekly caps and no decay; Warsong Gulch, Arathi Basin, Alterac Valley and the new 15v15 Darkspear Islands; no Arena.\n- **Rulesets:** realms are replaced by mega-server rulesets (Normal, PvP, RP, RP-PvP, with Hardcore later).\n\nMana still follows a 5-second rule according to Icy Veins guides from beta play, and guides call caster drinking downtime the main limit on leveling speed. Mounts at level 40 come from fan guides only and were not observable in the level-30 beta.",
+ "specs": [],
+ "abilities": [
+  {
+   "name": "Dual Specialization",
+   "spec": "baseline",
+   "kind": "new-in-forever",
+   "level": 40,
+   "description": "Second talent spec available at level 40; talents (including Legacy talents) are changed at a class trainer in a major city.",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301515"
+  },
+  {
+   "name": "16-point milestone talent (gold medal)",
+   "spec": "baseline",
+   "kind": "talent",
+   "level": null,
+   "description": "Every talent tree keeps one-point milestone talents at 11, 21 and 31 points and adds a new one at 16 points (e.g. Summon Hawk BM Hunter, Vampiric Embrace Shadow, Arcane Wrath Arcane).",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301515"
+  },
+  {
+   "name": "Basic Campfire",
+   "spec": "baseline",
+   "kind": "new-in-forever",
+   "level": 5,
+   "description": "Cooking skill 1 kit (introduced by quest The Great Outdoors around level 5) that creates a shared campsite with room for 3 additional camp features; Journeyman (5) and Expert (10) upgrades via blueprints. Campfire kits share a 5-minute cooldown.",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/camping"
+  },
+  {
+   "name": "Mana Well (camp feature)",
+   "spec": "baseline",
+   "kind": "new-in-forever",
+   "level": null,
+   "description": "Alchemy 20 camp item: regenerates 10-29 Mana every 5 seconds (level dependent) for 1 hour after sitting ~1 minute at camp; mutually exclusive with Blessing of Wisdom.",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301516"
+  },
+  {
+   "name": "Camp Tent (camp feature)",
+   "spec": "baseline",
+   "kind": "new-in-forever",
+   "level": null,
+   "description": "Leatherworking 20 camp item: increases Rested experience by 5% of a level (no effect if rested already exceeds that); applies Boosted Rest (once per hour).",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301516"
+  },
+  {
+   "name": "Faction Banner (camp feature)",
+   "spec": "baseline",
+   "kind": "new-in-forever",
+   "level": null,
+   "description": "Tailoring 20 camp item: 14-32 Spirit (level dependent), mutually exclusive with Divine Spirit.",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301516"
+  },
+  {
+   "name": "Incense Candle (camp feature)",
+   "spec": "baseline",
+   "kind": "new-in-forever",
+   "level": null,
+   "description": "Herbalism 20 camp item: 2-25 Intellect (level dependent), mutually exclusive with Arcane Intellect.",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301516"
+  },
+  {
+   "name": "First Aid Kit (camp feature)",
+   "spec": "baseline",
+   "kind": "new-in-forever",
+   "level": null,
+   "description": "First Aid 20 camp item: 3-56 Stamina (level dependent), exclusive with Power Word: Fortitude.",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301516"
+  },
+  {
+   "name": "Camp Chair (camp feature)",
+   "spec": "baseline",
+   "kind": "new-in-forever",
+   "level": null,
+   "description": "Skinning 20 camp item: 2% critical strike chance with all spells and attacks, exclusive with Moonkin Aura. Skinning 140 Field Guide adds Track Beasts for 1 hour; 300 Trapper's Workbench grants a Brittle Trap (10-second immobilize).",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301516"
+  },
+  {
+   "name": "Fishing Bowl / Fish Bowl (camp feature)",
+   "spec": "baseline",
+   "kind": "new-in-forever",
+   "level": null,
+   "description": "Fishing 20 camp item: 8% increased stats, exclusive with Blessing of Kings.",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301516"
+  },
+  {
+   "name": "Reagent Bot / Repair Bot (camp feature)",
+   "spec": "baseline",
+   "kind": "new-in-forever",
+   "level": null,
+   "description": "Engineering 20 camp item summons a reagent vendor; Engineering 140 upgrade (Blueprint: Repair Bot from Sneed, Deadmines) also repairs.",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/camping"
+  },
+  {
+   "name": "Cozy Sleeping Bag",
+   "spec": "baseline",
+   "kind": "new-in-forever",
+   "level": null,
+   "description": "Questline reward (low-level zones, jumping puzzles). 1-hour cooldown; stand in it 1 minute for Well Rested: +1% all XP for 2 hours, stacks to 3 (3%), persists through death, party members can use it.",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/sleeping-bag"
+  },
+  {
+   "name": "Well Rested (Legacy perk)",
+   "spec": "baseline",
+   "kind": "rune/other",
+   "level": null,
+   "description": "Adventure tree, 5 ranks: rested experience accumulates 4/8/12/16/20% faster and rested cap increased by 4/8/12/16/20%.",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/legacy-system"
+  },
+  {
+   "name": "Thrill of Adventure (Legacy perk)",
+   "spec": "baseline",
+   "kind": "rune/other",
+   "level": null,
+   "description": "Adventure tree, 5 ranks: gain 1-5% of max Health and Mana over 10 seconds on killing blow vs non-trivial enemy; not in dungeons, raids, battlegrounds.",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/legacy-system"
+  },
+  {
+   "name": "Talented (Legacy perk)",
+   "spec": "baseline",
+   "kind": "rune/other",
+   "level": null,
+   "description": "Adventure tree, 5 ranks: gain talent points every level starting at level 9/8/7/6/5 instead of 10, still max 51 total talent points.",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/legacy-system"
+  },
+  {
+   "name": "Field Guide (Legacy perk)",
+   "spec": "baseline",
+   "kind": "rune/other",
+   "level": null,
+   "description": "Adventure tree, 3 ranks: reduces cooldown on adding Campsite features by 8/16/25%.",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/legacy-system"
+  },
+  {
+   "name": "Field Medicine (Legacy perk)",
+   "spec": "baseline",
+   "kind": "rune/other",
+   "level": null,
+   "description": "Adventure tree, 2 ranks: Recently Bandaged duration reduced by 5/10 seconds; not in dungeons, raids, battlegrounds.",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/legacy-system"
+  },
+  {
+   "name": "Frequent Flier (Legacy perk)",
+   "spec": "baseline",
+   "kind": "rune/other",
+   "level": null,
+   "description": "Adventure tree, 1 rank: 50% discount on all flight paths, flight path mount flies 20% faster.",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/legacy-system"
+  },
+  {
+   "name": "Gourmand (Legacy perk)",
+   "spec": "baseline",
+   "kind": "rune/other",
+   "level": null,
+   "description": "Resourcefulness tree, 3 ranks: food buff duration +33/66/100% (15-minute buff becomes 30 minutes).",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/legacy-system"
+  },
+  {
+   "name": "The Quick and the Dead (Legacy perk)",
+   "spec": "baseline",
+   "kind": "rune/other",
+   "level": null,
+   "description": "Resourcefulness tree, 2 ranks: +5/10% movement speed while dead; helpful spells cost no resources for 1/2 minutes after resurrection or until combat.",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/legacy-system"
+  },
+  {
+   "name": "Permanence (Legacy perk)",
+   "spec": "baseline",
+   "kind": "rune/other",
+   "level": null,
+   "description": "Resourcefulness tree, 2 ranks: long-duration party/raid class buffs and camp rest benefits last 50/100% longer.",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/legacy-system"
+  },
+  {
+   "name": "Reagent Economy (Legacy perk)",
+   "spec": "baseline",
+   "kind": "rune/other",
+   "level": null,
+   "description": "Resourcefulness tree, 1 rank: class abilities no longer require vendor-purchasable reagents (also tier-1 camp features need no reagents).",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/legacy-system"
+  },
+  {
+   "name": "Reinforce (Legacy perk)",
+   "spec": "baseline",
+   "kind": "rune/other",
+   "level": null,
+   "description": "Resourcefulness tree, 5 ranks: 8-40% less durability loss on death.",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/legacy-system"
+  },
+  {
+   "name": "Read Ley Line (Skyborne racial)",
+   "spec": "baseline",
+   "kind": "new-in-forever",
+   "level": null,
+   "description": "Active: draw power from a nearby ley line; Health and Mana regeneration buff for 30 seconds (no ley line) or 15 minutes (ley line found). 2-minute cooldown, castable while moving (Oct 15). Race guide says 10%, another Icy Veins page says 100% and Alliance (High Order) only.",
+   "status": "beta-observation",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/race-guide"
+  },
+  {
+   "name": "Skysight (Skyborne racial)",
+   "spec": "baseline",
+   "kind": "new-in-forever",
+   "level": null,
+   "description": "Active: 10% movement speed for 30 seconds, or 15 minutes if an elemental convergence is found; 2-minute cooldown; reportedly Horde (Windshaper) only.",
+   "status": "beta-observation",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/race-guide"
+  },
+  {
+   "name": "Walk on Air (Skyborne racial)",
+   "spec": "baseline",
+   "kind": "new-in-forever",
+   "level": null,
+   "description": "Active: glide downward through the air for 10 seconds; 90-second cooldown (was 2 minutes before Oct 15 build).",
+   "status": "beta-observation",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/race-guide"
+  },
+  {
+   "name": "Wind Blessed (Skyborne racial)",
+   "spec": "baseline",
+   "kind": "new-in-forever",
+   "level": null,
+   "description": "Passive: Spell, Ranged and Melee Haste +3% (raised from 1% in Oct 15 build).",
+   "status": "confirmed-official",
+   "sourceUrl": "https://us.forums.blizzard.com/en/wow/t/wow-forever-beta-development-notes-%E2%80%93-updated-october-15/2360696"
+  },
+  {
+   "name": "Elemental Insight (Skyborne racial)",
+   "spec": "baseline",
+   "kind": "new-in-forever",
+   "level": null,
+   "description": "Passive: damage done to Elementals +5%.",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/race-guide"
+  },
+  {
+   "name": "Cannibalize (Undead racial)",
+   "spec": "baseline",
+   "kind": "changed-in-forever",
+   "level": null,
+   "description": "Active: consume a nearby corpse to gain 35% Health and Mana over time; 2-minute cooldown (Classic version restored health only). Icy Veins Shadow guide calls it great for reducing downtime.",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/race-guide"
+  },
+  {
+   "name": "Will of the Forsaken (Undead racial)",
+   "spec": "baseline",
+   "kind": "baseline",
+   "level": null,
+   "description": "Active: instantly break all Charm, Fear and Sleep effects; 2-minute cooldown; not usable under Scatter Shot (Oct 15).",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/race-guide"
+  },
+  {
+   "name": "Touch of the Grave (Undead racial)",
+   "spec": "baseline",
+   "kind": "new-in-forever",
+   "level": null,
+   "description": "Passive: chance on hit (30% spell casts, 20% Paladins/Rogues/Warriors) to drain health from target; 25-second internal cooldown.",
+   "status": "beta-observation",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/race-guide"
+  },
+  {
+   "name": "Underwater Breathing (Undead racial)",
+   "spec": "baseline",
+   "kind": "baseline",
+   "level": null,
+   "description": "Passive: underwater breathing increased by 300%.",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/race-guide"
+  },
+  {
+   "name": "Berserking (Troll racial)",
+   "spec": "baseline",
+   "kind": "changed-in-forever",
+   "level": null,
+   "description": "Active: Melee, Ranged and Spell Haste +10% for 12 seconds; 3-minute cooldown.",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/race-guide"
+  },
+  {
+   "name": "Rapid Regeneration (Troll racial)",
+   "spec": "baseline",
+   "kind": "new-in-forever",
+   "level": null,
+   "description": "Active: regenerate 50% of maximum Health over time; 3-minute cooldown.",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/race-guide"
+  },
+  {
+   "name": "Regeneration (Troll racial)",
+   "spec": "baseline",
+   "kind": "changed-in-forever",
+   "level": null,
+   "description": "Passive: 20% of total Health regeneration continues during combat (raised from 10% Oct 15).",
+   "status": "confirmed-official",
+   "sourceUrl": "https://us.forums.blizzard.com/en/wow/t/wow-forever-beta-development-notes-%E2%80%93-updated-october-15/2360696"
+  },
+  {
+   "name": "Beast Slaying (Troll racial)",
+   "spec": "baseline",
+   "kind": "baseline",
+   "level": null,
+   "description": "Passive: damage to Beasts +5%.",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/race-guide"
+  },
+  {
+   "name": "Blood Fury (Orc racial)",
+   "spec": "baseline",
+   "kind": "changed-in-forever",
+   "level": null,
+   "description": "Active: Attack Power and Spell Power +10% for 15 seconds; 3-minute cooldown (was 2 minutes pre-Oct 15).",
+   "status": "confirmed-official",
+   "sourceUrl": "https://us.forums.blizzard.com/en/wow/t/wow-forever-beta-development-notes-%E2%80%93-updated-october-15/2360696"
+  },
+  {
+   "name": "Shatter Curse (Orc racial)",
+   "spec": "baseline",
+   "kind": "new-in-forever",
+   "level": null,
+   "description": "Active: dispels all Curses and Banes and reduces Magic damage taken by 5% for 8 seconds; 3-minute cooldown.",
+   "status": "confirmed-official",
+   "sourceUrl": "https://us.forums.blizzard.com/en/wow/t/wow-forever-beta-development-notes-%E2%80%93-updated-october-15/2360696"
+  },
+  {
+   "name": "Savage (Orc racial)",
+   "spec": "baseline",
+   "kind": "new-in-forever",
+   "level": null,
+   "description": "Passive: Critical Strike chance +1% (replaced Axe Specialization in Oct 15 build).",
+   "status": "confirmed-official",
+   "sourceUrl": "https://us.forums.blizzard.com/en/wow/t/wow-forever-beta-development-notes-%E2%80%93-updated-october-15/2360696"
+  },
+  {
+   "name": "Hardiness (Orc racial)",
+   "spec": "baseline",
+   "kind": "baseline",
+   "level": null,
+   "description": "Passive: stun duration reduced by 20%.",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/race-guide"
+  },
+  {
+   "name": "Plainsrunning (Tauren racial)",
+   "spec": "baseline",
+   "kind": "new-in-forever",
+   "level": null,
+   "description": "Passive: movement speed increases the longer you run (up to 30%), needs minimum distance per second; +3% mounted speed. Icy Veins Hunter guides call Tauren the strongest Hunter race because of it.",
+   "status": "confirmed-official",
+   "sourceUrl": "https://us.forums.blizzard.com/en/wow/t/wow-forever-beta-development-notes-%E2%80%93-updated-october-15/2360696"
+  },
+  {
+   "name": "War Stomp (Tauren racial)",
+   "spec": "baseline",
+   "kind": "changed-in-forever",
+   "level": null,
+   "description": "Active: stuns all nearby targets for 2 seconds; 90-second cooldown (was 2 minutes).",
+   "status": "confirmed-official",
+   "sourceUrl": "https://us.forums.blizzard.com/en/wow/t/wow-forever-beta-development-notes-%E2%80%93-updated-october-15/2360696"
+  },
+  {
+   "name": "Endurance (Tauren racial)",
+   "spec": "baseline",
+   "kind": "changed-in-forever",
+   "level": null,
+   "description": "Passive: total Health +5%; critical strike damage and healing +2% (was 1% hit).",
+   "status": "confirmed-official",
+   "sourceUrl": "https://us.forums.blizzard.com/en/wow/t/wow-forever-beta-development-notes-%E2%80%93-updated-october-15/2360696"
+  },
+  {
+   "name": "Cultivation (Tauren racial)",
+   "spec": "baseline",
+   "kind": "new-in-forever",
+   "level": null,
+   "description": "Active: grow bonus Herbalism nodes (no Herbalism needed; level requirement per herb); 15-minute cooldown.",
+   "status": "confirmed-official",
+   "sourceUrl": "https://us.forums.blizzard.com/en/wow/t/wow-forever-beta-development-notes-%E2%80%93-updated-october-15/2360696"
+  },
+  {
+   "name": "Will to Survive (Human racial)",
+   "spec": "baseline",
+   "kind": "new-in-forever",
+   "level": null,
+   "description": "Active: instantly remove all Stuns; 3-minute cooldown.",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/race-guide"
+  },
+  {
+   "name": "Perception (Human racial)",
+   "spec": "baseline",
+   "kind": "changed-in-forever",
+   "level": null,
+   "description": "Active: automatically detect stealthed enemies for 20 seconds; 3-minute cooldown.",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/race-guide"
+  },
+  {
+   "name": "Ruthless (Human racial)",
+   "spec": "baseline",
+   "kind": "new-in-forever",
+   "level": null,
+   "description": "Passive: Critical Strike chance +2% (replaced Sword Specialization Oct 15).",
+   "status": "confirmed-official",
+   "sourceUrl": "https://us.forums.blizzard.com/en/wow/t/wow-forever-beta-development-notes-%E2%80%93-updated-october-15/2360696"
+  },
+  {
+   "name": "The Human Spirit (Human racial)",
+   "spec": "baseline",
+   "kind": "baseline",
+   "level": null,
+   "description": "Passive: total Spirit +5%.",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/race-guide"
+  },
+  {
+   "name": "Stoneform (Dwarf racial)",
+   "spec": "baseline",
+   "kind": "changed-in-forever",
+   "level": null,
+   "description": "Active: immunity to Poisons, Bleeds, Diseases and reduced Physical damage taken for 8 seconds; 3-minute cooldown.",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/race-guide"
+  },
+  {
+   "name": "Find Treasure (Dwarf racial)",
+   "spec": "baseline",
+   "kind": "changed-in-forever",
+   "level": null,
+   "description": "Active: track treasure chests, chance for additional items in most chests; stacks with other tracking.",
+   "status": "confirmed-official",
+   "sourceUrl": "https://us.forums.blizzard.com/en/wow/t/wow-forever-beta-development-notes-%E2%80%93-updated-october-15/2360696"
+  },
+  {
+   "name": "Big Game Hunter (Dwarf racial)",
+   "spec": "baseline",
+   "kind": "new-in-forever",
+   "level": null,
+   "description": "Passive: damage done to Beasts +5%.",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/race-guide"
+  },
+  {
+   "name": "Earth Fury (Dwarf racial)",
+   "spec": "baseline",
+   "kind": "new-in-forever",
+   "level": null,
+   "description": "Passive: critical strike damage and healing +2% (replaced Mace Specialization Oct 15).",
+   "status": "confirmed-official",
+   "sourceUrl": "https://us.forums.blizzard.com/en/wow/t/wow-forever-beta-development-notes-%E2%80%93-updated-october-15/2360696"
+  },
+  {
+   "name": "Elune's Light (Night Elf racial)",
+   "spec": "baseline",
+   "kind": "new-in-forever",
+   "level": null,
+   "description": "Active: Critical Strike chance +10% for 15 seconds; 3-minute cooldown.",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/race-guide"
+  },
+  {
+   "name": "Shadowmeld (Night Elf racial)",
+   "spec": "baseline",
+   "kind": "baseline",
+   "level": null,
+   "description": "Active: gain Stealth, cancels when moving; 10-second cooldown.",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/race-guide"
+  },
+  {
+   "name": "Quickness (Night Elf racial)",
+   "spec": "baseline",
+   "kind": "changed-in-forever",
+   "level": null,
+   "description": "Passive: Dodge chance and Movement Speed +2%; speed stacks with other speed increases.",
+   "status": "confirmed-official",
+   "sourceUrl": "https://us.forums.blizzard.com/en/wow/t/wow-forever-beta-development-notes-%E2%80%93-updated-october-15/2360696"
+  },
+  {
+   "name": "Wisp Spirit (Night Elf racial)",
+   "spec": "baseline",
+   "kind": "changed-in-forever",
+   "level": null,
+   "description": "Passive: corpse-run movement speed +75%.",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/race-guide"
+  },
+  {
+   "name": "Escape Artist (Gnome racial)",
+   "spec": "baseline",
+   "kind": "changed-in-forever",
+   "level": null,
+   "description": "Active: break all Roots and Snares and become immune to them for 5 seconds; 1-minute cooldown.",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/race-guide"
+  },
+  {
+   "name": "Eureka! (Gnome racial)",
+   "spec": "baseline",
+   "kind": "new-in-forever",
+   "level": null,
+   "description": "Active: 8-second buff reducing cost and increasing damage/healing of non-periodic spells/abilities by 10% (also benefits Power Word: Shield); 2-minute cooldown; not in Stealth.",
+   "status": "confirmed-official",
+   "sourceUrl": "https://us.forums.blizzard.com/en/wow/t/wow-forever-beta-development-notes-%E2%80%93-updated-october-15/2360696"
+  },
+  {
+   "name": "Expansive Mind (Gnome racial)",
+   "spec": "baseline",
+   "kind": "changed-in-forever",
+   "level": null,
+   "description": "Passive: maximum Mana, Rage and Energy +5%.",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/race-guide"
+  }
+ ],
+ "facts": [
+  {
+   "claim": "WoW Forever launches globally on November 4, 2026 at 3:00 p.m. PST (Icy Veins countdown: 11:00 pm UTC).",
+   "category": "general",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24302093",
+   "evidence": "\"launches globally on November 4, 2026, at 3:00 p.m. PST\" (one section of the page says PDT)",
+   "level": null,
+   "spec": "any"
+  },
+  {
+   "claim": "Level cap at launch is 60.",
+   "category": "leveling",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24302093",
+   "evidence": "Announcement: \"adventure to level 60\"; Icy Veins roadmap: Forever Launch, Level Cap: 60.",
+   "level": 60,
+   "spec": "any"
+  },
+  {
+   "claim": "Forever is a permanent, non-seasonal mode included with a normal WoW subscription or game time.",
+   "category": "general",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24302093",
+   "evidence": "\"access will be included with your World of Warcraft Subscription or Game Time.\" Icy Veins: not a seasonal mode like Season of Discovery.",
+   "level": null,
+   "spec": "any"
+  },
+  {
+   "claim": "Beta ran from Sept 17 and closed Oct 23 after five weeks; beta progress does not carry to live.",
+   "category": "general",
+   "status": "confirmed-official",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/news/the-wow-forever-beta-has-ended-a-thank-you-from-blizzard/",
+   "evidence": "Blizzard message: \"The WoW Forever Beta is now closed ... over the last five weeks of playtesting\"",
+   "level": null,
+   "spec": "any"
+  },
+  {
+   "claim": "The beta level cap was raised to 30 with the October 1 build and stayed at 30 for the rest of the beta.",
+   "category": "leveling",
+   "status": "confirmed-official",
+   "sourceUrl": "https://us.forums.blizzard.com/en/wow/t/wow-forever-beta-development-notes-%E2%80%93-updated-october-15/2360696",
+   "evidence": "Dev notes (Oct 1 build): \"Players can now level up to a maximum of level 30.\"",
+   "level": 30,
+   "spec": "any"
+  },
+  {
+   "claim": "The beta initially opened capped at level 20 before the raise to 30.",
+   "category": "leveling",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.icy-veins.com/wow/news/the-wow-forever-beta-starts-at-level-20-level-30-after-couple-of-weeks/",
+   "evidence": "Icy Veins headline citing a developer interview: beta starts at level 20, level 30 after a couple of weeks (read via search snippet only).",
+   "level": 20,
+   "spec": "any"
+  },
+  {
+   "claim": "Character creation and name reservation open October 27, before the November 4 launch.",
+   "category": "general",
+   "status": "confirmed-official",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/news/the-wow-forever-beta-has-ended-a-thank-you-from-blizzard/",
+   "evidence": "\"we'll open access to the character creation system on Tuesday, October 27\"",
+   "level": null,
+   "spec": "any"
+  },
+  {
+   "claim": "Talents still start at level 10 with the same rows and one-point milestone talents at 11, 21 and 31 points, plus a new 16-point milestone in every tree.",
+   "category": "talent",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301515",
+   "evidence": "\"one-point milestone talents at 11, 21, and 31 points, now joined by a new 16-point milestone.\"",
+   "level": 10,
+   "spec": "any"
+  },
+  {
+   "claim": "Some talents are unchanged from patch 1.12, others were adjusted, and several key talent buffs are now baseline.",
+   "category": "talent",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301515",
+   "evidence": "\"Some talents remain exactly as they were in patch 1.12 ... several key class buffs ... are now baseline\"",
+   "level": null,
+   "spec": "any"
+  },
+  {
+   "claim": "Talents and Legacy talents are changed at a class trainer in a major city; Dual Specialization unlocks at level 40.",
+   "category": "talent",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301514",
+   "evidence": "\"visit a class trainer in one of the major cities. Dual Specialization also becomes available at level 40.\"",
+   "level": 40,
+   "spec": "any"
+  },
+  {
+   "claim": "Total talent points are still capped at 51.",
+   "category": "talent",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/legacy-system",
+   "evidence": "Legacy perk Talented: \"you still may not have more than 51 total talent points.\"",
+   "level": 60,
+   "spec": "any"
+  },
+  {
+   "claim": "Hunter passives removed or merged: Improved Eyes of the Beast now baseline, Thick Hide merged into Endurance Training, Improved Hunter's Mark and Aimed Shot baseline, Wyvern Sting/Killer Instinct/Improved Feign Death merged into Resourcefulness, Monster/Humanoid Slaying merged into Improved Tracking.",
+   "category": "talent",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301515",
+   "evidence": "Deep dive \"Removed talents\" sections list these merges and baseline moves.",
+   "level": null,
+   "spec": "Hunter"
+  },
+  {
+   "claim": "Priest passives removed or merged: Unbreakable Will merged into Silent Resolve, Improved PW:Fortitude and Divine Spirit baseline, Force of Will removed; Holy loses Improved Prayer of Healing and Lightwell; Shadow loses Improved Vampiric Embrace (and later Improved Fade and Shadow Infinity).",
+   "category": "talent",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301514",
+   "evidence": "Priest deep dive removed-talent lists; Oct 15 dev notes: \"Improved Fade removed. Shadow Infinity removed.\"",
+   "level": null,
+   "spec": "Priest"
+  },
+  {
+   "claim": "Mage loses few talents: Magic Attunement is now baseline, and the Fire and Frost trees have no removed talents.",
+   "category": "talent",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24302097",
+   "evidence": "Mage deep dive: Magic Attunement (now baseline); Fire and Frost \"Removed talents: None.\"",
+   "level": null,
+   "spec": "Mage"
+  },
+  {
+   "claim": "Third-party counts of new/changed/unchanged talents: Hunter 15/16/19, Mage 6/32/16, Priest 14/27/12; also says many Classic must-have passives were removed or nerfed.",
+   "category": "talent",
+   "status": "speculative",
+   "sourceUrl": "https://powerupgaming.co.uk/2026/09/14/new-wow-forever-talents-changes-vs-classic-guide/",
+   "evidence": "\"Every talent tree now has a new 1-point talent at the 16-point milestone.\" Counts per class (low-reliability site, Sep 14, pre-beta tuning).",
+   "level": null,
+   "spec": "any"
+  },
+  {
+   "claim": "Down-ranking penalty: spell ranks far below your level get less benefit from Spell Damage/Healing and lower proc chances (Rank 1 Frostbolt at 60 has a 0% Frostbite chance).",
+   "category": "general",
+   "status": "confirmed-official",
+   "sourceUrl": "https://us.forums.blizzard.com/en/wow/t/wow-forever-beta-development-notes-%E2%80%93-updated-october-15/2360696",
+   "evidence": "\"Using a Rank 1 Frostbolt at level 60 will result in a 0% chance to get a Frostbite activation.\"",
+   "level": null,
+   "spec": "any"
+  },
+  {
+   "claim": "Mana regeneration follows a 5-second rule: regen pauses for 5 seconds after a spell cast completes, and effects like Meditation and Spirit Tap partly bypass it.",
+   "category": "resource",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/shadow-priest-ranged-dps-pve-guide",
+   "evidence": "\"Whenever you finish a spell cast in WoW: Forever, your mana regen is paused for 5 seconds.\"",
+   "level": null,
+   "spec": "any"
+  },
+  {
+   "claim": "The 5-second rule only triggers on mana-costing casts that complete; interrupted casts do not trigger it, and wand attacks cost no mana.",
+   "category": "resource",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/holy-priest-healer-pve-guide",
+   "evidence": "\"This rule only applies when the cast completes, so if the cast is interrupted ... it will not trigger\"",
+   "level": null,
+   "spec": "any"
+  },
+  {
+   "claim": "A Forever mana addon reports that wands, potions and food do not start the 5-second rule.",
+   "category": "resource",
+   "status": "beta-observation",
+   "sourceUrl": "https://www.curseforge.com/wow/addons/full-mana-forever",
+   "evidence": "Addon description: tracks the five-second rule; notes wands, potions and food do not start it.",
+   "level": null,
+   "spec": "any"
+  },
+  {
+   "claim": "Blizzard increased Spirit-while-casting regen through talents: Bestial Discipline (Hunter), Mage Armor and Arcane Meditation (Mage), Meditation (Priest).",
+   "category": "resource",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301515",
+   "evidence": "Hunter: \"Bestial Discipline: Now also grants the Hunter Mana regeneration from Spirit while casting\"; Priest: \"Meditation: Mana benefit from spirit increased substantially.\"",
+   "level": null,
+   "spec": "any"
+  },
+  {
+   "claim": "Guides say drinking downtime, not spell damage, is what limits caster leveling speed.",
+   "category": "leveling",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/arcane-mage-ranged-dps-pve-guide",
+   "evidence": "\"your leveling pace is not determined by how hard your spells hit - it's determined by how much downtime you spend drinking.\"",
+   "level": null,
+   "spec": "Mage"
+  },
+  {
+   "claim": "Food and drink are still out-of-combat only; food buffs need 10 seconds of eating and last about 15 minutes; most foods give Well Fed XP Boost (+5% kill XP).",
+   "category": "leveling",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/cooking",
+   "evidence": "\"Most foods in WoW Forever also grant Well Fed XP Boost, increasing experience gained from kills by 5%\"",
+   "level": null,
+   "spec": "any"
+  },
+  {
+   "claim": "Wands and Auto Shot require standing still for 0.5 seconds before firing, and wands no longer gain damage from Spell Damage.",
+   "category": "rotation",
+   "status": "confirmed-official",
+   "sourceUrl": "https://us.forums.blizzard.com/en/wow/t/wow-forever-beta-development-notes-%E2%80%93-updated-october-15/2360696",
+   "evidence": "\"Wands now require you to stand still for 0.5 seconds before shooting\"; Sept 24: \"Wands no longer gain any additional damage from the user's spell damage.\"",
+   "level": null,
+   "spec": "any"
+  },
+  {
+   "claim": "Camping: players sitting or crafting at a campsite for 1 minute get its features' benefits for 1 hour; a Basic Campfire holds up to 3 features, one per contributing player, and upgraded fires hold 5 or 10.",
+   "category": "utility",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301516",
+   "evidence": "\"Players sitting or crafting at a campsite for at least 1 minute will gain the benefits from other camp features.\"",
+   "level": null,
+   "spec": "any"
+  },
+  {
+   "claim": "Camp buffs are mutually exclusive with the matching class buffs, and a cast class buff overwrites the camp buff.",
+   "category": "utility",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301516",
+   "evidence": "\"These effects are variants of buffs normally provided by specific classes and are exclusive with them.\"",
+   "level": null,
+   "spec": "any"
+  },
+  {
+   "claim": "Camping is introduced around level 5 by the quest The Great Outdoors; camps work in most outdoor areas but not in major cities, dungeons or raids.",
+   "category": "utility",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/camping",
+   "evidence": "\"Around Level 5, players receive a quest called The Great Outdoors\"; \"any outdoor world areas, besides major cities.\"",
+   "level": 5,
+   "spec": "any"
+  },
+  {
+   "claim": "While waiting for a campfire buff, players can buff each other, cast and craft, and the buff works while sitting, in a chair, sleeping, lying down or kneeling.",
+   "category": "utility",
+   "status": "confirmed-official",
+   "sourceUrl": "https://us.forums.blizzard.com/en/wow/t/wow-forever-beta-development-notes-%E2%80%93-updated-october-15/2360696",
+   "evidence": "\"Players may now buff each other, cast, and craft while waiting for their Campfire buffs.\"",
+   "level": null,
+   "spec": "any"
+  },
+  {
+   "claim": "No reviewed source says campfires or the sleeping bag make eating or drinking faster. The only regen-related camp benefits are the Mana Well (10-29 mana per 5 sec) and Spirit/Intellect buffs.",
+   "category": "resource",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/camping",
+   "evidence": "Camping feature list covers stat buffs, rested XP, vendors and stations; nothing about food or drink speed. Icy Veins notes the 1-minute pause suits a bathroom break.",
+   "level": null,
+   "spec": "any"
+  },
+  {
+   "claim": "Cozy Sleeping Bag: 1-hour cooldown; stand in it 1 minute for Well Rested (+1% XP for 2 hours, stacks to 3%); lasts through death and party members can use it.",
+   "category": "leveling",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/sleeping-bag",
+   "evidence": "\"increasing all experience gains by 1% for 2 hours. The Well Rested buff stacks up to three times\"",
+   "level": null,
+   "spec": "any"
+  },
+  {
+   "claim": "Camp Tent (Leatherworking 20) adds Rested experience equal to 5% of a level.",
+   "category": "leveling",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301516",
+   "evidence": "Camp Tent: increase Rested experience by 5% of a level; no effect if Rested already exceeds that.",
+   "level": null,
+   "spec": "any"
+  },
+  {
+   "claim": "Rested XP accrues in inns, cities and on the Cozy Sleeping Bag (5% of a level per 8 hours, cap 150%); total XP to 60 is 4,084,700.",
+   "category": "leveling",
+   "status": "speculative",
+   "sourceUrl": "https://www.warcrafttavern.com/forever/guides/experience/",
+   "evidence": "Warcraft Tavern experience guide (undated, from an earlier-pass WebFetch summary). Matches Classic values; not confirmed for Forever.",
+   "level": null,
+   "spec": "any"
+  },
+  {
+   "claim": "Dungeon XP was retuned in beta: dungeon quests give 50% less extra XP, dungeon mob XP is about 20% higher, and the party XP calculation reverted to Classic Era.",
+   "category": "dungeon",
+   "status": "confirmed-official",
+   "sourceUrl": "https://us.forums.blizzard.com/en/wow/t/wow-forever-beta-development-notes-%E2%80%93-updated-october-15/2360696",
+   "evidence": "\"Dungeon quests now reward 50% less extra experience\"; \"experience earned from killing creatures in dungeons has been increased by approximately 20%.\"",
+   "level": null,
+   "spec": "any"
+  },
+  {
+   "claim": "First riding (Apprentice) at level 40 for about 100 gold at 60% speed; Journeyman at 60 for 1,000 gold plus 200-gold epic mounts at 100%. No official confirmation found.",
+   "category": "leveling",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.method.gg/wow-forever/how-to-get-a-mount-in-wow-forever-cost-requirement-and-mount-options",
+   "evidence": "\"Your first mount in World of Warcraft Forever is available at level 40\"; \"Apprentice Riding at level 40 costs 100 gold.\"",
+   "level": 40,
+   "spec": "any"
+  },
+  {
+   "claim": "There are no flying mounts in WoW Forever.",
+   "category": "utility",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/skyborne",
+   "evidence": "Icy Veins Skyborne guide FAQ: \"there are no flying mounts in WoW Forever.\" (earlier-pass raw file)",
+   "level": null,
+   "spec": "any"
+  },
+  {
+   "claim": "Nine new five-player dungeons span levels 13-60: Hall of Thanes, Ruins of Lordaeron, Excavation Site: Wetlands, City of Dalaran, The Drowned City, Krol'dok Stronghold, Alcaz Island Prison, Blackmaw Hold, Shaper's Terrace.",
+   "category": "dungeon",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301455",
+   "evidence": "\"Introducing nine new five-player dungeons for adventurers from level 13 through level 60.\"",
+   "level": null,
+   "spec": "any"
+  },
+  {
+   "claim": "There are 35 dungeons across 28 instances, levels 13 to 60, including all Classic dungeons.",
+   "category": "dungeon",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/dungeons-overview",
+   "evidence": "\"a total of 35 different dungeons, spread across 28 different instances. These dungeons range from Level 13 to Level 60\"",
+   "level": null,
+   "spec": "any"
+  },
+  {
+   "claim": "Grouping uses a Classic-style Looking for Group listing tool (playstyle tags: Learning, Relaxed, Competitive, Carry Offered), with no Dungeon Finder teleport or Summoning Stones.",
+   "category": "dungeon",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.warcrafttavern.com/forever/guides/dungeons/",
+   "evidence": "Warcraft Tavern dungeons hub (earlier-pass summary): \"Players will have to travel the world the old-fashioned way\"",
+   "level": null,
+   "spec": "any"
+  },
+  {
+   "claim": "Launch raids unlock December 9 at level 60: Barrow Deeps (10 players, 8 bosses), Hyjal Summit (20 players, 13 bosses), Onyxia's Lair (40 players). All reset weekly.",
+   "category": "raid",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24303009",
+   "evidence": "\"On December 9, level 60 players can put their preparation, teamwork ... to the test in three raids\"",
+   "level": 60,
+   "spec": "any"
+  },
+  {
+   "claim": "Onyxia's Lair requires the Drakefire Amulet attunement (Alliance and Horde chains, final step from General Drakkisath in UBRS).",
+   "category": "raid",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24303009",
+   "evidence": "Raid overview lists the Drakefire Amulet attunement chains for each faction (earlier-pass summary).",
+   "level": 60,
+   "spec": "any"
+  },
+  {
+   "claim": "Raids have no Heroic/Mythic and no flex scaling, tier pieces drop in all three sizes, and world buffs are stripped inside raids.",
+   "category": "raid",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/raid-overview",
+   "evidence": "\"if you have 21 players around for a Hyjal Summit run, one will need to sit out\"; world buffs \"stripped from you in raids.\"",
+   "level": 60,
+   "spec": "any"
+  },
+  {
+   "claim": "Many group buffs are now raid-wide, including Trueshot Aura, Battle Shout, Moonkin Aura, Leader of the Pack and several Shaman totems.",
+   "category": "raid",
+   "status": "confirmed-official",
+   "sourceUrl": "https://us.forums.blizzard.com/en/wow/t/wow-forever-beta-development-notes-%E2%80%93-updated-october-15/2360696",
+   "evidence": "Oct 15 notes: \"Trueshot Aura is now Raid wide.\" \"Battle Shout is now Raid wide.\"",
+   "level": null,
+   "spec": "any"
+  },
+  {
+   "claim": "Battlegrounds: Warsong Gulch (10-60, 10v10), Arathi Basin (20-60, 15v15), new Darkspear Islands (30-60, 15v15), Alterac Valley (51-60, 40v40). No Arena.",
+   "category": "pvp",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/pvp-overview",
+   "evidence": "BG table with level ranges and sizes; FAQ \"Is there Arena in Forever? No.\"",
+   "level": 10,
+   "spec": "any"
+  },
+  {
+   "claim": "Darkspear Islands is a 15v15 capture-point plus flag battleground for levels 30-60, off Dustwallow Marsh; first team to 2000 points wins.",
+   "category": "pvp",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24307308",
+   "evidence": "\"15v15 Capture Point with a Flag Capture Battleground\"; \"Player Levels: 30-60\"",
+   "level": 30,
+   "spec": "any"
+  },
+  {
+   "claim": "PvP ranks are seasonal and personal (no competition with other players, no decay), with a weekly cap. Honor buys a blue and an epic set, and season journey tasks can grant Legacy Points.",
+   "category": "pvp",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24303316",
+   "evidence": "\"Ranks have a weekly cap\"; Rank Points from battlegrounds and PvP quests (earlier-pass summary).",
+   "level": null,
+   "spec": "any"
+  },
+  {
+   "claim": "Datamined weekly maximum ranks mean reaching Rank 14 takes at least 10 weeks, which limits how much time PvP ranking needs.",
+   "category": "pvp",
+   "status": "beta-observation",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/pvp-rank-system",
+   "evidence": "\"It will be a 10+ week journey to reach the max PvP rank. This effectively caps the amount of time\"",
+   "level": null,
+   "spec": "any"
+  },
+  {
+   "claim": "The Honor cap was raised from 15,000 to 25,000, and Honor gear costs rose about 50%.",
+   "category": "pvp",
+   "status": "confirmed-official",
+   "sourceUrl": "https://us.forums.blizzard.com/en/wow/t/wow-forever-beta-development-notes-%E2%80%93-updated-october-15/2360696",
+   "evidence": "\"The Honor cap has been increased from 15,000 to 25,000\"",
+   "level": null,
+   "spec": "any"
+  },
+  {
+   "claim": "World PvP requires manual /pvp flagging on Normal, RP and Hardcore rulesets; the PvP ruleset auto-flags in contested zones, which is most zones above level 15.",
+   "category": "pvp",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/pvp-overview",
+   "evidence": "\"In general, any zone above Level 15 is considered a Contested Zone.\"",
+   "level": 15,
+   "spec": "any"
+  },
+  {
+   "claim": "Realms are replaced by region-wide mega-server rulesets: Normal, PvP, RP, RP-PvP, plus Hardcore after launch. The PvP ruleset allows one faction per account, there is no free ruleset switching, and battleground queues are cross-ruleset.",
+   "category": "general",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24302070",
+   "evidence": "Choose Your Ruleset (updated 10/22), earlier-pass summary. Cross-ruleset BG queues per Icy Veins PvP overview.",
+   "level": null,
+   "spec": "any"
+  },
+  {
+   "claim": "Skyborne is a new neutral elf race (High Order for Alliance, Windshaper for Horde) unlocked by the Skyborne Heroic Pack or higher, with its own starting zone, Zephras Isle (levels 1-12).",
+   "category": "general",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/skyborne",
+   "evidence": "\"The Skyborne race is unlocked behind the Skyborne Heroic Pack or higher\"",
+   "level": null,
+   "spec": "any"
+  },
+  {
+   "claim": "Skyborne classes: Druid, Hunter, Mage (Alliance only), Rogue, Shaman (Horde only), Warrior. Skyborne cannot be Priest.",
+   "category": "general",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/race-guide",
+   "evidence": "\"Druid Hunter Mage (Alliance only) Rogue Shaman (Horde only) Warrior\"",
+   "level": null,
+   "spec": "any"
+  },
+  {
+   "claim": "Horde race options: Hunter (Orc, Tauren, Troll, Skyborne), Mage (Orc [new], Undead, Troll), Priest (Undead, Troll). Undead Hunter is still impossible; Undead Mage and Undead Priest are possible.",
+   "category": "general",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.warcrafttavern.com/forever/guides/race-class-combos/",
+   "evidence": "Warcraft Tavern: Horde Hunter Orc, Tauren, Troll, Skyborne; Horde Priest Troll, Undead. Icy Veins table: Undead Hunter = No.",
+   "level": null,
+   "spec": "any"
+  },
+  {
+   "claim": "Alliance race options: Hunter (Human [new], Dwarf, Night Elf, Skyborne), Mage (Human, Gnome, Skyborne), Priest (Human, Dwarf, Night Elf, Gnome [new]).",
+   "category": "general",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/race-guide",
+   "evidence": "\"Humans can now become Hunters ... Gnomes can now become Priests. Orcs can now become Mages.\"",
+   "level": null,
+   "spec": "any"
+  },
+  {
+   "claim": "No classes are faction-exclusive anymore (Horde Paladins, Alliance Shaman), and more race/class combos are planned for Spring 2027.",
+   "category": "general",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/all-class-guides",
+   "evidence": "\"unlike previous versions of the game, there are no faction-specific classes.\" Roadmap: Spring 2027 \"2 New Class and Race Combos\".",
+   "level": null,
+   "spec": "any"
+  },
+  {
+   "claim": "Each race now has four racials (two active, two passive); many were reworked in the Oct 15 build, e.g. weapon specializations replaced with crit bonuses.",
+   "category": "general",
+   "status": "confirmed-official",
+   "sourceUrl": "https://us.forums.blizzard.com/en/wow/t/wow-forever-beta-development-notes-%E2%80%93-updated-october-15/2360696",
+   "evidence": "Oct 15: \"Human: Sword Specialization replaced with Ruthless\"; Icy Veins: \"Each race now has access to four racials.\"",
+   "level": null,
+   "spec": "any"
+  },
+  {
+   "claim": "Priests have race-specific spells in Forever (e.g. Gnome Confounding Flash and Contingency Plan, Human Divine Grace, Night Elf Elune's Grace, Undead Dark Sacrifice), and Fear Ward and Devouring Plague are available to all Priests at level 20.",
+   "category": "ability",
+   "status": "confirmed-official",
+   "sourceUrl": "https://worldofwarcraft.blizzard.com/en-us/news/24301514",
+   "evidence": "Fear Ward and Devouring Plague \"now available to all Priests at level 20\" (earlier-pass summary of the Priest deep dive).",
+   "level": 20,
+   "spec": "Priest"
+  },
+  {
+   "claim": "Native gamepad support ships as 'Gamepad (Alpha)', with class flyouts (Hunter pet controls), Fixed Party Targeting, a swing timer reticle and edit mode.",
+   "category": "general",
+   "status": "confirmed-official",
+   "sourceUrl": "https://us.forums.blizzard.com/en/wow/t/wow-forever-beta-development-notes-%E2%80%93-updated-october-15/2360696",
+   "evidence": "\"Pet control and pet spell flyouts for Hunters and Warlocks\"; \"The pet bar no longer replaces the bottom gamepad action bar\"",
+   "level": null,
+   "spec": "any"
+  },
+  {
+   "claim": "Icy Veins calls Forever the first version of WoW with native controller support: 4 bars of 8 buttons (32 commands), bumpers cycle targets; some menus may still need a mouse.",
+   "category": "general",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/playing-with-controller",
+   "evidence": "\"World of Warcraft: Forever will be the first version of WoW to natively support gameplay with controllers\"",
+   "level": null,
+   "spec": "any"
+  },
+  {
+   "claim": "An optional Cooldown Manager (Options > Gameplay Enhancement) supports all classes, racials and trinkets; there is also an Auto Attack/Auto Shot auto-switch setting.",
+   "category": "general",
+   "status": "confirmed-official",
+   "sourceUrl": "https://us.forums.blizzard.com/en/wow/t/wow-forever-beta-development-notes-%E2%80%93-updated-october-15/2360696",
+   "evidence": "\"Cooldown Manager: All classes, racial abilities, and trinkets are now supported.\" Oct 15: Auto Attack/Auto Shot setting added.",
+   "level": null,
+   "spec": "any"
+  },
+  {
+   "claim": "Legacy: account-wide points from challenges (leveling each class to 25/45/60, professions, PvP, exploration, dungeons, raids). Up to 65 points can be earned at launch, but each character spends at most 16.",
+   "category": "general",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/legacy-system",
+   "evidence": "\"players can obtain up to 65 Legacy Points, they will be limited to spending 16 Legacy Points\"",
+   "level": null,
+   "spec": "any"
+  },
+  {
+   "claim": "Legacy perks that cut leveling time and downtime: Well Rested (faster rested XP), Talented (talents from level 5), Thrill of Adventure (health/mana on killing blows), Frequent Flier, Gourmand.",
+   "category": "leveling",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/legacy-system",
+   "evidence": "Thrill of Adventure: \"You gain 1/2/3/4/5% of your maximum Health and Mana over 10 seconds each time you deliver the killing blow\"",
+   "level": null,
+   "spec": "any"
+  },
+  {
+   "claim": "Blizzard markets Forever around playing at your own pace, with persistent progress.",
+   "category": "general",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.warcrafttavern.com/forever/guides/classes/",
+   "evidence": "Warcraft Tavern's announcement coverage quotes Blizzard: \"Take the long road. Play at your own pace, with progress that persists.\" (earlier-pass summary; the URL is the Warcraft Tavern Forever hub)",
+   "level": null,
+   "spec": "any"
+  },
+  {
+   "claim": "Mages keep conjured food/water and Teleports/Portals, which Icy Veins highlights as major time-saving quality-of-life tools.",
+   "category": "utility",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/choosing-your-main",
+   "evidence": "\"Conjured food and water save both time and money, while Teleports and Portals drastically reduce ... traveling\"",
+   "level": null,
+   "spec": "Mage"
+  },
+  {
+   "claim": "Icy Veins recommends Hunter for players who like to solo, calling it 'one of the easiest classes to recommend'.",
+   "category": "general",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/choosing-your-main",
+   "evidence": "\"having a very strong solo toolkit, Hunter remains one of the easiest classes to recommend.\"",
+   "level": null,
+   "spec": "Hunter"
+  },
+  {
+   "claim": "Icy Veins says healing Priests burn mana quickly and spell choice matters a lot; Shadow gives up much healing flexibility once in Shadowform.",
+   "category": "general",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/all-class-guides",
+   "evidence": "\"Healing Priests can burn through Mana quickly, making spell decisions matter greatly\"",
+   "level": null,
+   "spec": "Priest"
+  },
+  {
+   "claim": "In beta, critical strike is one shared stat (no separate melee and spell crit), and Haste was not found on any gear.",
+   "category": "general",
+   "status": "beta-observation",
+   "sourceUrl": "https://www.warcrafttavern.com/forever/guides/stats/",
+   "evidence": "\"Critical Strike chance is no longer exclusively found as either melee Critical Strike or spell Critical Strike.\" \"Haste is not available on any gear\"",
+   "level": null,
+   "spec": "any"
+  },
+  {
+   "claim": "Graphics can be toggled between SD (Classic 2004) and HD models at any time; transmog is opt-in.",
+   "category": "general",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/wow-forever-overview",
+   "evidence": "\"option to change your graphics between the Classic 2004 look, or the HD graphics\"",
+   "level": null,
+   "spec": "any"
+  },
+  {
+   "claim": "Roadmap: Hardcore servers in Winter 2026. Spring 2027 adds 2 raids (10 and 20), 2 dungeons, 2 race/class combos and a PvP season refresh; Summer 2027 adds a revamped iconic raid and a new raid.",
+   "category": "general",
+   "status": "reported-guide",
+   "sourceUrl": "https://www.icy-veins.com/wow-forever/roadmap",
+   "evidence": "Roadmap rows: \"Spring Major Updates | Spring 2027 | 2 New Raids (10-man and 20-man)...\"",
+   "level": null,
+   "spec": "any"
+  },
+  {
+   "claim": "Datamined Season 1 tier sets: Hunter 5-piece cuts Aimed Shot/Multi-Shot cooldown by 1 sec; Mage 5-piece buffs Frostfire Bolt procs; Priest healer 5-piece cuts Penance/Prayer of Mending cooldown by 1 sec.",
+   "category": "raid",
+   "status": "beta-observation",
+   "sourceUrl": "https://www.wowhead.com/forever/guide/season-1-tier-set-bonus-appearance-overview",
+   "evidence": "Wowhead: \"Information has been datamined and so may be subject to change.\"",
+   "level": 60,
+   "spec": "any"
+  }
+ ],
+ "levelingNotes": "Levels 1-10:\n- Camping is introduced around level 5 by the quest The Great Outdoors. A Basic Campfire comes with Cooking 1, and the first profession camp items appear at skill 20.\n- Talents start at level 10. The Legacy perk Talented can move this down to level 5, with the 51-point cap unchanged.\n- Warsong Gulch opens at 10.\n- Gnome, Human and Night Elf Priests get race spells at 10.\n- Skyborne start on Zephras Isle (levels 1-12).\n- Forever dungeons start at 13 (Ragefire Chasm, Hall of Thanes).\n\nLevels 10-30 (everything the beta tested):\n- All Hunters get Aimed Shot baseline at 20. All Priests get Fear Ward and Devouring Plague at 20. Mage city teleports come around 20 (Icy Veins Frost guide). Arathi Basin opens at 20.\n- Priests get Divine Spirit baseline at 30. Darkspear Islands opens at 30.\n- Every tree's 16-point milestone talent is reachable during this range.\n- In beta, Blizzard cut dungeon-quest bonus XP by 50% and raised dungeon mob XP by about 20%. Warcraft Tavern says repeating a dungeon after its questline gives much less XP.\n- Leveling guides agree that casters lose most of their time to drinking. The 5-second rule applies (Icy Veins). Talents that allow Spirit regen while casting (Arcane Meditation, Meditation, Bestial Discipline) were buffed.\n- Hunter guides say to keep attacking at low mana rather than drink.\n- Ways to cut downtime or speed up XP:\n  - Mana Well camp item: 10-29 mana every 5 seconds for 1 hour.\n  - Food: +5% kill XP from Well Fed.\n  - Cozy Sleeping Bag: up to +3% XP for 2 hours, lasts through death.\n  - Camp Tent: +5% of a level as rested XP.\n  - Legacy Thrill of Adventure: 1-5% health/mana per killing blow.\n  - Undead Cannibalize: 35% health and mana over time.\n- No source says camping makes eating or drinking faster; the camp pause works more like a planned one-minute break.\n\nLevel 40: Dual Specialization unlocks (official). Mage gets Frostfire Bolt (official). Shadowform is available around 40 (Icy Veins). The first mount (Apprentice Riding, about 100 gold, 60% speed) comes at 40 per fan guides only; there is no Blizzard statement, and the 30-cap beta could not show it.\n\nLevel 60:\n- Journeyman Riding (about 1,000 gold, 100%) per fan guides.\n- Raids unlock December 9; Onyxia needs the Drakefire Amulet.\n- Max-level dungeons include Blackmaw Hold and Shaper's Terrace.\n- Mount Hyjal is the new level-60 zone.\n- Progression is horizontal, so later tiers bring smaller power gains.\n\nPacing for a parent with short play sessions:\n- The Legacy Well Rested perk accelerates rested XP.\n- PvP rank weekly caps limit the PvP grind.\n- Raids have fixed sizes and weekly lockouts.\n- There is no Dungeon Finder and there are no Summoning Stones, so getting to dungeons takes travel time. Mage portals and Warlock summons help.",
+ "groupRoleNotes": "Group content:\n- Dungeons are five-player: 35 dungeons, 9 of them new. Groups form through a Classic-style LFG listing tool with playstyle tags; there is no automatic matchmaking or teleport.\n- Raids are fixed at 10, 20 or 40 players with no flex scaling. There are no difficulty modes, world buffs are stripped inside raids, and preparation (consumables, resistance gear, mob-type bonus items) is emphasized.\n- Many class buffs became raid-wide, for example Hunter Trueshot Aura.\n\nCamp buffs and class buffs:\n- Camp buffs are weaker, mutually exclusive copies of class buffs: Fortitude (First Aid Kit), Divine Spirit (Faction Banner), Arcane Intellect (Incense Candle), Blessing of Wisdom (Mana Well), Kings (Fish Bowl), Might (Lodestone) and Moonkin Aura (Camp Chair).\n- A real class buff overwrites the camp version, so Priest and Mage buffs stay valuable in groups.\n\nPriest group kit:\n- Power Word: Fortitude, plus Divine Spirit (now baseline at 30).\n- Fear Ward for every race at 20.\n- Dispels and Shackle Undead.\n- Two healing specs. Dual spec at 40 lets a Priest keep Shadow for questing and a healing spec for groups.\n\nMage group kit:\n- Arcane Intellect, conjured food and water, Portals and Teleports.\n- Crowd control and interrupts: Polymorph, Counterspell, Frost Nova.\n- Strong AoE.\n\nHunter group kit:\n- Traps (Fire and Frost traps now have separate cooldowns and work in combat), Trueshot Aura (raid-wide), tracking and pets.\n- Survival Hunter adds a melee option.\n\nRace notes for groups:\n- Horde Priests can only be Undead or Troll. Undead get Cannibalize and Dark Sacrifice; Trolls get Shadowguard and Hex of Weakness.\n- Gnome Priest (Alliance) is new.\n\nClasses and specs are described as balanced so that every spec is competitive, with tuning passes expected throughout the game's life.",
+ "pvpNotes": "PvP is open on every ruleset:\n- Normal, RP and Hardcore need manual /pvp flagging.\n- The PvP ruleset auto-flags you in contested zones (most zones above level 15), and an account can play only one faction there. Camps become risky on PvP rulesets.\n- Battleground queues are cross-ruleset, but you cannot group-queue with players from other rulesets.\n\nBattlegrounds:\n- Warsong Gulch: 10v10, levels 10-60, brackets by tens.\n- Arathi Basin: 15v15, levels 20-60.\n- Darkspear Islands (new): 15v15, levels 30-60, an Eye of the Storm-style mix of capture points and a flag, first to 2000 points. Its reputations are Darkspear Raiders and Theramore Expeditionary Force.\n- Alterac Valley: 40v40, levels 51-60, one bracket.\n- Winning gives 3 battleground marks and losing gives 1; marks stack to 30.\n- There is no Arena.\n\nRanking (official): a seasonal, personal Rank Point bar with no decay and no competition against other players. Ranks have a weekly cap; per datamining, Rank 14 needs at least 10 weeks. Ranks unlock tabards, cloaks, trinkets, elite cosmetic gear and Black War Mounts at Rank 11. Seasons last at least 10 weeks (Icy Veins estimates about 20), and progress resets between seasons.\n\nGear and currency: Honor buys a rare set (level 55) and epic upgrades through Emboldened Seals. The Honor cap is now 25,000, and gear costs rose about 50% in beta. PvP gear is described as close to PvE gear.\n\nCombat and racials: Critical strikes no longer have reduced effect in PvP (beta change). PvP-relevant racials include:\n- Will of the Forsaken (fear/charm break, not usable under Scatter Shot)\n- Human Will to Survive (stun break)\n- Gnome Escape Artist\n- Orc Hardiness and Shatter Curse\n- Night Elf Shadowmeld\n- Human Perception\n\nLegacy PvP challenges: ranks 3/7/10/13/14, Exalted with each battleground faction, and Field of Honor journey weeks 4/7/10.",
+ "openQuestions": [
+  "Riding and mount timing (level 40 Apprentice at about 100 gold, level 60 Journeyman at 1,000 gold) comes only from fan guides (Warcraft Tavern, method.gg); no Blizzard confirmation found, and the beta stopped at 30.",
+  "No official Blizzard text explicitly defines the 5-second rule for Forever. It is described by Icy Veins guides from beta play and an addon, and implied by official 'regeneration from Spirit while casting' talent wording. Exact Spirit-to-mana formulas are unknown.",
+  "No source says Camping or the Sleeping Bag reduce eat/drink time or speed up out-of-combat regen. Confirm on live whether any camp feature affects food/drink.",
+  "Skyborne racial conflict: the Icy Veins race guide lists 5 Skyborne racials and Read Ley Line at +10% regen. Another Icy Veins Skyborne page (earlier pass) says Read Ley Line is +100% regen and Alliance-only, and Skysight Horde-only. Exact faction split and values are uncertain.",
+  "Campfire upgrade skill levels conflict: the Icy Veins Camping page says Journeyman 90 and Expert 200 Cooking; the Icy Veins Cooking page says 140 and 220.",
+  "The beta end date varies by source: the Icy Veins roadmap says Oct 22, while Blizzard extended it one day to Oct 23.",
+  "Live respec cost: beta used a temporary 1 silver. lfcarry cites an interview saying the live cost climbs quickly and drops once per week (unverified).",
+  "Hardcore launch timing: the roadmap says Winter 2026, the Icy Veins realms page says early 2027, and Blizzard says sometime after launch.",
+  "Rested XP rules (5% per 8 hours, 150% cap) and whether the Cozy Sleeping Bag counts as a logout rested area come from Warcraft Tavern only (unverified).",
+  "Item stats for level 31-60 content, and dungeon guides above level 41, are not yet known; Blizzard hides item stats until first looted.",
+  "Tuning after the Oct 15 build (final beta build) may change for launch; deep dives warn abilities and talents 'may continue to evolve'.",
+  "The MassivelyOP pages were readable only through the in-app browser (WebFetch got HTTP 403). The Icy Veins beta-starts-at-level-20 article was seen only as a search title/snippet.",
+  "Official deep dives (24301515, 24301514, 24302097), PvP progression (24303316), ruleset (24302070), raid (24303009), dungeon (24301455) and camping (24301516) articles, and the Blizzard dev-notes forum thread, were read in an earlier pass of this workflow (see raw files), not re-fetched in this pass."
+ ],
+ "sources": [
+  {
+   "url": "https://www.icy-veins.com/wow-forever/wow-forever-overview",
+   "readOk": true,
+   "title": "Icy Veins - WoW Forever Overview (Oct 22, 2026)",
+   "kind": "reported-guide"
+  },
+  {
+   "url": "https://www.icy-veins.com/wow-forever/camping",
+   "readOk": true,
+   "title": "Icy Veins - Camping System Guide",
+   "kind": "reported-guide"
+  },
+  {
+   "url": "https://www.icy-veins.com/wow-forever/sleeping-bag",
+   "readOk": true,
+   "title": "Icy Veins - Cozy Sleeping Bag",
+   "kind": "reported-guide"
+  },
+  {
+   "url": "https://www.icy-veins.com/wow-forever/dungeons-overview",
+   "readOk": true,
+   "title": "Icy Veins - Dungeons Overview (Oct 24)",
+   "kind": "reported-guide"
+  },
+  {
+   "url": "https://www.icy-veins.com/wow-forever/raid-overview",
+   "readOk": true,
+   "title": "Icy Veins - Raid Overview (Oct 24)",
+   "kind": "reported-guide"
+  },
+  {
+   "url": "https://www.icy-veins.com/wow-forever/pvp-overview",
+   "readOk": true,
+   "title": "Icy Veins - PvP Overview",
+   "kind": "reported-guide"
+  },
+  {
+   "url": "https://www.icy-veins.com/wow-forever/choosing-your-main",
+   "readOk": true,
+   "title": "Icy Veins - Choosing Your Main (all 9 class tabs read from HTML)",
+   "kind": "reported-guide"
+  },
+  {
+   "url": "https://www.icy-veins.com/wow-forever/all-class-guides",
+   "readOk": true,
+   "title": "Icy Veins - All Class Guides",
+   "kind": "reported-guide"
+  },
+  {
+   "url": "https://www.icy-veins.com/wow-forever/race-guide",
+   "readOk": true,
+   "title": "Icy Veins - Race Guide (race/class table parsed from checkmark images)",
+   "kind": "reported-guide"
+  },
+  {
+   "url": "https://www.icy-veins.com/wow-forever/skyborne",
+   "readOk": true,
+   "title": "Icy Veins - Skyborne Race Guide",
+   "kind": "reported-guide"
+  },
+  {
+   "url": "https://www.icy-veins.com/wow-forever/legacy-system",
+   "readOk": true,
+   "title": "Icy Veins - Legacy System",
+   "kind": "reported-guide"
+  },
+  {
+   "url": "https://www.icy-veins.com/wow-forever/realms",
+   "readOk": true,
+   "title": "Icy Veins - Realms/Rulesets",
+   "kind": "reported-guide"
+  },
+  {
+   "url": "https://www.icy-veins.com/wow-forever/roadmap",
+   "readOk": true,
+   "title": "Icy Veins - Roadmap",
+   "kind": "reported-guide"
+  },
+  {
+   "url": "https://www.icy-veins.com/wow-forever/wow-forever-beta",
+   "readOk": true,
+   "title": "Icy Veins - Beta guide",
+   "kind": "reported-guide"
+  },
+  {
+   "url": "https://www.icy-veins.com/wow-forever/cooking",
+   "readOk": true,
+   "title": "Icy Veins - Cooking (food rules, Well Fed XP)",
+   "kind": "reported-guide"
+  },
+  {
+   "url": "https://www.icy-veins.com/wow-forever/shadow-priest-ranged-dps-pve-guide",
+   "readOk": true,
+   "title": "Icy Veins - Shadow Priest guide (5-second rule passage)",
+   "kind": "reported-guide"
+  },
+  {
+   "url": "https://www.icy-veins.com/wow-forever/holy-priest-healer-pve-guide",
+   "readOk": true,
+   "title": "Icy Veins - Holy Priest guide (5-second rule passage)",
+   "kind": "reported-guide"
+  },
+  {
+   "url": "https://www.icy-veins.com/wow-forever/news/the-wow-forever-beta-has-ended-a-thank-you-from-blizzard/",
+   "readOk": true,
+   "title": "Icy Veins news - Beta ended, Blizzard message quoted",
+   "kind": "official-quoted"
+  },
+  {
+   "url": "https://www.icy-veins.com/wow-forever/news/wow-forever-is-hiding-instance-portals-nobody-can-enter-yet/",
+   "readOk": true,
+   "title": "Icy Veins news - hidden instance portals (podcast quote)",
+   "kind": "reported-guide"
+  },
+  {
+   "url": "https://www.icy-veins.com/wow-forever/news/blizzard-just-gave-wow-forever-testers-a-stats-page-with-odd-surprises/",
+   "readOk": true,
+   "title": "Icy Veins news - beta Timewalking stats page (no game facts)",
+   "kind": "news"
+  },
+  {
+   "url": "https://www.icy-veins.com/wow/news/the-wow-forever-beta-starts-at-level-20-level-30-after-couple-of-weeks/",
+   "readOk": false,
+   "title": "Icy Veins news - beta starts at level 20 (search snippet only)",
+   "kind": "reported-guide"
+  },
+  {
+   "url": "https://worldofwarcraft.blizzard.com/en-us/news/24302093",
+   "readOk": true,
+   "title": "Blizzard - Carve a New Path with WoW: Forever (announcement)",
+   "kind": "official"
+  },
+  {
+   "url": "https://worldofwarcraft.blizzard.com/en-us/news/24301515",
+   "readOk": true,
+   "title": "Blizzard - Class Deep Dives: Hunter and Druid (read in earlier pass)",
+   "kind": "official"
+  },
+  {
+   "url": "https://worldofwarcraft.blizzard.com/en-us/news/24301514",
+   "readOk": true,
+   "title": "Blizzard - Class Deep Dives: Priest and Warrior (read in earlier pass)",
+   "kind": "official"
+  },
+  {
+   "url": "https://worldofwarcraft.blizzard.com/en-us/news/24302097",
+   "readOk": true,
+   "title": "Blizzard - Class Deep Dives: Mage and Shaman (read in earlier pass)",
+   "kind": "official"
+  },
+  {
+   "url": "https://worldofwarcraft.blizzard.com/en-us/news/24301516",
+   "readOk": true,
+   "title": "Blizzard - Gather Around the Campfire (read in earlier pass)",
+   "kind": "official"
+  },
+  {
+   "url": "https://worldofwarcraft.blizzard.com/en-us/news/24301455",
+   "readOk": true,
+   "title": "Blizzard - Explore the New Dungeons (read in earlier pass)",
+   "kind": "official"
+  },
+  {
+   "url": "https://worldofwarcraft.blizzard.com/en-us/news/24303009",
+   "readOk": true,
+   "title": "Blizzard - Raid Overview (read in earlier pass)",
+   "kind": "official"
+  },
+  {
+   "url": "https://worldofwarcraft.blizzard.com/en-us/news/24303316",
+   "readOk": true,
+   "title": "Blizzard - How PvP Progression Works (read in earlier pass)",
+   "kind": "official"
+  },
+  {
+   "url": "https://worldofwarcraft.blizzard.com/en-us/news/24307308",
+   "readOk": true,
+   "title": "Blizzard - Battle for the Darkspear Islands (read in earlier pass)",
+   "kind": "official"
+  },
+  {
+   "url": "https://worldofwarcraft.blizzard.com/en-us/news/24302070",
+   "readOk": true,
+   "title": "Blizzard - Choose Your Ruleset (read in earlier pass)",
+   "kind": "official"
+  },
+  {
+   "url": "https://us.forums.blizzard.com/en/wow/t/wow-forever-beta-development-notes-%E2%80%93-updated-october-15/2360696",
+   "readOk": true,
+   "title": "Blizzard forums - Beta Development Notes (Sep 24 - Oct 15 builds; read in earlier pass)",
+   "kind": "official"
+  },
+  {
+   "url": "https://www.warcrafttavern.com/forever/news/wow-forever-beta-update-bug-fixes-class-changes-gamepad-support/",
+   "readOk": true,
+   "title": "Warcraft Tavern - Beta update (Sep 24 notes)",
+   "kind": "reported-guide"
+  },
+  {
+   "url": "https://www.warcrafttavern.com/forever/guides/classes/",
+   "readOk": true,
+   "title": "Warcraft Tavern - Forever classes/guides index",
+   "kind": "reported-guide"
+  },
+  {
+   "url": "https://www.warcrafttavern.com/forever/guides/race-class-combos/",
+   "readOk": true,
+   "title": "Warcraft Tavern - Race Class Combos",
+   "kind": "reported-guide"
+  },
+  {
+   "url": "https://www.warcrafttavern.com/forever/guides/stats/",
+   "readOk": true,
+   "title": "Warcraft Tavern - Stats & Attributes",
+   "kind": "reported-guide"
+  },
+  {
+   "url": "https://www.warcrafttavern.com/forever/guides/riding/",
+   "readOk": true,
+   "title": "Warcraft Tavern - Riding",
+   "kind": "reported-guide"
+  },
+  {
+   "url": "https://www.warcrafttavern.com/forever/news/level-cap-increasing-to-30-tomorrow-in-the-wow-forever-beta/",
+   "readOk": true,
+   "title": "Warcraft Tavern - Level cap increasing to 30",
+   "kind": "reported-guide"
+  },
+  {
+   "url": "https://www.method.gg/wow-forever/how-to-get-a-mount-in-wow-forever-cost-requirement-and-mount-options",
+   "readOk": true,
+   "title": "method.gg - How to get a mount in WoW Forever (Oct 21)",
+   "kind": "reported-guide"
+  },
+  {
+   "url": "https://massivelyop.com/2026/10/17/world-of-warcraft-forever-beta-patch-makes-sweeping-changes-to-racials-and-classes/",
+   "readOk": true,
+   "title": "MassivelyOP - Beta patch racials/classes (read via in-app browser; WebFetch 403)",
+   "kind": "news"
+  },
+  {
+   "url": "https://massivelyop.com/2026/10/09/world-of-warcraft-forever-beta-continues-to-adjust-dungeon-xp-and-bans-over-4k-accounts-for-rmt/",
+   "readOk": true,
+   "title": "MassivelyOP - Beta dungeon XP and RMT bans",
+   "kind": "news"
+  },
+  {
+   "url": "https://powerupgaming.co.uk/2026/09/14/new-wow-forever-talents-changes-vs-classic-guide/",
+   "readOk": false,
+   "title": "Power Up Gaming - talent changes vs Classic (search snippet / earlier pass only; low reliability)",
+   "kind": "content-farm"
+  },
+  {
+   "url": "https://www.curseforge.com/wow/addons/full-mana-forever",
+   "readOk": false,
+   "title": "CurseForge - Full Mana Forever addon (search snippet / earlier pass)",
+   "kind": "beta-observation"
+  },
+  {
+   "url": "https://www.wowhead.com/forever/guide/season-1-tier-set-bonus-appearance-overview",
+   "readOk": true,
+   "title": "Wowhead - Season 1 tier sets (datamined; read in earlier pass)",
+   "kind": "datamining"
+  }
+ ],
+ "rawFilesWritten": [
+  "C:/Users/thoma/OneDrive/Documents/projects/azeroth-class-trials/research/raw/global-verification-pass-2026-10-25.txt",
+  "C:/Users/thoma/OneDrive/Documents/projects/azeroth-class-trials/research/raw/global-blizzard-beta-devnotes.txt (earlier pass, consulted)",
+  "C:/Users/thoma/OneDrive/Documents/projects/azeroth-class-trials/research/raw/global-blizzard-official-news-2026-10-25.txt (earlier pass, consulted)",
+  "C:/Users/thoma/OneDrive/Documents/projects/azeroth-class-trials/research/raw/global-talent-system-mana-mounts-misc.txt (earlier pass, consulted)",
+  "C:/Users/thoma/OneDrive/Documents/projects/azeroth-class-trials/research/raw/global-downtime-camping-thirdparty-2026-10-25.txt (earlier pass, consulted)",
+  "C:/Users/thoma/OneDrive/Documents/projects/azeroth-class-trials/research/raw/global-camping-sleepingbag-legacy.txt (earlier pass, consulted)",
+  "C:/Users/thoma/OneDrive/Documents/projects/azeroth-class-trials/research/raw/global-dungeons-raids-pvp.txt (earlier pass, consulted)",
+  "C:/Users/thoma/OneDrive/Documents/projects/azeroth-class-trials/research/raw/global-icyveins-overview-roadmap-realms.txt (earlier pass, consulted)",
+  "C:/Users/thoma/OneDrive/Documents/projects/azeroth-class-trials/research/raw/global-icyveins-races-pvp-legacy-2026-10-25.txt (earlier pass, consulted)",
+  "C:/Users/thoma/OneDrive/Documents/projects/azeroth-class-trials/research/raw/global-icyveins-choosing-main-races.txt (earlier pass, consulted)"
+ ]
+}

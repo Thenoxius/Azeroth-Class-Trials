@@ -1,0 +1,2255 @@
+{
+  "source": "Wowhead Forever spellbook diff, https://www.wowhead.com/forever/changes/spellbook/{hunter,mage,priest,warrior,rogue,warlock,shaman} (embedded WH.Wow.Spellbook JSON; talents from /changes/talents/{class})",
+  "build": "1.60.1.70630 (live client data)",
+  "read": "2026-10-27",
+  "status": "beta-observation: datamined from the client, not announced by Blizzard; values can still change after launch",
+  "how": "For each level snapshot (10, 30, 60) the highest rank learnable at or below that level. 'kit' holds the fields as the kit stores them (per-tick values = total / ticks; mana costs given as a share of base mana are converted with Classic base mana). tests/ranks.test.mjs checks the kits against this file.",
+  "ranks": {
+    "hunter.serpent": {
+      "spell": "Serpent Sting",
+      "10": {
+        "rank": 2,
+        "level": 10,
+        "text": "30 Nature over 15 s, 30 mana",
+        "kit": {
+          "tick": 6,
+          "mana": 30
+        }
+      },
+      "30": {
+        "rank": 4,
+        "level": 26,
+        "text": "110 over 15 s, 80 mana",
+        "kit": {
+          "tick": 22,
+          "mana": 80
+        }
+      },
+      "60": {
+        "rank": 9,
+        "level": 60,
+        "text": "555 over 15 s, 250 mana",
+        "kit": {
+          "tick": 111,
+          "mana": 250
+        }
+      }
+    },
+    "hunter.arcane": {
+      "spell": "Arcane Shot",
+      "10": {
+        "rank": 1,
+        "level": 6,
+        "text": "20 Arcane, 25 mana",
+        "kit": {
+          "dmg": [
+            20,
+            20
+          ],
+          "mana": 25
+        }
+      },
+      "30": {
+        "rank": 4,
+        "level": 28,
+        "text": "65 Arcane, 80 mana",
+        "kit": {
+          "dmg": [
+            65,
+            65
+          ],
+          "mana": 80
+        }
+      },
+      "60": {
+        "rank": 8,
+        "level": 60,
+        "text": "217 Arcane, 190 mana",
+        "kit": {
+          "dmg": [
+            217,
+            217
+          ],
+          "mana": 190
+        }
+      }
+    },
+    "hunter.mark": {
+      "spell": "Hunter's Mark",
+      "10": {
+        "rank": 1,
+        "level": 6,
+        "text": "+26 ranged attack power, 15 mana",
+        "kit": {
+          "markRap": 26,
+          "mana": 15
+        }
+      },
+      "30": {
+        "rank": 2,
+        "level": 22,
+        "text": "+59, 30 mana",
+        "kit": {
+          "markRap": 59,
+          "mana": 30
+        }
+      },
+      "60": {
+        "rank": 4,
+        "level": 58,
+        "text": "+143, 60 mana",
+        "kit": {
+          "markRap": 143,
+          "mana": 60
+        }
+      }
+    },
+    "hunter.raptor": {
+      "spell": "Raptor Strike",
+      "10": {
+        "rank": 2,
+        "level": 8,
+        "text": "weapon + 11, 25 mana",
+        "kit": {
+          "dmg": [
+            11,
+            11
+          ],
+          "mana": 25
+        }
+      },
+      "30": {
+        "rank": 4,
+        "level": 24,
+        "text": "weapon + 30, 45 mana",
+        "kit": {
+          "dmg": [
+            30,
+            30
+          ],
+          "mana": 45
+        }
+      },
+      "60": {
+        "rank": 8,
+        "level": 56,
+        "text": "weapon + 70, 100 mana",
+        "kit": {
+          "dmg": [
+            70,
+            70
+          ],
+          "mana": 100
+        }
+      }
+    },
+    "hunter.wingclip": {
+      "spell": "Wing Clip",
+      "30": {
+        "rank": 1,
+        "level": 12,
+        "text": "5 damage, 50 % slow, 40 mana",
+        "kit": {
+          "dmg": [
+            5,
+            5
+          ],
+          "mana": 40,
+          "slow": 0.5
+        }
+      },
+      "60": {
+        "rank": 3,
+        "level": 60,
+        "text": "50 damage, 60 % slow, 80 mana",
+        "kit": {
+          "dmg": [
+            50,
+            50
+          ],
+          "mana": 80,
+          "slow": 0.6
+        }
+      }
+    },
+    "hunter.mongoose": {
+      "spell": "Mongoose Bite",
+      "30": {
+        "rank": 2,
+        "level": 30,
+        "text": "weapon + 22, 40 mana",
+        "kit": {
+          "dmg": [
+            22,
+            22
+          ],
+          "mana": 40
+        }
+      },
+      "60": {
+        "rank": 4,
+        "level": 58,
+        "text": "weapon + 57, 65 mana",
+        "kit": {
+          "dmg": [
+            57,
+            57
+          ],
+          "mana": 65
+        }
+      }
+    },
+    "hunter.multishot": {
+      "spell": "Multi-Shot",
+      "30": {
+        "rank": 2,
+        "level": 30,
+        "text": "3 targets, +40, 140 mana, 10 s cd",
+        "kit": {
+          "dmg": [
+            40,
+            40
+          ],
+          "mana": 140
+        }
+      },
+      "60": {
+        "rank": 5,
+        "level": 60,
+        "text": "+150, 230 mana",
+        "kit": {
+          "dmg": [
+            150,
+            150
+          ],
+          "mana": 230
+        }
+      }
+    },
+    "hunter.aimed": {
+      "spell": "Aimed Shot",
+      "30": {
+        "rank": 2,
+        "level": 28,
+        "text": "2 s cast, ranged damage + 34, 115 mana",
+        "kit": {
+          "dmg": [
+            34,
+            34
+          ],
+          "mana": 115
+        }
+      },
+      "60": {
+        "rank": 6,
+        "level": 60,
+        "text": "+166, 310 mana",
+        "kit": {
+          "dmg": [
+            166,
+            166
+          ],
+          "mana": 310
+        }
+      }
+    },
+    "hunter.immotrap": {
+      "spell": "Immolation Trap",
+      "30": {
+        "rank": 2,
+        "level": 26,
+        "text": "215 Fire over 15 s, 90 mana",
+        "kit": {
+          "tick": 43,
+          "mana": 90
+        }
+      },
+      "60": {
+        "rank": 5,
+        "level": 56,
+        "text": "690 over 15 s, 245 mana",
+        "kit": {
+          "tick": 138,
+          "mana": 245
+        }
+      }
+    },
+    "hunter.explosivetrap": {
+      "spell": "Explosive Trap",
+      "60": {
+        "rank": 3,
+        "level": 54,
+        "text": "208-264 Fire + 330 over 20 s, 520 mana",
+        "kit": {
+          "dmg": [
+            208,
+            264
+          ],
+          "tick": 33,
+          "mana": 520
+        }
+      }
+    },
+    "hunter.mendpet": {
+      "spell": "Mend Pet",
+      "30": {
+        "rank": 3,
+        "level": 28,
+        "text": "68 per second for 5 s, 155 mana",
+        "kit": {
+          "heal": 68,
+          "mana": 155
+        }
+      },
+      "60": {
+        "rank": 7,
+        "level": 60,
+        "text": "245 per second, 480 mana",
+        "kit": {
+          "heal": 245,
+          "mana": 480
+        }
+      }
+    },
+    "hunter.hawk": {
+      "spell": "Summon Hawk",
+      "30": {
+        "rank": 1,
+        "level": 25,
+        "text": "32 + RAP x 0.05 Physical, 80 mana",
+        "kit": {
+          "dmg": [
+            32,
+            32
+          ],
+          "mana": 80
+        }
+      },
+      "60": {
+        "rank": 4,
+        "level": 60,
+        "text": "108 + RAP x 0.05, 190 mana",
+        "kit": {
+          "dmg": [
+            108,
+            108
+          ],
+          "mana": 190
+        }
+      }
+    },
+    "hunter.sniper": {
+      "spell": "Sniper Shot",
+      "60": {
+        "rank": 3,
+        "level": 58,
+        "text": "4 s cast, ranged damage + 295, 365 mana",
+        "kit": {
+          "dmg": [
+            295,
+            295
+          ],
+          "mana": 365
+        }
+      }
+    },
+    "hunter.volley": {
+      "spell": "Volley",
+      "60": {
+        "rank": 3,
+        "level": 58,
+        "text": "112 Arcane per second for 6 s, 490 mana",
+        "kit": {
+          "tick": [
+            112,
+            112
+          ],
+          "mana": 490
+        }
+      }
+    },
+    "hunter.counter": {
+      "spell": "Counterattack",
+      "30": {
+        "rank": 2,
+        "level": 30,
+        "text": "50 % weapon + 40, 45 mana",
+        "kit": {
+          "dmg": [
+            40,
+            40
+          ],
+          "mana": 45
+        }
+      },
+      "60": {
+        "rank": 4,
+        "level": 54,
+        "text": "50 % weapon + 110, 85 mana",
+        "kit": {
+          "dmg": [
+            110,
+            110
+          ],
+          "mana": 85
+        }
+      }
+    },
+    "hunter.tranq": {
+      "spell": "Tranquilizing Shot",
+      "60": {
+        "rank": 0,
+        "level": 60,
+        "text": "removes 1 Frenzy, 270 mana, 20 s cd",
+        "kit": {
+          "mana": 270
+        }
+      }
+    },
+    "mage.frostbolt": {
+      "spell": "Frostbolt",
+      "10": {
+        "rank": 2,
+        "level": 8,
+        "text": "28.4-32.0 Frost, 40 % slow 6 s, 1.8 s, 35 mana",
+        "kit": {
+          "dmg": [
+            28,
+            32
+          ],
+          "mana": 35,
+          "ct": 1.8
+        }
+      },
+      "30": {
+        "rank": 5,
+        "level": 26,
+        "text": "104.5-113.9, 7 s, 3 s, 100 mana",
+        "kit": {
+          "dmg": [
+            104,
+            114
+          ],
+          "mana": 100,
+          "ct": 3
+        }
+      },
+      "60": {
+        "rank": 11,
+        "level": 60,
+        "text": "470.0-505.6, 9 s, 290 mana",
+        "kit": {
+          "dmg": [
+            470,
+            506
+          ],
+          "mana": 290,
+          "ct": 3
+        }
+      }
+    },
+    "mage.frostblast": {
+      "spell": "Frost Blast",
+      "30": {
+        "rank": 1,
+        "level": 24,
+        "text": "28-31 Frost, 1.5 s, 40 mana",
+        "kit": {
+          "dmg": [
+            28,
+            31
+          ],
+          "mana": 40
+        }
+      },
+      "60": {
+        "rank": 3,
+        "level": 48,
+        "text": "80-88, 90 mana",
+        "kit": {
+          "dmg": [
+            80,
+            88
+          ],
+          "mana": 90
+        }
+      }
+    },
+    "mage.fireball": {
+      "spell": "Fireball",
+      "10": {
+        "rank": 2,
+        "level": 6,
+        "text": "27-39 Fire + 3 over 6 s, 2 s, 45 mana",
+        "kit": {
+          "dmg": [
+            27,
+            39
+          ],
+          "mana": 45
+        }
+      },
+      "30": {
+        "rank": 6,
+        "level": 30,
+        "text": "138-182 + 24 over 8 s, 3.5 s, 185 mana",
+        "kit": {
+          "dmg": [
+            138,
+            182
+          ],
+          "mana": 185,
+          "dotTick": 6
+        }
+      },
+      "60": {
+        "rank": 12,
+        "level": 60,
+        "text": "437-553 + 60 over 8 s, 410 mana",
+        "kit": {
+          "dmg": [
+            437,
+            553
+          ],
+          "mana": 410,
+          "dotTick": 15
+        }
+      }
+    },
+    "mage.fireblast": {
+      "spell": "Fire Blast",
+      "10": {
+        "rank": 1,
+        "level": 6,
+        "text": "27-35 Fire, 40 mana",
+        "kit": {
+          "dmg": [
+            27,
+            35
+          ],
+          "mana": 40
+        }
+      },
+      "30": {
+        "rank": 4,
+        "level": 30,
+        "text": "157-187, 165 mana",
+        "kit": {
+          "dmg": [
+            157,
+            187
+          ],
+          "mana": 165
+        }
+      },
+      "60": {
+        "rank": 7,
+        "level": 54,
+        "text": "417-489, 340 mana",
+        "kit": {
+          "dmg": [
+            417,
+            489
+          ],
+          "mana": 340
+        }
+      }
+    },
+    "mage.missiles": {
+      "spell": "Arcane Missiles",
+      "10": {
+        "rank": 1,
+        "level": 8,
+        "text": "25 per second for 3 s, 85 mana",
+        "kit": {
+          "per": [
+            25,
+            25
+          ],
+          "mana": 85
+        }
+      },
+      "30": {
+        "rank": 3,
+        "level": 24,
+        "text": "49 per second for 5 s, 235 mana",
+        "kit": {
+          "per": [
+            49,
+            49
+          ],
+          "mana": 235
+        }
+      },
+      "60": {
+        "rank": 8,
+        "level": 56,
+        "text": "213 per second, 655 mana",
+        "kit": {
+          "per": [
+            213,
+            213
+          ],
+          "mana": 655
+        }
+      }
+    },
+    "mage.nova": {
+      "spell": "Frost Nova",
+      "10": {
+        "rank": 1,
+        "level": 10,
+        "text": "21.5-23.5, 55 mana",
+        "kit": {
+          "dmg": [
+            22,
+            24
+          ],
+          "mana": 55
+        }
+      },
+      "30": {
+        "rank": 2,
+        "level": 26,
+        "text": "34.6-38.4, 85 mana",
+        "kit": {
+          "dmg": [
+            35,
+            38
+          ],
+          "mana": 85
+        }
+      },
+      "60": {
+        "rank": 4,
+        "level": 54,
+        "text": "71.6-79.4, 145 mana",
+        "kit": {
+          "dmg": [
+            72,
+            79
+          ],
+          "mana": 145
+        }
+      }
+    },
+    "mage.poly": {
+      "spell": "Polymorph",
+      "10": {
+        "rank": 1,
+        "level": 8,
+        "text": "20 s, 60 mana",
+        "kit": {
+          "mana": 60,
+          "dur": 20
+        }
+      },
+      "30": {
+        "rank": 2,
+        "level": 20,
+        "text": "30 s, 90 mana",
+        "kit": {
+          "mana": 90,
+          "dur": 30
+        }
+      },
+      "60": {
+        "rank": 4,
+        "level": 60,
+        "text": "50 s, 150 mana",
+        "kit": {
+          "mana": 150,
+          "dur": 50
+        }
+      }
+    },
+    "mage.ae": {
+      "spell": "Arcane Explosion",
+      "30": {
+        "rank": 3,
+        "level": 30,
+        "text": "95-102, 185 mana",
+        "kit": {
+          "dmg": [
+            95,
+            102
+          ],
+          "mana": 185
+        }
+      },
+      "60": {
+        "rank": 6,
+        "level": 54,
+        "text": "239-258, 390 mana",
+        "kit": {
+          "dmg": [
+            239,
+            258
+          ],
+          "mana": 390
+        }
+      }
+    },
+    "mage.cone": {
+      "spell": "Cone of Cold",
+      "30": {
+        "rank": 1,
+        "level": 26,
+        "text": "96.3-105.7, 210 mana",
+        "kit": {
+          "dmg": [
+            96,
+            106
+          ],
+          "mana": 210
+        }
+      },
+      "60": {
+        "rank": 5,
+        "level": 58,
+        "text": "332.9-362.1, 555 mana",
+        "kit": {
+          "dmg": [
+            333,
+            362
+          ],
+          "mana": 555
+        }
+      }
+    },
+    "mage.blizzard": {
+      "spell": "Blizzard",
+      "30": {
+        "rank": 2,
+        "level": 28,
+        "text": "344 Frost over 8 s, 520 mana",
+        "kit": {
+          "tick": [
+            43,
+            43
+          ],
+          "mana": 520
+        }
+      },
+      "60": {
+        "rank": 6,
+        "level": 60,
+        "text": "1184 over 8 s, 1400 mana",
+        "kit": {
+          "tick": [
+            148,
+            148
+          ],
+          "mana": 1400
+        }
+      }
+    },
+    "mage.flamestrike": {
+      "spell": "Flamestrike",
+      "30": {
+        "rank": 2,
+        "level": 24,
+        "text": "100-126 + 84 over 8 s, 330 mana",
+        "kit": {
+          "dmg": [
+            100,
+            126
+          ],
+          "burn": [
+            21,
+            21
+          ],
+          "mana": 330
+        }
+      },
+      "60": {
+        "rank": 6,
+        "level": 56,
+        "text": "384-468 + 332 over 8 s, 990 mana",
+        "kit": {
+          "dmg": [
+            384,
+            468
+          ],
+          "burn": [
+            83,
+            83
+          ],
+          "mana": 990
+        }
+      }
+    },
+    "mage.scorch": {
+      "spell": "Scorch",
+      "30": {
+        "rank": 2,
+        "level": 28,
+        "text": "54-64, 65 mana",
+        "kit": {
+          "dmg": [
+            54,
+            64
+          ],
+          "mana": 65
+        }
+      },
+      "60": {
+        "rank": 7,
+        "level": 58,
+        "text": "170-200, 150 mana",
+        "kit": {
+          "dmg": [
+            170,
+            200
+          ],
+          "mana": 150
+        }
+      }
+    },
+    "mage.pyro": {
+      "spell": "Pyroblast",
+      "30": {
+        "rank": 3,
+        "level": 30,
+        "text": "180-227 + 76 over 12 s, 195 mana",
+        "kit": {
+          "dmg": [
+            180,
+            227
+          ],
+          "mana": 195,
+          "dotTick": 19
+        }
+      },
+      "60": {
+        "rank": 8,
+        "level": 60,
+        "text": "547-674 + 212 over 12 s, 440 mana",
+        "kit": {
+          "dmg": [
+            547,
+            674
+          ],
+          "mana": 440,
+          "dotTick": 53
+        }
+      }
+    },
+    "mage.blastwave": {
+      "spell": "Blast Wave",
+      "30": {
+        "rank": 1,
+        "level": 30,
+        "text": "154-184 Fire (talent)",
+        "kit": {
+          "dmg": [
+            154,
+            184
+          ]
+        }
+      },
+      "60": {
+        "rank": 5,
+        "level": 60,
+        "text": "464-545, 545 mana",
+        "kit": {
+          "dmg": [
+            464,
+            545
+          ],
+          "mana": 545
+        }
+      }
+    },
+    "mage.ffb": {
+      "spell": "Frostfire Bolt",
+      "60": {
+        "rank": 3,
+        "level": 60,
+        "text": "286-331 + 57 over 9 s, 3 s, 370 mana",
+        "kit": {
+          "dmg": [
+            286,
+            331
+          ],
+          "mana": 370,
+          "dotTick": 19
+        }
+      }
+    },
+    "mage.icelance": {
+      "spell": "Ice Lance",
+      "30": {
+        "rank": 2,
+        "level": 28,
+        "text": "35-41, x3 vs Frozen, 55 mana",
+        "kit": {
+          "dmg": [
+            35,
+            41
+          ],
+          "mana": 55
+        }
+      },
+      "60": {
+        "rank": 6,
+        "level": 56,
+        "text": "140-164, 160 mana",
+        "kit": {
+          "dmg": [
+            140,
+            164
+          ],
+          "mana": 160
+        }
+      }
+    },
+    "mage.icebarrier": {
+      "spell": "Ice Barrier",
+      "60": {
+        "rank": 4,
+        "level": 58,
+        "text": "absorbs 835 + Frost SP x 0.1, 480 mana",
+        "kit": {
+          "absorb": 835,
+          "mana": 480
+        }
+      }
+    },
+    "mage.ablast": {
+      "spell": "Arcane Blast",
+      "30": {
+        "rank": 2,
+        "level": 30,
+        "text": "79-90 Arcane, 15 % of base mana (101)",
+        "kit": {
+          "dmg": [
+            79,
+            90
+          ],
+          "mana": 101
+        }
+      },
+      "60": {
+        "rank": 5,
+        "level": 60,
+        "text": "231-267, 15 % of base mana (191)",
+        "kit": {
+          "dmg": [
+            231,
+            267
+          ],
+          "mana": 191
+        }
+      }
+    },
+    "mage.awrath": {
+      "spell": "Arcane Wrath",
+      "30": {
+        "rank": 1,
+        "level": 30,
+        "text": "122-146 + 5 % of max mana as SP (talent)",
+        "kit": {
+          "dmg": [
+            122,
+            146
+          ]
+        }
+      },
+      "60": {
+        "rank": 4,
+        "level": 60,
+        "text": "439-529, 395 mana",
+        "kit": {
+          "dmg": [
+            439,
+            529
+          ],
+          "mana": 395
+        }
+      }
+    },
+    "mage.blink": {
+      "spell": "Blink",
+      "30": {
+        "rank": 0,
+        "level": 20,
+        "text": "35 % of base mana (236)",
+        "kit": {
+          "mana": 236
+        }
+      },
+      "60": {
+        "rank": 0,
+        "level": 20,
+        "text": "35 % of base mana (446)",
+        "kit": {
+          "mana": 446
+        }
+      }
+    },
+    "mage.counterspell": {
+      "spell": "Counterspell",
+      "30": {
+        "rank": 0,
+        "level": 24,
+        "text": "100 mana, 30 s cd, 10 s lockout",
+        "kit": {
+          "mana": 100
+        }
+      },
+      "60": {
+        "rank": 0,
+        "level": 24,
+        "text": "100 mana",
+        "kit": {
+          "mana": 100
+        }
+      }
+    },
+    "mage.manashield": {
+      "spell": "Mana Shield",
+      "30": {
+        "rank": 2,
+        "level": 28,
+        "text": "absorbs 210 physical, 2 mana per point, 60 mana",
+        "kit": {
+          "absorb": 210,
+          "mana": 60
+        }
+      },
+      "60": {
+        "rank": 6,
+        "level": 60,
+        "text": "absorbs 570, 140 mana",
+        "kit": {
+          "absorb": 570,
+          "mana": 140
+        }
+      }
+    },
+    "mage.decurse": {
+      "spell": "Remove Lesser Curse",
+      "30": {
+        "rank": 0,
+        "level": 18,
+        "text": "10 % of base mana (67)",
+        "kit": {
+          "mana": 67
+        }
+      },
+      "60": {
+        "rank": 0,
+        "level": 18,
+        "text": "10 % of base mana (127)",
+        "kit": {
+          "mana": 127
+        }
+      }
+    },
+    "mage.gem": {
+      "spell": "Conjure Mana Agate / Ruby",
+      "30": {
+        "rank": 0,
+        "level": 28,
+        "text": "375-425 mana",
+        "kit": {
+          "mana": [
+            375,
+            425
+          ]
+        }
+      },
+      "60": {
+        "rank": 0,
+        "level": 58,
+        "text": "1000-1200 mana",
+        "kit": {
+          "mana": [
+            1000,
+            1200
+          ]
+        }
+      }
+    },
+    "priest.smite": {
+      "spell": "Smite",
+      "10": {
+        "rank": 2,
+        "level": 6,
+        "text": "26-31 Holy, 2 s, 30 mana",
+        "kit": {
+          "dmg": [
+            26,
+            31
+          ],
+          "mana": 30
+        }
+      },
+      "30": {
+        "rank": 5,
+        "level": 30,
+        "text": "81-91, 2.5 s, 140 mana",
+        "kit": {
+          "dmg": [
+            81,
+            91
+          ],
+          "mana": 140
+        }
+      },
+      "60": {
+        "rank": 8,
+        "level": 54,
+        "text": "167-186, 280 mana",
+        "kit": {
+          "dmg": [
+            167,
+            186
+          ],
+          "mana": 280
+        }
+      }
+    },
+    "priest.swp": {
+      "spell": "Shadow Word: Pain",
+      "10": {
+        "rank": 2,
+        "level": 10,
+        "text": "60 over 18 s, 50 mana",
+        "kit": {
+          "tick": 10,
+          "mana": 50
+        }
+      },
+      "30": {
+        "rank": 4,
+        "level": 26,
+        "text": "180 over 18 s, 155 mana",
+        "kit": {
+          "tick": 30,
+          "mana": 155
+        }
+      },
+      "60": {
+        "rank": 8,
+        "level": 58,
+        "text": "762 over 18 s, 470 mana",
+        "kit": {
+          "tick": 127,
+          "mana": 470
+        }
+      }
+    },
+    "priest.mb": {
+      "spell": "Mind Blast",
+      "10": {
+        "rank": 1,
+        "level": 10,
+        "text": "40-44, 50 mana",
+        "kit": {
+          "dmg": [
+            40,
+            44
+          ],
+          "mana": 50
+        }
+      },
+      "30": {
+        "rank": 4,
+        "level": 28,
+        "text": "154-162, 150 mana",
+        "kit": {
+          "dmg": [
+            154,
+            162
+          ],
+          "mana": 150
+        }
+      },
+      "60": {
+        "rank": 9,
+        "level": 58,
+        "text": "485-511, 350 mana",
+        "kit": {
+          "dmg": [
+            485,
+            511
+          ],
+          "mana": 350
+        }
+      }
+    },
+    "priest.mf": {
+      "spell": "Mind Flay",
+      "30": {
+        "rank": 2,
+        "level": 28,
+        "text": "102 over 3 s, 70 mana",
+        "kit": {
+          "per": [
+            34,
+            34
+          ],
+          "mana": 70
+        }
+      },
+      "60": {
+        "rank": 6,
+        "level": 60,
+        "text": "390 over 3 s, 205 mana",
+        "kit": {
+          "per": [
+            130,
+            130
+          ],
+          "mana": 205
+        }
+      }
+    },
+    "priest.dp": {
+      "spell": "Devouring Plague",
+      "30": {
+        "rank": 2,
+        "level": 28,
+        "text": "232 over 24 s, 350 mana",
+        "kit": {
+          "tick": 29,
+          "mana": 350
+        }
+      },
+      "60": {
+        "rank": 6,
+        "level": 60,
+        "text": "848 over 24 s, 985 mana",
+        "kit": {
+          "tick": 106,
+          "mana": 985
+        }
+      }
+    },
+    "priest.swd": {
+      "spell": "Shadow Word: Death",
+      "60": {
+        "rank": 4,
+        "level": 56,
+        "text": "447-474, 340 mana",
+        "kit": {
+          "dmg": [
+            447,
+            474
+          ],
+          "mana": 340
+        }
+      }
+    },
+    "priest.pws": {
+      "spell": "Power Word: Shield",
+      "10": {
+        "rank": 1,
+        "level": 6,
+        "text": "absorbs 48, 45 mana",
+        "kit": {
+          "absorb": 48,
+          "mana": 45
+        }
+      },
+      "30": {
+        "rank": 5,
+        "level": 30,
+        "text": "absorbs 303, 210 mana",
+        "kit": {
+          "absorb": 303,
+          "mana": 210
+        }
+      },
+      "60": {
+        "rank": 10,
+        "level": 60,
+        "text": "absorbs 950, 500 mana",
+        "kit": {
+          "absorb": 950,
+          "mana": 500
+        }
+      }
+    },
+    "priest.renew": {
+      "spell": "Renew",
+      "10": {
+        "rank": 1,
+        "level": 8,
+        "text": "45 over 15 s, 30 mana",
+        "kit": {
+          "tick": 9,
+          "mana": 30
+        }
+      },
+      "30": {
+        "rank": 4,
+        "level": 26,
+        "text": "160 over 15 s, 140 mana",
+        "kit": {
+          "tick": 32,
+          "mana": 140
+        }
+      },
+      "60": {
+        "rank": 10,
+        "level": 60,
+        "text": "830 over 15 s, 410 mana",
+        "kit": {
+          "tick": 166,
+          "mana": 410
+        }
+      }
+    },
+    "priest.lheal": {
+      "spell": "Lesser Heal",
+      "10": {
+        "rank": 3,
+        "level": 10,
+        "text": "157-181, 75 mana",
+        "kit": {
+          "heal": [
+            157,
+            181
+          ],
+          "mana": 75
+        }
+      }
+    },
+    "priest.heal": {
+      "spell": "Heal",
+      "30": {
+        "rank": 3,
+        "level": 28,
+        "text": "510-576, 255 mana",
+        "kit": {
+          "heal": [
+            510,
+            576
+          ],
+          "mana": 255
+        }
+      },
+      "60": {
+        "rank": 4,
+        "level": 34,
+        "text": "634-713, 305 mana",
+        "kit": {
+          "heal": [
+            634,
+            713
+          ],
+          "mana": 305
+        }
+      }
+    },
+    "priest.flash": {
+      "spell": "Flash Heal",
+      "30": {
+        "rank": 2,
+        "level": 26,
+        "text": "236-284, 155 mana",
+        "kit": {
+          "heal": [
+            236,
+            284
+          ],
+          "mana": 155
+        }
+      },
+      "60": {
+        "rank": 7,
+        "level": 56,
+        "text": "778-914, 380 mana",
+        "kit": {
+          "heal": [
+            778,
+            914
+          ],
+          "mana": 380
+        }
+      }
+    },
+    "priest.gheal": {
+      "spell": "Greater Heal",
+      "60": {
+        "rank": 5,
+        "level": 60,
+        "text": "1893-2108, 710 mana",
+        "kit": {
+          "heal": [
+            1893,
+            2108
+          ],
+          "mana": 710
+        }
+      }
+    },
+    "priest.binding": {
+      "spell": "Binding Heal",
+      "30": {
+        "rank": 1,
+        "level": 25,
+        "text": "236-284 to target and self, 155 mana",
+        "kit": {
+          "heal": [
+            236,
+            284
+          ],
+          "mana": 155
+        }
+      },
+      "60": {
+        "rank": 6,
+        "level": 56,
+        "text": "778-914, 380 mana",
+        "kit": {
+          "heal": [
+            778,
+            914
+          ],
+          "mana": 380
+        }
+      }
+    },
+    "priest.poh": {
+      "spell": "Prayer of Healing",
+      "30": {
+        "rank": 1,
+        "level": 30,
+        "text": "179-191 to the party, 410 mana",
+        "kit": {
+          "heal": [
+            179,
+            191
+          ],
+          "mana": 410
+        }
+      },
+      "60": {
+        "rank": 5,
+        "level": 60,
+        "text": "646-681, 1070 mana",
+        "kit": {
+          "heal": [
+            646,
+            681
+          ],
+          "mana": 1070
+        }
+      }
+    },
+    "priest.pom": {
+      "spell": "Prayer of Mending",
+      "60": {
+        "rank": 3,
+        "level": 60,
+        "text": "413 + healing x 0.429 per jump, 390 mana",
+        "kit": {
+          "heal": [
+            413,
+            413
+          ],
+          "mana": 390
+        }
+      }
+    },
+    "priest.nova": {
+      "spell": "Holy Nova",
+      "30": {
+        "rank": 2,
+        "level": 28,
+        "text": "48-55 damage, 80-90 heal, 290 mana",
+        "kit": {
+          "nd": [
+            48,
+            55
+          ],
+          "heal": [
+            80,
+            90
+          ],
+          "mana": 290
+        }
+      },
+      "60": {
+        "rank": 6,
+        "level": 60,
+        "text": "181-208 damage, 294-339 heal, 750 mana",
+        "kit": {
+          "nd": [
+            181,
+            208
+          ],
+          "heal": [
+            294,
+            339
+          ],
+          "mana": 750
+        }
+      }
+    },
+    "priest.penance": {
+      "spell": "Penance",
+      "30": {
+        "rank": 1,
+        "level": 30,
+        "text": "45 damage or 134 heal x3, 150 mana",
+        "kit": {
+          "pd": [
+            45,
+            45
+          ],
+          "heal": [
+            134,
+            134
+          ],
+          "mana": 150
+        }
+      },
+      "60": {
+        "rank": 4,
+        "level": 60,
+        "text": "92 damage or 425 heal x3, 385 mana",
+        "kit": {
+          "pd": [
+            92,
+            92
+          ],
+          "heal": [
+            425,
+            425
+          ],
+          "mana": 385
+        }
+      }
+    },
+    "priest.holyfire": {
+      "spell": "Holy Fire",
+      "30": {
+        "rank": 3,
+        "level": 30,
+        "text": "80-98 + 30 over 10 s, 125 mana",
+        "kit": {
+          "dmg": [
+            80,
+            98
+          ],
+          "dot": 6,
+          "mana": 125
+        }
+      },
+      "60": {
+        "rank": 8,
+        "level": 60,
+        "text": "196-244 + 75 over 10 s, 255 mana",
+        "kit": {
+          "dmg": [
+            196,
+            244
+          ],
+          "dot": 15,
+          "mana": 255
+        }
+      }
+    },
+    "priest.dispel": {
+      "spell": "Dispel Magic",
+      "30": {
+        "rank": 1,
+        "level": 18,
+        "text": "1 effect, 18 % of base mana (124)",
+        "kit": {
+          "mana": 124
+        }
+      },
+      "60": {
+        "rank": 2,
+        "level": 36,
+        "text": "2 effects, 18 % of base mana (258)",
+        "kit": {
+          "mana": 258
+        }
+      }
+    },
+    "priest.fade": {
+      "spell": "Fade",
+      "10": {
+        "rank": 1,
+        "level": 8,
+        "text": "40 mana",
+        "kit": {
+          "mana": 40
+        }
+      },
+      "30": {
+        "rank": 3,
+        "level": 30,
+        "text": "125 mana",
+        "kit": {
+          "mana": 125
+        }
+      },
+      "60": {
+        "rank": 6,
+        "level": 60,
+        "text": "275 mana",
+        "kit": {
+          "mana": 275
+        }
+      }
+    },
+    "priest.touch": {
+      "spell": "Touch of Weakness",
+      "10": {
+        "rank": 1,
+        "level": 10,
+        "text": "8 Shadow, -43 melee AP, 25 mana",
+        "kit": {
+          "td": 8,
+          "mana": 25
+        }
+      },
+      "30": {
+        "rank": 3,
+        "level": 30,
+        "text": "18 Shadow, -85 melee AP, 75 mana",
+        "kit": {
+          "td": 18,
+          "mana": 75
+        }
+      },
+      "60": {
+        "rank": 6,
+        "level": 60,
+        "text": "56 Shadow, -204 melee AP, 195 mana",
+        "kit": {
+          "td": 56,
+          "mana": 195
+        }
+      }
+    },
+    "priest.darksac": {
+      "spell": "Dark Sacrifice",
+      "30": {
+        "rank": 2,
+        "level": 30,
+        "text": "720 health for 720 + Spirit mana, 10 min cd",
+        "kit": {
+          "hp": 720
+        }
+      },
+      "60": {
+        "rank": 5,
+        "level": 60,
+        "text": "1640 health for 1640 + Spirit mana",
+        "kit": {
+          "hp": 1640
+        }
+      }
+    },
+    "warrior.sunder": {
+      "spell": "Sunder Armor",
+      "30": {
+        "rank": 2,
+        "level": 22,
+        "text": "-180 armor per stack, 5 stacks, 15 rage",
+        "kit": {
+          "armorPer": 180,
+          "rage": 15
+        }
+      },
+      "60": {
+        "rank": 5,
+        "level": 58,
+        "text": "-450 armor per stack, 15 rage",
+        "kit": {
+          "armorPer": 450,
+          "rage": 15
+        }
+      }
+    },
+    "warrior.revenge": {
+      "spell": "Revenge",
+      "30": {
+        "rank": 2,
+        "level": 24,
+        "text": "31-37, 5 rage, 5 s cd",
+        "kit": {
+          "dmg": [
+            31,
+            37
+          ],
+          "rage": 5
+        }
+      },
+      "60": {
+        "rank": 6,
+        "level": 60,
+        "text": "138-168, 5 rage",
+        "kit": {
+          "dmg": [
+            138,
+            168
+          ],
+          "rage": 5
+        }
+      }
+    },
+    "warrior.hs": {
+      "spell": "Heroic Strike",
+      "30": {
+        "rank": 4,
+        "level": 24,
+        "text": "+44, 15 rage",
+        "kit": {
+          "dmg": [
+            44,
+            44
+          ],
+          "rage": 15
+        }
+      },
+      "60": {
+        "rank": 9,
+        "level": 60,
+        "text": "+157, 15 rage",
+        "kit": {
+          "dmg": [
+            157,
+            157
+          ],
+          "rage": 15
+        }
+      }
+    },
+    "warrior.cleave": {
+      "spell": "Cleave",
+      "30": {
+        "rank": 2,
+        "level": 30,
+        "text": "weapon +10, 2 targets, 20 rage",
+        "kit": {
+          "dmg": [
+            10,
+            10
+          ],
+          "rage": 20
+        }
+      },
+      "60": {
+        "rank": 5,
+        "level": 60,
+        "text": "weapon +50, 20 rage",
+        "kit": {
+          "dmg": [
+            50,
+            50
+          ],
+          "rage": 20
+        }
+      }
+    },
+    "warrior.thunderclap": {
+      "spell": "Thunder Clap",
+      "30": {
+        "rank": 3,
+        "level": 28,
+        "text": "37 to 4 targets, 18 s slow, 20 rage",
+        "kit": {
+          "dmg": [
+            37,
+            37
+          ],
+          "dur": 18,
+          "rage": 20
+        }
+      },
+      "60": {
+        "rank": 6,
+        "level": 58,
+        "text": "103, 30 s slow",
+        "kit": {
+          "dmg": [
+            103,
+            103
+          ],
+          "dur": 30,
+          "rage": 20
+        }
+      }
+    },
+    "warrior.demoshout": {
+      "spell": "Demoralizing Shout",
+      "30": {
+        "rank": 2,
+        "level": 24,
+        "text": "-91 melee attack power, 45 s",
+        "kit": {
+          "ap": 91,
+          "rage": 10
+        }
+      },
+      "60": {
+        "rank": 5,
+        "level": 54,
+        "text": "-210 melee attack power",
+        "kit": {
+          "ap": 210,
+          "rage": 10
+        }
+      }
+    },
+    "warrior.shieldbash": {
+      "spell": "Shield Bash",
+      "30": {
+        "rank": 1,
+        "level": 12,
+        "text": "6 damage, 6 s lockout, 10 rage",
+        "kit": {
+          "dmg": [
+            6,
+            6
+          ],
+          "rage": 10
+        }
+      },
+      "60": {
+        "rank": 3,
+        "level": 52,
+        "text": "45 damage",
+        "kit": {
+          "dmg": [
+            45,
+            45
+          ],
+          "rage": 10
+        }
+      }
+    },
+    "warrior.shieldslam": {
+      "spell": "Shield Slam",
+      "60": {
+        "rank": 4,
+        "level": 60,
+        "text": "640-670 + block value, 20 rage, 6 s cd",
+        "kit": {
+          "dmg": [
+            640,
+            670
+          ],
+          "rage": 20
+        }
+      }
+    },
+    "rogue.ss": {
+      "spell": "Sinister Strike",
+      "30": {
+        "rank": 5,
+        "level": 30,
+        "text": "weapon +22, 45 energy",
+        "kit": {
+          "dmg": [
+            22,
+            22
+          ],
+          "energy": 45
+        }
+      },
+      "60": {
+        "rank": 8,
+        "level": 54,
+        "text": "weapon +68, 45 energy",
+        "kit": {
+          "dmg": [
+            68,
+            68
+          ],
+          "energy": 45
+        }
+      }
+    },
+    "rogue.evis": {
+      "spell": "Eviscerate",
+      "30": {
+        "rank": 4,
+        "level": 24,
+        "text": "5 points: 165-185, 35 energy",
+        "kit": {
+          "energy": 35
+        }
+      },
+      "60": {
+        "rank": 9,
+        "level": 60,
+        "text": "5 points: 904-1012, 35 energy",
+        "kit": {
+          "energy": 35
+        }
+      }
+    },
+    "rogue.snd": {
+      "spell": "Slice and Dice",
+      "30": {
+        "rank": 1,
+        "level": 10,
+        "text": "+20 % attack speed, 25 energy",
+        "kit": {
+          "haste": 0.2,
+          "energy": 25
+        }
+      },
+      "60": {
+        "rank": 2,
+        "level": 42,
+        "text": "+30 % attack speed",
+        "kit": {
+          "haste": 0.3,
+          "energy": 25
+        }
+      }
+    },
+    "rogue.kick": {
+      "spell": "Kick",
+      "30": {
+        "rank": 2,
+        "level": 26,
+        "text": "30 damage, 5 s lockout, 25 energy",
+        "kit": {
+          "dmg": [
+            30,
+            30
+          ],
+          "energy": 25
+        }
+      },
+      "60": {
+        "rank": 4,
+        "level": 58,
+        "text": "80 damage",
+        "kit": {
+          "dmg": [
+            80,
+            80
+          ],
+          "energy": 25
+        }
+      }
+    },
+    "rogue.feint": {
+      "spell": "Feint",
+      "30": {
+        "rank": 2,
+        "level": 28,
+        "text": "medium threat drop, 20 energy",
+        "kit": {
+          "energy": 20
+        }
+      },
+      "60": {
+        "rank": 5,
+        "level": 60,
+        "text": "large threat drop, 20 energy",
+        "kit": {
+          "energy": 20
+        }
+      }
+    },
+    "warlock.sb": {
+      "spell": "Shadow Bolt",
+      "30": {
+        "rank": 5,
+        "level": 28,
+        "text": "79-89 Shadow, 3 s, 160 mana",
+        "kit": {
+          "dmg": [
+            79,
+            89
+          ],
+          "mana": 160,
+          "ct": 3
+        }
+      },
+      "60": {
+        "rank": 10,
+        "level": 60,
+        "text": "263-292, 380 mana",
+        "kit": {
+          "dmg": [
+            263,
+            292
+          ],
+          "mana": 380,
+          "ct": 3
+        }
+      }
+    },
+    "warlock.corruption": {
+      "spell": "Corruption",
+      "30": {
+        "rank": 3,
+        "level": 24,
+        "text": "132 over 18 s, 100 mana",
+        "kit": {
+          "tick": 22,
+          "mana": 100
+        }
+      },
+      "60": {
+        "rank": 7,
+        "level": 60,
+        "text": "438 over 18 s, 340 mana",
+        "kit": {
+          "tick": 73,
+          "mana": 340
+        }
+      }
+    },
+    "warlock.agony": {
+      "spell": "Bane of Agony",
+      "30": {
+        "rank": 3,
+        "level": 28,
+        "text": "168 over 24 s, 90 mana",
+        "kit": {
+          "total": 168,
+          "mana": 90
+        }
+      },
+      "60": {
+        "rank": 6,
+        "level": 58,
+        "text": "552 over 24 s, 215 mana",
+        "kit": {
+          "total": 552,
+          "mana": 215
+        }
+      }
+    },
+    "warlock.cor": {
+      "spell": "Curse of Recklessness",
+      "30": {
+        "rank": 2,
+        "level": 28,
+        "text": "-285 armor, 60 mana",
+        "kit": {
+          "armor": 285,
+          "mana": 60
+        }
+      },
+      "60": {
+        "rank": 4,
+        "level": 56,
+        "text": "-505 armor, 115 mana",
+        "kit": {
+          "armor": 505,
+          "mana": 115
+        }
+      }
+    },
+    "warlock.coe": {
+      "spell": "Curse of the Elements",
+      "30": {
+        "rank": 2,
+        "level": 30,
+        "text": "-45 resistances, +6 % magic damage, 100 mana",
+        "kit": {
+          "res": 45,
+          "mult": 1.06,
+          "mana": 100
+        }
+      },
+      "60": {
+        "rank": 4,
+        "level": 50,
+        "text": "-75, +10 %, 200 mana",
+        "kit": {
+          "res": 75,
+          "mult": 1.1,
+          "mana": 200
+        }
+      }
+    },
+    "warlock.immolate": {
+      "spell": "Immolate",
+      "30": {
+        "rank": 4,
+        "level": 30,
+        "text": "63.5 + 95 over 15 s, 155 mana",
+        "kit": {
+          "dmg": [
+            63.5,
+            63.5
+          ],
+          "mana": 155
+        }
+      },
+      "60": {
+        "rank": 8,
+        "level": 60,
+        "text": "169.5 + 275 over 15 s, 380 mana",
+        "kit": {
+          "dmg": [
+            169.5,
+            169.5
+          ],
+          "mana": 380
+        }
+      }
+    },
+    "warlock.lifetap": {
+      "spell": "Life Tap",
+      "30": {
+        "rank": 3,
+        "level": 26,
+        "text": "140 + Spirit health to mana",
+        "kit": {
+          "base": 140
+        }
+      },
+      "60": {
+        "rank": 6,
+        "level": 56,
+        "text": "430 + Spirit",
+        "kit": {
+          "base": 430
+        }
+      }
+    },
+    "shaman.hw": {
+      "spell": "Healing Wave",
+      "30": {
+        "rank": 5,
+        "level": 24,
+        "text": "329-382, 3 s, 200 mana",
+        "kit": {
+          "heal": [
+            329,
+            382
+          ],
+          "mana": 200
+        }
+      },
+      "60": {
+        "rank": 10,
+        "level": 60,
+        "text": "1535-1750, 620 mana",
+        "kit": {
+          "heal": [
+            1535,
+            1750
+          ],
+          "mana": 620
+        }
+      }
+    },
+    "shaman.lhw": {
+      "spell": "Lesser Healing Wave",
+      "30": {
+        "rank": 2,
+        "level": 28,
+        "text": "220-249, 145 mana",
+        "kit": {
+          "heal": [
+            220,
+            249
+          ],
+          "mana": 145
+        }
+      },
+      "60": {
+        "rank": 6,
+        "level": 60,
+        "text": "796-886, 380 mana",
+        "kit": {
+          "heal": [
+            796,
+            886
+          ],
+          "mana": 380
+        }
+      }
+    },
+    "shaman.ch": {
+      "spell": "Chain Heal",
+      "60": {
+        "rank": 3,
+        "level": 54,
+        "text": "474-539, 3 targets, 405 mana",
+        "kit": {
+          "heal": [
+            474,
+            539
+          ],
+          "mana": 405
+        }
+      }
+    },
+    "shaman.riptide": {
+      "spell": "Riptide",
+      "60": {
+        "rank": 3,
+        "level": 60,
+        "text": "838-922 + 953 over 15 s, 385 mana",
+        "kit": {
+          "heal": [
+            838,
+            922
+          ],
+          "hot": 953,
+          "mana": 385
+        }
+      }
+    },
+    "shaman.es": {
+      "spell": "Earth Shock",
+      "30": {
+        "rank": 4,
+        "level": 24,
+        "text": "84-89, 2 s lockout, 145 mana",
+        "kit": {
+          "dmg": [
+            84,
+            89
+          ],
+          "mana": 145
+        }
+      },
+      "60": {
+        "rank": 7,
+        "level": 60,
+        "text": "303-318, 450 mana",
+        "kit": {
+          "dmg": [
+            303,
+            318
+          ],
+          "mana": 450
+        }
+      }
+    },
+    "shaman.manatide": {
+      "spell": "Mana Tide Totem",
+      "60": {
+        "rank": 4,
+        "level": 58,
+        "text": "290 mana every 3 s for 12 s",
+        "kit": {
+          "tide": 290,
+          "mana": 60
+        }
+      }
+    }
+  },
+  "talents": {
+    "hunter": "Lightning Reflexes +15 % Agility; Savage Strikes +4 % crit with melee abilities; Mortal Shots +30 % ranged crit bonus; Lone Wolf +20 %; Focused Fire +2 %; Unleashed Fury +15 % pet and hawk damage; Ferocity +10 % pet and hawk crit; Surefooted +3 % hit",
+    "mage": "Elemental Precision +6 % hit with Fire and Frost; Arcane Focus +5 % hit with Arcane; Fire Power +10 % Fire damage; Improved Fire Blast -1.5 s; Arcane Mind +10 % Intellect and +100 % Arcane crit bonus; Ice Shards +100 % Frost crit bonus; Arcane Instability +3 % damage and crit",
+    "priest": "Shadow Focus +5 % hit with Shadow; Improved Mind Blast -2.5 s; Shadow Weaving 3 % per stack, 5 stacks; Darkness +10 %; Shadowform +10 % Shadow damage, -50 % Shadow cost, +100 % Shadow crit bonus, -15 % physical taken; Spiritual Guidance healing +25 % of Spirit and spell damage +8 % of Spirit; Devouring Contagion -50 % Devouring Plague cost",
+    "warrior": "Shield Specialization +5 % block and 5 rage per block; Master of Defense 5 rage per dodge or parry; Defiance +15 % threat in Defensive Stance; Improved Revenge +60 %; Improved Shield Block +2 s and one more block; Toughness +10 % armor from items; Bastion +10 % damage with a shield; Defensive Stance -10 % damage taken and dealt, +30 % threat",
+    "rogue": "Improved Sinister Strike -5 energy; Precision +5 % hit; Dual Wield Specialization +25 % off-hand; Improved Eviscerate +20 %; Aggression +6 %; Adrenaline Rush +100 % energy regen; Ruthlessness 60 % for a combo point; Relentless Strikes 20 % per point for 25 energy; Improved Slice and Dice +45 %",
+    "warlock": "Bane -0.5 s on Shadow Bolt and Immolate; Improved Shadow Bolt +20 % Shadow damage taken from you after a crit; Devastation +5 % crit; Ruin +100 % crit bonus; Suppression +5 % hit, -20 % threat; Improved Corruption instant, +10 %; Improved Life Tap +20 %; Emberstorm +10 % Fire",
+    "shaman": "Improved Healing Wave -0.5 s; Tidal Focus -5 % heal cost; Mindfulness 50 % regen while casting; Tidal Mastery +5 % heal crit; Healing Way +25 % Healing Wave; Purification +10 % healing; Nature's Swiftness; Mana Tide Totem; Riptide"
+  }
+}

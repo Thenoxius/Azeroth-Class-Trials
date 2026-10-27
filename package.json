@@ -1,0 +1,18 @@
+{
+  "name": "azeroth-class-trials",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "A WoW: Forever class-decision mini-RPG (Hunter / Mage / Priest).",
+  "scripts": {
+    "build": "node build.mjs",
+    "test": "node tests/run-all.mjs",
+    "art": "node scripts/build-art.mjs"
+  },
+  "devDependencies": {
+    "esbuild": "^0.24.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "sharp": "^0.33.5"
+  }
+}
