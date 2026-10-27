@@ -1683,6 +1683,7 @@ function updateCasting(state, u, dt) {
 function updateAutoAttacks(state, u, dt) {
   if (!canAct(u)) return;
   let t = U(state, u.target);
+  if (u.isPlayer && (u.autoRanged || u.autoMelee) && (!t || !t.alive)) stopAutoAttacks(u);
   if (u.assistId && t && !hostile(u, t)) {
     const a = U(state, u.assistId);
     if (a && a.alive && !a.hidden && hostile(u, a)) t = a;
@@ -1881,12 +1882,23 @@ export function moveTo(state, x, y) {
   emit(state, { type: 'moveOrder', src: u.id, x, y });
 }
 
+// As in WoW, the player's Auto Shot / wand / melee swings stop when the target changes or
+// dies; a shot or strike on the new target starts them again.
+function stopAutoAttacks(u) {
+  u.autoRanged = false;
+  u.wandResume = false;
+  u.autoMelee = false;
+}
+
 export function setTarget(state, id) {
   const u = player(state);
   if (!u) return;
   const t = U(state, id);
   if (!t || (!t.alive && !t.lootable)) return;
-  if (u.target !== id) emit(state, { type: 'target', src: u.id, dst: id, hostile: hostile(u, t) });
+  if (u.target !== id) {
+    emit(state, { type: 'target', src: u.id, dst: id, hostile: hostile(u, t) });
+    stopAutoAttacks(u);
+  }
   u.target = id;
 }
 
