@@ -79,6 +79,7 @@ export const GEAR = {
     60: { str: 110, agi: 70, sta: 260, armor: 6400, hit: 0.02 },
   },
   rogue: {
+    10: { str: 4, agi: 10, sta: 7, armor: 160 },
     30: { str: 20, agi: 50, sta: 35, armor: 600 },
     60: { str: 60, agi: 230, sta: 140, armor: 1900, ap: 80, hit: 0.03, critPhys: 0.03 },
   },
@@ -113,6 +114,10 @@ export const WEAPONS = {
   fury1h: { 10: [9, 17, 2.5], 30: [36, 66, 2.6], 60: [95, 165, 2.6] },
   // Rogues: main hand for abilities, and main hand + off hand (50 % + Dual Wield Specialization) as one weapon for white swings.
   rogueMH: { 30: [27, 51, 2.6], 60: [80, 150, 2.7] },
+  // Player Rogues (phase 4): real main hand + off hand. Daggers for Assassination/Subtlety
+  // (Backstab, Ambush, Mutilate need one), swords for Combat. Our estimate.
+  dagger: { 10: [7, 13, 1.8], 30: [26, 48, 1.8], 60: [70, 130, 1.8] },
+  rogueSword: { 10: [9, 17, 2.5], 30: [33, 62, 2.6], 60: [84, 156, 2.7] },
   rogueDual: { 30: [40, 54, 1.9], 60: [118, 152, 1.9] },
   casterMace: { 30: [25, 45, 2.6], 60: [60, 112, 2.5] },
 };

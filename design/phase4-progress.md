@@ -78,15 +78,30 @@ Plan and decisions: `design/phase4.md`. Data: `research/forever-warrior-rogue.js
   - Checked in the local preview: fresh roster → Tauren Warrior + Troll Mage → Hall →
     Fury briefing (race locked) → fight starts in Berserker Stance.
 
+- 2026-10-28 — **Playable Rogue** (plan step 3), `classes/rogue.js`:
+  - `KIT.build(opts)`: `opts.npc` → the old Combat NPC build (`npcBuild`); otherwise
+    `playerBuild` + `applyRace`. Assassination / Combat / Subtlety at 30 and 60, level 10
+    without spec; races orc, troll, undead, skyborne. Roster + `TRIAL_SUPPORT` (T1/T2).
+  - Player melee is a real main hand + off hand (`melee.oh`); daggers for Assassination
+    and Subtlety (`melee.dagger`, needed by Backstab/Ambush/Mutilate), swords for Combat.
+    Poisons from 20: Instant main hand, Deadly (30+) / Crippling off hand.
+  - New abilities (Forever ranks): Attack, Stealth (player version: −50/−40/−30 % by
+    rank), Backstab, Gouge (10 s cd in Forever), Sap, Ambush, Cheap Shot, Garrote,
+    Rupture, Kidney Shot, Expose Armor, Vanish, Sprint, Blind, Mutilate (40), Hemorrhage
+    (46; empty datamine tooltip → Classic values), Cold Blood. Level-10 ranks for Sinister
+    Strike, Eviscerate, Slice and Dice. Seal Fate via `u.meta.lastCrit`.
+  - Bot `tests/bots/rogue.mjs` (stealth approach, sneak behind ≤6 s, rest to 90 % before
+    a big pull); test `tests/rogue-kit.test.mjs`. T1 all specs 3/3 (L10 2/3), T2
+    Assassination/Combat 3/3, careless 0/3. **Spec trait:** Subtlety at 30 wins T2 1/3
+    (Backstab rarely lines up in an open fight) — reported, not asserted.
+  - Dummy DPS: 30 → 59–65 (band 45–110 ✓); 60 → 205–246 (band 230–520, low end, like the
+    Warrior — part of the balance pass). Suite 16/16.
+  - Not yet in the UI: combo-point pips on the target frame; more bar slots than hotkeys
+    (21 buttons for Subtlety 30) — part of the UI step.
+
 ## Next
 
-1. Rogue kit (plan step 3): `classes/rogue.js` player builds Assassination / Combat /
-   Subtlety at 10/30/60 (keep `npc: true` → current Combat NPC build), openers (Ambush,
-   Cheap Shot, Garrote, Sap with `requiresStealth` / `requiresBehind`), Backstab,
-   finishers (Rupture, Kidney Shot, Expose Armor), Vanish, Blind, Gouge, Sprint,
-   Mutilate (40) / Hemorrhage (46); poisons from `POISONS` via `u.meta.poisons`;
-   dual-wield melee with `melee.oh`. Bot + `tests/rogue-kit.test.mjs` like the Warrior's.
-2. T3 / T5: Warrior tank role (Gorrak steps aside / becomes off-tank), Rogue duties;
+1. T3 / T5: Warrior tank role (Gorrak steps aside / becomes off-tank), Rogue duties;
    T4 duel intros and opponent per class.
 3. Add warrior and rogue to `CLASS_ORDER`; trial tests then cover them automatically.
 4. Roster UI (characters in the Hall), stance bar, combo points; Codex/analysis.
