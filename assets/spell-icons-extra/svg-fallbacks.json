@@ -1,0 +1,52 @@
+[
+  {
+    "abilityId": "race.berserking",
+    "name": "Berserking",
+    "reason": "No verified Forever spell ID; retain SVG"
+  },
+  {
+    "abilityId": "race.rapidregen",
+    "name": "Rapid Regeneration",
+    "reason": "No verified Forever spell ID; retain SVG"
+  },
+  {
+    "abilityId": "race.warstomp",
+    "name": "War Stomp",
+    "reason": "No verified Forever spell ID; retain SVG"
+  },
+  {
+    "abilityId": "race.shattercurse",
+    "name": "Shatter Curse",
+    "reason": "No verified Forever spell ID; retain SVG"
+  },
+  {
+    "abilityId": "race.totg",
+    "name": "Touch of the Grave",
+    "reason": "No verified Forever spell ID; retain SVG"
+  },
+  {
+    "abilityId": "race.skysight",
+    "name": "Skysight",
+    "reason": "No verified Forever spell ID; retain SVG"
+  },
+  {
+    "abilityId": "mage.wand",
+    "name": "Shoot (wand)",
+    "reason": "No verified Forever spell ID; retain SVG"
+  },
+  {
+    "abilityId": "priest.wand",
+    "name": "Shoot (wand)",
+    "reason": "No verified Forever spell ID; retain SVG"
+  },
+  {
+    "abilityId": "rogue.attack",
+    "name": "Attack",
+    "reason": "No verified Forever spell ID; retain SVG"
+  },
+  {
+    "abilityId": "warrior.attack",
+    "name": "Attack",
+    "reason": "No verified Forever spell ID; retain SVG"
+  }
+]

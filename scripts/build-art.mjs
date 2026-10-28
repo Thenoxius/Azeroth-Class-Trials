@@ -10,7 +10,7 @@
 // ability IDs that are registered right now. Everything else in the package
 // (future races and classes, unused pets) stays in art-source for later.
 import sharp from 'sharp';
-import { readFileSync, writeFileSync, readdirSync } from 'node:fs';
+import { readFileSync, writeFileSync, readdirSync, existsSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 
@@ -39,7 +39,7 @@ const contentFiles = () => [
 ];
 
 async function encode(file, px, quality) {
-  const buf = await sharp(resolve(SRC, file)).resize(px, px, { fit: 'cover', kernel: 'lanczos3' }).webp({ quality, effort: 6 }).toBuffer();
+  const buf = await sharp(resolve(file.startsWith('assets/') ? root : SRC, file)).resize(px, px, { fit: 'cover', kernel: 'lanczos3' }).webp({ quality, effort: 6 }).toBuffer();
   return 'data:image/webp;base64,' + buf.toString('base64');
 }
 
@@ -80,11 +80,22 @@ const abilities = R.allAbilities();
 // Keyed on ability ID, never on the SVG glyph: one glyph covers unrelated spells.
 const abilityIcons = {};
 const iconFile = {};
-for (const m of json('spell-icons/ability-map.json')) {
+const extraPath = resolve(root, 'assets/spell-icons-extra/mappings.json');
+const extraMappings = existsSync(extraPath) ? JSON.parse(readFileSync(extraPath, 'utf8')) : [];
+const mappings = [...json('spell-icons/ability-map.json'), ...extraMappings];
+for (const m of mappings) {
   const ab = abilities[m.abilityId];
   if (!ab || !m.file || !ICON_OK.has(m.mappingStatus)) continue;
-  abilityIcons[m.abilityId] = await add('spell-icons/' + m.file, ICON_PX, 88);
+  abilityIcons[m.abilityId] = await add(m.projectAsset ? m.file : 'spell-icons/' + m.file, ICON_PX, 88);
   iconFile[m.abilityId] = m.file;
+}
+
+// Newly registered class IDs can reuse a verified icon for the exact same spell.
+// This resolves names once at build time; the UI still uses only ability IDs.
+for (const ab of Object.values(abilities)) {
+  if (abilityIcons[ab.id] !== undefined) continue;
+  const linked = mappings.find(m => m.name === ab.name && m.sourceVersion === 'forever' && m.file && ICON_OK.has(m.mappingStatus));
+  if (linked) abilityIcons[ab.id] = await add(linked.projectAsset ? linked.file : 'spell-icons/' + linked.file, ICON_PX, 88);
 }
 
 // Auras carry their own IDs. Here an aura gets a bitmap when the package links it
