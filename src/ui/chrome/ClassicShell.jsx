@@ -55,6 +55,7 @@ export function ClassicShell({ screen, children, onNavigate, hasCharacters = tru
           h('span', { className: 'act-classic-subtitle' }, 'Class Trials')),
         h('nav', { className: 'act-classic-nav', 'aria-label': 'Main navigation' }, nav)),
       h('main', { className: 'act-classic-content', id: 'act-classic-content' }, children),
+      h('div', { className: 'act-classic-bottom-rail', 'aria-hidden': true }),
       h('footer', { className: 'act-classic-footer' },
         h('span', null, 'Class Trials'), h('span', { 'aria-hidden': true }, ' · '),
         support ? h('a', { href: support, target: '_blank', rel: 'noopener noreferrer' }, 'Support the project on Ko-fi')
