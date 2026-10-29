@@ -17,7 +17,7 @@ export function competent({ level, spec, role } = {}) {
     if (!me || !me.alive) return;
     if (dodge(state, ctl)) return;
     // No self-heal before Victory Rush: rest to near full between pulls.
-    if (restIfNeeded(state, ctl, level >= 20 ? 0.6 : 0.75)) return;
+    if (restIfNeeded(state, ctl, 0.9)) return;
     potions(state, ctl);
     const t = pickTarget(state, ctl);
     if (!t) return;
@@ -48,7 +48,7 @@ export function competent({ level, spec, role } = {}) {
         ['warrior.thunderclap', null, crowd >= 2 && !findAura(t, 'warrior.tc')],
         ['warrior.demoshout', null, crowd >= 2 && !findAura(t, 'warrior.demo')],
         ['warrior.sunder', opts, (findAura(t, 'warrior.sunder') || { stacks: 0 }).stacks < 5 || rage(me) > 40],
-        ['warrior.hs', opts, rage(me) > 45],
+        ['warrior.hs', opts, !me.nextSwing && rage(me) > 45],
         ['warrior.bloodrage', null, rage(me) < 20 && hp > 0.5],
         ['warrior.battleshout', null, !findAura(me, 'warrior.battleshout')],
       ]);
@@ -69,8 +69,8 @@ export function competent({ level, spec, role } = {}) {
       ['warrior.slam', opts, !me.moving],
       ['warrior.thunderclap', null, crowd >= 3],
       ['warrior.hamstring', opts, t.kind === 'opponent' && !findAura(t, 'warrior.hamstring')],
-      ['warrior.cleave', opts, crowd >= 2 && rage(me) > 40],
-      ['warrior.hs', opts, rage(me) > (level >= 60 ? 50 : 35)],
+      ['warrior.cleave', opts, !me.nextSwing && crowd >= 2 && rage(me) > 40],
+      ['warrior.hs', opts, !me.nextSwing && rage(me) > (level >= 60 ? 50 : 35)],
       ['warrior.bloodrage', null, rage(me) < 15 && hp > 0.5],
       ['warrior.battleshout', null, !findAura(me, 'warrior.battleshout') && rage(me) >= 10],
     ]);
@@ -87,6 +87,6 @@ export function careless({ level, spec, role } = {}) {
     if (approach(state, ctl, t, 4)) return;
     attackOn(ctl, me);
     if (busy(me)) return;
-    if (ctl.can('warrior.hs', { targetId: t.id })) ctl.cast('warrior.hs', { targetId: t.id });
+    if (!me.nextSwing && ctl.can('warrior.hs', { targetId: t.id })) ctl.cast('warrior.hs', { targetId: t.id });
   };
 }

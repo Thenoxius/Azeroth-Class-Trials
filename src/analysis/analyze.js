@@ -22,7 +22,7 @@ function ev(list, cls, dim, kind, value, weight, text, rule) {
 
 const TACTICAL = ['control', 'defensive', 'utility', 'movement', 'interrupt', 'dispel', 'pet'];
 const usable = (s) => s && !s.abandoned && (s.combatSeconds || 0) > 5;
-const keyOf = (s) => `${s.trialId}:${s.level}:${s.role === 'healer' ? 'heal' : 'dps'}`;
+const keyOf = (s) => `${s.trialId}:${s.level}:${s.role === 'healer' ? 'heal' : s.role === 'tank' ? 'tank' : 'dps'}`;
 
 // ---------------------------------------------------------------- observed rules
 

@@ -67,7 +67,7 @@ export function UnitFrame({ u, kind = 'player', state, kitColor, onClick, compac
           {u.elite && <span className="elite-tag">Elite</span>}
         </div>
         <Bar value={u.hp} max={u.maxHp} color={u.side === 'enemy' ? 'linear-gradient(#d84a35,#9a2216)' : 'linear-gradient(#45c95a,#227a2f)'} label={u.alive ? `${fmtNum(u.hp)} / ${fmtNum(u.maxHp)}` : 'Dead'} right={u.alive ? Math.round((u.hp / u.maxHp) * 100) + '%' : ''} overlay={shield / u.maxHp} className="hp" />
-        {res && <Bar value={res.cur} max={res.max} color={resColor(u.primary)} label={`${fmtNum(res.cur)} / ${fmtNum(res.max)}`} right={u.primary} className="res" />}
+        {res && <Bar value={res.cur} max={res.max} color={resColor(u.primary)} label={`${fmtNum(res.cur)} / ${fmtNum(res.max)}`} right={u.classId === 'rogue' ? `energy · ${u.meta.cpTarget === u.target ? u.meta.cp || 0 : 0}/5 combo` : u.primary} className="res" />}
         {cast && kind !== 'player' && (
           <div className={cx('uf-cast', (cast.ab.uninterruptible || cast.ab.mechanic === 'physical') && 'solid')}>
             <div className="uf-cast-fill" style={{ width: `${(cast.channel ? 1 - cast.elapsed / Math.max(0.01, cast.duration - cast.cut) : 1 - cast.remaining / cast.total) * 100}%` }} />

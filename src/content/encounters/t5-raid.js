@@ -92,6 +92,7 @@ function roster(playerRole, playerClass) {
     const i = list.findIndex((x) => x.cls === mine);
     if (i >= 0) list[i] = { cls: 'warlock', role: 'dps', race: 'undead', o: { name: 'Ravel', portrait: 'undead-warlock', spot: list[i].o.spot }, at: list[i].at };
   }
+  if (playerRole === 'tank') list.splice(0, 1);
   return list;
 }
 
@@ -128,7 +129,7 @@ export const TRIAL = {
   levels: [60],
   kind: 'raid',
   blurb: 'A 20-person raid boss in miniature: three phases, class duties, and three and a half minutes of your rotation.',
-  rolesFor: (classId) => (classId === 'priest' ? ['dps', 'healer'] : ['dps']),
+  rolesFor: (classId) => (classId === 'priest' ? ['dps', 'healer'] : classId === 'warrior' ? ['dps', 'tank'] : ['dps']),
   // Buffs from the raid's classes: Priest (Fortitude, Divine Spirit), Mage (Arcane Intellect),
   // Hunter (Trueshot Aura), Warrior (Battle Shout) and Shaman totems (Mana Spring, Strength of
   // Earth, Grace of Air) — several are raid-wide in Forever.
@@ -137,7 +138,7 @@ export const TRIAL = {
     const duty = classId === 'hunter' ? 'Tranquilizing Shot his Frenzy (the tank cannot survive it for long).'
       : classId === 'mage' ? 'Remove Curse of Ash from raiders (Remove Lesser Curse) before it burns them down.'
         : role === 'healer' ? 'You are on the main tank. Keep Gorrak alive, help the raid through Ember Volley — and make your mana last.'
-          : 'Dispel Searing Shackles (Magic) from raiders.';
+          : classId === 'priest' ? 'Dispel Searing Shackles (Magic) from raiders.' : role === 'tank' ? 'Tank Vorgrath facing away from the raid; build threat and use defensive cooldowns.' : 'Attack from behind, control your threat and help kill the adds.';
     return {
       text: 'Vorgrath the Ember Tyrant rules the Molten Throne. Twelve raiders stand with you. The fight lasts minutes, not seconds: phase one is his fire, phase two his imps and hounds, phase three a burn while he frenzies. Your damage (or healing) matters — but nobody expects you to carry it alone.',
       goals: ['Defeat Vorgrath', 'Your duty: ' + duty, 'Stay out of Magma Pools'],
@@ -184,7 +185,7 @@ export const TRIAL = {
     const boss = s.boss;
     const p = api.player(state);
     const ev = freshEvents(state);
-    const tank = state.list.find((u) => u.role === 'tank' && u.ai && u.ai.type === 'tank' && u.side === 'player');
+    const tank = state.opts.role === 'tank' ? p : state.list.find((u) => u.role === 'tank' && u.ai && u.ai.type === 'tank' && u.side === 'player');
     for (const e of ev) {
       // Duty resolution.
       if (e.type === 'dispel' || e.type === 'dispelMiss') {

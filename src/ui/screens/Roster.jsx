@@ -28,9 +28,10 @@ export function Roster({ characters, kits, playable, onChange, onDone, onBack, t
   const remove = (id) => onChange(characters.filter((c) => c.id !== id));
   return (
     <div className="roster">
+      <h2 className="act-classic-titlebar">Your Characters</h2>
       <header className="hall-head">
         {onBack ? <button type="button" className="btn small ghost" onClick={onBack}>← Back</button> : <span />}
-        <h2>Your characters</h2>
+        <h3>Build your roster</h3>
         <button type="button" className="btn small primary" onClick={onDone} disabled={!characters.length}>To the Hall of Trials</button>
       </header>
       <p className="muted roster-intro">
@@ -72,6 +73,7 @@ export function Roster({ characters, kits, playable, onChange, onDone, onBack, t
             <input type="text" maxLength={24} value={name} placeholder={ready ? `${RACES[race].name} ${kits[classId].name}` : 'Name'} onChange={(e) => setName(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') create(); }} />
           </label>
           <button type="button" className="btn primary" onClick={create} disabled={!ready}>Create character</button>
+          <p className="roster-note">Add or remove characters at any time. Progress remains shared between characters of the same class.</p>
         </section>
         <section className="panel roster-list" aria-label="Your characters">
           <div className="panel-title">In the Hall ({characters.length})</div>

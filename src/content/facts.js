@@ -322,3 +322,12 @@ export const CLASS_FACTS = {
     ],
   },
 };
+
+for (const [id, summary, names, toolkit] of [
+ ['warrior', 'Melee damage or tanking with rage, weapon swings and stances. Heroic Strike and Cleave replace the next main-hand swing; their rage is paid when it lands.', ['Arms','Fury','Protection'], {10:['Charge','Heroic Strike','Rend','Battle Stance','Defensive Stance'],30:['Slam','Execute','Victory Rush','Revenge','Shield Block'],60:['Mortal Strike','Bloodthirst','Whirlwind','Shield Slam']}],
+ ['rogue', 'Melee damage with energy, stealth, poisons and target-specific combo points. Build points with weapon attacks and spend them on finishers.', ['Assassination','Combat','Subtlety'], {10:['Stealth','Sinister Strike','Backstab','Eviscerate'],30:['Poisons','Kick','Kidney Shot','Vanish'],60:['Mutilate','Hemorrhage','Adrenaline Rush']}]
+]) CLASS_FACTS[id] = {
+ summary, identity: 'The implemented kit uses the stored Forever research snapshot, Classic stat formulas and estimated gear. Damage at 60 is a simulation projection.',
+ specs: names.map(name=>({id:name.toLowerCase(),name,role:name==='Protection'?'Tank':'Melee DPS',identity:name==='Protection'?'Shield, threat and defensive cooldowns.':id==='warrior'?'Weapon damage, rage management and stance requirements.':'Energy pacing, combo points and positional attacks.',raidLoop:'See the selected build’s briefing for its abilities and rotation.',loopStatus:'simulation approximation'})),
+ toolkit, dims:{}, risks:[id==='warrior'?'Rage depends on fighting; queued strikes replace rage-generating white swings.':'Leather armor, melee positioning and energy limit sustained damage.'],openQuestions:['Level-60 gear and final Forever tuning remain estimates. No preference prior is assigned from simulation DPS.']
+};

@@ -7,7 +7,7 @@ import { RACES, validRace } from '../../content/races.js';
 
 const { useState, useMemo } = React;
 
-export function Briefing({ trial, kit, level, initialSpec, initialRole, initialRace, raceLocked, onStart, onBack, onSwitchClass, classOrder, kits }) {
+export function Briefing({ trial, kit, level, initialSpec, initialRole, initialRace, raceLocked, onStart, onBack, onSwitchCharacter, characters, characterId, kits }) {
   const roles = trial.rolesFor ? trial.rolesFor(kit.id) : ['dps'];
   const [role, setRole] = useState(roles.includes(initialRole) ? initialRole : roles[0]);
   const specsFor = (r) => (kit.specsFor ? kit.specsFor(level, r) : (kit.specs && kit.specs[level])) || [];
@@ -56,9 +56,9 @@ export function Briefing({ trial, kit, level, initialSpec, initialRole, initialR
           )}
           <div className="brief-switch">
             <span className="muted small">Play this trial as</span>
-            {classOrder.map((c) => (
-              <button type="button" key={c} className={cx('chip', c === kit.id && 'on')} style={{ '--cc': CLASS_COLORS[c] }} onClick={() => c !== kit.id && onSwitchClass(c)}>
-                {kits[c].name}
+            {characters.map((c) => (
+              <button type="button" key={c.id} aria-pressed={c.id === characterId} className={cx('chip', c.id === characterId && 'on')} style={{ '--cc': CLASS_COLORS[c.classId] }} onClick={() => c.id !== characterId && onSwitchCharacter(c)}>
+                {c.name} · {kits[c.classId].name}
               </button>
             ))}
           </div>
@@ -112,8 +112,8 @@ export function Briefing({ trial, kit, level, initialSpec, initialRole, initialR
               <div className="choice-row">
                 {roles.map((r) => (
                   <button type="button" key={r} className={cx('choice-card', role === r && 'on')} onClick={() => setRole(r)}>
-                    <b>{r === 'healer' ? 'Heal the group' : 'Deal damage'}</b>
-                    <span>{r === 'healer' ? 'Keep four allies alive with your heals, shields and dispels.' : 'Bring damage, control and utility.'}</span>
+                    <b>{r === 'healer' ? 'Heal the group' : r === 'tank' ? 'Tank the enemies' : 'Deal damage'}</b>
+                    <span>{r === 'healer' ? 'Keep four allies alive with your heals, shields and dispels.' : r === 'tank' ? 'Build threat, protect your allies and use defensive abilities.' : 'Bring damage, control and utility.'}</span>
                   </button>
                 ))}
               </div>

@@ -63,7 +63,7 @@ const L = 30;
 function partyRoster(opts) {
   const healer = opts.role === 'healer';
   return [
-    { classId: 'warrior', role: 'tank', race: 'orc', name: 'Gorrak', portrait: 'orc-warrior', at: { x: 11, y: 17 } },
+    opts.role === 'tank' ? { classId: 'mage', role: 'dps', spec: 'frost', race: 'troll', name: 'Ilyra', at: { x: 7, y: 19 } } : { classId: 'warrior', role: 'tank', race: 'orc', name: 'Gorrak', portrait: 'orc-warrior', at: { x: 11, y: 17 } },
     { classId: 'rogue', role: 'dps', race: 'troll', name: 'Zaj’ka', portrait: 'troll-rogue', skill: 0.7, react: 1.2, at: { x: 9, y: 15 } },
     { classId: 'warlock', role: 'dps', race: 'undead', name: 'Mordessa', portrait: 'undead-warlock', skill: 0.7, react: 1.2, at: { x: 7, y: 15 } },
     healer
@@ -98,12 +98,12 @@ export const TRIAL = {
   levels: [30],
   kind: 'dungeon',
   blurb: 'A five-player dungeon in miniature: a trash pull with a healer to interrupt, then Abbot Varnath. Priests may heal.',
-  rolesFor: (classId) => (classId === 'priest' ? ['dps', 'healer'] : ['dps']),
+  rolesFor: (classId) => (classId === 'priest' ? ['dps', 'healer'] : classId === 'warrior' ? ['dps', 'tank'] : ['dps']),
   groupBuffs: partyBuffs,
   intro(classId, level, role) {
     const healer = role === 'healer';
     return {
-      text: healer
+      text: role === 'tank' ? 'You tank the zealots and Abbot Varnath. Thalga heals; keep enemies facing away from the party and build threat on the whole pack.' : healer
         ? 'You are the group’s healer. Gorrak tanks, Zaj’ka and Mordessa deal damage. Keep them standing through a zealot pack and Abbot Varnath — your mana has to last.'
         : 'Gorrak tanks, Zaj’ka stabs things, Thalga heals (and her mana is finite — avoidable damage costs the group). You bring damage, control and whatever utility your class has.',
       goals: ['Clear the zealot pack at the stairs', 'Defeat Abbot Varnath', 'Keep the tank and healer alive'],
@@ -133,8 +133,8 @@ export const TRIAL = {
     const healerRole = state.opts.role === 'healer';
     spawnPlayer(state, api, { x: 8, y: healerRole ? 21 : 13 });
     const members = partyRoster(state.opts).map((m) => spawnClassMember(state, api, { ...m, groupBuffs: partyBuffs(state.opts) }, { ...m.at, level: L }));
-    const tank = members[0];
-    tank.ai.restSpot = { x: 12, y: 17 };
+    const tank = state.opts.role === 'tank' ? api.player(state) : members[0];
+    if (tank.ai) tank.ai.restSpot = { x: 12, y: 17 };
     for (const t of TRASH) {
       const u = api.spawnUnit(state, scaled(L, getTemplate(t.tpl)), { x: t.x, y: t.y, templateId: t.tpl, group: 'trash' });
       u.meta.trash = true;
@@ -145,11 +145,11 @@ export const TRIAL = {
     state.script.phase = 'prep';
     state.script.prepEnd = 8;
     state.script.noPull = true; // bots follow the tank; a human may still pull early
-    api.banner(state, 'Gorrak pulls in 8 s', playerHasHumanoidCC(state) ? 'Crowd-control one zealot now if you can.' : 'Get into position.', 3, 'info');
+    api.banner(state, state.opts.role === 'tank' ? 'You tank: pull in 8 s' : 'Gorrak pulls in 8 s', playerHasHumanoidCC(state) ? 'Crowd-control one zealot now if you can.' : 'Get into position.', 3, 'info');
   },
   onTick(state, api, dt) {
     const s = state.script;
-    const tank = state.list.find((u) => u.role === 'tank' && u.side === 'player');
+    const tank = state.opts.role === 'tank' ? api.player(state) : state.list.find((u) => u.role === 'tank' && u.side === 'player');
     const boss = state.list.find((u) => u.templateId === 't3.abbot');
     const ev = freshEvents(state);
     // --- mechanic resolution from this step's events
@@ -321,7 +321,7 @@ export const TRIAL = {
   checkOutcome(state, api) {
     const p = api.player(state);
     if (!p || !p.alive) return { result: 'defeat', reason: 'You died in the reliquary.' };
-    const tank = state.list.find((u) => u.role === 'tank' && u.side === 'player');
+    const tank = state.opts.role === 'tank' ? api.player(state) : state.list.find((u) => u.role === 'tank' && u.side === 'player');
     const healer = state.list.find((u) => u.role === 'healer' && u.side === 'player');
     if (tank && !tank.alive && healer && !healer.alive) return { result: 'defeat', reason: 'Tank and healer are down — the group wipes.' };
     const boss = state.list.find((u) => u.templateId === 't3.abbot');

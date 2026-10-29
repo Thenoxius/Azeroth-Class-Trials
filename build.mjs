@@ -36,8 +36,9 @@ function cssFiles(dir) {
   return out;
 }
 const main = resolve(root, 'src/styles.css');
-const extra = cssFiles(resolve(root, 'src')).filter((p) => p !== main).sort();
-const css = [main, ...extra].map((p) => readFileSync(p, 'utf8')).join('\n');
+const classic = resolve(root, 'src/ui/chrome/classic-shell.css');
+const extra = cssFiles(resolve(root, 'src')).filter((p) => p !== main && p !== classic).sort();
+const css = [main, ...extra, classic].map((p) => readFileSync(p, 'utf8')).join('\n');
 const shell = readFileSync(resolve(root, 'src/shell.html'), 'utf8');
 const page = shell.replace('/*__CSS__*/', () => css).replace('/*__JS__*/', () => js);
 mkdirSync(resolve(root, 'dist'), { recursive: true });

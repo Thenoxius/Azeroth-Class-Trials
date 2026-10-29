@@ -12,6 +12,8 @@ import { Codex } from './screens/Codex.jsx';
 import { Method } from './screens/Method.jsx';
 import { Battle } from './battle/Battle.jsx';
 import { Roster } from './screens/Roster.jsx';
+import { ClassicShell, ClassicBattleFrame } from './chrome/ClassicShell.jsx';
+import { CLASSIC_CONFIG } from './chrome/classic-config.js';
 
 const { useState, useEffect, useCallback, useRef, useMemo } = React;
 
@@ -67,7 +69,7 @@ export function App({ initial }) {
   const characters = useMemo(() => {
     if (Array.isArray(progress.characters)) return progress.characters;
     if (!evidence.sessions.length && !progress.seenIntro) return [];
-    return CLASS_ORDER.map((c) => { const r = validRace(c, (progress.last.race || {})[c]); return { id: 'legacy-' + c, name: `${RACES[r].name} ${KITS[c].name}`, race: r, classId: c }; });
+    return ['hunter', 'mage', 'priest'].map((c) => { const r = validRace(c, (progress.last.race || {})[c]); return { id: 'legacy-' + c, name: `${RACES[r].name} ${KITS[c].name}`, race: r, classId: c }; });
   }, [progress.characters, progress.last.race, evidence.sessions.length, progress.seenIntro]);
   const setCharacters = (list) => setProgress((p) => ({ ...p, characters: list }));
   // Race shown for a class outside a character context (analysis, codex): its first character's.
@@ -122,7 +124,7 @@ export function App({ initial }) {
   } else if (screen === 'hall') {
     body = <Hall trials={TRIALS} kits={VIEW_KITS} characters={characters} onRoster={() => setScreen('roster')} progress={progress} evidence={evidence} onPick={pick} onAnalysis={() => setScreen('analysis')} onCodex={() => setScreen('codex')} onSettings={() => setScreen('settings')} onTitle={() => setScreen('title')} />;
   } else if (screen === 'briefing' && kit && trial) {
-    body = <Briefing key={sel.classId + sel.trialId + sel.level} trial={trial} kit={kit} level={sel.level} initialSpec={sel.spec} initialRole={sel.role} initialRace={sel.race} raceLocked={!!sel.charId} onStart={start} onBack={() => setScreen('hall')} onSwitchClass={(c) => pick({ ...sel, classId: c, spec: undefined, role: undefined })} classOrder={CLASS_ORDER} kits={VIEW_KITS} />;
+    body = <Briefing key={(sel.charId || sel.classId) + sel.trialId + sel.level} trial={trial} kit={kit} level={sel.level} initialSpec={sel.spec} initialRole={sel.role} initialRace={sel.race} raceLocked={!!sel.charId} onStart={start} onBack={() => setScreen('hall')} onSwitchCharacter={(c) => pick({ ...sel, classId: c.classId, charId: c.id, race: c.race, spec: undefined, role: undefined })} characters={characters.filter((c) => trialSupports(trial.id, c.classId))} characterId={sel.charId} kits={VIEW_KITS} />;
   } else if (screen === 'battle' && kit && trial) {
     body = <Battle key={battleKey} sel={sel} kit={kit} trial={trial} settings={progress.settings} sessionMeta={sessionMeta} onEnd={onEnd} onSettings={updateSettings} />;
   } else if (screen === 'result' && result && kit && trial) {
@@ -164,5 +166,12 @@ export function App({ initial }) {
   } else {
     body = <Hall trials={TRIALS} kits={VIEW_KITS} characters={characters} onRoster={() => setScreen('roster')} progress={progress} evidence={evidence} onPick={pick} onAnalysis={() => setScreen('analysis')} onCodex={() => setScreen('codex')} onSettings={() => setScreen('settings')} onTitle={() => setScreen('title')} />;
   }
-  return <div className={'app screen-' + screen}>{body}</div>;
+  if (screen === 'battle') return <ClassicBattleFrame>{body}</ClassicBattleFrame>;
+  const navigateClassic = (destination) => {
+    if (destination === 'method' && screen !== 'method') setBackTo(screen);
+    setScreen(destination === 'hall' && !characters.length ? 'roster' : destination);
+  };
+  return <ClassicShell screen={screen} onNavigate={navigateClassic} hasCharacters={characters.length > 0} supportHref={CLASSIC_CONFIG.supportHref}>
+    <div className={'app screen-' + screen}>{body}</div>
+  </ClassicShell>;
 }

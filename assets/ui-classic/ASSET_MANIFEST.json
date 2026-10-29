@@ -1,0 +1,223 @@
+{
+  "version": 1,
+  "visual_authority": "reference/approved-characters-footer.png",
+  "source": "User-supplied screenshot of the original World of Warcraft Community Site",
+  "generation": "Lossless PNG crops of supplied raster reference; CSS and SVG details are manually defined; no new image generation.",
+  "quality_note": "Screenshot-resolution presentation assets, not recovered pristine source files. Use near native size; do not upscale. Side illustration is a rectangular plate with its original dark background, not a transparent cutout.",
+  "assets": [
+    {
+      "id": "metal-top-tile",
+      "path": "assets/metal-top-tile.png",
+      "source_crop_xyxy": [
+        0,
+        0,
+        280,
+        87
+      ],
+      "width": 280,
+      "height": 87,
+      "sha256": "c82fe84a0279c92bcef518d78c34e9b67f9102861326920ede83b1292b523331",
+      "role": "decorative chrome",
+      "runtime_path": "assets/metal-top-tile.webp",
+      "runtime_sha256": "9e64546910dc15cce63abc8048c48792038e7cf451ea8eb657583851a888b7b5"
+    },
+    {
+      "id": "forest-left",
+      "path": "assets/forest-left.png",
+      "source_crop_xyxy": [
+        0,
+        87,
+        294,
+        340
+      ],
+      "width": 294,
+      "height": 253,
+      "sha256": "50d3ed85816cf15404f89d233d7ee741ab76b4596055ad8255783ea3cec74c4d",
+      "role": "decorative chrome",
+      "runtime_path": "assets/forest-left.webp",
+      "runtime_sha256": "dc787bed5f58313737242745f6886a55c7b19215199a73d67b3cf4601f7a0e65"
+    },
+    {
+      "id": "forest-right",
+      "path": "assets/forest-right.png",
+      "source_crop_xyxy": [
+        1400,
+        87,
+        1903,
+        340
+      ],
+      "width": 503,
+      "height": 253,
+      "sha256": "2d214f0626c1fa465dff6f29b6cb59d21f21b6ae5d1e0ee44c624e647139a634",
+      "role": "decorative chrome",
+      "runtime_path": "assets/forest-right.webp",
+      "runtime_sha256": "fcd4456069dc8f9476c3dd5329642e61a569c78fc1d37f2f266162a4672d4501"
+    },
+    {
+      "id": "night-elf-side-plate",
+      "path": "assets/night-elf-side-plate.png",
+      "source_crop_xyxy": [
+        294,
+        64,
+        490,
+        580
+      ],
+      "width": 196,
+      "height": 516,
+      "sha256": "5286f7f3da5252b3fbc728db0e47d95edb704e5c8fe19bbb52072b4e0b1ec159",
+      "role": "decorative chrome",
+      "runtime_path": "assets/night-elf-side-plate.webp",
+      "runtime_sha256": "c333254214a367b63d97c21988f05162ed6cfa02140477066f4602e1dae20aac"
+    },
+    {
+      "id": "wow-wordmark",
+      "path": "assets/wow-wordmark.png",
+      "source_crop_xyxy": [
+        477,
+        0,
+        660,
+        73
+      ],
+      "width": 183,
+      "height": 73,
+      "sha256": "a96f5e603f83ca5390c73bc4e8a80c17e9f49701138a615f7a27a239bab08de3",
+      "role": "logo",
+      "runtime_path": "assets/wow-wordmark.webp",
+      "runtime_sha256": "6207a9da9eb683cfd26713cd3aa2403cdec28761e8784e264f4a92536fe6141c"
+    },
+    {
+      "id": "parchment-tile",
+      "path": "assets/parchment-tile.png",
+      "source_crop_xyxy": [
+        1025,
+        560,
+        1115,
+        690
+      ],
+      "width": 90,
+      "height": 130,
+      "sha256": "d180a434809f7c6c46c5f56a744d351f53a2ba8b29fa6bb3786ef70bfc6b3669",
+      "role": "decorative chrome",
+      "runtime_path": "assets/parchment-tile.webp",
+      "runtime_sha256": "870be4963e00a93c92a12cbbb1590d73880b9154328093c237f26610bc4e5f38"
+    },
+    {
+      "id": "content-edge-left",
+      "path": "assets/content-edge-left.png",
+      "source_crop_xyxy": [
+        638,
+        340,
+        674,
+        700
+      ],
+      "width": 36,
+      "height": 360,
+      "sha256": "dd47e02a2dd50e24152bba1220a0ba808ae3617958d7d479a76945607d913834",
+      "role": "decorative chrome",
+      "runtime_path": "assets/content-edge-left.webp",
+      "runtime_sha256": "a76cb22fd9fac887ac140f81a61d4a69ac4507f91870e5d2c001e2d1e5898fe2"
+    },
+    {
+      "id": "content-edge-right",
+      "path": "assets/content-edge-right.png",
+      "source_crop_xyxy": [
+        1374,
+        340,
+        1396,
+        700
+      ],
+      "width": 22,
+      "height": 360,
+      "sha256": "40deabb2267b4d5436b33971ad31c9e89928ea5d64ed78b5fbfa993c40c4fda3",
+      "role": "decorative chrome",
+      "runtime_path": "assets/content-edge-right.webp",
+      "runtime_sha256": "00c9d62bbaa378d75c6f518bfcc4103694f9f409b4a4f483590ee632e79b1960"
+    },
+    {
+      "id": "blue-title-middle",
+      "path": "assets/blue-title-middle.png",
+      "source_crop_xyxy": [
+        845,
+        319,
+        1105,
+        336
+      ],
+      "width": 260,
+      "height": 17,
+      "sha256": "d17fd960c8fa24c424fb6e5a1eccc5f1e130599bce70629021501a4e7b110069",
+      "role": "decorative chrome",
+      "runtime_path": "assets/blue-title-middle.webp",
+      "runtime_sha256": "dd31e016b0d0f5c453e4ef5cd4e5bf6f279e60c293e18dcb4736d8e1dc02d075"
+    },
+    {
+      "id": "blue-title-left",
+      "path": "assets/blue-title-left.png",
+      "source_crop_xyxy": [
+        671,
+        315,
+        702,
+        339
+      ],
+      "width": 31,
+      "height": 24,
+      "sha256": "5e8df120378d876e3674518aae7c6fb6bc9ee059f564ed8b22f702a02ca84a2a",
+      "role": "decorative chrome",
+      "runtime_path": "assets/blue-title-left.webp",
+      "runtime_sha256": "555b415c6a4f25695ef7b01b25dd2d68d265a7a18f3928a48543477c2491b331"
+    },
+    {
+      "id": "blue-title-right",
+      "path": "assets/blue-title-right.png",
+      "source_crop_xyxy": [
+        1115,
+        315,
+        1138,
+        339
+      ],
+      "width": 23,
+      "height": 24,
+      "sha256": "a47549d84cbe6824bae4773bf8f93480c19db57dfd50a57e3c04db5ce7286168",
+      "role": "decorative chrome",
+      "runtime_path": "assets/blue-title-right.webp",
+      "runtime_sha256": "3e69a52274d51ad0fa1c1b4a375bde62fda72afa861f84b45cf87c8f6980a2e2"
+    },
+    {
+      "id": "nav-left-cap",
+      "path": "assets/nav-left-cap.png",
+      "source_crop_xyxy": [
+        490,
+        104,
+        514,
+        128
+      ],
+      "width": 24,
+      "height": 24,
+      "sha256": "d7350fe3664a5ceec7eff83f1b6f777f22bc1d4014615fcceeb92ca2cc942ff2",
+      "role": "decorative chrome",
+      "runtime_path": "assets/nav-left-cap.webp",
+      "runtime_sha256": "7247693b6b6ad12888b7c8035b7c6a9bdab523dfb73129ef783e905a60157497"
+    },
+    {
+      "id": "nav-right-chevron",
+      "path": "assets/nav-right-chevron.svg",
+      "width": 18,
+      "height": 24,
+      "generation": "Manual vector detail based on existing frame vocabulary",
+      "sha256": "66d3ec459cbce237f7577e51259a99621060f842370f4ba9ff23d6ef6d404f6c",
+      "role": "decorative navigation cap",
+      "runtime_path": "assets/nav-right-chevron.svg",
+      "runtime_sha256": "66d3ec459cbce237f7577e51259a99621060f842370f4ba9ff23d6ef6d404f6c"
+    },
+    {
+      "id": "world-of-warcraft-class-trials",
+      "path": "assets/world-of-warcraft-class-trials.svg",
+      "width": 183,
+      "height": 100,
+      "generation": "Original cropped wordmark plus live vector subtitle",
+      "sha256": "2c5b74e52a2e8bfa0b2f3ada6d7bc0593451c8aa1d0cce5acee26be6d0639def",
+      "role": "combined logo alternative",
+      "runtime_path": "assets/world-of-warcraft-class-trials.svg",
+      "runtime_sha256": "2c5b74e52a2e8bfa0b2f3ada6d7bc0593451c8aa1d0cce5acee26be6d0639def"
+    }
+  ]
+}

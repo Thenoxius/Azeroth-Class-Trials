@@ -528,6 +528,8 @@ function applyAutoTarget(u, t, auto) {
 }
 
 export function startCast(state, u, id, opts = {}) {
+  // Clicking a queued strike again cancels it, even after rage or target is lost.
+  if (!opts.resolveSwing && u.nextSwing === id) { u.nextSwing = null; return { ok: true, cancelled: true }; }
   const chk = canCast(state, u, id, opts);
   if (!chk.ok) {
     if (u.isPlayer || opts.reportFail) emit(state, { type: 'error', src: u.id, ability: id, reason: chk.reason, text: reasonText(chk.reason, chk.ab, u) });
@@ -535,6 +537,10 @@ export function startCast(state, u, id, opts = {}) {
   }
   const { ab, t } = chk;
   applyAutoTarget(u, t, chk.auto);
+  if (ab.onNextSwing && !opts.resolveSwing) {
+    u.nextSwing = id; u.autoMelee = true;
+    return { ok: true, ab, queued: true };
+  }
   const point = opts.point || (ab.target === 'point' ? (t ? { x: t.x, y: t.y } : { x: u.x, y: u.y }) : null);
   if (t && t !== u) u.facing = G.angleTo(u, t);
   else if (point && (point.x !== u.x || point.y !== u.y)) u.facing = G.angleTo(u, point);
@@ -1726,8 +1732,13 @@ function updateAutoAttacks(state, u, dt) {
   if (u.melee) {
     u.swingT = Math.max(0, u.swingT - dt * (1 + modAdd(u, 'meleeHaste')));
     if (u.swingT <= 0 && u.autoMelee && t && t.alive && hostile(u, t) && !t.hidden && !u.cc.disarm && !(u.casting && !u.casting.ab.meleeWhileCasting) && gap(u, t) <= (u.melee.range || MELEE_RANGE) && !u.flags.feigned && !u.flags.noMelee) {
-      const amount = u.melee.min + (u.melee.max - u.melee.min) * state.rng();
-      dealDamage(state, u, t, { amount, school: u.melee.school || 'physical', kind: 'melee', ability: 'melee', threat: u.melee.threat ?? 1, coef: u.melee.coef ?? 0 });
+      const next = u.nextSwing;
+      u.nextSwing = null;
+      const replaced = next && startCast(state, u, next, { resolveSwing: true, targetId: t.id }).ok;
+      if (!replaced) {
+        const amount = u.melee.min + (u.melee.max - u.melee.min) * state.rng();
+        dealDamage(state, u, t, { amount, school: u.melee.school || 'physical', kind: 'melee', ability: 'melee', threat: u.melee.threat ?? 1, coef: u.melee.coef ?? 0 });
+      }
       u.swingT = u.melee.speed;
       u.facing = G.angleTo(u, t);
       emit(state, { type: 'swing', src: u.id, dst: t.id });
@@ -1931,6 +1942,7 @@ export function moveTo(state, x, y) {
 // As in WoW, the player's Auto Shot / wand / melee swings stop when the target changes or
 // dies; a shot or strike on the new target starts them again.
 function stopAutoAttacks(u) {
+  u.nextSwing = null;
   u.autoRanged = false;
   u.wandResume = false;
   u.autoMelee = false;
@@ -2031,7 +2043,7 @@ export function abilityStatus(state, u, id) {
     reason: chk.reason || null,
     noRes: chk.reason === 'nores',
     outOfRange: chk.reason === 'range' || chk.reason === 'minrange' || chk.reason === 'los',
-    active: ab.toggle === 'autoshot' || ab.toggle === 'wand' ? u.autoRanged || u.wandResume : ab.toggle === 'melee' ? u.autoMelee : false,
+    active: ab.onNextSwing ? u.nextSwing === id : ab.toggle === 'autoshot' || ab.toggle === 'wand' ? u.autoRanged || u.wandResume : ab.toggle === 'melee' ? u.autoMelee : false,
     cost: abilityCost(u, ab),
   };
 }

@@ -238,7 +238,7 @@ export const TRIAL = {
       tips: [
         'Diminishing returns apply: the same kind of control lasts shorter each time.',
         'Pillars and crates block line of sight — for him as well as for you.',
-        classId === 'priest' ? 'Fear Ward blocks his Intimidating Shout once.' : classId === 'mage' ? 'Blink breaks his stuns and roots; he will Pummel spells cast in his face.' : 'Your pet keeps him busy — he may decide to deal with it first.',
+        classId === 'priest' ? 'Fear Ward blocks his Intimidating Shout once.' : classId === 'mage' ? 'Blink breaks his stuns and roots; he will Pummel spells cast in his face.' : classId === 'hunter' ? 'Your pet keeps him busy — he may decide to deal with it first.' : 'Avoid attacking into Retaliation. Use control and defensive abilities to survive his burst.',
       ],
     };
   },

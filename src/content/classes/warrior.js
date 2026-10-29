@@ -54,8 +54,6 @@ function strike(ctx, o = {}) {
 const hit = (o) => ({ type: 'custom', fn: (ctx) => strike(ctx, o) });
 
 // "On next swing" attacks (Heroic Strike, Cleave) replace the coming white swing.
-const nextSwing = ({ u }) => (!u.melee || u.swingT > 0.4 ? 'custom:Waits for your next swing' : true);
-const consumeSwing = { type: 'custom', fn: ({ u }) => { if (u.melee) u.swingT = u.melee.speed; } };
 
 function warriorOnAvoid({ state, u, api, avoid }) {
   const tal = T(u);
@@ -108,16 +106,16 @@ registerAbilities({
     name: 'Heroic Strike', icon: 'sword', school: 'physical', mechanic: 'physical', category: 'damage', tags: ['threat'], range: 5, gcd: 0,
     desc: 'Your next swing hits harder and causes a high amount of threat. Costs rage that the swing would not give back.',
     forever: DM('Datamine: +44 at 30, +157 at 60. Threat value is Classic’s.'),
-    cost: { rage: 'rage' }, canUse: nextSwing,
-    effects: [hit({ weapon: true }), consumeSwing],
+    cost: { rage: 'rage' }, onNextSwing: true,
+    effects: [hit({ weapon: true })],
     byLevel: { 10: { rage: 15, dmg: [21, 21], thr: 45 }, 30: { rage: 15, dmg: [44, 44], thr: 80 }, 60: { rage: 15, dmg: [157, 157], thr: 175 } },
   },
   'warrior.cleave': {
     name: 'Cleave', icon: 'axe', school: 'physical', mechanic: 'physical', category: 'damage', tags: ['threat', 'aoe'], range: 5, gcd: 0,
     desc: 'Your next swing hits the target and a second nearby enemy for weapon damage plus a bonus.',
     forever: DM('Datamine: +10 at 30, +50 at 60.'),
-    cost: { rage: 'rage' }, canUse: nextSwing,
-    effects: [{ type: 'custom', aoe: { center: 'target', radius: 5, maxTargets: 2 }, fn: (ctx) => strike(ctx, { weapon: true }) }, consumeSwing],
+    cost: { rage: 'rage' }, onNextSwing: true,
+    effects: [{ type: 'custom', aoe: { center: 'target', radius: 5, maxTargets: 2 }, fn: (ctx) => strike(ctx, { weapon: true }) }],
     byLevel: { 30: { rage: 20, dmg: [10, 10], thr: 40 }, 60: { rage: 20, dmg: [50, 50], thr: 100 } },
   },
   'warrior.thunderclap': {
@@ -321,7 +319,7 @@ registerAbilities({
     effects: [{ type: 'custom', aoe: { center: 'self', radius: 8, maxTargets: 4, affects: 'enemies' }, fn: (ctx) => {
       const oh = ctx.u.melee && ctx.u.melee.oh;
       strike(ctx, { weapon: true, amount: [0, 0] });
-      if (oh) ctx.api.dealDamage(ctx.state, ctx.u, ctx.t, { amount: (oh.min + (oh.max - oh.min) * ctx.state.rng()) * (oh.mult ?? 0.5), school: 'physical', kind: 'melee', ability: ctx.ab.id, hand: 'oh' });
+      if (oh) ctx.api.dealDamage(ctx.state, ctx.u, ctx.t, { amount: (oh.min + (oh.max - oh.min) * ctx.state.rng()) * (oh.mult ?? 0.5), school: 'physical', kind: 'melee', ability: ctx.ab.id, hand: 'oh', coef: (oh.coef ?? oh.speed / 14) * (oh.mult ?? 0.5) });
     } }],
     byLevel: { 60: { rage: 25 } },
   },

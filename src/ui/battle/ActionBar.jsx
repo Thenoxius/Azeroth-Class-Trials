@@ -57,7 +57,7 @@ export function AbilityTooltip({ state, u, id, petUnit }) {
       <div className="tt-meta">
         {describeCost(cost) && <span>{describeCost(cost)}</span>}
         {range ? <span>{ab.minRange ? `${ab.minRange}–${range}` : range} yd</span> : <span>Self</span>}
-        <span>{ab.channel ? `Channeled ${ab.channel.duration}s` : ct > 0 ? `${ct.toFixed(1)}s cast` : 'Instant'}</span>
+        <span>{ab.channel ? `Channeled ${ab.channel.duration}s` : ab.onNextSwing ? 'Next melee swing · press again to cancel' : ct > 0 ? `${ct.toFixed(1)}s cast` : 'Instant'}</span>
         {cd > 0 && <span>{cd >= 60 ? `${Math.round(cd / 60)} min` : `${Math.round(cd * 10) / 10}s`} cooldown</span>}
         {(ab.gcd ?? 1.5) === 0 && <span>Off GCD</span>}
       </div>
