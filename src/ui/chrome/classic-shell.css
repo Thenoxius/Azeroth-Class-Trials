@@ -36,9 +36,6 @@
 .act-classic-shell .act-classic-content::after { right: 0; width: 22px; background: var(--act-edge-right) right top / 22px 360px repeat-y; }
 .act-classic-shell .act-classic-content > .app { min-height: 0; height: auto; padding: 0; }
 .act-classic-shell .act-classic-footer { grid-column: 2; padding: 24px 16px 28px; text-align: center; color: #827d6d; font: 11px/1.6 Arial, Helvetica, sans-serif; }
-.act-classic-shell .act-classic-footer a, .act-classic-shell .act-classic-support-unconfigured { color: #b8a36a; }
-.act-classic-shell .act-classic-footer a { text-decoration: none; }
-.act-classic-shell .act-classic-footer a:hover { color: #ead38b; text-decoration: underline; }
 .act-classic-shell .act-classic-panel { background: transparent; border: 1px solid #8b7543; box-shadow: inset 0 0 0 2px #d8c596; }
 .act-classic-shell .act-classic-panel-body { padding: 14px; }
 .act-classic-shell .act-classic-titlebar, .act-classic-shell .panel > .panel-title { position: relative; min-height: 25px; margin: 0 0 12px; padding: 3px 25px 3px 30px; border: 1px solid #a98e47; color: #f5d45b; background-color: #102333; background-image: var(--act-title-left), var(--act-title-right), var(--act-title-middle); background-position: left center, right center, center; background-size: 31px 24px, 23px 24px, auto 100%; background-repeat: no-repeat, no-repeat, repeat-x; font: 14px/18px Georgia, 'Times New Roman', serif; letter-spacing: 0; text-transform: none; }
@@ -106,7 +103,7 @@
 .act-classic-shell .hall-head > .row { flex-wrap: wrap; }
 .act-classic-shell .hall-body, .act-classic-shell .brief-body { display: grid; grid-template-columns: minmax(0,1fr); }
 .act-classic-shell .hall-side { grid-template-columns: repeat(2,minmax(0,1fr)); }
-.act-classic-shell .trial-row { display: grid; grid-template-columns: minmax(0,1fr); background: transparent; border-radius: 0; border-bottom: 1px solid #ac986e; box-shadow: none; padding: 0 0 20px; gap: 12px; }
+.act-classic-shell .trial-row { display: grid; grid-template-columns: minmax(0,1fr); background: transparent; border-radius: 0; border-bottom: 1px solid #ac986e; box-shadow: none; padding: 0 0 20px 14px; gap: 12px; }
 .act-classic-shell .trial-classes { justify-content: flex-start; display: grid; grid-template-columns: repeat(auto-fit,minmax(155px,1fr)); }
 .act-classic-shell .tc { width: 100%; min-width: 0; border-radius: 0; background: #172c3b; border: 1px solid #7f6535; box-shadow: inset 0 0 0 1px #c8a858; color: #f0ddb0; }
 .act-classic-shell .tc-text { min-width: 0; overflow-wrap: anywhere; }
@@ -228,9 +225,9 @@
    elements, controls, SVG terrain, or hit areas are changed. */
 .act-classic-battle-frame {
   background-color: #000;
-  background-image: var(--act-metal), var(--act-forest-left), var(--act-forest-right);
-  background-position: left top, left 87px, right 87px;
-  background-repeat: repeat-x, no-repeat, no-repeat;
+  background-image: var(--act-metal);
+  background-position: left top;
+  background-repeat: repeat-x;
   box-shadow: inset 0 0 0 1px #d2b66b, inset 0 0 0 3px #24231e;
 }
 .act-classic-battle-frame .b-top {

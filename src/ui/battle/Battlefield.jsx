@@ -146,7 +146,30 @@ function ccVisual(u) {
   return v;
 }
 
-function Token({ u, state, kitColor, isTarget, isPlayer, onPick, fxBubble }) {
+// Name labels of units standing close together would print over each other.
+// Greedy top-down pass: a label that overlaps one already placed moves up a line.
+const LABEL_LINE = 0.85;
+function labelLifts(units, playerId, tid) {
+  const placed = [];
+  const lift = {};
+  for (const u of [...units].sort((a, b) => a.y - b.y)) {
+    if (u.id === playerId || !u.name) continue;
+    const r = tokenR(u);
+    const size = u.kind === 'boss' ? 1.15 : u.id === tid || u.elite ? 0.92 : 0.78;
+    const half = (u.name.length + (u.elite ? 2 : 0)) * size * 0.3;
+    let y = u.y - r - 1.05;
+    let n = 0;
+    while (n < 4 && placed.some((p) => Math.abs(p.x - u.x) < p.half + half && Math.abs(p.y - y) < LABEL_LINE)) {
+      y -= LABEL_LINE;
+      n++;
+    }
+    placed.push({ x: u.x, y, half });
+    if (n) lift[u.id] = n * LABEL_LINE;
+  }
+  return lift;
+}
+
+function Token({ u, state, kitColor, isTarget, isPlayer, onPick, fxBubble, lift = 0 }) {
   const r = tokenR(u);
   const ring = unitColor(u, kitColor);
   const hpP = Math.max(0, u.hp / u.maxHp);
@@ -193,7 +216,7 @@ function Token({ u, state, kitColor, isTarget, isPlayer, onPick, fxBubble }) {
           {shield > 0 && <rect x={-barW / 2 + barW * hpP} y="0" width={Math.min(barW * (1 - hpP), (barW * shield) / u.maxHp)} height="0.35" fill="#fff6c8" opacity="0.8" />}
         </g>
       )}
-      <text y={-r - 1.05} textAnchor="middle" fontSize={nameSize} className={cx('bf-name', u.side === 'enemy' ? 'foe' : 'friend', isPlayer && 'me')}>
+      <text y={-r - 1.05 - lift} textAnchor="middle" fontSize={nameSize} className={cx('bf-name', u.side === 'enemy' ? 'foe' : 'friend', isPlayer && 'me')}>
         {isPlayer ? '' : u.name}
         {u.elite && u.alive ? ' ◆' : ''}
       </text>
@@ -299,6 +322,7 @@ export function Battlefield({ state, fx, kitColor, targeting, hoverRing, onGroun
     lines.push(<line key={'l' + u.id} x1={u.x} y1={u.y} x2={tg.x} y2={tg.y} stroke={tg.id === state.playerId ? '#ff5a3c' : '#ff9a6b'} strokeOpacity={tg.id === state.playerId ? 0.55 : 0.22} strokeWidth="0.12" strokeDasharray="0.5 0.35" />);
   }
   const floaters = fx.floaters;
+  const lifts = labelLifts(units, state.playerId, tid);
   return (
     <div className={cx('bf', targeting && 'targeting')} style={{ aspectRatio: `${A.w} / ${A.h}`, '--ar': A.w / A.h }}>
       <svg ref={svgRef} viewBox={`0 0 ${A.w} ${A.h}`} className="bf-svg" onPointerDown={handleDown} onPointerMove={handleMove} onContextMenu={(e) => e.preventDefault()}>
@@ -327,7 +351,7 @@ export function Battlefield({ state, fx, kitColor, targeting, hoverRing, onGroun
         {lines}
         {(A.obstacles || []).map((o) => <Obstacle key={o.id} o={o} />)}
         {units.map((u) => (
-          <Token key={u.id} u={u} state={state} kitColor={kitColor} isTarget={u.id === tid} isPlayer={u.id === state.playerId} onPick={onPick} />
+          <Token key={u.id} u={u} state={state} kitColor={kitColor} isTarget={u.id === tid} isPlayer={u.id === state.playerId} onPick={onPick} lift={lifts[u.id] || 0} />
         ))}
         {state.projectiles.map((p) => <Projectile key={p.id} p={p} />)}
         {fx.effects.map((f) => <Effect key={f.id} f={f} t={t} />)}

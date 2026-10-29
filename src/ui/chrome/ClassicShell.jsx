@@ -23,20 +23,10 @@ export function classicAssetVariables() {
   return Object.fromEntries(Object.entries(names).map(([id, name]) => [name, `url("${A[id]}")`]));
 }
 
-function safeSupportHref(value) {
-  if (!value) return null;
-  try {
-    const u = new URL(value);
-    if (u.protocol !== 'https:' || !['ko-fi.com', 'www.ko-fi.com'].includes(u.hostname) || u.username || u.password) return null;
-    return u.href;
-  } catch { return null; }
-}
-
-export function ClassicShell({ screen, children, onNavigate, hasCharacters = true, supportHref = null }) {
+export function ClassicShell({ screen, children, onNavigate, hasCharacters = true }) {
   // Never wrap the battle HUD in the menu shell. See ClassicBattleFrame below.
   if (screen === 'battle') throw new Error('Use ClassicBattleFrame for battle; the menu theme must not inherit into combat.');
   const active = ['briefing', 'result'].includes(screen) ? 'hall' : screen;
-  const support = safeSupportHref(supportHref);
   const nav = CLASSIC_NAV.map(item => h('button', {
     type: 'button', key: item.id,
     className: 'act-classic-nav-link' + (active === item.id ? ' is-active' : ''),
@@ -56,10 +46,7 @@ export function ClassicShell({ screen, children, onNavigate, hasCharacters = tru
         h('nav', { className: 'act-classic-nav', 'aria-label': 'Main navigation' }, nav)),
       h('main', { className: 'act-classic-content', id: 'act-classic-content' }, children),
       h('div', { className: 'act-classic-bottom-rail', 'aria-hidden': true }),
-      h('footer', { className: 'act-classic-footer' },
-        h('span', null, 'Class Trials'), h('span', { 'aria-hidden': true }, ' · '),
-        support ? h('a', { href: support, target: '_blank', rel: 'noopener noreferrer' }, 'Support the project on Ko-fi')
-          : h('span', { className: 'act-classic-support-unconfigured' }, 'Support the project on Ko-fi'))));
+      h('footer', { className: 'act-classic-footer' }, h('span', null, 'Class Trials'))));
 }
 
 export function ClassicPanel({ title, children, className = '', heading = 'h2' }) {

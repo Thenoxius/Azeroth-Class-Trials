@@ -27,7 +27,7 @@ export function nextSuggestion(trials, characters, progress) {
   return null;
 }
 
-export function Hall({ trials, kits, characters, progress, evidence, onPick, onAnalysis, onCodex, onSettings, onTitle, onRoster }) {
+export function Hall({ trials, kits, characters, progress, evidence, onPick, onCodex, onSettings, onTitle }) {
   const classOrder = [...new Set(characters.map((c) => c.classId))];
   const next = nextSuggestion(trials, characters, progress);
   const pickFor = (ch, t, lv) => onPick({ trialId: t.id, classId: ch.classId, level: lv, race: ch.race, charId: ch.id });
@@ -39,19 +39,14 @@ export function Hall({ trials, kits, characters, progress, evidence, onPick, onA
     perClass[s.classId].minutes += (s.realMs || 0) / 60000;
   }
   for (const f of evidence.feedback) if (perClass[f.classId]) perClass[f.classId].feedback++;
-  const cells = trials.flatMap((t) => classOrder.filter((c) => trialSupports(t.id, c)).map((c) => [t, c]));
-  const totalCells = Math.max(1, cells.length);
-  const tried = cells.filter(([t, c]) => (progress.runs[runKey(t.id, c, t.level)] || {}).attempts).length;
   return (
     <div className="hall">
       <header className="hall-head">
         <button type="button" className="linkish" onClick={onTitle}>Azeroth Class Trials</button>
         <h2>The Hall of Trials</h2>
         <div className="row gap">
-          <button type="button" className="btn small ghost" onClick={onRoster}>Characters</button>
           <button type="button" className="btn small ghost" onClick={onCodex}>Forever codex</button>
           <button type="button" className="btn small ghost" onClick={onSettings}>Settings &amp; data</button>
-          <button type="button" className="btn small primary" onClick={onAnalysis}>Class analysis{tried ? ` · ${Math.round((tried / totalCells) * 100)}% covered` : ''}</button>
         </div>
       </header>
       <div className="hall-body">

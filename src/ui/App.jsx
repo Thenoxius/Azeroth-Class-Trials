@@ -13,7 +13,6 @@ import { Method } from './screens/Method.jsx';
 import { Battle } from './battle/Battle.jsx';
 import { Roster } from './screens/Roster.jsx';
 import { ClassicShell, ClassicBattleFrame } from './chrome/ClassicShell.jsx';
-import { CLASSIC_CONFIG } from './chrome/classic-config.js';
 
 const { useState, useEffect, useCallback, useRef, useMemo } = React;
 
@@ -122,7 +121,7 @@ export function App({ initial }) {
   if (screen === 'title') {
     body = <Title onStart={() => { setProgress((p) => ({ ...p, seenIntro: true, characters })); setScreen(characters.length ? 'hall' : 'roster'); }} onMethod={() => { setBackTo('title'); setScreen('method'); }} hasProgress={evidence.sessions.length > 0} sessions={evidence.sessions.length} />;
   } else if (screen === 'hall') {
-    body = <Hall trials={TRIALS} kits={VIEW_KITS} characters={characters} onRoster={() => setScreen('roster')} progress={progress} evidence={evidence} onPick={pick} onAnalysis={() => setScreen('analysis')} onCodex={() => setScreen('codex')} onSettings={() => setScreen('settings')} onTitle={() => setScreen('title')} />;
+    body = <Hall trials={TRIALS} kits={VIEW_KITS} characters={characters} progress={progress} evidence={evidence} onPick={pick} onCodex={() => setScreen('codex')} onSettings={() => setScreen('settings')} onTitle={() => setScreen('title')} />;
   } else if (screen === 'briefing' && kit && trial) {
     body = <Briefing key={(sel.charId || sel.classId) + sel.trialId + sel.level} trial={trial} kit={kit} level={sel.level} initialSpec={sel.spec} initialRole={sel.role} initialRace={sel.race} raceLocked={!!sel.charId} onStart={start} onBack={() => setScreen('hall')} onSwitchCharacter={(c) => pick({ ...sel, classId: c.classId, charId: c.id, race: c.race, spec: undefined, role: undefined })} characters={characters.filter((c) => trialSupports(trial.id, c.classId))} characterId={sel.charId} kits={VIEW_KITS} />;
   } else if (screen === 'battle' && kit && trial) {
@@ -164,14 +163,14 @@ export function App({ initial }) {
       />
     );
   } else {
-    body = <Hall trials={TRIALS} kits={VIEW_KITS} characters={characters} onRoster={() => setScreen('roster')} progress={progress} evidence={evidence} onPick={pick} onAnalysis={() => setScreen('analysis')} onCodex={() => setScreen('codex')} onSettings={() => setScreen('settings')} onTitle={() => setScreen('title')} />;
+    body = <Hall trials={TRIALS} kits={VIEW_KITS} characters={characters} progress={progress} evidence={evidence} onPick={pick} onCodex={() => setScreen('codex')} onSettings={() => setScreen('settings')} onTitle={() => setScreen('title')} />;
   }
   if (screen === 'battle') return <ClassicBattleFrame>{body}</ClassicBattleFrame>;
   const navigateClassic = (destination) => {
     if (destination === 'method' && screen !== 'method') setBackTo(screen);
     setScreen(destination === 'hall' && !characters.length ? 'roster' : destination);
   };
-  return <ClassicShell screen={screen} onNavigate={navigateClassic} hasCharacters={characters.length > 0} supportHref={CLASSIC_CONFIG.supportHref}>
+  return <ClassicShell screen={screen} onNavigate={navigateClassic} hasCharacters={characters.length > 0}>
     <div className={'app screen-' + screen}>{body}</div>
   </ClassicShell>;
 }
