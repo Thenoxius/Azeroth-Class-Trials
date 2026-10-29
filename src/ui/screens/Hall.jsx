@@ -90,7 +90,7 @@ export function Hall({ trials, kits, characters, progress, evidence, onPick, onC
                             <span className="tc-portrait"><Portrait id={portrait} size={40} /></span>
                             <span className="tc-text">
                               <span className="tc-class">{ch.name}{lv !== t.level ? ` · L${lv}` : ''}</span>
-                              <span className="tc-status">{status === 'new' ? (isNext ? 'Suggested next' : 'Not tried') : status === 'won' ? `Won · ${r.attempts} ${r.attempts === 1 ? 'run' : 'runs'}` : `${r.attempts} ${r.attempts === 1 ? 'attempt' : 'attempts'}`}</span>
+                              <span className="tc-status">{status === 'new' ? (isNext ? 'Suggested next' : 'Not tried') : r.bestDps ? `Best ${Math.round(r.bestDps).toLocaleString('en-US')} DPS` : status === 'won' ? `Won · ${r.attempts} ${r.attempts === 1 ? 'run' : 'runs'}` : `${r.attempts} ${r.attempts === 1 ? 'attempt' : 'attempts'}`}</span>
                             </span>
                           </button>
                         );

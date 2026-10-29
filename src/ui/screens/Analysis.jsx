@@ -39,7 +39,10 @@ function Evidence({ list }) {
 export function Analysis({ evidence, kits, trials, classOrder, weights, onWeights, onBack, onMethod, onPlay }) {
   const [w, setW] = useState(() => ({ ...DEFAULT_WEIGHTS, ...(weights || {}) }));
   const [open, setOpen] = useState(null); // `${cls}:${dim}`
-  const a = useMemo(() => analyze({ sessions: evidence.sessions, feedback: evidence.feedback, weights: w, trials }), [evidence, w, trials]);
+  const a = useMemo(() => {
+    const ids = new Set(trials.map((t) => t.id));
+    return analyze({ sessions: evidence.sessions.filter((s) => ids.has(s.trialId)), feedback: evidence.feedback.filter((f) => ids.has(f.trialId)), weights: w, trials });
+  }, [evidence, w, trials]);
   const rec = a.recommendation;
   const setWeight = (id, v) => {
     const next = { ...w, [id]: v };

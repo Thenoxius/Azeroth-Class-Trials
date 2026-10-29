@@ -62,7 +62,7 @@ export function Battle({ sel, kit, trial, settings, sessionMeta, onEnd, onExit, 
       setEnded(true);
       const s = stateRef.current;
       const session = tracker.finish(s, extra);
-      onEnd({ session, outcome: s.outcome, summary: trial.summary ? trial.summary(s) : [], state: s, abandoned: !!extra.abandoned });
+      onEnd({ session, outcome: s.outcome, summary: trial.summary ? trial.summary(s) : [], report: trial.report && !extra.abandoned ? trial.report(s) : null, state: s, abandoned: !!extra.abandoned });
     },
     [onEnd, trial, tracker],
   );
