@@ -298,12 +298,3 @@
   .act-classic-shell .act-classic-layout { padding-left: 196px; }
   .act-classic-shell .act-classic-figure { display: block; }
 }
-
-/* Continuous forest-toned parchment texture; native forest art blends into it. */
-@media (min-width: 761px) {
-  .act-classic-shell { background-color: #1d3033; background-image: var(--act-metal), var(--act-paper); background-position: left top, left 87px; background-size: 280px 87px, auto; background-repeat: repeat-x, repeat; background-blend-mode: normal, multiply; }
-  .act-classic-shell .act-classic-sidebar { padding-top: 14px; }
-  .act-classic-shell .act-classic-nav { margin-right: 10px; padding: 0; gap: 12px; border: 0; background: transparent; box-shadow: none; }
-  .act-classic-shell .act-classic-figure { mix-blend-mode: screen; mask-image: linear-gradient(to right, transparent, #000 24px); }
-  .act-classic-shell .act-classic-footer { background: transparent; color: #c5bc9f; }
-}
