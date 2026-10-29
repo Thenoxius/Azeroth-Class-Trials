@@ -20,7 +20,7 @@ export function classicAssetVariables() {
     'blue-title-left': '--act-title-left', 'blue-title-right': '--act-title-right',
     'nav-left-cap': '--act-nav-left', 'nav-right-chevron': '--act-nav-right',
   };
-  return Object.fromEntries(Object.entries(names).map(([id, name]) => [name, `url("${A[id]}")`]));
+  return { ...Object.fromEntries(Object.entries(names).map(([id, name]) => [name, `url("${A[id]}")`])) };
 }
 
 function safeSupportHref(value) {
