@@ -29,12 +29,13 @@ jobs:
       - run: npm run audit
       - run: node scripts/verify-classic.mjs
       - run: npm run build
-      # dist/preview.html is the full standalone page; dist/index.html is the
-      # artifact fragment without <html>/<head>.
+      # dist/preview.html is the full site page and loads its art from dist/art/;
+      # dist/index.html is the single-file artifact fragment.
       - name: Assemble site
         run: |
           mkdir -p _site
           cp dist/preview.html _site/index.html
+          cp -r dist/art _site/art
           touch _site/.nojekyll
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v4

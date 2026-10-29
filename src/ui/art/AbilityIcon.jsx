@@ -5,7 +5,8 @@
 // background, inner vignette and bevelled frame.
 import { GLYPHS_A } from './icons-a.jsx';
 import { GLYPHS_B } from './icons-b.jsx';
-import { IMAGES, ABILITY_IMG, AURA_IMG } from './art-images.gen.js';
+import { ABILITY_IMG, AURA_IMG } from './art-images.gen.js';
+import { IMAGES } from './art-urls.js';
 
 export const GLYPHS = { ...GLYPHS_A, ...GLYPHS_B };
 

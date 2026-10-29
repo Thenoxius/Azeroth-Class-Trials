@@ -4,7 +4,8 @@
 // reads inside a circular crop of radius ~46 and at sizes down to 28px.
 import { PORTRAITS_HEROES } from './portraits-heroes.jsx';
 import { PORTRAITS_FOES } from './portraits-foes.jsx';
-import { IMAGES, PORTRAIT_IMG } from './art-images.gen.js';
+import { PORTRAIT_IMG } from './art-images.gen.js';
+import { IMAGES } from './art-urls.js';
 
 export const PORTRAITS = { ...PORTRAITS_HEROES, ...PORTRAITS_FOES };
 // Units whose bitmap has no SVG drawing of its own fall back to this one.
