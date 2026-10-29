@@ -1,0 +1,110 @@
+[
+  {
+    "classId": "warrior",
+    "level": 10,
+    "spec": null,
+    "role": "dps",
+    "dps": 12.3,
+    "min": 11,
+    "max": 13
+  },
+  {
+    "classId": "warrior",
+    "level": 30,
+    "spec": "arms",
+    "role": "dps",
+    "dps": 53.2,
+    "min": 50,
+    "max": 58
+  },
+  {
+    "classId": "warrior",
+    "level": 30,
+    "spec": "fury",
+    "role": "dps",
+    "dps": 55,
+    "min": 48,
+    "max": 57
+  },
+  {
+    "classId": "warrior",
+    "level": 60,
+    "spec": "arms",
+    "role": "dps",
+    "dps": 187.2,
+    "min": 166,
+    "max": 216
+  },
+  {
+    "classId": "warrior",
+    "level": 60,
+    "spec": "fury",
+    "role": "dps",
+    "dps": 232.6,
+    "min": 222,
+    "max": 246
+  },
+  {
+    "classId": "rogue",
+    "level": 10,
+    "spec": null,
+    "role": "dps",
+    "dps": 12.9,
+    "min": 12,
+    "max": 14
+  },
+  {
+    "classId": "rogue",
+    "level": 30,
+    "spec": "assassination",
+    "role": "dps",
+    "dps": 61.3,
+    "min": 59,
+    "max": 64
+  },
+  {
+    "classId": "rogue",
+    "level": 30,
+    "spec": "combat",
+    "role": "dps",
+    "dps": 66.2,
+    "min": 61,
+    "max": 70
+  },
+  {
+    "classId": "rogue",
+    "level": 30,
+    "spec": "subtlety",
+    "role": "dps",
+    "dps": 59.6,
+    "min": 57,
+    "max": 63
+  },
+  {
+    "classId": "rogue",
+    "level": 60,
+    "spec": "assassination",
+    "role": "dps",
+    "dps": 218.6,
+    "min": 209,
+    "max": 241
+  },
+  {
+    "classId": "rogue",
+    "level": 60,
+    "spec": "combat",
+    "role": "dps",
+    "dps": 225.2,
+    "min": 207,
+    "max": 241
+  },
+  {
+    "classId": "rogue",
+    "level": 60,
+    "spec": "subtlety",
+    "role": "dps",
+    "dps": 189.6,
+    "min": 172,
+    "max": 205
+  }
+]
