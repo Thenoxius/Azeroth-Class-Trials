@@ -1,0 +1,23 @@
+
+> azeroth-class-trials@0.1.0 audit
+> node scripts/audit-abilities.mjs
+
+{
+  "date": "2026-10-29",
+  "build": "1.60.1.70630 (live client data)",
+  "liveVerification": "Official class deep-dive and stored spellbook snapshots; Shaman spellbook and talent tree retrieved on 2026-10-29. A datamine is not an official runtime guarantee.",
+  "abilities": 207,
+  "checkedFields": 752,
+  "mismatches": [],
+  "classes": {
+    "race": 9,
+    "pet": 4,
+    "hunter": 32,
+    "mage": 31,
+    "priest": 32,
+    "warrior": 35,
+    "shaman": 31,
+    "rogue": 26,
+    "warlock": 7
+  }
+}

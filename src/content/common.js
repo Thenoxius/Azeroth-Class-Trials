@@ -78,6 +78,7 @@ export function spawnPlayer(state, api, pos = {}) {
   const tpl = b.template;
   const p = api.spawnUnit(state, {
     ...tpl,
+    meta:{...tpl.meta,groupBuffs},
     id: 'player',
     isPlayer: true,
     side: 'player',

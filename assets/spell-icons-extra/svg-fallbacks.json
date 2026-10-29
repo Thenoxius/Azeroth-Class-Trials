@@ -48,5 +48,10 @@
     "abilityId": "warrior.attack",
     "name": "Attack",
     "reason": "No verified Forever spell ID; retain SVG"
+  },
+  {
+    "abilityId": "shaman.attack",
+    "name": "Attack",
+    "reason": "Same existing generic melee control as Warrior/Rogue; no dedicated spell icon."
   }
 ]

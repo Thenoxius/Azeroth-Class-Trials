@@ -153,7 +153,7 @@ function labelLifts(units, playerId, tid) {
   const placed = [];
   const lift = {};
   for (const u of [...units].sort((a, b) => a.y - b.y)) {
-    if (u.id === playerId || !u.name) continue;
+    if (u.id === playerId || u.kind === 'totem' || !u.name) continue;
     const r = tokenR(u);
     const size = u.kind === 'boss' ? 1.15 : u.id === tid || u.elite ? 0.92 : 0.78;
     const half = (u.name.length + (u.elite ? 2 : 0)) * size * 0.3;
@@ -182,6 +182,11 @@ function Token({ u, state, kitColor, isTarget, isPlayer, onPick, fxBubble, lift 
   const barW = Math.max(3, r * 3.2);
   const c = u.casting;
   const castP = c ? (c.channel ? 1 - c.elapsed / Math.max(0.01, c.duration - c.cut) : 1 - c.remaining / c.total) : 0;
+  if(u.kind==='totem')return <g transform={`translate(${u.x} ${u.y})`} className="bf-unit" onPointerDown={e=>onPick(e,u)}>
+    <title>{u.name} · {Math.max(0,Math.ceil(u.meta.until-state.t))}s · {u.hp}/{u.maxHp} HP</title>
+    <MemoPortrait id={u.portrait} size={2.6} x={-1.3} y={-1.3} />
+    <text y={1.9} textAnchor="middle" fontSize=".55" fill="#ead298">{u.meta.element[0].toUpperCase()+u.meta.element.slice(1)} · {u.meta.until-state.t>60?Math.ceil((u.meta.until-state.t)/60)+'m':Math.max(0,Math.ceil(u.meta.until-state.t))+'s'}</text>
+  </g>;
   const clipKey = 'tc' + Math.round(r * 100);
   return (
     <g transform={`translate(${u.x} ${u.y})`} className={cx('bf-unit', !u.alive && 'dead', feigned && 'feigned', u.evading && 'evading', isTarget && 'targeted')} onPointerDown={(e) => onPick(e, u)} style={{ cursor: 'pointer' }}>

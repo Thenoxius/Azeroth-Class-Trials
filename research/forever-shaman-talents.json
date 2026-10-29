@@ -1,0 +1,6391 @@
+{
+  "classId": 7,
+  "classes": [
+    {
+      "id": 11,
+      "name": "Druid",
+      "url": "/forever/changes/talents/druid"
+    },
+    {
+      "id": 3,
+      "name": "Hunter",
+      "url": "/forever/changes/talents/hunter"
+    },
+    {
+      "id": 8,
+      "name": "Mage",
+      "url": "/forever/changes/talents/mage"
+    },
+    {
+      "id": 2,
+      "name": "Paladin",
+      "url": "/forever/changes/talents/paladin"
+    },
+    {
+      "id": 5,
+      "name": "Priest",
+      "url": "/forever/changes/talents/priest"
+    },
+    {
+      "id": 4,
+      "name": "Rogue",
+      "url": "/forever/changes/talents/rogue"
+    },
+    {
+      "id": 7,
+      "name": "Shaman",
+      "url": "/forever/changes/talents/shaman"
+    },
+    {
+      "id": 9,
+      "name": "Warlock",
+      "url": "/forever/changes/talents/warlock"
+    },
+    {
+      "id": 1,
+      "name": "Warrior",
+      "url": "/forever/changes/talents/warrior"
+    }
+  ],
+  "compare": {
+    "selected": null,
+    "live": "1.60.1.70685",
+    "query": "",
+    "builds": [
+      {
+        "build": 70630,
+        "label": "1.60.1.70630",
+        "released": 1793065443,
+        "previous": true,
+        "reconstructed": false
+      },
+      {
+        "build": 70450,
+        "label": "1.60.1.70450",
+        "released": 1792189742,
+        "previous": false,
+        "reconstructed": false
+      },
+      {
+        "build": 70425,
+        "label": "1.60.1.70425",
+        "released": 1792111802,
+        "previous": false,
+        "reconstructed": false
+      },
+      {
+        "build": 70291,
+        "label": "1.60.1.70291",
+        "released": 1791491105,
+        "previous": false,
+        "reconstructed": false
+      }
+    ]
+  },
+  "data": {
+    "tabs": [
+      {
+        "id": 261,
+        "key": "Elemental",
+        "name": "Elemental"
+      },
+      {
+        "id": 263,
+        "key": "Enhancement",
+        "name": "Enhancement"
+      },
+      {
+        "id": 262,
+        "key": "Restoration",
+        "name": "Restoration"
+      }
+    ],
+    "spells": [
+      {
+        "key": "Convection",
+        "name": "Convection",
+        "icon": "spell_nature_wispsplode",
+        "tab": 261,
+        "level": 0,
+        "tierName": "Tier 1",
+        "status": "updated",
+        "labels": [
+          "reworded"
+        ],
+        "ranks": [
+          {
+            "id": 16039,
+            "classicId": 16039,
+            "rank": 1,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "reworded"
+            ],
+            "lines": [
+              "Wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Convection",
+              "rank": "Rank 1/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Reduces the mana cost of your Shock, Lightning Bolt and Chain Lightning spells by 2%."
+            },
+            "after": {
+              "name": "Convection",
+              "rank": "Rank 1/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Reduces the mana cost of your Shock, Lightning Bolt, Lava Burst, and Chain Lightning spells by 2%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16039,
+            "classicId": 16109,
+            "rank": 2,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "reworded"
+            ],
+            "lines": [
+              "Wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Convection",
+              "rank": "Rank 2/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Reduces the mana cost of your Shock, Lightning Bolt and Chain Lightning spells by 4%."
+            },
+            "after": {
+              "name": "Convection",
+              "rank": "Rank 2/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Reduces the mana cost of your Shock, Lightning Bolt, Lava Burst, and Chain Lightning spells by 4%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16039,
+            "classicId": 16110,
+            "rank": 3,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "reworded"
+            ],
+            "lines": [
+              "Wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Convection",
+              "rank": "Rank 3/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Reduces the mana cost of your Shock, Lightning Bolt and Chain Lightning spells by 6%."
+            },
+            "after": {
+              "name": "Convection",
+              "rank": "Rank 3/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Reduces the mana cost of your Shock, Lightning Bolt, Lava Burst, and Chain Lightning spells by 6%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16039,
+            "classicId": 16111,
+            "rank": 4,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "reworded"
+            ],
+            "lines": [
+              "Wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Convection",
+              "rank": "Rank 4/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Reduces the mana cost of your Shock, Lightning Bolt and Chain Lightning spells by 8%."
+            },
+            "after": {
+              "name": "Convection",
+              "rank": "Rank 4/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Reduces the mana cost of your Shock, Lightning Bolt, Lava Burst, and Chain Lightning spells by 8%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16039,
+            "classicId": 16112,
+            "rank": 5,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "reworded"
+            ],
+            "lines": [
+              "Wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Convection",
+              "rank": "Rank 5/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Reduces the mana cost of your Shock, Lightning Bolt and Chain Lightning spells by 10%."
+            },
+            "after": {
+              "name": "Convection",
+              "rank": "Rank 5/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Reduces the mana cost of your Shock, Lightning Bolt, Lava Burst, and Chain Lightning spells by 10%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          }
+        ]
+      },
+      {
+        "key": "Concussion",
+        "name": "Concussion",
+        "icon": "spell_nature_earthshock",
+        "tab": 261,
+        "level": 0,
+        "tierName": "Tier 1",
+        "status": "updated",
+        "labels": [
+          "new_icon",
+          "reworded"
+        ],
+        "ranks": [
+          {
+            "id": 16035,
+            "classicId": 16035,
+            "rank": 1,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "new_icon",
+              "reworded"
+            ],
+            "lines": [
+              "New icon",
+              "Wording changed"
+            ],
+            "notShown": [
+              "New icon"
+            ],
+            "technical": [],
+            "before": {
+              "name": "Concussion",
+              "rank": "Rank 1/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the damage done by your Lightning Bolt, Chain Lightning and Shock spells by 1%."
+            },
+            "after": {
+              "name": "Concussion",
+              "rank": "Rank 1/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the damage done by your Lightning Bolt, Chain Lightning, and Earth Shock spells by 1%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16035,
+            "classicId": 16105,
+            "rank": 2,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "new_icon",
+              "reworded"
+            ],
+            "lines": [
+              "New icon",
+              "Wording changed"
+            ],
+            "notShown": [
+              "New icon"
+            ],
+            "technical": [],
+            "before": {
+              "name": "Concussion",
+              "rank": "Rank 2/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the damage done by your Lightning Bolt, Chain Lightning and Shock spells by 2%."
+            },
+            "after": {
+              "name": "Concussion",
+              "rank": "Rank 2/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the damage done by your Lightning Bolt, Chain Lightning, and Earth Shock spells by 2%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16035,
+            "classicId": 16106,
+            "rank": 3,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "new_icon",
+              "reworded"
+            ],
+            "lines": [
+              "New icon",
+              "Wording changed"
+            ],
+            "notShown": [
+              "New icon"
+            ],
+            "technical": [],
+            "before": {
+              "name": "Concussion",
+              "rank": "Rank 3/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the damage done by your Lightning Bolt, Chain Lightning and Shock spells by 3%."
+            },
+            "after": {
+              "name": "Concussion",
+              "rank": "Rank 3/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the damage done by your Lightning Bolt, Chain Lightning, and Earth Shock spells by 3%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16035,
+            "classicId": 16107,
+            "rank": 4,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "new_icon",
+              "reworded"
+            ],
+            "lines": [
+              "New icon",
+              "Wording changed"
+            ],
+            "notShown": [
+              "New icon"
+            ],
+            "technical": [],
+            "before": {
+              "name": "Concussion",
+              "rank": "Rank 4/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the damage done by your Lightning Bolt, Chain Lightning and Shock spells by 4%."
+            },
+            "after": {
+              "name": "Concussion",
+              "rank": "Rank 4/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the damage done by your Lightning Bolt, Chain Lightning, and Earth Shock spells by 4%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16035,
+            "classicId": 16108,
+            "rank": 5,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "new_icon",
+              "reworded"
+            ],
+            "lines": [
+              "New icon",
+              "Wording changed"
+            ],
+            "notShown": [
+              "New icon"
+            ],
+            "technical": [],
+            "before": {
+              "name": "Concussion",
+              "rank": "Rank 5/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the damage done by your Lightning Bolt, Chain Lightning and Shock spells by 5%."
+            },
+            "after": {
+              "name": "Concussion",
+              "rank": "Rank 5/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the damage done by your Lightning Bolt, Chain Lightning, and Earth Shock spells by 5%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          }
+        ]
+      },
+      {
+        "key": "Elemental Devastation",
+        "name": "Elemental Devastation",
+        "icon": "spell_fire_elementaldevastation",
+        "tab": 261,
+        "level": 0,
+        "tierName": "Tier 2",
+        "status": "updated",
+        "labels": [
+          "reworded"
+        ],
+        "ranks": [
+          {
+            "id": 30160,
+            "classicId": 30160,
+            "rank": 1,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "reworded"
+            ],
+            "lines": [
+              "Wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Elemental Devastation",
+              "rank": "Rank 1/3",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Your offensive spell crits will increase your chance to get a critical strike with melee attacks by 3% for 10 sec."
+            },
+            "after": {
+              "name": "Elemental Devastation",
+              "rank": "Rank 1/3",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Your Critical Strikes with direct damage spells increase your chance to get a Critical Strike with melee attacks by 3% for 10 sec."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 30160,
+            "classicId": 29179,
+            "rank": 2,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "reworded"
+            ],
+            "lines": [
+              "Wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Elemental Devastation",
+              "rank": "Rank 2/3",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Your offensive spell crits will increase your chance to get a critical strike with melee attacks by 6% for 10 sec."
+            },
+            "after": {
+              "name": "Elemental Devastation",
+              "rank": "Rank 2/3",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Your Critical Strikes with direct damage spells increase your chance to get a Critical Strike with melee attacks by 6% for 10 sec."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 30160,
+            "classicId": 29180,
+            "rank": 3,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "reworded"
+            ],
+            "lines": [
+              "Wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Elemental Devastation",
+              "rank": "Rank 3/3",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Your offensive spell crits will increase your chance to get a critical strike with melee attacks by 9% for 10 sec."
+            },
+            "after": {
+              "name": "Elemental Devastation",
+              "rank": "Rank 3/3",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Your Critical Strikes with direct damage spells increase your chance to get a Critical Strike with melee attacks by 9% for 10 sec."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          }
+        ]
+      },
+      {
+        "key": "Reverberation",
+        "name": "Reverberation",
+        "icon": "spell_frost_frostward",
+        "tab": 261,
+        "level": 0,
+        "tierName": "Tier 2",
+        "status": "unchanged",
+        "labels": [],
+        "ranks": [
+          {
+            "id": 16040,
+            "classicId": 16040,
+            "rank": 1,
+            "level": 0,
+            "status": "unchanged",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": null,
+            "after": {
+              "name": "Reverberation",
+              "rank": "Rank 1/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Reduces the cooldown of your Shock spells by 0.2 sec."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16040,
+            "classicId": 16113,
+            "rank": 2,
+            "level": 0,
+            "status": "unchanged",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": null,
+            "after": {
+              "name": "Reverberation",
+              "rank": "Rank 2/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Reduces the cooldown of your Shock spells by 0.4 sec."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16040,
+            "classicId": 16114,
+            "rank": 3,
+            "level": 0,
+            "status": "unchanged",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": null,
+            "after": {
+              "name": "Reverberation",
+              "rank": "Rank 3/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Reduces the cooldown of your Shock spells by 0.6 sec."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16040,
+            "classicId": 16115,
+            "rank": 4,
+            "level": 0,
+            "status": "unchanged",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": null,
+            "after": {
+              "name": "Reverberation",
+              "rank": "Rank 4/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Reduces the cooldown of your Shock spells by 0.8 sec."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16040,
+            "classicId": 16116,
+            "rank": 5,
+            "level": 0,
+            "status": "unchanged",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": null,
+            "after": {
+              "name": "Reverberation",
+              "rank": "Rank 5/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Reduces the cooldown of your Shock spells by 1.0 sec."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          }
+        ]
+      },
+      {
+        "key": "Elemental Alacrity",
+        "name": "Elemental Alacrity",
+        "icon": "spell_lightning_lightningbolt01",
+        "tab": 261,
+        "level": 0,
+        "tierName": "Tier 2",
+        "status": "updated",
+        "labels": [
+          "shorter_duration",
+          "fewer_ranks",
+          "renamed",
+          "reworded"
+        ],
+        "ranks": [
+          {
+            "id": 16578,
+            "classicId": 16578,
+            "rank": 1,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "shorter_duration",
+              "fewer_ranks",
+              "renamed",
+              "reworded"
+            ],
+            "lines": [
+              "3 ranks instead of 5",
+              "Renamed from Lightning Mastery",
+              "0.17 sec instead of 0.2 sec",
+              "Wording changed"
+            ],
+            "notShown": [
+              "3 ranks instead of 5"
+            ],
+            "technical": [],
+            "before": {
+              "name": "Lightning Mastery",
+              "rank": "Rank 1/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Reduces the cast time of your Lightning Bolt and Chain Lightning spells by 0.2 sec."
+            },
+            "after": {
+              "name": "Elemental Alacrity",
+              "rank": "Rank 1/3",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Reduces the cast time of your Lightning Bolt, Chain Lightning, and Lava Burst spells by 0.17 sec."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16578,
+            "classicId": 16579,
+            "rank": 2,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "shorter_duration",
+              "renamed",
+              "reworded"
+            ],
+            "lines": [
+              "Renamed from Lightning Mastery",
+              "0.33 sec instead of 0.4 sec",
+              "Wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Lightning Mastery",
+              "rank": "Rank 2/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Reduces the cast time of your Lightning Bolt and Chain Lightning spells by 0.4 sec."
+            },
+            "after": {
+              "name": "Elemental Alacrity",
+              "rank": "Rank 2/3",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Reduces the cast time of your Lightning Bolt, Chain Lightning, and Lava Burst spells by 0.33 sec."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16578,
+            "classicId": 16580,
+            "rank": 3,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "shorter_duration",
+              "renamed",
+              "reworded"
+            ],
+            "lines": [
+              "Renamed from Lightning Mastery",
+              "0.5 sec instead of 0.6 sec",
+              "Wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Lightning Mastery",
+              "rank": "Rank 3/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Reduces the cast time of your Lightning Bolt and Chain Lightning spells by 0.6 sec."
+            },
+            "after": {
+              "name": "Elemental Alacrity",
+              "rank": "Rank 3/3",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Reduces the cast time of your Lightning Bolt, Chain Lightning, and Lava Burst spells by 0.50 sec."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16581,
+            "classicId": 16581,
+            "rank": 4,
+            "level": 0,
+            "status": "removed",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Lightning Mastery",
+              "rank": "Rank 4/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Reduces the cast time of your Lightning Bolt and Chain Lightning spells by 0.8 sec."
+            },
+            "after": null,
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16582,
+            "classicId": 16582,
+            "rank": 5,
+            "level": 0,
+            "status": "removed",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Lightning Mastery",
+              "rank": "Rank 5/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Reduces the cast time of your Lightning Bolt and Chain Lightning spells by 1 sec."
+            },
+            "after": null,
+            "beforeLevel": null,
+            "afterLevel": null
+          }
+        ]
+      },
+      {
+        "key": "Call of Flame",
+        "name": "Call of Flame",
+        "icon": "spell_fire_immolation",
+        "tab": 261,
+        "level": 0,
+        "tierName": "Tier 2",
+        "status": "updated",
+        "labels": [
+          "values_changed"
+        ],
+        "ranks": [
+          {
+            "id": 16038,
+            "classicId": 16038,
+            "rank": 1,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "values_changed"
+            ],
+            "lines": [
+              "Numbers and wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Call of Flame",
+              "rank": "Rank 1/3",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the damage done by your Fire Totems by 5%."
+            },
+            "after": {
+              "name": "Call of Flame",
+              "rank": "Rank 1/3",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the damage done by your Fire Totems and by your Flame Shock, Fire Nova, and Lava Burst spells by 5%, as well as increases the duration of your Flame Shock spell by 3 sec."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16038,
+            "classicId": 16160,
+            "rank": 2,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "values_changed"
+            ],
+            "lines": [
+              "Numbers and wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Call of Flame",
+              "rank": "Rank 2/3",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the damage done by your Fire Totems by 10%."
+            },
+            "after": {
+              "name": "Call of Flame",
+              "rank": "Rank 2/3",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the damage done by your Fire Totems and by your Flame Shock, Fire Nova, and Lava Burst spells by 10%, as well as increases the duration of your Flame Shock spell by 6 sec."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16038,
+            "classicId": 16161,
+            "rank": 3,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "values_changed"
+            ],
+            "lines": [
+              "Numbers and wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Call of Flame",
+              "rank": "Rank 3/3",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the damage done by your Fire Totems by 15%."
+            },
+            "after": {
+              "name": "Call of Flame",
+              "rank": "Rank 3/3",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the damage done by your Fire Totems and by your Flame Shock, Fire Nova, and Lava Burst spells by 15%, as well as increases the duration of your Flame Shock spell by 9 sec."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          }
+        ]
+      },
+      {
+        "key": "Elemental Focus",
+        "name": "Elemental Focus",
+        "icon": "spell_shadow_manaburn",
+        "tab": 261,
+        "level": 0,
+        "tierName": "Tier 3",
+        "status": "unchanged",
+        "labels": [],
+        "ranks": [
+          {
+            "id": 16164,
+            "classicId": 16164,
+            "rank": 1,
+            "level": 0,
+            "status": "unchanged",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": null,
+            "after": {
+              "name": "Elemental Focus",
+              "rank": "Rank 1/1",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Gives you a 10% chance to enter a Clearcasting state after casting any Fire, Frost, or Nature damage spell. The Clearcasting state reduces the mana cost of your next damage spell by 100%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          }
+        ]
+      },
+      {
+        "key": "Elemental Warding",
+        "name": "Elemental Warding",
+        "icon": "spell_nature_spiritarmor",
+        "tab": 261,
+        "level": 0,
+        "tierName": "Tier 3",
+        "status": "updated",
+        "labels": [
+          "values_changed",
+          "reworded"
+        ],
+        "ranks": [
+          {
+            "id": 28996,
+            "classicId": 28996,
+            "rank": 1,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "values_changed"
+            ],
+            "lines": [
+              "Value decreased by 25%"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Elemental Warding",
+              "rank": "Rank 1/3",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Reduces damage taken from Fire, Frost and Nature effects by 4%."
+            },
+            "after": {
+              "name": "Elemental Warding",
+              "rank": "Rank 1/3",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Reduces damage taken from Fire, Frost, and Nature effects by 3%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 28996,
+            "classicId": 28997,
+            "rank": 2,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "reworded"
+            ],
+            "lines": [
+              "Wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Elemental Warding",
+              "rank": "Rank 2/3",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Reduces damage taken from Fire, Frost and Nature effects by 7%."
+            },
+            "after": {
+              "name": "Elemental Warding",
+              "rank": "Rank 2/3",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Reduces damage taken from Fire, Frost, and Nature effects by 7%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 28996,
+            "classicId": 28998,
+            "rank": 3,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "reworded"
+            ],
+            "lines": [
+              "Wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Elemental Warding",
+              "rank": "Rank 3/3",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Reduces damage taken from Fire, Frost and Nature effects by 10%."
+            },
+            "after": {
+              "name": "Elemental Warding",
+              "rank": "Rank 3/3",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Reduces damage taken from Fire, Frost, and Nature effects by 10%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          }
+        ]
+      },
+      {
+        "key": "Call of Thunder",
+        "name": "Call of Thunder",
+        "icon": "spell_nature_callstorm",
+        "tab": 261,
+        "level": 0,
+        "tierName": "Tier 3",
+        "status": "removed",
+        "labels": [],
+        "ranks": [
+          {
+            "id": 16041,
+            "classicId": 16041,
+            "rank": 1,
+            "level": 0,
+            "status": "removed",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Call of Thunder",
+              "rank": "Rank 1/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the critical strike chance of your Lightning Bolt and Chain Lightning spells by an additional 1%."
+            },
+            "after": null,
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16117,
+            "classicId": 16117,
+            "rank": 2,
+            "level": 0,
+            "status": "removed",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Call of Thunder",
+              "rank": "Rank 2/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the critical strike chance of your Lightning Bolt and Chain Lightning spells by an additional 2%."
+            },
+            "after": null,
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16118,
+            "classicId": 16118,
+            "rank": 3,
+            "level": 0,
+            "status": "removed",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Call of Thunder",
+              "rank": "Rank 3/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the critical strike chance of your Lightning Bolt and Chain Lightning spells by an additional 3%."
+            },
+            "after": null,
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16119,
+            "classicId": 16119,
+            "rank": 4,
+            "level": 0,
+            "status": "removed",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Call of Thunder",
+              "rank": "Rank 4/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the critical strike chance of your Lightning Bolt and Chain Lightning spells by an additional 4%."
+            },
+            "after": null,
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16120,
+            "classicId": 16120,
+            "rank": 5,
+            "level": 0,
+            "status": "removed",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Call of Thunder",
+              "rank": "Rank 5/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the critical strike chance of your Lightning Bolt and Chain Lightning spells by an additional 6%."
+            },
+            "after": null,
+            "beforeLevel": null,
+            "afterLevel": null
+          }
+        ]
+      },
+      {
+        "key": "Trial by Fire",
+        "name": "Trial by Fire",
+        "icon": "spell_fire_sealoffire",
+        "tab": 261,
+        "level": 0,
+        "tierName": "Tier 4",
+        "status": "updated",
+        "labels": [
+          "renamed",
+          "values_changed"
+        ],
+        "ranks": [
+          {
+            "id": 16086,
+            "classicId": 16086,
+            "rank": 1,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "renamed",
+              "values_changed"
+            ],
+            "lines": [
+              "Renamed from Improved Fire Totems",
+              "Numbers and wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Improved Fire Totems",
+              "rank": "Rank 1/2",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Reduces the delay before your Fire Nova Totem activates by 1 sec. and decreases the threat generated by your Magma Totem by 25%."
+            },
+            "after": {
+              "name": "Trial by Fire",
+              "rank": "Rank 1/2",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the damage done by your Fire Nova spell by 10% and reduces its cooldown by 2 sec, and increases the duration of your Magma Totem by 10 sec."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16086,
+            "classicId": 16544,
+            "rank": 2,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "renamed",
+              "values_changed"
+            ],
+            "lines": [
+              "Renamed from Improved Fire Totems",
+              "Numbers and wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Improved Fire Totems",
+              "rank": "Rank 2/2",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Reduces the delay before your Fire Nova Totem activates by 2 sec. and decreases the threat generated by your Magma Totem by 50%."
+            },
+            "after": {
+              "name": "Trial by Fire",
+              "rank": "Rank 2/2",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the damage done by your Fire Nova spell by 20% and reduces its cooldown by 4 sec, and increases the duration of your Magma Totem by 20 sec."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          }
+        ]
+      },
+      {
+        "key": "Eye of the Storm",
+        "name": "Eye of the Storm",
+        "icon": "spell_nature_eyeofthestorm",
+        "tab": 261,
+        "level": 0,
+        "tierName": "Tier 4",
+        "status": "updated",
+        "labels": [
+          "values_changed"
+        ],
+        "ranks": [
+          {
+            "id": 29062,
+            "classicId": 29062,
+            "rank": 1,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "values_changed"
+            ],
+            "lines": [
+              "Numbers and wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Eye of the Storm",
+              "rank": "Rank 1/3",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Gives you a 33% chance to gain the Focused Casting effect that lasts for 6 sec after being the victim of a melee or ranged critical strike. The Focused Casting effect prevents you from losing casting time when taking damage."
+            },
+            "after": {
+              "name": "Eye of the Storm",
+              "rank": "Rank 1/3",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Gives your Lightning Bolt, Chain Lightning, and Lava Burst spells a 23% chance to not lose casting time when you take damage."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 29062,
+            "classicId": 29064,
+            "rank": 2,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "values_changed"
+            ],
+            "lines": [
+              "Numbers and wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Eye of the Storm",
+              "rank": "Rank 2/3",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Gives you a 66% chance to gain the Focused Casting effect that lasts for 6 sec after being the victim of a melee or ranged critical strike. The Focused Casting effect prevents you from losing casting time when taking damage."
+            },
+            "after": {
+              "name": "Eye of the Storm",
+              "rank": "Rank 2/3",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Gives your Lightning Bolt, Chain Lightning, and Lava Burst spells a 47% chance to not lose casting time when you take damage."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 29062,
+            "classicId": 29065,
+            "rank": 3,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "values_changed"
+            ],
+            "lines": [
+              "Numbers and wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Eye of the Storm",
+              "rank": "Rank 3/3",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Gives you a 100% chance to gain the Focused Casting effect that lasts for 6 sec after being the victim of a melee or ranged critical strike. The Focused Casting effect prevents you from losing casting time when taking damage."
+            },
+            "after": {
+              "name": "Eye of the Storm",
+              "rank": "Rank 3/3",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Gives your Lightning Bolt, Chain Lightning, and Lava Burst spells a 70% chance to not lose casting time when you take damage."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          }
+        ]
+      },
+      {
+        "key": "Earthbound",
+        "name": "Earthbound",
+        "icon": "spell_nature_stranglevines",
+        "tab": 261,
+        "level": 0,
+        "tierName": "Tier 4",
+        "status": "new",
+        "labels": [],
+        "ranks": [
+          {
+            "id": 1222988,
+            "classicId": null,
+            "rank": 1,
+            "level": 0,
+            "status": "new",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": null,
+            "after": {
+              "name": "Earthbound",
+              "rank": "Rank 1/1",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Your Earthbind Totem Immobilizes nearby targets for 5 sec when cast."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          }
+        ]
+      },
+      {
+        "key": "Elemental Reach",
+        "name": "Elemental Reach",
+        "icon": "spell_nature_stormreach",
+        "tab": 261,
+        "level": 0,
+        "tierName": "Tier 5",
+        "status": "updated",
+        "labels": [
+          "renamed",
+          "values_changed"
+        ],
+        "ranks": [
+          {
+            "id": 28999,
+            "classicId": 28999,
+            "rank": 1,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "renamed",
+              "values_changed"
+            ],
+            "lines": [
+              "Renamed from Storm Reach",
+              "Numbers and wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Storm Reach",
+              "rank": "Rank 1/2",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the range of your Lightning Bolt and Chain Lightning spells by 3 yards."
+            },
+            "after": {
+              "name": "Elemental Reach",
+              "rank": "Rank 1/2",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the range of your Lightning Bolt, Chain Lightning, Fire Nova, and Lava Burst spells by 3 yards and reduces the cooldown of Totemic Projection by 10 sec."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 28999,
+            "classicId": 29000,
+            "rank": 2,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "renamed",
+              "values_changed"
+            ],
+            "lines": [
+              "Renamed from Storm Reach",
+              "Numbers and wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Storm Reach",
+              "rank": "Rank 2/2",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the range of your Lightning Bolt and Chain Lightning spells by 6 yards."
+            },
+            "after": {
+              "name": "Elemental Reach",
+              "rank": "Rank 2/2",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the range of your Lightning Bolt, Chain Lightning, Fire Nova, and Lava Burst spells by 6 yards and reduces the cooldown of Totemic Projection by 20 sec."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          }
+        ]
+      },
+      {
+        "key": "Lava Burst",
+        "name": "Lava Burst",
+        "icon": "spell_shaman_lavaburst",
+        "tab": 261,
+        "level": 0,
+        "tierName": "Tier 5",
+        "status": "updated",
+        "labels": [
+          "longer_cooldown",
+          "slower_cast",
+          "now_talent",
+          "values_changed"
+        ],
+        "ranks": [
+          {
+            "id": 408490,
+            "classicId": 408490,
+            "rank": 1,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "longer_cooldown",
+              "slower_cast",
+              "now_talent",
+              "values_changed"
+            ],
+            "lines": [
+              "Trained in Classic; a talent now",
+              "Cooldown 10 sec instead of 8 sec",
+              "Cast time 2.5 sec instead of 2 sec",
+              "Costs 135 Mana instead of 10% of base power",
+              "Numbers and wording changed"
+            ],
+            "notShown": [
+              "Trained in Classic; a talent now"
+            ],
+            "technical": [],
+            "before": {
+              "name": "Lava Burst",
+              "rank": "Rank 1/1",
+              "cost": "10% of base power",
+              "range": "30 yd range",
+              "cast": "2 sec cast",
+              "cooldown": "8 sec cooldown",
+              "text": "You hurl molten lava at the target, dealing 786.293 to 1014.301 Fire damage. If your Flame Shock is on the target, Lava Burst will deal a critical strike."
+            },
+            "after": {
+              "name": "Lava Burst",
+              "rank": "Rank 1/1",
+              "cost": "135 Mana",
+              "range": "30 yd range",
+              "cast": "2.5 sec cast",
+              "cooldown": "10 sec cooldown",
+              "text": "You hurl molten lava at the target, dealing 114 to 145 Fire damage. If your Flame Shock is on the target, Lava Burst deals 20% increased damage."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          }
+        ]
+      },
+      {
+        "key": "Lightning Overload",
+        "name": "Lightning Overload",
+        "icon": "spell_nature_lightningoverload",
+        "tab": 261,
+        "level": 0,
+        "tierName": "Tier 5",
+        "status": "new",
+        "labels": [],
+        "ranks": [
+          {
+            "id": 408438,
+            "classicId": null,
+            "rank": 1,
+            "level": 0,
+            "status": "new",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": null,
+            "after": {
+              "name": "Lightning Overload",
+              "rank": "Rank 1/3",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Gives your Lightning Bolt and Chain Lightning spells a 3% chance to cast a second, similar spell on the same target at no additional cost that causes half damage and no threat."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 408438,
+            "classicId": null,
+            "rank": 2,
+            "level": 0,
+            "status": "new",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": null,
+            "after": {
+              "name": "Lightning Overload",
+              "rank": "Rank 2/3",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Gives your Lightning Bolt and Chain Lightning spells a 7% chance to cast a second, similar spell on the same target at no additional cost that causes half damage and no threat."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 408438,
+            "classicId": null,
+            "rank": 3,
+            "level": 0,
+            "status": "new",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": null,
+            "after": {
+              "name": "Lightning Overload",
+              "rank": "Rank 3/3",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Gives your Lightning Bolt and Chain Lightning spells a 10% chance to cast a second, similar spell on the same target at no additional cost that causes half damage and no threat."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          }
+        ]
+      },
+      {
+        "key": "Elemental Fury",
+        "name": "Elemental Fury",
+        "icon": "spell_fire_volcano",
+        "tab": 261,
+        "level": 0,
+        "tierName": "Tier 6",
+        "status": "updated",
+        "labels": [
+          "more_ranks",
+          "values_changed",
+          "reworded"
+        ],
+        "ranks": [
+          {
+            "id": 16089,
+            "classicId": 16089,
+            "rank": 1,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "more_ranks",
+              "values_changed",
+              "reworded"
+            ],
+            "lines": [
+              "5 ranks instead of 1",
+              "Value decreased by 80%",
+              "Wording changed"
+            ],
+            "notShown": [
+              "5 ranks instead of 1"
+            ],
+            "technical": [],
+            "before": {
+              "name": "Elemental Fury",
+              "rank": "Rank 1/1",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the critical strike damage bonus of your Searing, Magma, and Fire Nova Totems and your Fire, Frost, and Nature spells by 100%."
+            },
+            "after": {
+              "name": "Elemental Fury",
+              "rank": "Rank 1/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the critical strike damage bonus of your Searing and Magma Totems and your Fire, Frost, and Nature spells by 20%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16089,
+            "classicId": null,
+            "rank": 2,
+            "level": 0,
+            "status": "new",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": null,
+            "after": {
+              "name": "Elemental Fury",
+              "rank": "Rank 2/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the critical strike damage bonus of your Searing and Magma Totems and your Fire, Frost, and Nature spells by 40%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16089,
+            "classicId": null,
+            "rank": 3,
+            "level": 0,
+            "status": "new",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": null,
+            "after": {
+              "name": "Elemental Fury",
+              "rank": "Rank 3/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the critical strike damage bonus of your Searing and Magma Totems and your Fire, Frost, and Nature spells by 60%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16089,
+            "classicId": null,
+            "rank": 4,
+            "level": 0,
+            "status": "new",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": null,
+            "after": {
+              "name": "Elemental Fury",
+              "rank": "Rank 4/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the critical strike damage bonus of your Searing and Magma Totems and your Fire, Frost, and Nature spells by 80%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16089,
+            "classicId": null,
+            "rank": 5,
+            "level": 0,
+            "status": "new",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": null,
+            "after": {
+              "name": "Elemental Fury",
+              "rank": "Rank 5/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the critical strike damage bonus of your Searing and Magma Totems and your Fire, Frost, and Nature spells by 100%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          }
+        ]
+      },
+      {
+        "key": "Elemental Mastery",
+        "name": "Elemental Mastery",
+        "icon": "spell_nature_wispheal",
+        "tab": 261,
+        "level": 0,
+        "tierName": "Tier 7",
+        "status": "updated",
+        "labels": [
+          "longer_duration",
+          "values_changed"
+        ],
+        "ranks": [
+          {
+            "id": 16166,
+            "classicId": 16166,
+            "rank": 1,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "longer_duration",
+              "values_changed"
+            ],
+            "lines": [
+              "Lasts 15 sec instead of none",
+              "Numbers and wording changed"
+            ],
+            "notShown": [
+              "Lasts 15 sec instead of none"
+            ],
+            "technical": [],
+            "before": {
+              "name": "Elemental Mastery",
+              "rank": "Rank 1/1",
+              "cost": "",
+              "range": "",
+              "cast": "Instant",
+              "cooldown": "3 min cooldown",
+              "text": "When activated, this spell gives your next Fire, Frost, or Nature damage spell a 100% critical strike chance and reduces the mana cost by 100%."
+            },
+            "after": {
+              "name": "Elemental Mastery",
+              "rank": "Rank 1/1",
+              "cost": "",
+              "range": "",
+              "cast": "Instant",
+              "cooldown": "3 min cooldown",
+              "text": "Gain mastery over Fire and Lightning, reducing the cast time of Lightning Bolt and Lava Burst by 0.5 sec, and removing the cooldown from Chain Lightning. Lasts 15 sec."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          }
+        ]
+      },
+      {
+        "key": "Earth's Grasp",
+        "name": "Earth's Grasp",
+        "icon": "spell_nature_stoneclawtotem",
+        "tab": 263,
+        "level": 0,
+        "tierName": "Tier 1",
+        "status": "unchanged",
+        "labels": [],
+        "ranks": [
+          {
+            "id": 16043,
+            "classicId": 16043,
+            "rank": 1,
+            "level": 0,
+            "status": "unchanged",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": null,
+            "after": {
+              "name": "Earth's Grasp",
+              "rank": "Rank 1/2",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the health of your Stoneclaw Totem by 25% and the radius of your Earthbind Totem by 10%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16043,
+            "classicId": 16130,
+            "rank": 2,
+            "level": 0,
+            "status": "unchanged",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": null,
+            "after": {
+              "name": "Earth's Grasp",
+              "rank": "Rank 2/2",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the health of your Stoneclaw Totem by 50% and the radius of your Earthbind Totem by 20%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          }
+        ]
+      },
+      {
+        "key": "Thundering Strikes",
+        "name": "Thundering Strikes",
+        "icon": "ability_thunderbolt",
+        "tab": 263,
+        "level": 0,
+        "tierName": "Tier 1",
+        "status": "updated",
+        "labels": [
+          "reworded"
+        ],
+        "ranks": [
+          {
+            "id": 16255,
+            "classicId": 16255,
+            "rank": 1,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "reworded"
+            ],
+            "lines": [
+              "Wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Thundering Strikes",
+              "rank": "Rank 1/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Improves your chance to get a critical strike with your weapon attacks by 1%."
+            },
+            "after": {
+              "name": "Thundering Strikes",
+              "rank": "Rank 1/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Improves your chance to get a critical strike with all spells and attacks by 1%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16255,
+            "classicId": 16302,
+            "rank": 2,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "reworded"
+            ],
+            "lines": [
+              "Wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Thundering Strikes",
+              "rank": "Rank 2/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Improves your chance to get a critical strike with your weapon attacks by 2%."
+            },
+            "after": {
+              "name": "Thundering Strikes",
+              "rank": "Rank 2/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Improves your chance to get a critical strike with all spells and attacks by 2%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16255,
+            "classicId": 16303,
+            "rank": 3,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "reworded"
+            ],
+            "lines": [
+              "Wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Thundering Strikes",
+              "rank": "Rank 3/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Improves your chance to get a critical strike with your weapon attacks by 3%."
+            },
+            "after": {
+              "name": "Thundering Strikes",
+              "rank": "Rank 3/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Improves your chance to get a critical strike with all spells and attacks by 3%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16255,
+            "classicId": 16304,
+            "rank": 4,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "reworded"
+            ],
+            "lines": [
+              "Wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Thundering Strikes",
+              "rank": "Rank 4/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Improves your chance to get a critical strike with your weapon attacks by 4%."
+            },
+            "after": {
+              "name": "Thundering Strikes",
+              "rank": "Rank 4/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Improves your chance to get a critical strike with all spells and attacks by 4%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16255,
+            "classicId": 16305,
+            "rank": 5,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "reworded"
+            ],
+            "lines": [
+              "Wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Thundering Strikes",
+              "rank": "Rank 5/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Improves your chance to get a critical strike with your weapon attacks by 5%."
+            },
+            "after": {
+              "name": "Thundering Strikes",
+              "rank": "Rank 5/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Improves your chance to get a critical strike with all spells and attacks by 5%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          }
+        ]
+      },
+      {
+        "key": "Ancestral Knowledge",
+        "name": "Ancestral Knowledge",
+        "icon": "spell_shadow_grimward",
+        "tab": 263,
+        "level": 0,
+        "tierName": "Tier 1",
+        "status": "updated",
+        "labels": [
+          "values_changed"
+        ],
+        "ranks": [
+          {
+            "id": 17485,
+            "classicId": 17485,
+            "rank": 1,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "values_changed"
+            ],
+            "lines": [
+              "Numbers and wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Ancestral Knowledge",
+              "rank": "Rank 1/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases your maximum Mana by 1%."
+            },
+            "after": {
+              "name": "Ancestral Knowledge",
+              "rank": "Rank 1/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases your Intellect by 2%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 17485,
+            "classicId": 17486,
+            "rank": 2,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "values_changed"
+            ],
+            "lines": [
+              "Numbers and wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Ancestral Knowledge",
+              "rank": "Rank 2/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases your maximum Mana by 2%."
+            },
+            "after": {
+              "name": "Ancestral Knowledge",
+              "rank": "Rank 2/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases your Intellect by 4%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 17485,
+            "classicId": 17487,
+            "rank": 3,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "values_changed"
+            ],
+            "lines": [
+              "Numbers and wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Ancestral Knowledge",
+              "rank": "Rank 3/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases your maximum Mana by 3%."
+            },
+            "after": {
+              "name": "Ancestral Knowledge",
+              "rank": "Rank 3/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases your Intellect by 6%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 17485,
+            "classicId": 17488,
+            "rank": 4,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "values_changed"
+            ],
+            "lines": [
+              "Numbers and wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Ancestral Knowledge",
+              "rank": "Rank 4/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases your maximum Mana by 4%."
+            },
+            "after": {
+              "name": "Ancestral Knowledge",
+              "rank": "Rank 4/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases your Intellect by 8%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 17485,
+            "classicId": 17489,
+            "rank": 5,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "values_changed"
+            ],
+            "lines": [
+              "Numbers and wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Ancestral Knowledge",
+              "rank": "Rank 5/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases your maximum Mana by 5%."
+            },
+            "after": {
+              "name": "Ancestral Knowledge",
+              "rank": "Rank 5/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases your Intellect by 10%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          }
+        ]
+      },
+      {
+        "key": "Shield Specialization",
+        "name": "Shield Specialization",
+        "icon": "inv_shield_06",
+        "tab": 263,
+        "level": 0,
+        "tierName": "Tier 1",
+        "status": "removed",
+        "labels": [],
+        "ranks": [
+          {
+            "id": 16253,
+            "classicId": 16253,
+            "rank": 1,
+            "level": 0,
+            "status": "removed",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Shield Specialization",
+              "rank": "Rank 1/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases your chance to block attacks with a shield by 1% and increases the amount blocked by 5%."
+            },
+            "after": null,
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16298,
+            "classicId": 16298,
+            "rank": 2,
+            "level": 0,
+            "status": "removed",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Shield Specialization",
+              "rank": "Rank 2/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases your chance to block attacks with a shield by 2% and increases the amount blocked by 10%."
+            },
+            "after": null,
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16299,
+            "classicId": 16299,
+            "rank": 3,
+            "level": 0,
+            "status": "removed",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Shield Specialization",
+              "rank": "Rank 3/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases your chance to block attacks with a shield by 3% and increases the amount blocked by 15%."
+            },
+            "after": null,
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16300,
+            "classicId": 16300,
+            "rank": 4,
+            "level": 0,
+            "status": "removed",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Shield Specialization",
+              "rank": "Rank 4/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases your chance to block attacks with a shield by 4% and increases the amount blocked by 20%."
+            },
+            "after": null,
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16301,
+            "classicId": 16301,
+            "rank": 5,
+            "level": 0,
+            "status": "removed",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Shield Specialization",
+              "rank": "Rank 5/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases your chance to block attacks with a shield by 5% and increases the amount blocked by 25%."
+            },
+            "after": null,
+            "beforeLevel": null,
+            "afterLevel": null
+          }
+        ]
+      },
+      {
+        "key": "Guardian Totems",
+        "name": "Guardian Totems",
+        "icon": "spell_nature_stoneskintotem",
+        "tab": 263,
+        "level": 0,
+        "tierName": "Tier 2",
+        "status": "unchanged",
+        "labels": [],
+        "ranks": [
+          {
+            "id": 16258,
+            "classicId": 16258,
+            "rank": 1,
+            "level": 0,
+            "status": "unchanged",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": null,
+            "after": {
+              "name": "Guardian Totems",
+              "rank": "Rank 1/2",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the amount of damage reduced by your Stoneskin Totem and Windwall Totem by 10% and reduces the cooldown of your Grounding Totem by 1 sec."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16258,
+            "classicId": 16293,
+            "rank": 2,
+            "level": 0,
+            "status": "unchanged",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": null,
+            "after": {
+              "name": "Guardian Totems",
+              "rank": "Rank 2/2",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the amount of damage reduced by your Stoneskin Totem and Windwall Totem by 20% and reduces the cooldown of your Grounding Totem by 2 sec."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          }
+        ]
+      },
+      {
+        "key": "Mental Dexterity",
+        "name": "Mental Dexterity",
+        "icon": "spell_nature_mentalquickness",
+        "tab": 263,
+        "level": 0,
+        "tierName": "Tier 2",
+        "status": "new",
+        "labels": [],
+        "ranks": [
+          {
+            "id": 415140,
+            "classicId": null,
+            "rank": 1,
+            "level": 0,
+            "status": "new",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": null,
+            "after": {
+              "name": "Mental Dexterity",
+              "rank": "Rank 1/3",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases your Attack Power by an amount equal to 33% of your Intellect."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 415140,
+            "classicId": null,
+            "rank": 2,
+            "level": 0,
+            "status": "new",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": null,
+            "after": {
+              "name": "Mental Dexterity",
+              "rank": "Rank 2/3",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases your Attack Power by an amount equal to 67% of your Intellect."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 415140,
+            "classicId": null,
+            "rank": 3,
+            "level": 0,
+            "status": "new",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": null,
+            "after": {
+              "name": "Mental Dexterity",
+              "rank": "Rank 3/3",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases your Attack Power by an amount equal to 100% of your Intellect."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          }
+        ]
+      },
+      {
+        "key": "Improved Ghost Wolf",
+        "name": "Improved Ghost Wolf",
+        "icon": "spell_nature_spiritwolf",
+        "tab": 263,
+        "level": 0,
+        "tierName": "Tier 2",
+        "status": "updated",
+        "labels": [
+          "longer_duration",
+          "reworded"
+        ],
+        "ranks": [
+          {
+            "id": 16262,
+            "classicId": 16262,
+            "rank": 1,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "reworded"
+            ],
+            "lines": [
+              "Wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Improved Ghost Wolf",
+              "rank": "Rank 1/2",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Reduces the cast time of your Ghost Wolf spell by 1 sec."
+            },
+            "after": {
+              "name": "Improved Ghost Wolf",
+              "rank": "Rank 1/2",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Reduces the cast time of your Ghost Wolf spell by 1.0 sec, and Ghost Wolf may be used indoors."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16262,
+            "classicId": 16287,
+            "rank": 2,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "longer_duration",
+              "reworded"
+            ],
+            "lines": [
+              "3 sec instead of 2 sec",
+              "Wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Improved Ghost Wolf",
+              "rank": "Rank 2/2",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Reduces the cast time of your Ghost Wolf spell by 2 sec."
+            },
+            "after": {
+              "name": "Improved Ghost Wolf",
+              "rank": "Rank 2/2",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Reduces the cast time of your Ghost Wolf spell by 3.0 sec, and Ghost Wolf may be used indoors."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          }
+        ]
+      },
+      {
+        "key": "Improved Lightning Shield",
+        "name": "Improved Lightning Shield",
+        "icon": "spell_nature_lightningshield",
+        "tab": 263,
+        "level": 0,
+        "tierName": "Tier 2",
+        "status": "unchanged",
+        "labels": [],
+        "ranks": [
+          {
+            "id": 16261,
+            "classicId": 16261,
+            "rank": 1,
+            "level": 0,
+            "status": "unchanged",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": null,
+            "after": {
+              "name": "Improved Lightning Shield",
+              "rank": "Rank 1/3",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the damage done by your Lightning Shield orbs by 5%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16261,
+            "classicId": 16290,
+            "rank": 2,
+            "level": 0,
+            "status": "unchanged",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": null,
+            "after": {
+              "name": "Improved Lightning Shield",
+              "rank": "Rank 2/3",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the damage done by your Lightning Shield orbs by 10%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16261,
+            "classicId": 16291,
+            "rank": 3,
+            "level": 0,
+            "status": "unchanged",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": null,
+            "after": {
+              "name": "Improved Lightning Shield",
+              "rank": "Rank 3/3",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the damage done by your Lightning Shield orbs by 15%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          }
+        ]
+      },
+      {
+        "key": "Elemental Weapons",
+        "name": "Elemental Weapons",
+        "icon": "spell_fire_flametounge",
+        "tab": 263,
+        "level": 0,
+        "tierName": "Tier 3",
+        "status": "updated",
+        "labels": [
+          "values_changed"
+        ],
+        "ranks": [
+          {
+            "id": 16266,
+            "classicId": 16266,
+            "rank": 1,
+            "level": 0,
+            "status": "unchanged",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": null,
+            "after": {
+              "name": "Elemental Weapons",
+              "rank": "Rank 1/3",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the melee attack power bonus of your Rockbiter Weapon by 7%, your Windfury Weapon effect by 13% and increases the damage caused by your Flametongue Weapon and Frostbrand Weapon by 5%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16266,
+            "classicId": 29079,
+            "rank": 2,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "values_changed"
+            ],
+            "lines": [
+              "Value decreased by 7.1%"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Elemental Weapons",
+              "rank": "Rank 2/3",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the melee attack power bonus of your Rockbiter Weapon by 14%, your Windfury Weapon effect by 27% and increases the damage caused by your Flametongue Weapon and Frostbrand Weapon by 10%."
+            },
+            "after": {
+              "name": "Elemental Weapons",
+              "rank": "Rank 2/3",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the melee attack power bonus of your Rockbiter Weapon by 13%, your Windfury Weapon effect by 27% and increases the damage caused by your Flametongue Weapon and Frostbrand Weapon by 10%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16266,
+            "classicId": 29080,
+            "rank": 3,
+            "level": 0,
+            "status": "unchanged",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": null,
+            "after": {
+              "name": "Elemental Weapons",
+              "rank": "Rank 3/3",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the melee attack power bonus of your Rockbiter Weapon by 20%, your Windfury Weapon effect by 40% and increases the damage caused by your Flametongue Weapon and Frostbrand Weapon by 15%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          }
+        ]
+      },
+      {
+        "key": "Enhancing Totems",
+        "name": "Enhancing Totems",
+        "icon": "spell_nature_earthbindtotem",
+        "tab": 263,
+        "level": 0,
+        "tierName": "Tier 3",
+        "status": "removed",
+        "labels": [],
+        "ranks": [
+          {
+            "id": 16259,
+            "classicId": 16259,
+            "rank": 1,
+            "level": 0,
+            "status": "removed",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Enhancing Totems",
+              "rank": "Rank 1/2",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the effect of your Strength of Earth and Grace of Air Totems by 8%."
+            },
+            "after": null,
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16295,
+            "classicId": 16295,
+            "rank": 2,
+            "level": 0,
+            "status": "removed",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Enhancing Totems",
+              "rank": "Rank 2/2",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the effect of your Strength of Earth and Grace of Air Totems by 15%."
+            },
+            "after": null,
+            "beforeLevel": null,
+            "afterLevel": null
+          }
+        ]
+      },
+      {
+        "key": "Shamanistic Focus",
+        "name": "Shamanistic Focus",
+        "icon": "spell_nature_elementalabsorption",
+        "tab": 263,
+        "level": 0,
+        "tierName": "Tier 3",
+        "status": "new",
+        "labels": [],
+        "ranks": [
+          {
+            "id": 1223030,
+            "classicId": null,
+            "rank": 1,
+            "level": 0,
+            "status": "new",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": null,
+            "after": {
+              "name": "Shamanistic Focus",
+              "rank": "Rank 1/1",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Reduces the mana cost of your Shock and Lightning Shield spells by 45%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          }
+        ]
+      },
+      {
+        "key": "Two-Handed Axes and Maces",
+        "name": "Two-Handed Axes and Maces",
+        "icon": "inv_axe_10",
+        "tab": 263,
+        "level": 0,
+        "tierName": "Tier 3",
+        "status": "removed",
+        "labels": [],
+        "ranks": [
+          {
+            "id": 16269,
+            "classicId": 16269,
+            "rank": 1,
+            "level": 0,
+            "status": "removed",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Two-Handed Axes and Maces",
+              "rank": "Rank 1/1",
+              "cost": "",
+              "range": "",
+              "cast": "Instant",
+              "cooldown": "",
+              "text": "Allows you to use Two-Handed Axes and Two-Handed Maces."
+            },
+            "after": null,
+            "beforeLevel": null,
+            "afterLevel": null
+          }
+        ]
+      },
+      {
+        "key": "Anticipation",
+        "name": "Anticipation",
+        "icon": "spell_nature_mirrorimage",
+        "tab": 263,
+        "level": 0,
+        "tierName": "Tier 3",
+        "status": "updated",
+        "labels": [
+          "fewer_ranks",
+          "values_changed"
+        ],
+        "ranks": [
+          {
+            "id": 16254,
+            "classicId": 16254,
+            "rank": 1,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "fewer_ranks",
+              "values_changed"
+            ],
+            "lines": [
+              "3 ranks instead of 5",
+              "Value increased by 100%"
+            ],
+            "notShown": [
+              "3 ranks instead of 5"
+            ],
+            "technical": [],
+            "before": {
+              "name": "Anticipation",
+              "rank": "Rank 1/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases your chance to dodge by an additional 1%."
+            },
+            "after": {
+              "name": "Anticipation",
+              "rank": "Rank 1/3",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases your chance to dodge by an additional 2%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16254,
+            "classicId": 16271,
+            "rank": 2,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "values_changed"
+            ],
+            "lines": [
+              "Value increased by 100%"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Anticipation",
+              "rank": "Rank 2/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases your chance to dodge by an additional 2%."
+            },
+            "after": {
+              "name": "Anticipation",
+              "rank": "Rank 2/3",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases your chance to dodge by an additional 4%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16254,
+            "classicId": 16272,
+            "rank": 3,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "values_changed"
+            ],
+            "lines": [
+              "Value increased by 100%"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Anticipation",
+              "rank": "Rank 3/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases your chance to dodge by an additional 3%."
+            },
+            "after": {
+              "name": "Anticipation",
+              "rank": "Rank 3/3",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases your chance to dodge by an additional 6%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16273,
+            "classicId": 16273,
+            "rank": 4,
+            "level": 0,
+            "status": "removed",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Anticipation",
+              "rank": "Rank 4/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases your chance to dodge by an additional 4%."
+            },
+            "after": null,
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16274,
+            "classicId": 16274,
+            "rank": 5,
+            "level": 0,
+            "status": "removed",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Anticipation",
+              "rank": "Rank 5/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases your chance to dodge by an additional 5%."
+            },
+            "after": null,
+            "beforeLevel": null,
+            "afterLevel": null
+          }
+        ]
+      },
+      {
+        "key": "Toughness",
+        "name": "Toughness",
+        "icon": "spell_holy_devotion",
+        "tab": 263,
+        "level": 0,
+        "tierName": "Tier 4",
+        "status": "updated",
+        "labels": [
+          "reworded"
+        ],
+        "ranks": [
+          {
+            "id": 16252,
+            "classicId": 16252,
+            "rank": 1,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "reworded"
+            ],
+            "lines": [
+              "Wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Toughness",
+              "rank": "Rank 1/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases your armor value from items by 2%."
+            },
+            "after": {
+              "name": "Toughness",
+              "rank": "Rank 1/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases your Stamina by 2%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16252,
+            "classicId": 16306,
+            "rank": 2,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "reworded"
+            ],
+            "lines": [
+              "Wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Toughness",
+              "rank": "Rank 2/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases your armor value from items by 4%."
+            },
+            "after": {
+              "name": "Toughness",
+              "rank": "Rank 2/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases your Stamina by 4%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16252,
+            "classicId": 16307,
+            "rank": 3,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "reworded"
+            ],
+            "lines": [
+              "Wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Toughness",
+              "rank": "Rank 3/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases your armor value from items by 6%."
+            },
+            "after": {
+              "name": "Toughness",
+              "rank": "Rank 3/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases your Stamina by 6%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16252,
+            "classicId": 16308,
+            "rank": 4,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "reworded"
+            ],
+            "lines": [
+              "Wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Toughness",
+              "rank": "Rank 4/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases your armor value from items by 8%."
+            },
+            "after": {
+              "name": "Toughness",
+              "rank": "Rank 4/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases your Stamina by 8%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16252,
+            "classicId": 16309,
+            "rank": 5,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "reworded"
+            ],
+            "lines": [
+              "Wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Toughness",
+              "rank": "Rank 5/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases your armor value from items by 10%."
+            },
+            "after": {
+              "name": "Toughness",
+              "rank": "Rank 5/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases your Stamina by 10%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          }
+        ]
+      },
+      {
+        "key": "Flurry",
+        "name": "Flurry",
+        "icon": "ability_ghoulfrenzy",
+        "tab": 263,
+        "level": 0,
+        "tierName": "Tier 4",
+        "status": "updated",
+        "labels": [
+          "values_changed",
+          "reworded"
+        ],
+        "ranks": [
+          {
+            "id": 16256,
+            "classicId": 16256,
+            "rank": 1,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "values_changed",
+              "reworded"
+            ],
+            "lines": [
+              "Value decreased by 50%",
+              "Wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Flurry",
+              "rank": "Rank 1/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases your attack speed by 10% for your next 3 swings after dealing a critical strike."
+            },
+            "after": {
+              "name": "Flurry",
+              "rank": "Rank 1/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases your attack speed by 5% for your next 3 swings after dealing a melee critical strike."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16256,
+            "classicId": 16281,
+            "rank": 2,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "values_changed",
+              "reworded"
+            ],
+            "lines": [
+              "Value decreased by 33.3%",
+              "Wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Flurry",
+              "rank": "Rank 2/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases your attack speed by 15% for your next 3 swings after dealing a critical strike."
+            },
+            "after": {
+              "name": "Flurry",
+              "rank": "Rank 2/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases your attack speed by 10% for your next 3 swings after dealing a melee critical strike."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16256,
+            "classicId": 16282,
+            "rank": 3,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "values_changed",
+              "reworded"
+            ],
+            "lines": [
+              "Value decreased by 25%",
+              "Wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Flurry",
+              "rank": "Rank 3/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases your attack speed by 20% for your next 3 swings after dealing a critical strike."
+            },
+            "after": {
+              "name": "Flurry",
+              "rank": "Rank 3/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases your attack speed by 15% for your next 3 swings after dealing a melee critical strike."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16256,
+            "classicId": 16283,
+            "rank": 4,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "values_changed",
+              "reworded"
+            ],
+            "lines": [
+              "Value decreased by 20%",
+              "Wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Flurry",
+              "rank": "Rank 4/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases your attack speed by 25% for your next 3 swings after dealing a critical strike."
+            },
+            "after": {
+              "name": "Flurry",
+              "rank": "Rank 4/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases your attack speed by 20% for your next 3 swings after dealing a melee critical strike."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16256,
+            "classicId": 16284,
+            "rank": 5,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "values_changed",
+              "reworded"
+            ],
+            "lines": [
+              "Value decreased by 16.7%",
+              "Wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Flurry",
+              "rank": "Rank 5/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases your attack speed by 30% for your next 3 swings after dealing a critical strike."
+            },
+            "after": {
+              "name": "Flurry",
+              "rank": "Rank 5/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases your attack speed by 25% for your next 3 swings after dealing a melee critical strike."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          }
+        ]
+      },
+      {
+        "key": "Stormstrike",
+        "name": "Stormstrike",
+        "icon": "ability_shaman_stormstrike",
+        "tab": 263,
+        "level": 0,
+        "tierName": "Tier 4",
+        "status": "updated",
+        "labels": [
+          "shorter_cooldown",
+          "costs_less",
+          "new_icon",
+          "values_changed"
+        ],
+        "ranks": [
+          {
+            "id": 17364,
+            "classicId": 17364,
+            "rank": 1,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "shorter_cooldown",
+              "costs_less",
+              "new_icon",
+              "values_changed"
+            ],
+            "lines": [
+              "Cooldown 8 sec instead of 20 sec",
+              "Costs 8% of base power instead of 21% of base power",
+              "New icon",
+              "Numbers and wording changed"
+            ],
+            "notShown": [
+              "New icon"
+            ],
+            "technical": [],
+            "before": {
+              "name": "Stormstrike",
+              "rank": "Rank 1/1",
+              "cost": "21% of base power",
+              "range": "5 yd range",
+              "cast": "Instant",
+              "cooldown": "20 sec cooldown",
+              "text": "Gives you an extra attack. In addition, the next 2 sources of Nature damage dealt to the target are increased by 20%. Lasts 12 sec."
+            },
+            "after": {
+              "name": "Stormstrike",
+              "rank": "Rank 1/1",
+              "cost": "8% of base power",
+              "range": "5 yd range",
+              "cast": "Instant",
+              "cooldown": "8 sec cooldown",
+              "text": "Instantly strike for normal weapon damage and increase the damage you deal to the target with your next Lightning Bolt, Chain Lightning, or Earth Shock spell by 20% for 12 sec."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          }
+        ]
+      },
+      {
+        "key": "Improved Weapon Totems",
+        "name": "Improved Weapon Totems",
+        "icon": "spell_fire_enchantweapon",
+        "tab": 263,
+        "level": 0,
+        "tierName": "Tier 5",
+        "status": "removed",
+        "labels": [],
+        "ranks": [
+          {
+            "id": 29192,
+            "classicId": 29192,
+            "rank": 1,
+            "level": 0,
+            "status": "removed",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Improved Weapon Totems",
+              "rank": "Rank 1/2",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the melee attack power bonus of your Windfury Totem by 15% and increases the damage caused by your Flametongue Totem by 6%."
+            },
+            "after": null,
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 29193,
+            "classicId": 29193,
+            "rank": 2,
+            "level": 0,
+            "status": "removed",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Improved Weapon Totems",
+              "rank": "Rank 2/2",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the melee attack power bonus of your Windfury Totem by 30% and increases the damage caused by your Flametongue Totem by 12%."
+            },
+            "after": null,
+            "beforeLevel": null,
+            "afterLevel": null
+          }
+        ]
+      },
+      {
+        "key": "Spirit Weapons",
+        "name": "Spirit Weapons",
+        "icon": "ability_parry",
+        "tab": 263,
+        "level": 0,
+        "tierName": "Tier 5",
+        "status": "updated",
+        "labels": [
+          "renamed",
+          "values_changed"
+        ],
+        "ranks": [
+          {
+            "id": 16268,
+            "classicId": 16268,
+            "rank": 1,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "renamed",
+              "values_changed"
+            ],
+            "lines": [
+              "Renamed from Parry",
+              "Numbers and wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Parry",
+              "rank": "Rank 1/1",
+              "cost": "",
+              "range": "",
+              "cast": "Instant",
+              "cooldown": "",
+              "text": "Gives a chance to parry enemy melee attacks."
+            },
+            "after": {
+              "name": "Spirit Weapons",
+              "rank": "Rank 1/1",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Gives a chance to parry enemy melee attacks, reduces all threat generated by your attacks by 30% while Rockbiter Weapon is not active, and increases all threat generated by 30% while Rockbiter Weapon is active."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          }
+        ]
+      },
+      {
+        "key": "Mental Quickness",
+        "name": "Mental Quickness",
+        "icon": "spell_nature_sleep",
+        "tab": 263,
+        "level": 0,
+        "tierName": "Tier 5",
+        "status": "new",
+        "labels": [],
+        "ranks": [
+          {
+            "id": 30812,
+            "classicId": null,
+            "rank": 1,
+            "level": 0,
+            "status": "new",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": null,
+            "after": {
+              "name": "Mental Quickness",
+              "rank": "Rank 1/2",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases your spell damage and healing by up to 15% of your Intellect."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 30812,
+            "classicId": null,
+            "rank": 2,
+            "level": 0,
+            "status": "new",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": null,
+            "after": {
+              "name": "Mental Quickness",
+              "rank": "Rank 2/2",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases your spell damage and healing by up to 30% of your Intellect."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          }
+        ]
+      },
+      {
+        "key": "Improved Stormstrike",
+        "name": "Improved Stormstrike",
+        "icon": "spell_shaman_improvedstormstrike",
+        "tab": 263,
+        "level": 0,
+        "tierName": "Tier 5",
+        "status": "new",
+        "labels": [],
+        "ranks": [
+          {
+            "id": 1223031,
+            "classicId": null,
+            "rank": 1,
+            "level": 0,
+            "status": "new",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": null,
+            "after": {
+              "name": "Improved Stormstrike",
+              "rank": "Rank 1/2",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "When you Stormstrike, you have a 50% chance to gain 50% mana regeneration while casting spells for 15 sec, and Stormstrike's cooldown has a 50% chance to reset each time you Dodge or Parry."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 1223031,
+            "classicId": null,
+            "rank": 2,
+            "level": 0,
+            "status": "new",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": null,
+            "after": {
+              "name": "Improved Stormstrike",
+              "rank": "Rank 2/2",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "When you Stormstrike, you have a 100% chance to gain 50% mana regeneration while casting spells for 15 sec, and Stormstrike's cooldown has a 100% chance to reset each time you Dodge or Parry."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          }
+        ]
+      },
+      {
+        "key": "Maelstrom Weapon",
+        "name": "Maelstrom Weapon",
+        "icon": "spell_shaman_maelstromweapon",
+        "tab": 263,
+        "level": 0,
+        "tierName": "Tier 6",
+        "status": "new",
+        "labels": [],
+        "ranks": [
+          {
+            "id": 408498,
+            "classicId": null,
+            "rank": 1,
+            "level": 0,
+            "status": "new",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": null,
+            "after": {
+              "name": "Maelstrom Weapon",
+              "rank": "Rank 1/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "When you deal damage with a melee attack, you have a chance to reduce the cast time and Mana cost of your next Lightning Bolt spell by 4%. Stacks up to 5 times. Lasts 30 sec."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 408498,
+            "classicId": null,
+            "rank": 2,
+            "level": 0,
+            "status": "new",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": null,
+            "after": {
+              "name": "Maelstrom Weapon",
+              "rank": "Rank 2/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "When you deal damage with a melee attack, you have a chance to reduce the cast time and Mana cost of your next Lightning Bolt spell by 8%. Stacks up to 5 times. Lasts 30 sec."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 408498,
+            "classicId": null,
+            "rank": 3,
+            "level": 0,
+            "status": "new",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": null,
+            "after": {
+              "name": "Maelstrom Weapon",
+              "rank": "Rank 3/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "When you deal damage with a melee attack, you have a chance to reduce the cast time and Mana cost of your next Lightning Bolt spell by 12%. Stacks up to 5 times. Lasts 30 sec."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 408498,
+            "classicId": null,
+            "rank": 4,
+            "level": 0,
+            "status": "new",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": null,
+            "after": {
+              "name": "Maelstrom Weapon",
+              "rank": "Rank 4/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "When you deal damage with a melee attack, you have a chance to reduce the cast time and Mana cost of your next Lightning Bolt spell by 16%. Stacks up to 5 times. Lasts 30 sec."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 408498,
+            "classicId": null,
+            "rank": 5,
+            "level": 0,
+            "status": "new",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": null,
+            "after": {
+              "name": "Maelstrom Weapon",
+              "rank": "Rank 5/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "When you deal damage with a melee attack, you have a chance to reduce the cast time and Mana cost of your next Lightning Bolt spell by 20%. Stacks up to 5 times. Lasts 30 sec."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          }
+        ]
+      },
+      {
+        "key": "Weapon Mastery",
+        "name": "Weapon Mastery",
+        "icon": "ability_hunter_swiftstrike",
+        "tab": 263,
+        "level": 0,
+        "tierName": "Tier 6",
+        "status": "removed",
+        "labels": [],
+        "ranks": [
+          {
+            "id": 29082,
+            "classicId": 29082,
+            "rank": 1,
+            "level": 0,
+            "status": "removed",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Weapon Mastery",
+              "rank": "Rank 1/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the damage you deal with all weapons by 2%."
+            },
+            "after": null,
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 29084,
+            "classicId": 29084,
+            "rank": 2,
+            "level": 0,
+            "status": "removed",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Weapon Mastery",
+              "rank": "Rank 2/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the damage you deal with all weapons by 4%."
+            },
+            "after": null,
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 29086,
+            "classicId": 29086,
+            "rank": 3,
+            "level": 0,
+            "status": "removed",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Weapon Mastery",
+              "rank": "Rank 3/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the damage you deal with all weapons by 6%."
+            },
+            "after": null,
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 29087,
+            "classicId": 29087,
+            "rank": 4,
+            "level": 0,
+            "status": "removed",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Weapon Mastery",
+              "rank": "Rank 4/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the damage you deal with all weapons by 8%."
+            },
+            "after": null,
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 29088,
+            "classicId": 29088,
+            "rank": 5,
+            "level": 0,
+            "status": "removed",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Weapon Mastery",
+              "rank": "Rank 5/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the damage you deal with all weapons by 10%."
+            },
+            "after": null,
+            "beforeLevel": null,
+            "afterLevel": null
+          }
+        ]
+      },
+      {
+        "key": "Rage of the Farseer",
+        "name": "Rage of the Farseer",
+        "icon": "spell_nature_bloodlust",
+        "tab": 263,
+        "level": 0,
+        "tierName": "Tier 7",
+        "status": "updated",
+        "labels": [
+          "longer_duration",
+          "longer_cooldown",
+          "now_talent",
+          "new_icon",
+          "renamed",
+          "values_changed"
+        ],
+        "ranks": [
+          {
+            "id": 425336,
+            "classicId": 425336,
+            "rank": 1,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "longer_duration",
+              "longer_cooldown",
+              "now_talent",
+              "new_icon",
+              "renamed",
+              "values_changed"
+            ],
+            "lines": [
+              "Trained in Classic; a talent now",
+              "Renamed from Shamanistic Rage",
+              "Cooldown 3 min instead of 1 min",
+              "Lasts 25 sec instead of 15 sec",
+              "New icon",
+              "Numbers and wording changed"
+            ],
+            "notShown": [
+              "Trained in Classic; a talent now",
+              "New icon"
+            ],
+            "technical": [],
+            "before": {
+              "name": "Shamanistic Rage",
+              "rank": "Rank 1/1",
+              "cost": "",
+              "range": "",
+              "cast": "Instant",
+              "cooldown": "1 min cooldown",
+              "text": "Reduces all damage you take by 20% and you regenerate mana equal to 5% of your maximum mana every second for 15 sec. Your party and raid members within 40 yards will also receive 18% of the mana you receive this way."
+            },
+            "after": {
+              "name": "Rage of the Farseer",
+              "rank": "Rank 1/1",
+              "cost": "",
+              "range": "",
+              "cast": "Instant",
+              "cooldown": "3 min cooldown",
+              "text": "Increases your attack speed by 30% for 25 sec."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          }
+        ]
+      },
+      {
+        "key": "Improved Healing Wave",
+        "name": "Improved Healing Wave",
+        "icon": "spell_nature_magicimmunity",
+        "tab": 262,
+        "level": 0,
+        "tierName": "Tier 1",
+        "status": "unchanged",
+        "labels": [],
+        "ranks": [
+          {
+            "id": 16182,
+            "classicId": 16182,
+            "rank": 1,
+            "level": 0,
+            "status": "unchanged",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": null,
+            "after": {
+              "name": "Improved Healing Wave",
+              "rank": "Rank 1/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Reduces the casting time of your Healing Wave spell by 0.1 sec."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16182,
+            "classicId": 16226,
+            "rank": 2,
+            "level": 0,
+            "status": "unchanged",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": null,
+            "after": {
+              "name": "Improved Healing Wave",
+              "rank": "Rank 2/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Reduces the casting time of your Healing Wave spell by 0.2 sec."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16182,
+            "classicId": 16227,
+            "rank": 3,
+            "level": 0,
+            "status": "unchanged",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": null,
+            "after": {
+              "name": "Improved Healing Wave",
+              "rank": "Rank 3/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Reduces the casting time of your Healing Wave spell by 0.3 sec."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16182,
+            "classicId": 16228,
+            "rank": 4,
+            "level": 0,
+            "status": "unchanged",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": null,
+            "after": {
+              "name": "Improved Healing Wave",
+              "rank": "Rank 4/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Reduces the casting time of your Healing Wave spell by 0.4 sec."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16182,
+            "classicId": 16229,
+            "rank": 5,
+            "level": 0,
+            "status": "unchanged",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": null,
+            "after": {
+              "name": "Improved Healing Wave",
+              "rank": "Rank 5/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Reduces the casting time of your Healing Wave spell by 0.5 sec."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          }
+        ]
+      },
+      {
+        "key": "Tidal Focus",
+        "name": "Tidal Focus",
+        "icon": "spell_frost_manarecharge",
+        "tab": 262,
+        "level": 0,
+        "tierName": "Tier 1",
+        "status": "updated",
+        "labels": [
+          "values_changed"
+        ],
+        "ranks": [
+          {
+            "id": 16179,
+            "classicId": 16179,
+            "rank": 1,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "values_changed"
+            ],
+            "lines": [
+              "Numbers and wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Tidal Focus",
+              "rank": "Rank 1/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Reduces the Mana cost of your healing spells by 1%."
+            },
+            "after": {
+              "name": "Tidal Focus",
+              "rank": "Rank 1/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Reduces the Mana cost of your healing spells by 1% and improves your chance to hit by 1%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16179,
+            "classicId": 16214,
+            "rank": 2,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "values_changed"
+            ],
+            "lines": [
+              "Numbers and wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Tidal Focus",
+              "rank": "Rank 2/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Reduces the Mana cost of your healing spells by 2%."
+            },
+            "after": {
+              "name": "Tidal Focus",
+              "rank": "Rank 2/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Reduces the Mana cost of your healing spells by 2% and improves your chance to hit by 2%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16179,
+            "classicId": 16215,
+            "rank": 3,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "values_changed"
+            ],
+            "lines": [
+              "Numbers and wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Tidal Focus",
+              "rank": "Rank 3/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Reduces the Mana cost of your healing spells by 3%."
+            },
+            "after": {
+              "name": "Tidal Focus",
+              "rank": "Rank 3/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Reduces the Mana cost of your healing spells by 3% and improves your chance to hit by 3%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16179,
+            "classicId": 16216,
+            "rank": 4,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "values_changed"
+            ],
+            "lines": [
+              "Numbers and wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Tidal Focus",
+              "rank": "Rank 4/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Reduces the Mana cost of your healing spells by 4%."
+            },
+            "after": {
+              "name": "Tidal Focus",
+              "rank": "Rank 4/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Reduces the Mana cost of your healing spells by 4% and improves your chance to hit by 4%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16179,
+            "classicId": 16217,
+            "rank": 5,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "values_changed"
+            ],
+            "lines": [
+              "Numbers and wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Tidal Focus",
+              "rank": "Rank 5/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Reduces the Mana cost of your healing spells by 5%."
+            },
+            "after": {
+              "name": "Tidal Focus",
+              "rank": "Rank 5/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Reduces the Mana cost of your healing spells by 5% and improves your chance to hit by 5%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          }
+        ]
+      },
+      {
+        "key": "Mindfulness",
+        "name": "Mindfulness",
+        "icon": "spell_nature_sleep",
+        "tab": 262,
+        "level": 0,
+        "tierName": "Tier 2",
+        "status": "new",
+        "labels": [],
+        "ranks": [
+          {
+            "id": 1223033,
+            "classicId": null,
+            "rank": 1,
+            "level": 0,
+            "status": "new",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": null,
+            "after": {
+              "name": "Mindfulness",
+              "rank": "Rank 1/3",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Allows 17% of your Mana regeneration to continue while casting."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 1223033,
+            "classicId": null,
+            "rank": 2,
+            "level": 0,
+            "status": "new",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": null,
+            "after": {
+              "name": "Mindfulness",
+              "rank": "Rank 2/3",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Allows 33% of your Mana regeneration to continue while casting."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 1223033,
+            "classicId": null,
+            "rank": 3,
+            "level": 0,
+            "status": "new",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": null,
+            "after": {
+              "name": "Mindfulness",
+              "rank": "Rank 3/3",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Allows 50% of your Mana regeneration to continue while casting."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          }
+        ]
+      },
+      {
+        "key": "Natural Grace",
+        "name": "Natural Grace",
+        "icon": "spell_nature_healingtouch",
+        "tab": 262,
+        "level": 0,
+        "tierName": "Tier 2",
+        "status": "updated",
+        "labels": [
+          "renamed",
+          "reworded"
+        ],
+        "ranks": [
+          {
+            "id": 29187,
+            "classicId": 29187,
+            "rank": 1,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "renamed",
+              "reworded"
+            ],
+            "lines": [
+              "Renamed from Healing Grace",
+              "Wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Healing Grace",
+              "rank": "Rank 1/3",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Reduces the threat generated by your healing spells by 5%."
+            },
+            "after": {
+              "name": "Natural Grace",
+              "rank": "Rank 1/3",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Reduces the threat generated by your spells by 5%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 29187,
+            "classicId": 29189,
+            "rank": 2,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "renamed",
+              "reworded"
+            ],
+            "lines": [
+              "Renamed from Healing Grace",
+              "Wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Healing Grace",
+              "rank": "Rank 2/3",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Reduces the threat generated by your healing spells by 10%."
+            },
+            "after": {
+              "name": "Natural Grace",
+              "rank": "Rank 2/3",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Reduces the threat generated by your spells by 10%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 29187,
+            "classicId": 29191,
+            "rank": 3,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "renamed",
+              "reworded"
+            ],
+            "lines": [
+              "Renamed from Healing Grace",
+              "Wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Healing Grace",
+              "rank": "Rank 3/3",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Reduces the threat generated by your healing spells by 15%."
+            },
+            "after": {
+              "name": "Natural Grace",
+              "rank": "Rank 3/3",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Reduces the threat generated by your spells by 15%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          }
+        ]
+      },
+      {
+        "key": "Totemic Focus",
+        "name": "Totemic Focus",
+        "icon": "spell_nature_moonglow",
+        "tab": 262,
+        "level": 0,
+        "tierName": "Tier 2",
+        "status": "updated",
+        "labels": [
+          "reworded"
+        ],
+        "ranks": [
+          {
+            "id": 16173,
+            "classicId": 16173,
+            "rank": 1,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "reworded"
+            ],
+            "lines": [
+              "Wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Totemic Focus",
+              "rank": "Rank 1/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Reduces the Mana cost of your totems by 5%."
+            },
+            "after": {
+              "name": "Totemic Focus",
+              "rank": "Rank 1/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Reduces the Mana cost of your totems and any spells that summon or move them by 5%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16173,
+            "classicId": 16222,
+            "rank": 2,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "reworded"
+            ],
+            "lines": [
+              "Wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Totemic Focus",
+              "rank": "Rank 2/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Reduces the Mana cost of your totems by 10%."
+            },
+            "after": {
+              "name": "Totemic Focus",
+              "rank": "Rank 2/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Reduces the Mana cost of your totems and any spells that summon or move them by 10%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16173,
+            "classicId": 16223,
+            "rank": 3,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "reworded"
+            ],
+            "lines": [
+              "Wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Totemic Focus",
+              "rank": "Rank 3/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Reduces the Mana cost of your totems by 15%."
+            },
+            "after": {
+              "name": "Totemic Focus",
+              "rank": "Rank 3/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Reduces the Mana cost of your totems and any spells that summon or move them by 15%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16173,
+            "classicId": 16224,
+            "rank": 4,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "reworded"
+            ],
+            "lines": [
+              "Wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Totemic Focus",
+              "rank": "Rank 4/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Reduces the Mana cost of your totems by 20%."
+            },
+            "after": {
+              "name": "Totemic Focus",
+              "rank": "Rank 4/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Reduces the Mana cost of your totems and any spells that summon or move them by 20%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16173,
+            "classicId": 16225,
+            "rank": 5,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "reworded"
+            ],
+            "lines": [
+              "Wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Totemic Focus",
+              "rank": "Rank 5/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Reduces the Mana cost of your totems by 25%."
+            },
+            "after": {
+              "name": "Totemic Focus",
+              "rank": "Rank 5/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Reduces the Mana cost of your totems and any spells that summon or move them by 25%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          }
+        ]
+      },
+      {
+        "key": "Improved Reincarnation",
+        "name": "Improved Reincarnation",
+        "icon": "spell_nature_reincarnation",
+        "tab": 262,
+        "level": 0,
+        "tierName": "Tier 2",
+        "status": "updated",
+        "labels": [
+          "values_changed"
+        ],
+        "ranks": [
+          {
+            "id": 16184,
+            "classicId": 16184,
+            "rank": 1,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "values_changed"
+            ],
+            "lines": [
+              "Numbers and wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Improved Reincarnation",
+              "rank": "Rank 1/2",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Reduces the cooldown of your Reincarnation spell by 10 min and increases the amount of health and mana you reincarnate with by an additional 10%."
+            },
+            "after": {
+              "name": "Improved Reincarnation",
+              "rank": "Rank 1/2",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Reduces the cooldown of your Reincarnation spell by 10 min, increases your maximum health by 2%, and increases the amount of health and Mana you reincarnate with by an additional 10%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16184,
+            "classicId": 16209,
+            "rank": 2,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "values_changed"
+            ],
+            "lines": [
+              "Numbers and wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Improved Reincarnation",
+              "rank": "Rank 2/2",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Reduces the cooldown of your Reincarnation spell by 20 min and increases the amount of health and mana you reincarnate with by an additional 20%."
+            },
+            "after": {
+              "name": "Improved Reincarnation",
+              "rank": "Rank 2/2",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Reduces the cooldown of your Reincarnation spell by 20 min, increases your maximum health by 4%, and increases the amount of health and Mana you reincarnate with by an additional 20%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          }
+        ]
+      },
+      {
+        "key": "Ancestral Healing",
+        "name": "Ancestral Healing",
+        "icon": "spell_nature_undyingstrength",
+        "tab": 262,
+        "level": 0,
+        "tierName": "Tier 3",
+        "status": "updated",
+        "labels": [
+          "values_changed"
+        ],
+        "ranks": [
+          {
+            "id": 16176,
+            "classicId": 16176,
+            "rank": 1,
+            "level": 0,
+            "status": "unchanged",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": null,
+            "after": {
+              "name": "Ancestral Healing",
+              "rank": "Rank 1/3",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases your target's armor value by 8% for 15 sec after getting a critical effect from one of your healing spells."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16176,
+            "classicId": 16235,
+            "rank": 2,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "values_changed"
+            ],
+            "lines": [
+              "Value increased by 6.3%"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Ancestral Healing",
+              "rank": "Rank 2/3",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases your target's armor value by 16% for 15 sec after getting a critical effect from one of your healing spells."
+            },
+            "after": {
+              "name": "Ancestral Healing",
+              "rank": "Rank 2/3",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases your target's armor value by 17% for 15 sec after getting a critical effect from one of your healing spells."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16176,
+            "classicId": 16240,
+            "rank": 3,
+            "level": 0,
+            "status": "unchanged",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": null,
+            "after": {
+              "name": "Ancestral Healing",
+              "rank": "Rank 3/3",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases your target's armor value by 25% for 15 sec after getting a critical effect from one of your healing spells."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          }
+        ]
+      },
+      {
+        "key": "Nature's Guidance",
+        "name": "Nature's Guidance",
+        "icon": "spell_frost_stun",
+        "tab": 262,
+        "level": 0,
+        "tierName": "Tier 3",
+        "status": "removed",
+        "labels": [],
+        "ranks": [
+          {
+            "id": 16180,
+            "classicId": 16180,
+            "rank": 1,
+            "level": 0,
+            "status": "removed",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Nature's Guidance",
+              "rank": "Rank 1/3",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases your chance to hit with melee attacks and spells by 1%."
+            },
+            "after": null,
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16196,
+            "classicId": 16196,
+            "rank": 2,
+            "level": 0,
+            "status": "removed",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Nature's Guidance",
+              "rank": "Rank 2/3",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases your chance to hit with melee attacks and spells by 2%."
+            },
+            "after": null,
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16198,
+            "classicId": 16198,
+            "rank": 3,
+            "level": 0,
+            "status": "removed",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Nature's Guidance",
+              "rank": "Rank 3/3",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases your chance to hit with melee attacks and spells by 3%."
+            },
+            "after": null,
+            "beforeLevel": null,
+            "afterLevel": null
+          }
+        ]
+      },
+      {
+        "key": "Healing Focus",
+        "name": "Healing Focus",
+        "icon": "spell_nature_healingwavelesser",
+        "tab": 262,
+        "level": 0,
+        "tierName": "Tier 3",
+        "status": "updated",
+        "labels": [
+          "fewer_ranks",
+          "values_changed"
+        ],
+        "ranks": [
+          {
+            "id": 16181,
+            "classicId": 16181,
+            "rank": 1,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "fewer_ranks",
+              "values_changed"
+            ],
+            "lines": [
+              "3 ranks instead of 5",
+              "Numbers and wording changed"
+            ],
+            "notShown": [
+              "3 ranks instead of 5"
+            ],
+            "technical": [],
+            "before": {
+              "name": "Healing Focus",
+              "rank": "Rank 1/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Gives you a 14% chance to avoid interruption caused by damage while casting any healing spell."
+            },
+            "after": {
+              "name": "Healing Focus",
+              "rank": "Rank 1/3",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Gives your healing spells a 23% chance to not lose casting time when you take damage."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16181,
+            "classicId": 16230,
+            "rank": 2,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "values_changed"
+            ],
+            "lines": [
+              "Numbers and wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Healing Focus",
+              "rank": "Rank 2/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Gives you a 28% chance to avoid interruption caused by damage while casting any healing spell."
+            },
+            "after": {
+              "name": "Healing Focus",
+              "rank": "Rank 2/3",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Gives your healing spells a 47% chance to not lose casting time when you take damage."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16181,
+            "classicId": 16232,
+            "rank": 3,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "values_changed"
+            ],
+            "lines": [
+              "Numbers and wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Healing Focus",
+              "rank": "Rank 3/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Gives you a 42% chance to avoid interruption caused by damage while casting any healing spell."
+            },
+            "after": {
+              "name": "Healing Focus",
+              "rank": "Rank 3/3",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Gives your healing spells a 70% chance to not lose casting time when you take damage."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16233,
+            "classicId": 16233,
+            "rank": 4,
+            "level": 0,
+            "status": "removed",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Healing Focus",
+              "rank": "Rank 4/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Gives you a 56% chance to avoid interruption caused by damage while casting any healing spell."
+            },
+            "after": null,
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16234,
+            "classicId": 16234,
+            "rank": 5,
+            "level": 0,
+            "status": "removed",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Healing Focus",
+              "rank": "Rank 5/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Gives you a 70% chance to avoid interruption caused by damage while casting any healing spell."
+            },
+            "after": null,
+            "beforeLevel": null,
+            "afterLevel": null
+          }
+        ]
+      },
+      {
+        "key": "Totemic Mastery",
+        "name": "Totemic Mastery",
+        "icon": "spell_nature_nullward",
+        "tab": 262,
+        "level": 0,
+        "tierName": "Tier 3",
+        "status": "removed",
+        "labels": [],
+        "ranks": [
+          {
+            "id": 16189,
+            "classicId": 16189,
+            "rank": 1,
+            "level": 0,
+            "status": "removed",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Totemic Mastery",
+              "rank": "Rank 1/1",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "The radius of your totems that affect friendly targets is increased to 30 yd."
+            },
+            "after": null,
+            "beforeLevel": null,
+            "afterLevel": null
+          }
+        ]
+      },
+      {
+        "key": "Water Shield",
+        "name": "Water Shield",
+        "icon": "ability_shaman_watershield",
+        "tab": 262,
+        "level": 0,
+        "tierName": "Tier 3",
+        "status": "updated",
+        "labels": [
+          "now_talent",
+          "values_changed"
+        ],
+        "ranks": [
+          {
+            "id": 408510,
+            "classicId": 408510,
+            "rank": 1,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "now_talent",
+              "values_changed"
+            ],
+            "lines": [
+              "Trained in Classic; a talent now",
+              "Numbers and wording changed"
+            ],
+            "notShown": [
+              "Trained in Classic; a talent now"
+            ],
+            "technical": [],
+            "before": {
+              "name": "Water Shield",
+              "rank": "Rank 1/1",
+              "cost": "",
+              "range": "",
+              "cast": "Instant",
+              "cooldown": "",
+              "text": "The caster is surrounded by 3 globes of water, granting 1% of your maximum mana per 5 sec. When a spell, melee or ranged attack hits the caster, 4% of maximum mana is restored to the caster. This expends one water globe. Only one globe will activate every few seconds. Lasts 10 min. Only one Elemental Shield can be active on the Shaman at any one time."
+            },
+            "after": {
+              "name": "Water Shield",
+              "rank": "Rank 1/1",
+              "cost": "",
+              "range": "",
+              "cast": "Instant",
+              "cooldown": "",
+              "text": "The caster is surrounded by 3 globes of water. When a spell, melee, or ranged attack hits the caster or when one of the caster's spells gets a critical result, 2% of maximum mana is restored to the caster, expending one water globe. Only one globe will activate every few seconds. Lasts 10 min.\n\nOnly one Elemental Shield can be active on the Shaman at any one time."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          }
+        ]
+      },
+      {
+        "key": "Tidal Mastery",
+        "name": "Tidal Mastery",
+        "icon": "spell_nature_tranquility",
+        "tab": 262,
+        "level": 0,
+        "tierName": "Tier 4",
+        "status": "updated",
+        "labels": [
+          "reworded"
+        ],
+        "ranks": [
+          {
+            "id": 16194,
+            "classicId": 16194,
+            "rank": 1,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "reworded"
+            ],
+            "lines": [
+              "Wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Tidal Mastery",
+              "rank": "Rank 1/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the critical effect chance of your healing and lightning spells by 1%."
+            },
+            "after": {
+              "name": "Tidal Mastery",
+              "rank": "Rank 1/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the critical effect chance of your healing spells by 1%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16194,
+            "classicId": 16218,
+            "rank": 2,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "reworded"
+            ],
+            "lines": [
+              "Wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Tidal Mastery",
+              "rank": "Rank 2/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the critical effect chance of your healing and lightning spells by 2%."
+            },
+            "after": {
+              "name": "Tidal Mastery",
+              "rank": "Rank 2/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the critical effect chance of your healing spells by 2%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16194,
+            "classicId": 16219,
+            "rank": 3,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "reworded"
+            ],
+            "lines": [
+              "Wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Tidal Mastery",
+              "rank": "Rank 3/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the critical effect chance of your healing and lightning spells by 3%."
+            },
+            "after": {
+              "name": "Tidal Mastery",
+              "rank": "Rank 3/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the critical effect chance of your healing spells by 3%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16194,
+            "classicId": 16220,
+            "rank": 4,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "reworded"
+            ],
+            "lines": [
+              "Wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Tidal Mastery",
+              "rank": "Rank 4/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the critical effect chance of your healing and lightning spells by 4%."
+            },
+            "after": {
+              "name": "Tidal Mastery",
+              "rank": "Rank 4/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the critical effect chance of your healing spells by 4%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16194,
+            "classicId": 16221,
+            "rank": 5,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "reworded"
+            ],
+            "lines": [
+              "Wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Tidal Mastery",
+              "rank": "Rank 5/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the critical effect chance of your healing and lightning spells by 5%."
+            },
+            "after": {
+              "name": "Tidal Mastery",
+              "rank": "Rank 5/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the critical effect chance of your healing spells by 5%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          }
+        ]
+      },
+      {
+        "key": "Restorative Totems",
+        "name": "Restorative Totems",
+        "icon": "spell_nature_manaregentotem",
+        "tab": 262,
+        "level": 0,
+        "tierName": "Tier 4",
+        "status": "updated",
+        "labels": [
+          "values_changed"
+        ],
+        "ranks": [
+          {
+            "id": 16187,
+            "classicId": 16187,
+            "rank": 1,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "values_changed"
+            ],
+            "lines": [
+              "Numbers and wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Restorative Totems",
+              "rank": "Rank 1/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the effect of your Mana Spring and Healing Stream Totems by 5%."
+            },
+            "after": {
+              "name": "Restorative Totems",
+              "rank": "Rank 1/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the effect of your Mana Spring Totem by 5% and increases the effect of your Healing Stream Totem by 10%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16187,
+            "classicId": 16205,
+            "rank": 2,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "values_changed"
+            ],
+            "lines": [
+              "Numbers and wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Restorative Totems",
+              "rank": "Rank 2/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the effect of your Mana Spring and Healing Stream Totems by 10%."
+            },
+            "after": {
+              "name": "Restorative Totems",
+              "rank": "Rank 2/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the effect of your Mana Spring Totem by 10% and increases the effect of your Healing Stream Totem by 20%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16187,
+            "classicId": 16206,
+            "rank": 3,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "values_changed"
+            ],
+            "lines": [
+              "Numbers and wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Restorative Totems",
+              "rank": "Rank 3/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the effect of your Mana Spring and Healing Stream Totems by 15%."
+            },
+            "after": {
+              "name": "Restorative Totems",
+              "rank": "Rank 3/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the effect of your Mana Spring Totem by 15% and increases the effect of your Healing Stream Totem by 30%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16187,
+            "classicId": 16207,
+            "rank": 4,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "values_changed"
+            ],
+            "lines": [
+              "Numbers and wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Restorative Totems",
+              "rank": "Rank 4/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the effect of your Mana Spring and Healing Stream Totems by 20%."
+            },
+            "after": {
+              "name": "Restorative Totems",
+              "rank": "Rank 4/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the effect of your Mana Spring Totem by 20% and increases the effect of your Healing Stream Totem by 40%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16187,
+            "classicId": 16208,
+            "rank": 5,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "values_changed"
+            ],
+            "lines": [
+              "Numbers and wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Restorative Totems",
+              "rank": "Rank 5/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the effect of your Mana Spring and Healing Stream Totems by 25%."
+            },
+            "after": {
+              "name": "Restorative Totems",
+              "rank": "Rank 5/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the effect of your Mana Spring Totem by 25% and increases the effect of your Healing Stream Totem by 50%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          }
+        ]
+      },
+      {
+        "key": "Mana Tide Totem",
+        "name": "Mana Tide Totem",
+        "icon": "spell_frost_summonwaterelemental",
+        "tab": 262,
+        "level": 0,
+        "tierName": "Tier 4",
+        "status": "updated",
+        "labels": [
+          "costs_less",
+          "values_changed"
+        ],
+        "ranks": [
+          {
+            "id": 16190,
+            "classicId": 16190,
+            "rank": 1,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "costs_less",
+              "values_changed"
+            ],
+            "lines": [
+              "Costs 10 Mana instead of 20 Mana",
+              "Value increased by 50%, value decreased by 48.2%"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Mana Tide Totem",
+              "rank": "Rank 1/1",
+              "cost": "20 Mana",
+              "range": "",
+              "cast": "Instant",
+              "cooldown": "5 min cooldown",
+              "text": "Summons a Mana Tide Totem with 5 health at the feet of the caster for 12 sec that restores 170 mana every 3 seconds to group members within 20 yards."
+            },
+            "after": {
+              "name": "Mana Tide Totem",
+              "rank": "Rank 1/1",
+              "cost": "10 Mana",
+              "range": "",
+              "cast": "Instant",
+              "cooldown": "5 min cooldown",
+              "text": "Summons a Mana Tide Totem with 5 health at the feet of the caster for 12 sec that restores 88 mana every 3 seconds to group members within 30 yards."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          }
+        ]
+      },
+      {
+        "key": "Healing Way",
+        "name": "Healing Way",
+        "icon": "spell_nature_healingway",
+        "tab": 262,
+        "level": 0,
+        "tierName": "Tier 5",
+        "status": "updated",
+        "labels": [
+          "values_changed"
+        ],
+        "ranks": [
+          {
+            "id": 29206,
+            "classicId": 29206,
+            "rank": 1,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "values_changed"
+            ],
+            "lines": [
+              "Numbers and wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Healing Way",
+              "rank": "Rank 1/3",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Your Healing Wave spells have a 33% chance to increase the effect of subsequent Healing Wave spells on that target by 6% for 15 sec. This effect will stack up to 3 times."
+            },
+            "after": {
+              "name": "Healing Way",
+              "rank": "Rank 1/3",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the amount healed by your Healing Wave spell by 8%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 29206,
+            "classicId": 29205,
+            "rank": 2,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "values_changed"
+            ],
+            "lines": [
+              "Numbers and wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Healing Way",
+              "rank": "Rank 2/3",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Your Healing Wave spells have a 66% chance to increase the effect of subsequent Healing Wave spells on that target by 6% for 15 sec. This effect will stack up to 3 times."
+            },
+            "after": {
+              "name": "Healing Way",
+              "rank": "Rank 2/3",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the amount healed by your Healing Wave spell by 17%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 29206,
+            "classicId": 29202,
+            "rank": 3,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "values_changed"
+            ],
+            "lines": [
+              "Numbers and wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Healing Way",
+              "rank": "Rank 3/3",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Your Healing Wave spells have a 100% chance to increase the effect of subsequent Healing Wave spells on that target by 6% for 15 sec. This effect will stack up to 3 times."
+            },
+            "after": {
+              "name": "Healing Way",
+              "rank": "Rank 3/3",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the amount healed by your Healing Wave spell by 25%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          }
+        ]
+      },
+      {
+        "key": "Nature's Swiftness",
+        "name": "Nature's Swiftness",
+        "icon": "spell_nature_ravenform",
+        "tab": 262,
+        "level": 0,
+        "tierName": "Tier 5",
+        "status": "unchanged",
+        "labels": [],
+        "ranks": [
+          {
+            "id": 16188,
+            "classicId": 16188,
+            "rank": 1,
+            "level": 0,
+            "status": "unchanged",
+            "labels": [],
+            "lines": [],
+            "notShown": [],
+            "technical": [],
+            "before": null,
+            "after": {
+              "name": "Nature's Swiftness",
+              "rank": "Rank 1/1",
+              "cost": "",
+              "range": "",
+              "cast": "Instant",
+              "cooldown": "3 min cooldown",
+              "text": "When activated, your next Nature spell with a casting time less than 10 sec. becomes an instant cast spell."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          }
+        ]
+      },
+      {
+        "key": "Purification",
+        "name": "Purification",
+        "icon": "spell_frost_wizardmark",
+        "tab": 262,
+        "level": 0,
+        "tierName": "Tier 6",
+        "status": "updated",
+        "labels": [
+          "values_changed"
+        ],
+        "ranks": [
+          {
+            "id": 16178,
+            "classicId": 16178,
+            "rank": 1,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "values_changed"
+            ],
+            "lines": [
+              "Numbers and wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Purification",
+              "rank": "Rank 1/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the effectiveness of your healing spells by 2%. [S03 - Tuning and Overrides Passive - Shaman: Increases healing from your Riptide and Earth Shield by an additional 20%]"
+            },
+            "after": {
+              "name": "Purification",
+              "rank": "Rank 1/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the effectiveness of your healing spells by 2%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16178,
+            "classicId": 16210,
+            "rank": 2,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "values_changed"
+            ],
+            "lines": [
+              "Numbers and wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Purification",
+              "rank": "Rank 2/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the effectiveness of your healing spells by 4%. [S03 - Tuning and Overrides Passive - Shaman: Increases healing from your Riptide and Earth Shield by an additional 40%]"
+            },
+            "after": {
+              "name": "Purification",
+              "rank": "Rank 2/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the effectiveness of your healing spells by 4%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16178,
+            "classicId": 16211,
+            "rank": 3,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "values_changed"
+            ],
+            "lines": [
+              "Numbers and wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Purification",
+              "rank": "Rank 3/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the effectiveness of your healing spells by 6%. [S03 - Tuning and Overrides Passive - Shaman: Increases healing from your Riptide and Earth Shield by an additional 60%]"
+            },
+            "after": {
+              "name": "Purification",
+              "rank": "Rank 3/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the effectiveness of your healing spells by 6%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16178,
+            "classicId": 16212,
+            "rank": 4,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "values_changed"
+            ],
+            "lines": [
+              "Numbers and wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Purification",
+              "rank": "Rank 4/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the effectiveness of your healing spells by 8%. [S03 - Tuning and Overrides Passive - Shaman: Increases healing from your Riptide and Earth Shield by an additional 80%]"
+            },
+            "after": {
+              "name": "Purification",
+              "rank": "Rank 4/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the effectiveness of your healing spells by 8%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          },
+          {
+            "id": 16178,
+            "classicId": 16213,
+            "rank": 5,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "values_changed"
+            ],
+            "lines": [
+              "Numbers and wording changed"
+            ],
+            "notShown": [],
+            "technical": [],
+            "before": {
+              "name": "Purification",
+              "rank": "Rank 5/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the effectiveness of your healing spells by 10%. [S03 - Tuning and Overrides Passive - Shaman: Increases healing from your Riptide and Earth Shield by an additional 100%]"
+            },
+            "after": {
+              "name": "Purification",
+              "rank": "Rank 5/5",
+              "cost": "",
+              "range": "",
+              "cast": "",
+              "cooldown": "",
+              "text": "Increases the effectiveness of your healing spells by 10%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          }
+        ]
+      },
+      {
+        "key": "Riptide",
+        "name": "Riptide",
+        "icon": "spell_nature_riptide",
+        "tab": 262,
+        "level": 0,
+        "tierName": "Tier 7",
+        "status": "updated",
+        "labels": [
+          "now_talent",
+          "values_changed"
+        ],
+        "ranks": [
+          {
+            "id": 408521,
+            "classicId": 408521,
+            "rank": 1,
+            "level": 0,
+            "status": "updated",
+            "labels": [
+              "now_talent",
+              "values_changed"
+            ],
+            "lines": [
+              "Trained in Classic; a talent now",
+              "Costs 245 Mana instead of 18% of base power",
+              "Numbers and wording changed"
+            ],
+            "notShown": [
+              "Trained in Classic; a talent now"
+            ],
+            "technical": [],
+            "before": {
+              "name": "Riptide",
+              "rank": "Rank 1/1",
+              "cost": "18% of base power",
+              "range": "40 yd range",
+              "cast": "Instant",
+              "cooldown": "6 sec cooldown",
+              "text": "Heals a friendly target for 320.265 to 353.977 and another 337.121 over 15 sec. Your Chain Heals cast on that primary target within 15 sec will increase the amount of the Chain Heal by 25%. This spell also triggers Ancestral Awakening."
+            },
+            "after": {
+              "name": "Riptide",
+              "rank": "Rank 1/1",
+              "cost": "245 Mana",
+              "range": "40 yd range",
+              "cast": "Instant",
+              "cooldown": "6 sec cooldown",
+              "text": "Heals a friendly target for 486 to 534, an additional 445 over 15 sec, and increases the effectiveness of your Chain Heal casts directly on that target by 25%."
+            },
+            "beforeLevel": null,
+            "afterLevel": null
+          }
+        ]
+      }
+    ]
+  },
+  "path": [],
+  "sidebar": {
+    "classId": 7,
+    "title": "Shaman Changes",
+    "sections": [
+      {
+        "heading": "Tools",
+        "cards": [
+          {
+            "url": "/forever/changes/spellbook/shaman",
+            "art": "addons",
+            "background": "https://wow.zamimg.com/images/content/tall-headers/classicplus/categories/classes-addons.jpg",
+            "eyebrow": "WoW Forever",
+            "title": "Shaman Spellbook Changes",
+            "tabs": [
+              "Elemental",
+              "Enhancement",
+              "Restoration"
+            ],
+            "tabTitleFormat": "%s Spellbook Changes",
+            "keepsComparison": true
+          },
+          {
+            "url": "/forever/talent-calc/shaman",
+            "art": "talents",
+            "background": "https://wow.zamimg.com/images/content/tall-headers/classicplus/categories/classes-shaman.jpg",
+            "eyebrow": "WoW Forever",
+            "title": "Shaman Talent Tree"
+          }
+        ]
+      },
+      {
+        "heading": "Guides",
+        "cards": [
+          {
+            "url": "/forever/guide/classes/shaman/elemental/overview-pve-dps",
+            "art": "guide",
+            "background": "https://wow.zamimg.com/images/wow/talents/backgrounds/classicplus/261.jpg",
+            "title": "Elemental Shaman"
+          },
+          {
+            "url": "/forever/guide/classes/shaman/enhancement/overview-pve-dps",
+            "art": "guide",
+            "background": "https://wow.zamimg.com/images/wow/talents/backgrounds/classicplus/263.jpg",
+            "title": "Enhancement Shaman DPS"
+          },
+          {
+            "url": "/forever/guide/classes/shaman/restoration/overview-pve-healer",
+            "art": "guide",
+            "background": "https://wow.zamimg.com/images/wow/talents/backgrounds/classicplus/262.jpg",
+            "title": "Restoration Shaman"
+          }
+        ]
+      }
+    ]
+  },
+  "terms": {
+    "all": "All talents",
+    "sameAsClassic": "Same tooltip and ranks as Classic"
+  }
+}

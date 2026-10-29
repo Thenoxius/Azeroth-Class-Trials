@@ -71,7 +71,7 @@ function partyRoster(opts) {
       : { classId: 'shaman', role: 'healer', race: 'orc', name: 'Thalga', portrait: 'orc-shaman', skill: 0.75, react: 1.0, at: { x: 6, y: 20 } },
   ];
 }
-const partyBuffs = (opts) => buffsFromClasses([...partyRoster(opts).map((m) => m.classId), opts.classId]);
+const partyBuffs = (opts) => buffsFromClasses([...partyRoster(opts).map((m) => m.classId), ...(opts.classId==='shaman'?[]:[opts.classId])]);
 // Abbot Varnath, a level-30 dungeon boss: about three and a half real elites' worth of health.
 const BOSS_HP = { dps: 9000, healer: 8000 };
 const healerOf = (state) => state.list.find((u) => u.side === 'player' && u.alive && u.role === 'healer');
@@ -97,8 +97,8 @@ export const TRIAL = {
   level: 30,
   levels: [30],
   kind: 'dungeon',
-  blurb: 'A five-player dungeon in miniature: a trash pull with a healer to interrupt, then Abbot Varnath. Priests and the Restoration Shaman preview may heal.',
-  rolesFor: (classId) => (classId === 'shaman' ? ['healer'] : classId === 'priest' ? ['dps', 'healer'] : classId === 'warrior' ? ['dps', 'tank'] : ['dps']),
+  blurb: 'A five-player dungeon in miniature: a trash pull with a healer to interrupt, then Abbot Varnath. Priests and the Restoration Shamans may heal.',
+  rolesFor: (classId) => (['shaman','priest'].includes(classId) ? ['dps', 'healer'] : classId === 'warrior' ? ['dps', 'tank'] : ['dps']),
   groupBuffs: partyBuffs,
   intro(classId, level, role) {
     const healer = role === 'healer';

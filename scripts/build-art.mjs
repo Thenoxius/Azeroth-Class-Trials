@@ -80,6 +80,11 @@ for (const a of json('gameplay-manifest.json').assets) {
   portraits[a.id] = await add(a.file, FOE_PX, 82);
 }
 
+// Approved Shaman element artwork, bundled from the canonical project.
+for(const a of JSON.parse(readFileSync(resolve(root,'assets/shaman-totems-v1/manifest.json'),'utf8'))){
+ if(a.reviewStatus!=='user-approved')throw Error('Totem approval missing: '+a.id);
+ portraits['totem-'+a.id]=await add('assets/shaman-totems-v1/'+a.file,128,84);
+}
 // ---------------------------------------------------------------- spell icons
 const R = await import(pathToFileURL(resolve(root, 'src/engine/registry.js')).href);
 for (const f of contentFiles()) await import(pathToFileURL(resolve(root, f)).href);

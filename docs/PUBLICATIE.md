@@ -13,7 +13,7 @@ Bestaande GitHub-bestemming: https://github.com/Thenoxius/Azeroth-Class-Trials
 ## Voor daadwerkelijke publicatie
 
 - Review de lokale branch en de bronstatussen in docs/ability-audit/RESULTATEN.md.
-- Beslis of de beperkte Shaman-preview zichtbaar mag zijn en of de open simulatieschattingen voldoende duidelijk zijn voor een publieke preview. Dit is geen volledig exacte Forever-simulator.
+- Review de Shaman-builds en bronbeperkingen in docs/SHAMAN.md en bepaal of de open simulatieschattingen voldoende duidelijk zijn voor publicatie. Dit is geen volledig exacte Forever-simulator.
 - Controleer bestaande saves via Settings & data. Browserstorage is per origin: localhost, file:// en github.io delen hun saves niet. Exporteer de save vóór de overstap en importeer hem op de publieke site; accounts/cloudsaves bestaan niet.
 - Publiceer uitsluitend na expliciete opdracht. Een push/merge naar main activeert de bestaande deployment.
 

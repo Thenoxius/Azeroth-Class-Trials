@@ -204,7 +204,7 @@ export function enemiesOf(state, u, filter) {
   return state.list.filter((x) => x.alive && !x.hidden && x.side !== u.side && (!filter || filter(x)));
 }
 export function alliesOf(state, u, filter) {
-  return state.list.filter((x) => x.alive && !x.hidden && x.side === u.side && (!filter || filter(x)));
+  return state.list.filter((x) => x.alive && !x.hidden && x.side === u.side && x.kind !== 'totem' && (!filter || filter(x)));
 }
 export function unitsInRadius(state, p, r, filter) {
   return state.list.filter((x) => x.alive && !x.hidden && G.dist(p, x) <= r + (x.radius || 0) * 0.5 && (!filter || filter(x)));
@@ -455,6 +455,7 @@ function resolveTarget(state, u, ab, opts) {
     return { t };
   }
   if (tt === 'ally') {
+    if (t?.kind === 'totem') return { reason: 'invalid' };
     if (!t || !t.alive || hostile(u, t)) t = u;
     return { t };
   }
@@ -2054,7 +2055,7 @@ export const api = {
   spawnUnit, learn, removeUnit, emit, say, banner,
   U, player, hostile, gap, alive, enemiesOf, alliesOf, unitsInRadius, nearest, hpPct, resPct,
   hasAura, findAura, auraRemaining, modMult, modAdd, statOf, canAct, inCombat,
-  canCast, startCast, cancelCast, interruptCast, applyEffects, dealDamage, healUnit, killUnit, reviveUnit,
+  abilityCost, canCast, startCast, cancelCast, interruptCast, applyEffects, dealDamage, healUnit, killUnit, reviveUnit,
   applyAura, removeAura, removeAuraById, dispelUnit,
   addThreat, engage, dropThreat, taunt, threatTarget, threatPctOn, startEvade, gainRage,
   spawnProjectile, spawnZone, zoneVictims, endBattle,

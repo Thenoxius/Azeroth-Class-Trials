@@ -13,11 +13,11 @@ import { TRIAL as T5 } from './encounters/t5-raid.js';
 
 export const KITS = { hunter: HUNTER, mage: MAGE, priest: PRIEST, warrior: WARRIOR, rogue: ROGUE, shaman: SHAMAN };
 // The classes every trial, the analysis and the shared trial tests cover.
-export const CLASS_ORDER = ['hunter', 'mage', 'priest', 'warrior', 'rogue'];
+export const CLASS_ORDER = ['hunter', 'mage', 'priest', 'warrior', 'rogue', 'shaman'];
 // Classes you can create a character for. Phase 4 classes join before every trial supports
 // them; TRIAL_SUPPORT lists the trials they can already play.
 export const PLAYABLE = ['hunter', 'mage', 'priest', 'warrior', 'rogue', 'shaman'];
-const TRIAL_SUPPORT = { shaman: ['t3', 't5'] };
+const TRIAL_SUPPORT = {};
 export const trialSupports = (trialId, classId) => !TRIAL_SUPPORT[classId] || TRIAL_SUPPORT[classId].includes(trialId);
 export const TRIALS = [T1, T2, T3, T4, T5].sort((a, b) => a.order - b.order);
 export const trialById = (id) => TRIALS.find((t) => t.id === id);

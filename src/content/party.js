@@ -131,7 +131,7 @@ export function classMemberTemplate(state, level, def) {
     rotation: rotationFor(def.classId, level, def),
     ...(def.role === 'tank' ? { taunt: 'warrior.taunt' } : {}),
   };
-  const template = { ...b.template, name: def.name, portrait: def.portrait || b.template.portrait, side: 'player', kind: 'ally', classId: def.classId, role: def.role, level, ai, flags: { ...(b.template.flags || {}), wandMacro: false } };
+  const template = { ...b.template, meta:{...b.template.meta,groupBuffs:def.groupBuffs||[]}, name: def.name, portrait: def.portrait || b.template.portrait, side: 'player', kind: 'ally', classId: def.classId, role: def.role, level, ai, flags: { ...(b.template.flags || {}), wandMacro: false } };
   delete template.isPlayer;
   return { template, tweaks: b.tweaks || {} };
 }

@@ -6,7 +6,6 @@
   "how": "For each level snapshot (10, 30, 60) the highest rank learnable at or below that level. 'kit' holds the fields as the kit stores them (per-tick values = total / ticks; mana costs given as a share of base mana are converted with Classic base mana). tests/ranks.test.mjs checks the kits against this file.",
   "ranks": {
     "hunter.serpent": {
-      "spell": "Serpent Sting",
       "10": {
         "rank": 2,
         "level": 10,
@@ -33,10 +32,10 @@
           "tick": 111,
           "mana": 250
         }
-      }
+      },
+      "spell": "Serpent Sting"
     },
     "hunter.arcane": {
-      "spell": "Arcane Shot",
       "10": {
         "rank": 1,
         "level": 6,
@@ -72,10 +71,10 @@
           ],
           "mana": 190
         }
-      }
+      },
+      "spell": "Arcane Shot"
     },
     "hunter.mark": {
-      "spell": "Hunter's Mark",
       "10": {
         "rank": 1,
         "level": 6,
@@ -102,10 +101,10 @@
           "markRap": 143,
           "mana": 60
         }
-      }
+      },
+      "spell": "Hunter's Mark"
     },
     "hunter.raptor": {
-      "spell": "Raptor Strike",
       "10": {
         "rank": 2,
         "level": 8,
@@ -141,10 +140,10 @@
           ],
           "mana": 100
         }
-      }
+      },
+      "spell": "Raptor Strike"
     },
     "hunter.wingclip": {
-      "spell": "Wing Clip",
       "30": {
         "rank": 1,
         "level": 12,
@@ -170,10 +169,10 @@
           "mana": 80,
           "slow": 0.6
         }
-      }
+      },
+      "spell": "Wing Clip"
     },
     "hunter.mongoose": {
-      "spell": "Mongoose Bite",
       "30": {
         "rank": 2,
         "level": 30,
@@ -197,10 +196,10 @@
           ],
           "mana": 65
         }
-      }
+      },
+      "spell": "Mongoose Bite"
     },
     "hunter.multishot": {
-      "spell": "Multi-Shot",
       "30": {
         "rank": 2,
         "level": 30,
@@ -224,10 +223,10 @@
           ],
           "mana": 230
         }
-      }
+      },
+      "spell": "Multi-Shot"
     },
     "hunter.aimed": {
-      "spell": "Aimed Shot",
       "30": {
         "rank": 2,
         "level": 28,
@@ -251,10 +250,10 @@
           ],
           "mana": 310
         }
-      }
+      },
+      "spell": "Aimed Shot"
     },
     "hunter.immotrap": {
-      "spell": "Immolation Trap",
       "30": {
         "rank": 2,
         "level": 26,
@@ -272,10 +271,10 @@
           "tick": 138,
           "mana": 245
         }
-      }
+      },
+      "spell": "Immolation Trap"
     },
     "hunter.explosivetrap": {
-      "spell": "Explosive Trap",
       "60": {
         "rank": 3,
         "level": 54,
@@ -288,10 +287,10 @@
           "tick": 33,
           "mana": 520
         }
-      }
+      },
+      "spell": "Explosive Trap"
     },
     "hunter.mendpet": {
-      "spell": "Mend Pet",
       "30": {
         "rank": 3,
         "level": 28,
@@ -309,10 +308,10 @@
           "heal": 245,
           "mana": 480
         }
-      }
+      },
+      "spell": "Mend Pet"
     },
     "hunter.hawk": {
-      "spell": "Summon Hawk",
       "30": {
         "rank": 1,
         "level": 25,
@@ -336,10 +335,10 @@
           ],
           "mana": 190
         }
-      }
+      },
+      "spell": "Summon Hawk"
     },
     "hunter.sniper": {
-      "spell": "Sniper Shot",
       "60": {
         "rank": 3,
         "level": 58,
@@ -351,10 +350,10 @@
           ],
           "mana": 365
         }
-      }
+      },
+      "spell": "Sniper Shot"
     },
     "hunter.volley": {
-      "spell": "Volley",
       "60": {
         "rank": 3,
         "level": 58,
@@ -366,10 +365,10 @@
           ],
           "mana": 490
         }
-      }
+      },
+      "spell": "Volley"
     },
     "hunter.counter": {
-      "spell": "Counterattack",
       "30": {
         "rank": 2,
         "level": 30,
@@ -393,10 +392,10 @@
           ],
           "mana": 85
         }
-      }
+      },
+      "spell": "Counterattack"
     },
     "hunter.tranq": {
-      "spell": "Tranquilizing Shot",
       "60": {
         "rank": 0,
         "level": 60,
@@ -404,10 +403,10 @@
         "kit": {
           "mana": 270
         }
-      }
+      },
+      "spell": "Tranquilizing Shot"
     },
     "mage.frostbolt": {
-      "spell": "Frostbolt",
       "10": {
         "rank": 2,
         "level": 8,
@@ -446,10 +445,10 @@
           "mana": 290,
           "ct": 3
         }
-      }
+      },
+      "spell": "Frostbolt"
     },
     "mage.frostblast": {
-      "spell": "Frost Blast",
       "30": {
         "rank": 1,
         "level": 24,
@@ -473,10 +472,10 @@
           ],
           "mana": 90
         }
-      }
+      },
+      "spell": "Frost Blast"
     },
     "mage.fireball": {
-      "spell": "Fireball",
       "10": {
         "rank": 2,
         "level": 6,
@@ -514,10 +513,10 @@
           "mana": 410,
           "dotTick": 15
         }
-      }
+      },
+      "spell": "Fireball"
     },
     "mage.fireblast": {
-      "spell": "Fire Blast",
       "10": {
         "rank": 1,
         "level": 6,
@@ -553,10 +552,10 @@
           ],
           "mana": 340
         }
-      }
+      },
+      "spell": "Fire Blast"
     },
     "mage.missiles": {
-      "spell": "Arcane Missiles",
       "10": {
         "rank": 1,
         "level": 8,
@@ -592,10 +591,10 @@
           ],
           "mana": 655
         }
-      }
+      },
+      "spell": "Arcane Missiles"
     },
     "mage.nova": {
-      "spell": "Frost Nova",
       "10": {
         "rank": 1,
         "level": 10,
@@ -631,10 +630,10 @@
           ],
           "mana": 145
         }
-      }
+      },
+      "spell": "Frost Nova"
     },
     "mage.poly": {
-      "spell": "Polymorph",
       "10": {
         "rank": 1,
         "level": 8,
@@ -661,10 +660,10 @@
           "mana": 150,
           "dur": 50
         }
-      }
+      },
+      "spell": "Polymorph"
     },
     "mage.ae": {
-      "spell": "Arcane Explosion",
       "30": {
         "rank": 3,
         "level": 30,
@@ -688,10 +687,10 @@
           ],
           "mana": 390
         }
-      }
+      },
+      "spell": "Arcane Explosion"
     },
     "mage.cone": {
-      "spell": "Cone of Cold",
       "30": {
         "rank": 1,
         "level": 26,
@@ -715,10 +714,10 @@
           ],
           "mana": 555
         }
-      }
+      },
+      "spell": "Cone of Cold"
     },
     "mage.blizzard": {
-      "spell": "Blizzard",
       "30": {
         "rank": 2,
         "level": 28,
@@ -742,10 +741,10 @@
           ],
           "mana": 1400
         }
-      }
+      },
+      "spell": "Blizzard"
     },
     "mage.flamestrike": {
-      "spell": "Flamestrike",
       "30": {
         "rank": 2,
         "level": 24,
@@ -777,10 +776,10 @@
           ],
           "mana": 990
         }
-      }
+      },
+      "spell": "Flamestrike"
     },
     "mage.scorch": {
-      "spell": "Scorch",
       "30": {
         "rank": 2,
         "level": 28,
@@ -804,10 +803,10 @@
           ],
           "mana": 150
         }
-      }
+      },
+      "spell": "Scorch"
     },
     "mage.pyro": {
-      "spell": "Pyroblast",
       "30": {
         "rank": 3,
         "level": 30,
@@ -833,10 +832,10 @@
           "mana": 440,
           "dotTick": 53
         }
-      }
+      },
+      "spell": "Pyroblast"
     },
     "mage.blastwave": {
-      "spell": "Blast Wave",
       "30": {
         "rank": 1,
         "level": 30,
@@ -859,10 +858,10 @@
           ],
           "mana": 545
         }
-      }
+      },
+      "spell": "Blast Wave"
     },
     "mage.ffb": {
-      "spell": "Frostfire Bolt",
       "60": {
         "rank": 3,
         "level": 60,
@@ -875,10 +874,10 @@
           "mana": 370,
           "dotTick": 19
         }
-      }
+      },
+      "spell": "Frostfire Bolt"
     },
     "mage.icelance": {
-      "spell": "Ice Lance",
       "30": {
         "rank": 2,
         "level": 28,
@@ -902,10 +901,10 @@
           ],
           "mana": 160
         }
-      }
+      },
+      "spell": "Ice Lance"
     },
     "mage.icebarrier": {
-      "spell": "Ice Barrier",
       "60": {
         "rank": 4,
         "level": 58,
@@ -914,10 +913,10 @@
           "absorb": 835,
           "mana": 480
         }
-      }
+      },
+      "spell": "Ice Barrier"
     },
     "mage.ablast": {
-      "spell": "Arcane Blast",
       "30": {
         "rank": 2,
         "level": 30,
@@ -941,10 +940,10 @@
           ],
           "mana": 191
         }
-      }
+      },
+      "spell": "Arcane Blast"
     },
     "mage.awrath": {
-      "spell": "Arcane Wrath",
       "30": {
         "rank": 1,
         "level": 30,
@@ -967,10 +966,10 @@
           ],
           "mana": 395
         }
-      }
+      },
+      "spell": "Arcane Wrath"
     },
     "mage.blink": {
-      "spell": "Blink",
       "30": {
         "rank": 0,
         "level": 20,
@@ -986,10 +985,10 @@
         "kit": {
           "mana": 446
         }
-      }
+      },
+      "spell": "Blink"
     },
     "mage.counterspell": {
-      "spell": "Counterspell",
       "30": {
         "rank": 0,
         "level": 24,
@@ -1005,10 +1004,10 @@
         "kit": {
           "mana": 100
         }
-      }
+      },
+      "spell": "Counterspell"
     },
     "mage.manashield": {
-      "spell": "Mana Shield",
       "30": {
         "rank": 2,
         "level": 28,
@@ -1026,10 +1025,10 @@
           "absorb": 570,
           "mana": 140
         }
-      }
+      },
+      "spell": "Mana Shield"
     },
     "mage.decurse": {
-      "spell": "Remove Lesser Curse",
       "30": {
         "rank": 0,
         "level": 18,
@@ -1045,10 +1044,10 @@
         "kit": {
           "mana": 127
         }
-      }
+      },
+      "spell": "Remove Lesser Curse"
     },
     "mage.gem": {
-      "spell": "Conjure Mana Agate / Ruby",
       "30": {
         "rank": 0,
         "level": 28,
@@ -1070,10 +1069,10 @@
             1200
           ]
         }
-      }
+      },
+      "spell": "Conjure Mana Agate / Ruby"
     },
     "priest.smite": {
-      "spell": "Smite",
       "10": {
         "rank": 2,
         "level": 6,
@@ -1109,10 +1108,10 @@
           ],
           "mana": 280
         }
-      }
+      },
+      "spell": "Smite"
     },
     "priest.swp": {
-      "spell": "Shadow Word: Pain",
       "10": {
         "rank": 2,
         "level": 10,
@@ -1139,10 +1138,10 @@
           "tick": 127,
           "mana": 470
         }
-      }
+      },
+      "spell": "Shadow Word: Pain"
     },
     "priest.mb": {
-      "spell": "Mind Blast",
       "10": {
         "rank": 1,
         "level": 10,
@@ -1178,10 +1177,10 @@
           ],
           "mana": 350
         }
-      }
+      },
+      "spell": "Mind Blast"
     },
     "priest.mf": {
-      "spell": "Mind Flay",
       "30": {
         "rank": 2,
         "level": 28,
@@ -1205,10 +1204,10 @@
           ],
           "mana": 205
         }
-      }
+      },
+      "spell": "Mind Flay"
     },
     "priest.dp": {
-      "spell": "Devouring Plague",
       "30": {
         "rank": 2,
         "level": 28,
@@ -1226,10 +1225,10 @@
           "tick": 106,
           "mana": 985
         }
-      }
+      },
+      "spell": "Devouring Plague"
     },
     "priest.swd": {
-      "spell": "Shadow Word: Death",
       "60": {
         "rank": 4,
         "level": 56,
@@ -1241,10 +1240,10 @@
           ],
           "mana": 340
         }
-      }
+      },
+      "spell": "Shadow Word: Death"
     },
     "priest.pws": {
-      "spell": "Power Word: Shield",
       "10": {
         "rank": 1,
         "level": 6,
@@ -1271,10 +1270,10 @@
           "absorb": 950,
           "mana": 500
         }
-      }
+      },
+      "spell": "Power Word: Shield"
     },
     "priest.renew": {
-      "spell": "Renew",
       "10": {
         "rank": 1,
         "level": 8,
@@ -1301,10 +1300,10 @@
           "tick": 166,
           "mana": 410
         }
-      }
+      },
+      "spell": "Renew"
     },
     "priest.lheal": {
-      "spell": "Lesser Heal",
       "10": {
         "rank": 3,
         "level": 10,
@@ -1316,10 +1315,10 @@
           ],
           "mana": 75
         }
-      }
+      },
+      "spell": "Lesser Heal"
     },
     "priest.heal": {
-      "spell": "Heal",
       "30": {
         "rank": 3,
         "level": 28,
@@ -1343,10 +1342,10 @@
           ],
           "mana": 305
         }
-      }
+      },
+      "spell": "Heal"
     },
     "priest.flash": {
-      "spell": "Flash Heal",
       "30": {
         "rank": 2,
         "level": 26,
@@ -1370,10 +1369,10 @@
           ],
           "mana": 380
         }
-      }
+      },
+      "spell": "Flash Heal"
     },
     "priest.gheal": {
-      "spell": "Greater Heal",
       "60": {
         "rank": 5,
         "level": 60,
@@ -1385,10 +1384,10 @@
           ],
           "mana": 710
         }
-      }
+      },
+      "spell": "Greater Heal"
     },
     "priest.binding": {
-      "spell": "Binding Heal",
       "30": {
         "rank": 1,
         "level": 25,
@@ -1412,10 +1411,10 @@
           ],
           "mana": 380
         }
-      }
+      },
+      "spell": "Binding Heal"
     },
     "priest.poh": {
-      "spell": "Prayer of Healing",
       "30": {
         "rank": 1,
         "level": 30,
@@ -1439,10 +1438,10 @@
           ],
           "mana": 1070
         }
-      }
+      },
+      "spell": "Prayer of Healing"
     },
     "priest.pom": {
-      "spell": "Prayer of Mending",
       "60": {
         "rank": 3,
         "level": 60,
@@ -1454,10 +1453,10 @@
           ],
           "mana": 390
         }
-      }
+      },
+      "spell": "Prayer of Mending"
     },
     "priest.nova": {
-      "spell": "Holy Nova",
       "30": {
         "rank": 2,
         "level": 28,
@@ -1489,10 +1488,10 @@
           ],
           "mana": 750
         }
-      }
+      },
+      "spell": "Holy Nova"
     },
     "priest.penance": {
-      "spell": "Penance",
       "30": {
         "rank": 1,
         "level": 30,
@@ -1524,10 +1523,10 @@
           ],
           "mana": 385
         }
-      }
+      },
+      "spell": "Penance"
     },
     "priest.holyfire": {
-      "spell": "Holy Fire",
       "30": {
         "rank": 3,
         "level": 30,
@@ -1553,10 +1552,10 @@
           "dot": 15,
           "mana": 255
         }
-      }
+      },
+      "spell": "Holy Fire"
     },
     "priest.dispel": {
-      "spell": "Dispel Magic",
       "30": {
         "rank": 1,
         "level": 18,
@@ -1572,10 +1571,10 @@
         "kit": {
           "mana": 258
         }
-      }
+      },
+      "spell": "Dispel Magic"
     },
     "priest.fade": {
-      "spell": "Fade",
       "10": {
         "rank": 1,
         "level": 8,
@@ -1599,10 +1598,10 @@
         "kit": {
           "mana": 275
         }
-      }
+      },
+      "spell": "Fade"
     },
     "priest.touch": {
-      "spell": "Touch of Weakness",
       "10": {
         "rank": 1,
         "level": 10,
@@ -1629,10 +1628,10 @@
           "td": 56,
           "mana": 195
         }
-      }
+      },
+      "spell": "Touch of Weakness"
     },
     "priest.darksac": {
-      "spell": "Dark Sacrifice",
       "30": {
         "rank": 2,
         "level": 30,
@@ -1648,10 +1647,10 @@
         "kit": {
           "hp": 1640
         }
-      }
+      },
+      "spell": "Dark Sacrifice"
     },
     "warrior.sunder": {
-      "spell": "Sunder Armor",
       "30": {
         "rank": 2,
         "level": 22,
@@ -1669,10 +1668,10 @@
           "armorPer": 450,
           "rage": 15
         }
-      }
+      },
+      "spell": "Sunder Armor"
     },
     "warrior.revenge": {
-      "spell": "Revenge",
       "30": {
         "rank": 2,
         "level": 24,
@@ -1696,10 +1695,10 @@
           ],
           "rage": 5
         }
-      }
+      },
+      "spell": "Revenge"
     },
     "warrior.hs": {
-      "spell": "Heroic Strike",
       "30": {
         "rank": 4,
         "level": 24,
@@ -1723,10 +1722,10 @@
           ],
           "rage": 15
         }
-      }
+      },
+      "spell": "Heroic Strike"
     },
     "warrior.cleave": {
-      "spell": "Cleave",
       "30": {
         "rank": 2,
         "level": 30,
@@ -1750,10 +1749,10 @@
           ],
           "rage": 20
         }
-      }
+      },
+      "spell": "Cleave"
     },
     "warrior.thunderclap": {
-      "spell": "Thunder Clap",
       "30": {
         "rank": 3,
         "level": 28,
@@ -1779,10 +1778,10 @@
           "dur": 30,
           "rage": 20
         }
-      }
+      },
+      "spell": "Thunder Clap"
     },
     "warrior.demoshout": {
-      "spell": "Demoralizing Shout",
       "30": {
         "rank": 2,
         "level": 24,
@@ -1800,10 +1799,10 @@
           "ap": 210,
           "rage": 10
         }
-      }
+      },
+      "spell": "Demoralizing Shout"
     },
     "warrior.shieldbash": {
-      "spell": "Shield Bash",
       "30": {
         "rank": 1,
         "level": 12,
@@ -1827,10 +1826,10 @@
           ],
           "rage": 10
         }
-      }
+      },
+      "spell": "Shield Bash"
     },
     "warrior.shieldslam": {
-      "spell": "Shield Slam",
       "60": {
         "rank": 4,
         "level": 60,
@@ -1842,10 +1841,10 @@
           ],
           "rage": 20
         }
-      }
+      },
+      "spell": "Shield Slam"
     },
     "rogue.ss": {
-      "spell": "Sinister Strike",
       "30": {
         "rank": 5,
         "level": 30,
@@ -1869,10 +1868,10 @@
           ],
           "energy": 45
         }
-      }
+      },
+      "spell": "Sinister Strike"
     },
     "rogue.evis": {
-      "spell": "Eviscerate",
       "30": {
         "rank": 4,
         "level": 24,
@@ -1888,10 +1887,10 @@
         "kit": {
           "energy": 35
         }
-      }
+      },
+      "spell": "Eviscerate"
     },
     "rogue.snd": {
-      "spell": "Slice and Dice",
       "30": {
         "rank": 1,
         "level": 10,
@@ -1909,10 +1908,10 @@
           "haste": 0.3,
           "energy": 25
         }
-      }
+      },
+      "spell": "Slice and Dice"
     },
     "rogue.kick": {
-      "spell": "Kick",
       "30": {
         "rank": 2,
         "level": 26,
@@ -1936,10 +1935,10 @@
           ],
           "energy": 25
         }
-      }
+      },
+      "spell": "Kick"
     },
     "rogue.feint": {
-      "spell": "Feint",
       "30": {
         "rank": 2,
         "level": 28,
@@ -1955,10 +1954,10 @@
         "kit": {
           "energy": 20
         }
-      }
+      },
+      "spell": "Feint"
     },
     "warlock.sb": {
-      "spell": "Shadow Bolt",
       "30": {
         "rank": 5,
         "level": 28,
@@ -1984,10 +1983,10 @@
           "mana": 380,
           "ct": 3
         }
-      }
+      },
+      "spell": "Shadow Bolt"
     },
     "warlock.corruption": {
-      "spell": "Corruption",
       "30": {
         "rank": 3,
         "level": 24,
@@ -2005,10 +2004,10 @@
           "tick": 73,
           "mana": 340
         }
-      }
+      },
+      "spell": "Corruption"
     },
     "warlock.agony": {
-      "spell": "Bane of Agony",
       "30": {
         "rank": 3,
         "level": 28,
@@ -2026,10 +2025,10 @@
           "total": 552,
           "mana": 215
         }
-      }
+      },
+      "spell": "Bane of Agony"
     },
     "warlock.cor": {
-      "spell": "Curse of Recklessness",
       "30": {
         "rank": 2,
         "level": 28,
@@ -2047,10 +2046,10 @@
           "armor": 505,
           "mana": 115
         }
-      }
+      },
+      "spell": "Curse of Recklessness"
     },
     "warlock.coe": {
-      "spell": "Curse of the Elements",
       "30": {
         "rank": 2,
         "level": 30,
@@ -2070,10 +2069,10 @@
           "mult": 1.1,
           "mana": 200
         }
-      }
+      },
+      "spell": "Curse of the Elements"
     },
     "warlock.immolate": {
-      "spell": "Immolate",
       "30": {
         "rank": 4,
         "level": 30,
@@ -2097,10 +2096,10 @@
           ],
           "mana": 380
         }
-      }
+      },
+      "spell": "Immolate"
     },
     "warlock.lifetap": {
-      "spell": "Life Tap",
       "30": {
         "rank": 3,
         "level": 26,
@@ -2116,10 +2115,24 @@
         "kit": {
           "base": 430
         }
-      }
+      },
+      "spell": "Life Tap"
     },
     "shaman.hw": {
-      "spell": "Healing Wave",
+      "10": {
+        "rank": null,
+        "level": 6,
+        "text": "Heals a friendly target for 69 to 83.",
+        "kit": {
+          "mana": 45,
+          "heal": [
+            69,
+            83
+          ],
+          "ct": 2
+        },
+        "source": "research/forever-shaman-ranks.json"
+      },
       "30": {
         "rank": 5,
         "level": 24,
@@ -2143,10 +2156,10 @@
           ],
           "mana": 620
         }
-      }
+      },
+      "spell": "Healing Wave"
     },
     "shaman.lhw": {
-      "spell": "Lesser Healing Wave",
       "30": {
         "rank": 2,
         "level": 28,
@@ -2170,10 +2183,10 @@
           ],
           "mana": 380
         }
-      }
+      },
+      "spell": "Lesser Healing Wave"
     },
     "shaman.ch": {
-      "spell": "Chain Heal",
       "60": {
         "rank": 3,
         "level": 54,
@@ -2185,10 +2198,10 @@
           ],
           "mana": 405
         }
-      }
+      },
+      "spell": "Chain Heal"
     },
     "shaman.riptide": {
-      "spell": "Riptide",
       "60": {
         "rank": 3,
         "level": 60,
@@ -2201,10 +2214,23 @@
           "hot": 953,
           "mana": 385
         }
-      }
+      },
+      "spell": "Riptide"
     },
     "shaman.es": {
-      "spell": "Earth Shock",
+      "10": {
+        "rank": null,
+        "level": 8,
+        "text": "Instantly shocks the target with concussive force, causing 36 to 38 Nature damage. It also interrupts spellcasting and prevents any spell in that school from being cast for 2 sec. Causes a high amount of threat.",
+        "kit": {
+          "mana": 50,
+          "dmg": [
+            36,
+            38
+          ]
+        },
+        "source": "research/forever-shaman-ranks.json"
+      },
       "30": {
         "rank": 4,
         "level": 24,
@@ -2228,10 +2254,10 @@
           ],
           "mana": 450
         }
-      }
+      },
+      "spell": "Earth Shock"
     },
     "shaman.manatide": {
-      "spell": "Mana Tide Totem",
       "60": {
         "rank": 4,
         "level": 58,
@@ -2240,7 +2266,336 @@
           "tide": 290,
           "mana": 60
         }
-      }
+      },
+      "spell": "Mana Tide Totem"
+    },
+    "shaman.lb": {
+      "10": {
+        "rank": null,
+        "level": 8,
+        "text": "Casts a bolt of lightning at the target for 26 to 29 Nature damage.",
+        "kit": {
+          "mana": 30,
+          "dmg": [
+            26,
+            29
+          ],
+          "ct": 2
+        },
+        "source": "research/forever-shaman-ranks.json"
+      },
+      "30": {
+        "rank": null,
+        "level": 26,
+        "text": "Casts a bolt of lightning at the target for 79 to 90 Nature damage.",
+        "kit": {
+          "mana": 85,
+          "dmg": [
+            79,
+            90
+          ],
+          "ct": 2.5
+        },
+        "source": "research/forever-shaman-ranks.json"
+      },
+      "60": {
+        "rank": null,
+        "level": 56,
+        "text": "Casts a bolt of lightning at the target for 191 to 213 Nature damage.",
+        "kit": {
+          "mana": 220,
+          "dmg": [
+            191,
+            213
+          ],
+          "ct": 2.5
+        },
+        "source": "research/forever-shaman-ranks.json"
+      },
+      "spell": "Lightning Bolt"
+    },
+    "shaman.cl": {
+      "60": {
+        "rank": null,
+        "level": 56,
+        "text": "Hurls a lightning bolt at the enemy, dealing 120 to 134 Nature damage and then jumping to additional nearby enemies. Each jump reduces the damage by 30%. Affects 3 total targets.",
+        "kit": {
+          "mana": 315,
+          "dmg": [
+            120,
+            134
+          ]
+        },
+        "source": "research/forever-shaman-ranks.json"
+      },
+      "spell": "Chain Lightning"
+    },
+    "shaman.fs": {
+      "10": {
+        "rank": null,
+        "level": 10,
+        "text": "Instantly sears the target with fire, causing 24 Fire damage immediately and 28 Fire damage over 12 sec.",
+        "kit": {
+          "mana": 55,
+          "dmg": [
+            24,
+            24
+          ],
+          "dot": 28
+        },
+        "source": "research/forever-shaman-ranks.json"
+      },
+      "30": {
+        "rank": null,
+        "level": 28,
+        "text": "Instantly sears the target with fire, causing 49 Fire damage immediately and 56 Fire damage over 12 sec.",
+        "kit": {
+          "mana": 160,
+          "dmg": [
+            49,
+            49
+          ],
+          "dot": 56
+        },
+        "source": "research/forever-shaman-ranks.json"
+      },
+      "60": {
+        "rank": null,
+        "level": 60,
+        "text": "Instantly sears the target with fire, causing 181 Fire damage immediately and 176 Fire damage over 12 sec.",
+        "kit": {
+          "mana": 410,
+          "dmg": [
+            181,
+            181
+          ],
+          "dot": 176
+        },
+        "source": "research/forever-shaman-ranks.json"
+      },
+      "spell": "Flame Shock"
+    },
+    "shaman.fr": {
+      "30": {
+        "rank": null,
+        "level": 20,
+        "text": "Instantly shocks the target with frost, causing 68 to 73 Frost damage and slowing movement speed by 50%. Lasts 8 sec.",
+        "kit": {
+          "mana": 115,
+          "dmg": [
+            68,
+            73
+          ]
+        },
+        "source": "research/forever-shaman-ranks.json"
+      },
+      "60": {
+        "rank": null,
+        "level": 58,
+        "text": "Instantly shocks the target with frost, causing 284 to 300 Frost damage and slowing movement speed by 50%. Lasts 8 sec.",
+        "kit": {
+          "mana": 430,
+          "dmg": [
+            284,
+            300
+          ]
+        },
+        "source": "research/forever-shaman-ranks.json"
+      },
+      "spell": "Frost Shock"
+    },
+    "shaman.lava": {
+      "30": {
+        "rank": null,
+        "level": 30,
+        "text": "You hurl molten lava at the target, dealing 114 to 145 Fire damage. If your Flame Shock is on the target, Lava Burst deals 20% increased damage.",
+        "kit": {
+          "mana": 135,
+          "dmg": [
+            114,
+            145
+          ]
+        },
+        "source": "research/forever-shaman-ranks.json"
+      },
+      "60": {
+        "rank": null,
+        "level": 60,
+        "text": "You hurl molten lava at the target, dealing 203 to 258 Fire damage. If your Flame Shock is on the target, Lava Burst deals 54% increased damage.",
+        "kit": {
+          "mana": 265,
+          "dmg": [
+            203,
+            258
+          ]
+        },
+        "source": "research/forever-shaman-ranks.json"
+      },
+      "spell": "Lava Burst"
+    },
+    "shaman.strength": {
+      "10": {
+        "rank": null,
+        "level": 10,
+        "text": "Summons a Strength of Earth Totem with 5 health at the feet of the caster. The totem increases the strength of party or raid members within 30 yards by 7. Lasts 5 min.",
+        "kit": {
+          "mana": 25
+        },
+        "source": "research/forever-shaman-ranks.json"
+      },
+      "30": {
+        "rank": null,
+        "level": 24,
+        "text": "Summons a Strength of Earth Totem with 5 health at the feet of the caster. The totem increases the strength of party or raid members within 30 yards by 14. Lasts 5 min.",
+        "kit": {
+          "mana": 65
+        },
+        "source": "research/forever-shaman-ranks.json"
+      },
+      "60": {
+        "rank": null,
+        "level": 60,
+        "text": "Summons a Strength of Earth Totem with 5 health at the feet of the caster. The totem increases the strength of party or raid members within 30 yards by 53. Lasts 5 min.",
+        "kit": {
+          "mana": 275
+        },
+        "source": "research/forever-shaman-ranks.json"
+      },
+      "spell": "Strength of Earth Totem"
+    },
+    "shaman.earthbind": {
+      "spell": "Earthbind Totem"
+    },
+    "shaman.searing": {
+      "10": {
+        "rank": null,
+        "level": 10,
+        "text": "Summons a Searing Totem with 5 health at your feet for 30 sec that repeatedly attacks an enemy within 20 yards for 9 to 11 Fire damage.",
+        "kit": {
+          "mana": 25
+        },
+        "source": "research/forever-shaman-ranks.json"
+      },
+      "30": {
+        "rank": null,
+        "level": 30,
+        "text": "Summons a Searing Totem with 5 health at your feet for 40 sec that repeatedly attacks an enemy within 20 yards for 19 to 25 Fire damage.",
+        "kit": {
+          "mana": 75
+        },
+        "source": "research/forever-shaman-ranks.json"
+      },
+      "60": {
+        "rank": null,
+        "level": 60,
+        "text": "Summons a Searing Totem with 5 health at your feet for 55 sec that repeatedly attacks an enemy within 20 yards for 40 to 54 Fire damage.",
+        "kit": {
+          "mana": 170
+        },
+        "source": "research/forever-shaman-ranks.json"
+      },
+      "spell": "Searing Totem"
+    },
+    "shaman.spring": {
+      "30": {
+        "rank": null,
+        "level": 26,
+        "text": "Summons a Mana Spring Totem with 5 health at the feet of the caster for 5 min that restores 4 mana every 2 seconds to group members within 30 yards.",
+        "kit": {
+          "mana": 40
+        },
+        "source": "research/forever-shaman-ranks.json"
+      },
+      "60": {
+        "rank": null,
+        "level": 56,
+        "text": "Summons a Mana Spring Totem with 5 health at the feet of the caster for 5 min that restores 10 mana every 2 seconds to group members within 30 yards.",
+        "kit": {
+          "mana": 100
+        },
+        "source": "research/forever-shaman-ranks.json"
+      },
+      "spell": "Mana Spring Totem"
+    },
+    "shaman.stream": {
+      "30": {
+        "rank": null,
+        "level": 30,
+        "text": "Summons a Healing Stream Totem with 5 health at the feet of the caster for 5 min that heals group members within 30 yards for 6 every 2 seconds.",
+        "kit": {
+          "mana": 50
+        },
+        "source": "research/forever-shaman-ranks.json"
+      },
+      "60": {
+        "rank": null,
+        "level": 60,
+        "text": "Summons a Healing Stream Totem with 5 health at the feet of the caster for 5 min that heals group members within 30 yards for 11 every 2 seconds.",
+        "kit": {
+          "mana": 80
+        },
+        "source": "research/forever-shaman-ranks.json"
+      },
+      "spell": "Healing Stream Totem"
+    },
+    "shaman.grace": {
+      "60": {
+        "rank": null,
+        "level": 60,
+        "text": "Summons a Grace of Air Totem with 5 health at the feet of the caster. The totem increases the agility of party or raid members within 30 yards by 89. Lasts 5 min.",
+        "kit": {
+          "mana": 310
+        },
+        "source": "research/forever-shaman-ranks.json"
+      },
+      "spell": "Grace of Air Totem"
+    },
+    "shaman.nova": {
+      "30": {
+        "rank": null,
+        "level": 22,
+        "text": "Instantly inflicts 54 to 62 fire damage to enemies within 10 yd of your active Fire totem.",
+        "kit": {
+          "mana": 120,
+          "dmg": [
+            54,
+            62
+          ]
+        },
+        "source": "research/forever-shaman-ranks.json"
+      },
+      "60": {
+        "rank": null,
+        "level": 52,
+        "text": "Instantly inflicts 232 to 259 fire damage to enemies within 10 yd of your active Fire totem.",
+        "kit": {
+          "mana": 375,
+          "dmg": [
+            232,
+            259
+          ]
+        },
+        "source": "research/forever-shaman-ranks.json"
+      },
+      "spell": "Fire Nova"
+    },
+    "shaman.recall": {
+      "spell": "Totemic Recall"
+    },
+    "shaman.projection": {
+      "spell": "Totemic Projection"
+    },
+    "shaman.cleanse": {
+      "spell": "Cure Poison"
+    },
+    "shaman.rage": {
+      "spell": "Rage of the Farseer"
+    },
+    "shaman.em": {
+      "spell": "Elemental Mastery"
+    },
+    "shaman.stormstrike": {
+      "spell": "Stormstrike"
     }
   },
   "talents": {

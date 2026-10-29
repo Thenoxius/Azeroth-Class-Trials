@@ -9,7 +9,8 @@ import * as priest from './priest.mjs';
 
 import * as warrior from './warrior.mjs';
 import * as rogue from './rogue.mjs';
-export const BOTS = { mage, hunter, priest, warrior, rogue };
+import * as shaman from './shaman.mjs';
+export const BOTS = { mage, hunter, priest, warrior, rogue, shaman };
 
 export function trialMatrix(trialId, { level, seeds = 8, maxSeconds = 600, specs = {}, roles } = {}) {
   const trial = trialById(trialId);

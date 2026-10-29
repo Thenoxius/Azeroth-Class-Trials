@@ -1,0 +1,30 @@
+build                    mode       wins  medianT  avgHp  taken  results
+hunter bm dps            competent  6/6   34s      0.79   324    victory,victory,victory,victory,victory,victory
+hunter bm dps            careless   0/6   -        0.00   1148   defeat,defeat,defeat,defeat,defeat,defeat
+hunter mm dps            competent  5/6   46s      0.54   520    victory,defeat,victory,victory,victory,victory
+hunter mm dps            careless   0/6   -        0.00   1168   defeat,defeat,defeat,defeat,defeat,defeat
+hunter sv dps            competent  6/6   53s      0.61   480    victory,victory,victory,victory,victory,victory
+hunter sv dps            careless   2/6   53s      0.13   1093   defeat,victory,defeat,defeat,defeat,victory
+mage frost dps           competent  5/6   43s      0.38   668    victory,victory,victory,victory,victory,defeat
+mage frost dps           careless   0/6   -        0.00   986    defeat,defeat,defeat,defeat,defeat,defeat
+mage fire dps            competent  6/6   54s      0.42   615    victory,victory,victory,victory,victory,victory
+mage fire dps            careless   0/6   -        0.00   996    defeat,defeat,defeat,defeat,defeat,defeat
+mage arcane dps          competent  6/6   43s      0.52   507    victory,victory,victory,victory,victory,victory
+mage arcane dps          careless   0/6   -        0.00   1010   defeat,defeat,defeat,defeat,defeat,defeat
+priest shadow dps        competent  6/6   67s      0.70   429    victory,victory,victory,victory,victory,victory
+priest shadow dps        careless   0/6   -        0.00   1290   defeat,defeat,defeat,defeat,defeat,defeat
+warrior arms dps         competent  6/6   40s      0.35   1308   victory,victory,victory,victory,victory,victory
+warrior arms dps         careless   0/6   -        0.00   1264   defeat,defeat,defeat,defeat,defeat,defeat
+warrior fury dps         competent  4/6   48s      0.32   1463   victory,defeat,victory,defeat,victory,victory
+warrior fury dps         careless   0/6   -        0.00   1280   defeat,defeat,defeat,defeat,defeat,defeat
+rogue assassination dps  competent  4/6   57s      0.35   1392   victory,victory,victory,defeat,defeat,victory
+rogue assassination dps  careless   0/6   -        0.00   1086   defeat,defeat,defeat,defeat,defeat,defeat
+rogue combat dps         competent  5/6   62s      0.42   1295   victory,victory,victory,defeat,victory,victory
+rogue combat dps         careless   0/6   -        0.00   1103   defeat,defeat,defeat,defeat,defeat,defeat
+rogue subtlety dps       competent  5/6   92s      0.63   1828   defeat,victory,victory,victory,victory,victory
+rogue subtlety dps       careless   0/6   -        0.00   1073   defeat,defeat,defeat,defeat,defeat,defeat
+shaman elemental dps     competent  4/6   45s      0.41   1376   victory,defeat,victory,defeat,victory,victory
+shaman elemental dps     careless   0/6   -        0.00   1090   defeat,defeat,defeat,defeat,defeat,defeat
+shaman enhancement dps   competent  6/6   40s      0.52   1127   victory,victory,victory,victory,victory,victory
+shaman enhancement dps   careless   0/6   -        0.00   1139   defeat,defeat,defeat,defeat,defeat,defeat
+t2 ok

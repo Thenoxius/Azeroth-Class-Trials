@@ -62,3 +62,8 @@ Geautomatiseerd: drie seeds in de dungeon en drie in de raid, met een healerbot 
 Op 29 oktober 2026: **20/20 testbestanden geslaagd**, 587 bronveldcontroles zonder afwijking tegen de beschikbare snapshotvelden, build en controle van 14 assets/184 CSS-regels geslaagd. De standalone publicatiebundel is bytegelijk aan de geteste HTML. Logs: `docs/local-validation/ability-audit-tests.txt` en `ability-audit-scaling.txt`. Browsercontrole en screenshot: `docs/local-validation/shaman-restoration-preview.jpg`.
 
 Dit groene resultaat neemt de inhoudelijke onzekerheden hierboven niet weg. De 55 abilities zonder voldoende numerieke referentie en de genoemde formules zijn niet als live-bevestigd opgewaardeerd.
+
+
+## Shaman-vervolg na Claude 033cef5
+
+De eerdere beperkingen van de Restoration-preview zijn achterhaald. Zie `../SHAMAN.md` voor de drie speelbare builds, de nieuwe broncontrole, de resterende schattingen en actuele validatie. Claude’s losse-artbuild, desktopkeuze en verwijderde Ko-fi-link blijven behouden.

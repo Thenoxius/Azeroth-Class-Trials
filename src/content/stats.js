@@ -87,7 +87,10 @@ export const GEAR = {
     30: { int: 35, spi: 25, sta: 40, armor: 280, sp: 15 },
     60: { int: 130, spi: 60, sta: 150, armor: 800, sp: 230, spellHit: 0.02, critSpell: 0.01 },
   },
+  shamanCaster: {10:{int:8,spi:5,sta:6,armor:150},30:{int:40,spi:25,sta:40,armor:650,sp:15},60:{int:150,spi:60,sta:150,armor:3200,sp:230,spellHit:.02}},
+  shamanMelee: {10:{str:10,agi:5,sta:8,armor:180},30:{str:65,agi:30,int:25,sta:45,armor:850},60:{str:200,agi:100,int:70,sta:170,armor:3200,hit:.04,critPhys:.03}},
   shamanHealer: {
+    10:{int:8,spi:5,sta:6,armor:150},
     30: { int: 40, spi: 30, sta: 35, armor: 650, heal: 45, mp5: 5 },
     60: { int: 150, spi: 70, sta: 150, armor: 3200, heal: 450, mp5: 45, critSpell: 0.01 },
   },
@@ -119,7 +122,7 @@ export const WEAPONS = {
   dagger: { 10: [7, 13, 1.8], 30: [26, 48, 1.8], 60: [70, 130, 1.8] },
   rogueSword: { 10: [9, 17, 2.5], 30: [33, 62, 2.6], 60: [84, 156, 2.7] },
   rogueDual: { 30: [40, 54, 1.9], 60: [118, 152, 1.9] },
-  casterMace: { 30: [25, 45, 2.6], 60: [60, 112, 2.5] },
+  casterMace: { 10:[7,13,2.5], 30: [25, 45, 2.6], 60: [60, 112, 2.5] },
 };
 // Hunters still use ammo and a quiver in Forever (Wowhead, Icy Veins). Arrow damage per second is
 // added to every ranged weapon hit; the quiver speeds up Auto Shot. Typical Classic items:
@@ -136,7 +139,7 @@ export const BUFFS = {
   battleShout: { 30: { ap: 36 }, 60: { ap: 140 } },
   trueshot: { 60: { rap: 50 } },
   manaSpring: { 30: { mp5: 10 }, 60: { mp5: 25 } },
-  strengthOfEarth: { 30: { str: 14 }, 60: { str: 53 } },
+  strengthOfEarth: { 10:{str:7}, 30: { str: 14 }, 60: { str: 53 } },
   graceOfAir: { 60: { agi: 89 } },
   demonArmor: { 30: { armor: 300 }, 60: { armor: 570 } },
 };

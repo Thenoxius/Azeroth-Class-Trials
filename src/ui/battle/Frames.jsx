@@ -142,7 +142,7 @@ export function PartyFrames({ state, onPick, onHoverMember, selectedId, kitColor
 }
 
 export function RaidFrames({ state, onPick, onHoverMember, selectedId, kitColor }) {
-  const members = state.list.filter((u) => u.side === 'player' && !u.hidden && u.kind !== 'pet');
+  const members = state.list.filter((u) => u.side === 'player' && !u.hidden && (u.kind === 'ally' || u.kind === 'player'));
   return (
     <div className="raid">
       {members.map((u) => {

@@ -12,7 +12,7 @@ const server = http.createServer(async (req, res) => {
     const rel = relative(root, path);
     if (rel.startsWith('..') || isAbsolute(rel)) { res.writeHead(403); res.end('Forbidden'); return; }
     const data = await readFile(path);
-    res.setHeader('Content-Type', path.endsWith('.html') ? 'text/html; charset=utf-8' : 'application/octet-stream');
+    res.setHeader('Content-Type', path.endsWith('.html') ? 'text/html; charset=utf-8' : path.endsWith('.webp') ? 'image/webp' : 'application/octet-stream');
     res.end(data);
   } catch {
     res.writeHead(404); res.end('Not found');

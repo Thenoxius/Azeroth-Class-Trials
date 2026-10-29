@@ -48,7 +48,7 @@ export function Roster({ characters, kits, playable, onChange, onDone, onBack, t
             <div className="race-row" role="radiogroup" aria-label="Class">
               {playable.map((c) => (
                 <button type="button" key={c} role="radio" aria-checked={classId === c} className={cx('race-card', 'class-card', classId === c && 'on')} style={{ '--cc': CLASS_COLORS[c] }} onClick={() => pickClass(c)}>
-                  <b style={{ color: CLASS_COLORS[c] }}>{kits[c].name}{c === 'shaman' ? ' · Preview' : ''}</b>
+                  <b style={{ color: CLASS_COLORS[c] }}>{kits[c].name}</b>
                 </button>
               ))}
             </div>

@@ -1,0 +1,56 @@
+{
+  "date": "2026-10-29",
+  "baseCommit": "033cef5",
+  "existingArtFilesByteIdentical": 212,
+  "tests": "21/21",
+  "auditFields": 752,
+  "auditMismatches": 0,
+  "shamanAbilities": 31,
+  "scaling": [
+    {
+      "classId": "shaman",
+      "level": 10,
+      "spec": null,
+      "role": "dps",
+      "dps": 15.5,
+      "min": 15,
+      "max": 17
+    },
+    {
+      "classId": "shaman",
+      "level": 30,
+      "spec": "elemental",
+      "role": "dps",
+      "dps": 39.7,
+      "min": 37,
+      "max": 41
+    },
+    {
+      "classId": "shaman",
+      "level": 30,
+      "spec": "enhancement",
+      "role": "dps",
+      "dps": 95.5,
+      "min": 87,
+      "max": 104
+    },
+    {
+      "classId": "shaman",
+      "level": 60,
+      "spec": "elemental",
+      "role": "dps",
+      "dps": 197.4,
+      "min": 177,
+      "max": 206
+    },
+    {
+      "classId": "shaman",
+      "level": 60,
+      "spec": "enhancement",
+      "role": "dps",
+      "dps": 269.5,
+      "min": 252,
+      "max": 304
+    }
+  ]
+}

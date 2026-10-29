@@ -1,0 +1,26 @@
+[
+  {
+    "id": "earth",
+    "file": "earth.png",
+    "preview": "earth.webp",
+    "reviewStatus": "user-approved"
+  },
+  {
+    "id": "fire",
+    "file": "fire.png",
+    "preview": "fire.webp",
+    "reviewStatus": "user-approved"
+  },
+  {
+    "id": "water",
+    "file": "water.png",
+    "preview": "water.webp",
+    "reviewStatus": "user-approved"
+  },
+  {
+    "id": "air",
+    "file": "air.png",
+    "preview": "air.webp",
+    "reviewStatus": "user-approved"
+  }
+]
