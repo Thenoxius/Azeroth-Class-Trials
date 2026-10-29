@@ -271,3 +271,30 @@
   border-radius: 0;
   box-shadow: 0 0 0 1px #bb9d58, 0 0 0 3px #25231c, inset 0 0 0 1px #000;
 }
+/* Desktop is the primary play surface. Let content use the available monitor width. */
+@media (min-width: 1100px) {
+  .act-classic-shell { font-size: 16px; }
+  .act-classic-shell .act-classic-layout { width: min(1900px, calc(100% - 64px)); grid-template-columns: 200px minmax(0, 1fr); }
+  .act-classic-shell .act-classic-figure { display: none; }
+  .act-classic-shell .act-classic-content { min-height: 0; padding: 28px 38px 40px 50px; }
+  .act-classic-shell .act-classic-nav { gap: 12px; padding-right: 10px; }
+  .act-classic-shell .act-classic-nav-link { min-height: 40px; padding-top: 9px; padding-bottom: 9px; font-size: 16px; }
+  .act-classic-shell .act-classic-logo { left: 0; }
+  .act-classic-shell .btn, .act-classic-shell .chip, .act-classic-shell .race-card { font-size: 14px; }
+  .act-classic-shell .title-screen { min-height: clamp(560px, 65svh, 760px); padding: 32px 12px; }
+  .act-classic-shell .title-inner { width: 100%; max-width: 1240px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); column-gap: clamp(28px, 4vw, 72px); align-items: center; }
+  .act-classic-shell .title-sigils { grid-column: 1; margin: 0 0 28px; }
+  .act-classic-shell .title-name { grid-column: 1; font-size: clamp(34px, 2.5vw, 48px); margin: 0 0 16px; }
+  .act-classic-shell .title-tag { grid-column: 1; font-size: 18px; margin: 0 0 28px; }
+  .act-classic-shell .title-copy { grid-column: 2; grid-row: 1 / 5; max-width: 64ch; font-size: 16px; line-height: 1.7; margin: 0; }
+  .act-classic-shell .title-inner > .row { grid-column: 1; gap: 12px; }
+  .act-classic-shell .title-inner > .small { grid-column: 1; }
+  .act-classic-shell .roster-body { grid-template-columns: minmax(0, 1.7fr) minmax(300px, 1fr); gap: 32px; }
+  .act-classic-shell .hall-body { grid-template-columns: minmax(0, 1fr) 300px; gap: 28px; align-items: start; }
+  .act-classic-shell .hall-side { grid-template-columns: minmax(0, 1fr); }
+  .act-classic-shell .brief-body { grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 36px; align-items: start; }
+}
+@media (min-width: 1500px) {
+  .act-classic-shell .act-classic-layout { padding-left: 196px; }
+  .act-classic-shell .act-classic-figure { display: block; }
+}

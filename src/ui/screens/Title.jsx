@@ -10,7 +10,7 @@ export function Title({ onStart, onMethod, hasProgress, sessions }) {
           <span className="sigil c-priest"><Portrait id="undead-priest" size={96} /></span>
         </div>
         <h1 className="title-name">Azeroth Class Trials</h1>
-        <p className="title-tag">Hunter, Mage or Priest for World of Warcraft: Forever — settled by playing, not by a questionnaire.</p>
+        <p className="title-tag">Hunter, Mage, Priest, Warrior or Rogue for World of Warcraft: Forever — settled by playing, not by a questionnaire.</p>
         <div className="title-copy">
           <p>
             Five short trials take each class from a level 10 road to a level 60 raid: ordinary questing, an ambush, a dungeon pull, a battleground duel and a long boss fight. Combat is real-time with pause. Each trial uses the toolkit the class would have at that level.
