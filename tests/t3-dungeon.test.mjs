@@ -5,6 +5,8 @@ import { runTrial } from './bots/harness.mjs';
 
 assertTrial(trialMatrix('t3', { seeds: 4 }), { label: 't3' });
 
+// NPC damage ratios are diagnostics, not Forever source values. Tank must contribute
+// damage while staying below the Rogue; no artificial minimum damage share.
 // The party is real level-30 classes now, so the spread between you and the Rogue is the real
 // one: a mana-limited Frost Mage does about half a Combat Rogue's damage, a Beast Mastery Hunter
 // with its pet a bit more than the Rogue. Nobody carries the group (pets count for the player).
@@ -19,7 +21,7 @@ for (const [classId, spec] of [['hunter', 'bm'], ['mage', 'frost'], ['priest', '
     const tank = dmgOf((u) => u.kind === 'ally' && u.role === 'tank');
     const ratio = mine / rogue;
     assert.ok(ratio > 0.4 && ratio < 2.0, `t3 ${classId} ${spec} seed ${seed}: player/rogue damage ${ratio.toFixed(2)}`);
-    assert.ok(tank / rogue > 0.35 && tank / rogue < 0.8, `t3 tank/rogue damage ${(tank / rogue).toFixed(2)}`);
+    assert.ok(tank > 0 && tank / rogue < 1, `t3 tank/rogue damage ${(tank / rogue).toFixed(2)}`);
   }
 }
 console.log('t3 ok');

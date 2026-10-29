@@ -26,7 +26,7 @@ export function competent({ level, spec } = {}) {
     // Rest to near full before a big pull (a packleader or other elite), less before trash.
     const nextT = !fighting && pickTarget(state, ctl);
     const big = nextT && !nextT.engaged && nextT.maxHp > me.maxHp * 0.8;
-    if (!fighting && restIfNeeded(state, ctl, big ? 0.9 : level >= 20 ? 0.6 : 0.7)) return;
+    if (!fighting && restIfNeeded(state, ctl, big ? 0.9 : 0.9)) return;
     potions(state, ctl);
     const t = pickTarget(state, ctl);
     if (!t) return;
@@ -37,7 +37,7 @@ export function competent({ level, spec } = {}) {
     if (!t.engaged && !fighting) {
       if (!me.flags.stealthed && ctl.can('rogue.stealth.player')) { ctl.cast('rogue.stealth.player'); return; }
       if (me.flags.stealthed) {
-        const wantBehind = (sp === 'subtlety' || sp === 'assassination') && level >= 26;
+        const wantBehind = me.melee.dagger;
         // Try to get behind for a few seconds; after that open from wherever we are.
         if (mem.sneakFor !== t.id) { mem.sneakFor = t.id; mem.sneakSince = state.t; }
         const spot = wantBehind && state.t - mem.sneakSince < 6 ? behindSpot(t) : null;
@@ -45,6 +45,7 @@ export function competent({ level, spec } = {}) {
         if (approach(state, ctl, t, 3)) return;
         if (tryCast(ctl, [
           ['rogue.ambush', opts, sp === 'subtlety'],
+          ['rogue.backstab', opts, level < 26],
           ['rogue.garrote', opts, sp === 'assassination'],
           ['rogue.cheapshot', opts],
         ])) return;
@@ -58,10 +59,10 @@ export function competent({ level, spec } = {}) {
     if (busy(me)) return;
     const cp = comboOn(me, t);
     const attackers = ctl.engaged().filter((e) => e.target === me.id).length;
-    const long = t.maxHp > me.maxHp * 0.8;
+    const long = t.hp > me.maxHp * 0.8;
     tryCast(ctl, [
       ['rogue.vanish', null, hp < 0.2 && attackers >= 2],
-      ['rogue.evasion', null, hp < 0.5 && attackers >= 1],
+      ['rogue.evasion', null, attackers >= 1 && (hp < 0.3 || hp < 0.7 && (long || attackers >= 2))],
       ['rogue.blind', { targetId: (ctl.engaged().find((e) => e !== t && e.target === me.id) || {}).id }, attackers >= 2 && hp < 0.6],
       ['rogue.gouge', opts, hp < 0.3 && attackers === 1 && !findAura(t, 'rogue.gouge')],
       ['rogue.kidney', opts, cp >= 4 && (t.kind === 'opponent' || (t.casting && !t.casting.channel))],

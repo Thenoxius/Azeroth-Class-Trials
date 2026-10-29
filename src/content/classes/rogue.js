@@ -51,7 +51,7 @@ const rankOf = (p, level) => p.byLevel[level >= 60 ? 60 : 30];
 export function poisonOnHit({ state, u, dst, hand, api }) {
   const id = (u.meta.poisons || {})[hand];
   const p = id && POISONS[id];
-  if (!p || u.level < p.learn || !api.hostile(u, dst) || state.rng() >= p.chance) return;
+  if (!p || u.level < p.learn || !api.hostile(u, dst) || state.rng() >= p.chance + (T(u).impPoisons || 0)) return;
   const r = rankOf(p, u.level);
   if (id === 'instant') api.dealDamage(state, u, dst, { amount: r.dmg[0] + (r.dmg[1] - r.dmg[0]) * state.rng(), school: 'nature', kind: 'spell', ability: 'rogue.poison.instant' });
   else if (id === 'deadly') api.applyAura(state, u, dst, { id: 'rogue.poison.deadly', name: 'Deadly Poison', icon: 'serpent', school: 'nature', debuff: true, duration: 12, maxStacks: 5, refresh: true, dispel: 'poison', stackMods: true, tick: { interval: 3, type: 'damage', school: 'nature', amount: r.dot / 4, perStack: true } });
@@ -108,7 +108,7 @@ registerAbilities({
     },
   },
   'rogue.snd': {
-    name: 'Slice and Dice', icon: 'dash', school: 'physical', mechanic: 'physical', category: 'buff', tags: ['core', 'finisher'], range: 5,
+    name: 'Slice and Dice', icon: 'dash', school: 'physical', mechanic: 'physical', category: 'buff', tags: ['core', 'finisher'], range: 100,
     desc: 'Finishing move: faster melee attacks; lasts longer per combo point.',
     forever: DM('Datamine: +20 % attack speed (rank 1), +30 % from rank 2 at 42; 9–21 s.'),
     cost: { energy: 'energy' }, canUse: needCombo,
@@ -133,7 +133,7 @@ registerAbilities({
     name: 'Blade Flurry', icon: 'axe', school: 'physical', mechanic: 'physical', category: 'cooldown', tags: ['cooldown'], target: 'self', gcd: 0,
     desc: '+20 % attack speed and your swings also hit a second nearby enemy, 15 s.',
     forever: DM('Combat talent; Classic 2 min cooldown used.'),
-    cooldown: 120, cost: { energy: 'energy' },
+    cooldown: 300, cost: { energy: 'energy' },
     effects: [{ type: 'aura', to: 'self', aura: { id: 'rogue.bf', name: 'Blade Flurry', icon: 'axe', duration: 15, mods: { meleeHaste: 0.2 } } }],
     byLevel: { 30: { energy: 25 }, 60: { energy: 25 } },
   },
@@ -148,7 +148,7 @@ registerAbilities({
     name: 'Evasion', icon: 'dash', school: 'physical', mechanic: 'physical', category: 'defensive', tags: ['defensive'], target: 'self', gcd: 0,
     desc: '+50 % dodge chance for 15 s.',
     forever: DM('Datamine: unchanged; 5 min cooldown (Endurance −60 %).'),
-    cooldown: 120,
+    cooldown: 300,
     effects: [{ type: 'aura', to: 'self', aura: { id: 'rogue.evasion', name: 'Evasion', icon: 'dash', duration: 15, mods: { dodge: 0.5 } } }],
   },
   'rogue.feint': {
@@ -166,7 +166,7 @@ function rogueAfterDamage({ state, u, api, pk, dst, final }) {
   if (final <= 0 || pk.flurry || !api.findAura(u, 'rogue.bf')) return;
   if (pk.ability !== 'melee' && pk.ability !== 'rogue.ss') return;
   const other = api.enemiesOf(state, u, (e) => e !== dst && e.engaged && Math.hypot(e.x - dst.x, e.y - dst.y) <= 5)[0];
-  if (other) api.dealDamage(state, u, other, { amount: final, school: 'physical', kind: 'melee', ability: 'rogue.bf', noMiss: true, flurry: true });
+  if (other) api.dealDamage(state, u, other, { amount: final, school: 'physical', kind: 'melee', ability: 'rogue.bf', noMiss: true, noAvoid: true, canCrit: false, ignoreArmor: true, flurry: true });
 }
 
 // ---------------------------------------------------------------- playable Rogue (phase 4)
@@ -174,7 +174,7 @@ function rogueAfterDamage({ state, u, api, pk, dst, final }) {
 const isDagger = (u) => !!(u.melee && u.melee.dagger);
 const needDagger = ({ u }) => (isDagger(u) ? true : 'custom:Needs a dagger in the main hand');
 function landed(api, state, u, t, amount, ab, extra = {}) {
-  return api.dealDamage(state, u, t, { amount: amount * (T(u).aggression || 1), school: 'physical', kind: 'melee', ability: ab.id, critMult: 2 * (1 + (T(u).lethality || 0) / 2), ...extra });
+  return api.dealDamage(state, u, t, { amount: amount * (['rogue.ss', 'rogue.backstab', 'rogue.evis'].includes(ab.id) ? T(u).aggression || 1 : 1), school: 'physical', kind: 'melee', ability: ab.id, critMult: 2 + (['rogue.ss', 'rogue.gouge', 'rogue.backstab', 'rogue.mutilate', 'rogue.hemo'].includes(ab.id) ? T(u).lethality || 0 : 0), ...extra });
 }
 // A combo-point builder landed: award points (Seal Fate: a crit adds one more).
 function build(u, t, n, crit) {
@@ -399,15 +399,15 @@ function playerAfterDamage(x) {
 
 // Talents (Forever trees, values as the engine uses them; points are our pick).
 const PLAYER_TALENTS = {
-  assassination30: { malice: 0.05, ruthlessness: true, relentless: true, impSnd: 0.15, lethality: 0.3, impPoisons: 0.1, murder: 1.02, coldBlood: true, impGouge: 1 },
-  assassination60: { malice: 0.05, ruthlessness: true, relentless: true, impSnd: 0.45, lethality: 0.3, impPoisons: 0.1, murder: 1.02, coldBlood: true, sealFate: true, vigor: 10, vilePoisons: 1.2, opportunity: 1.1 },
+  assassination30: { malice: 0.05, ruthlessness: true, relentless: true, impSnd: 0.15, lethality: 0.2, impPoisons: 0.1, murder: 1.02, coldBlood: true, impGouge: 1 },
+  assassination60: { malice: 0.05, ruthlessness: true, relentless: true, impSnd: 0.45, lethality: 0.2, impPoisons: 0.1, murder: 1.02, coldBlood: true, sealFate: true, vigor: 10, vilePoisons: 1.2, opportunity: 1.1 },
   combat30: TALENTS_COMBAT30(),
   combat60: TALENTS_COMBAT60(),
   subtlety30: { opportunity: 1.2, impAmbush: 0.3, initiative: true, malice: 0.03, lethality: 0.1, impGouge: 1 },
-  subtlety60: { opportunity: 1.2, impAmbush: 0.3, initiative: true, malice: 0.05, lethality: 0.3, serrated: true, deadliness: 1.05, relentless: true, ruthlessness: true },
+  subtlety60: { opportunity: 1.2, impAmbush: 0.3, initiative: true, malice: 0.05, lethality: 0.2, serrated: true, deadliness: 1.05, relentless: true, ruthlessness: true },
 };
-function TALENTS_COMBAT30() { return { impSs: 5, precision: 0.05, dwSpec: 0.25, bladeFlurry: true, impEvis: 1.2, malice: 0.03, lightningReflexes: 0.05 }; }
-function TALENTS_COMBAT60() { return { impSs: 5, precision: 0.05, dwSpec: 0.25, bladeFlurry: true, impEvis: 1.2, malice: 0.05, lightningReflexes: 0.05, aggression: 1.06, ar: true, weaponExpertise: 0.02, ruthlessness: true, relentless: true, impSnd: 0.45, lethality: 0.2, hackAndSlash: 0.05 }; }
+function TALENTS_COMBAT30() { return { impSs: 5, precision: 0.03, dwSpec: 0.25, bladeFlurry: true, impEvis: 1.2, malice: 0.03, lightningReflexes: 0.05 }; }
+function TALENTS_COMBAT60() { return { impSs: 5, precision: 0.03, dwSpec: 0.25, bladeFlurry: true, impEvis: 1.2, malice: 0.05, lightningReflexes: 0.05, aggression: 1.06, ar: true, weaponExpertise: 0.02, ruthlessness: true, relentless: true, impSnd: 0.45, lethality: 0.2, hackAndSlash: 0.05 }; }
 
 const PLAYER_BARS = {
   10: ['rogue.attack', 'rogue.stealth.player', 'rogue.ss', 'rogue.backstab', 'rogue.evis', 'rogue.snd', 'rogue.gouge', 'rogue.sap', 'rogue.sprint', 'rogue.evasion'],
@@ -441,16 +441,16 @@ function playerBuild({ level, spec, race, groupBuffs = [] }) {
   const key = L === 10 ? 10 : sp + L;
   const tal = L === 10 ? {} : PLAYER_TALENTS[key];
   const S = deriveStats({ classId: 'rogue', race, level: L, gear: GEAR.rogue[L], buffs: buffTotals(groupBuffs, L) });
-  const stats = { ...S.stats, hit: S.stats.hit + (tal.precision || 0) + (tal.weaponExpertise || 0), critPhys: S.stats.critPhys + (tal.malice || 0), dodge: S.stats.dodge + (tal.lightningReflexes || 0), parry: 0.05 };
+  const stats = { ...S.stats, hit: S.stats.hit + (tal.precision || 0) + (tal.weaponExpertise || 0), critPhys: S.stats.critPhys + (tal.malice || 0), critSpell: S.stats.critSpell + (tal.malice || 0), spellHit: S.stats.spellHit + (tal.precision || 0), dodge: S.stats.dodge + (tal.lightningReflexes || 0), parry: 0.05 };
   const w = (k) => { const [min, max, speed] = WEAPONS[k][L]; return { min, max, speed, coef: speed / 14 }; };
   const daggers = sp !== 'combat';
   const mh = w(daggers ? 'dagger' : 'rogueSword');
-  const melee = { ...mh, dagger: daggers, dualWield: true, oh: { ...w('dagger'), mult: 0.5 + (tal.dwSpec || 0) } };
+  const melee = { ...mh, dagger: daggers, dualWield: true, oh: { ...w('dagger'), mult: 0.5 * (1 + (tal.dwSpec || 0)) } };
   const auras = [];
   if (tal.hackAndSlash) auras.push({ id: 'rogue.t.hack', name: 'Hack and Slash', hidden: true, permanent: true, mods: { meleeHaste: tal.hackAndSlash } });
   if (tal.murder) auras.push({ id: 'rogue.t.murder', name: 'Murder', hidden: true, permanent: true, mods: { dmgDone: { all: tal.murder } } });
   if (tal.deadliness) auras.push({ id: 'rogue.t.deadliness', name: 'Deadliness', hidden: true, permanent: true, mods: { dmgDone: { physical: tal.deadliness } } });
-  if (tal.impPoisons) auras.push({ id: 'rogue.t.poisons', name: 'Improved Poisons', hidden: true, permanent: true, mods: { dmgDone: { nature: 1 + tal.impPoisons } } });
+  if (tal.vilePoisons) auras.push({ id: 'rogue.t.poisons', name: 'Vile Poisons', hidden: true, permanent: true, mods: { dmgDone: { nature: tal.vilePoisons } } });
   const bar = PLAYER_BARS[key];
   const tweaks = {};
   if (tal.impSs) tweaks['rogue.ss'] = { costMultFn: (u, ab) => (val(ab, ab.cost.energy) - tal.impSs) / val(ab, ab.cost.energy) };
@@ -485,8 +485,8 @@ function playerBuild({ level, spec, race, groupBuffs = [] }) {
 
 // Combat swords with an Assassination splash (21 points at 30, 15/31/5 at 60).
 const TALENTS = {
-  combat30: { impSs: 5, precision: 0.05, dwSpec: 0.25, bladeFlurry: true, impEvis: 1.2, malice: 0.03, lightningReflexes: 0.05 },
-  combat60: { impSs: 5, precision: 0.05, dwSpec: 0.25, bladeFlurry: true, impEvis: 1.2, malice: 0.05, lightningReflexes: 0.05, aggression: 1.06, ar: true, weaponExpertise: 0.02, ruthlessness: true, relentless: true, impSnd: 0.45, lethality: 0.2, hackAndSlash: 0.05 },
+  combat30: { impSs: 5, precision: 0.03, dwSpec: 0.25, bladeFlurry: true, impEvis: 1.2, malice: 0.03, lightningReflexes: 0.05 },
+  combat60: { impSs: 5, precision: 0.03, dwSpec: 0.25, bladeFlurry: true, impEvis: 1.2, malice: 0.05, lightningReflexes: 0.05, aggression: 1.06, ar: true, weaponExpertise: 0.02, ruthlessness: true, relentless: true, impSnd: 0.45, lethality: 0.2, hackAndSlash: 0.05 },
 };
 
 const snap = (level) => (level >= 45 ? 60 : 30);
@@ -529,7 +529,7 @@ export const KIT = {
     const w = (k) => { const [min, max, speed] = WEAPONS[k][L]; return { min, max, speed }; };
     // Main hand + off hand (50 % base, +25 % Dual Wield Specialization) as one weapon for white swings.
     const melee = { ...w('rogueDual'), dualWield: true, mh: w('rogueMH') };
-    melee.coef = (melee.speed / 14) * (1 + 0.5 + tal.dwSpec);
+    melee.coef = (melee.speed / 14) * (1 + 0.5 * (1 + tal.dwSpec));
     const bar = ['rogue.ss', 'rogue.evis', 'rogue.snd', 'rogue.kick', 'rogue.bladeflurry', 'rogue.evasion', 'rogue.feint', ...(tal.ar ? ['rogue.ar'] : [])];
     const tweaks = { 'rogue.ss': { costMultFn: (u, ab) => (val(ab, ab.cost.energy) - tal.impSs) / val(ab, ab.cost.energy) } };
     // Weapon Expertise: 2 % less dodge and parry (as extra hit); Hack and Slash: 5 % extra swings (as haste).

@@ -1,5 +1,167 @@
 [
   {
+    "classId": "hunter",
+    "level": 10,
+    "spec": null,
+    "role": "dps",
+    "dps": 23.2,
+    "min": 22,
+    "max": 24
+  },
+  {
+    "classId": "hunter",
+    "level": 30,
+    "spec": "bm",
+    "role": "dps",
+    "dps": 88.8,
+    "min": 84,
+    "max": 93
+  },
+  {
+    "classId": "hunter",
+    "level": 30,
+    "spec": "mm",
+    "role": "dps",
+    "dps": 89.3,
+    "min": 86,
+    "max": 94
+  },
+  {
+    "classId": "hunter",
+    "level": 30,
+    "spec": "sv",
+    "role": "dps",
+    "dps": 76.9,
+    "min": 73,
+    "max": 80
+  },
+  {
+    "classId": "hunter",
+    "level": 60,
+    "spec": "bm",
+    "role": "dps",
+    "dps": 290.2,
+    "min": 276,
+    "max": 305
+  },
+  {
+    "classId": "hunter",
+    "level": 60,
+    "spec": "mm",
+    "role": "dps",
+    "dps": 312.7,
+    "min": 290,
+    "max": 328
+  },
+  {
+    "classId": "hunter",
+    "level": 60,
+    "spec": "sv",
+    "role": "dps",
+    "dps": 269.8,
+    "min": 239,
+    "max": 290
+  },
+  {
+    "classId": "mage",
+    "level": 10,
+    "spec": null,
+    "role": "dps",
+    "dps": 12.2,
+    "min": 12,
+    "max": 13
+  },
+  {
+    "classId": "mage",
+    "level": 30,
+    "spec": "frost",
+    "role": "dps",
+    "dps": 64.4,
+    "min": 59,
+    "max": 68
+  },
+  {
+    "classId": "mage",
+    "level": 30,
+    "spec": "fire",
+    "role": "dps",
+    "dps": 56.3,
+    "min": 48,
+    "max": 62
+  },
+  {
+    "classId": "mage",
+    "level": 30,
+    "spec": "arcane",
+    "role": "dps",
+    "dps": 69,
+    "min": 65,
+    "max": 73
+  },
+  {
+    "classId": "mage",
+    "level": 60,
+    "spec": "frost",
+    "role": "dps",
+    "dps": 399.2,
+    "min": 382,
+    "max": 419
+  },
+  {
+    "classId": "mage",
+    "level": 60,
+    "spec": "fire",
+    "role": "dps",
+    "dps": 356,
+    "min": 311,
+    "max": 374
+  },
+  {
+    "classId": "mage",
+    "level": 60,
+    "spec": "arcane",
+    "role": "dps",
+    "dps": 380.8,
+    "min": 332,
+    "max": 425
+  },
+  {
+    "classId": "mage",
+    "level": 60,
+    "spec": "frostfire",
+    "role": "dps",
+    "dps": 348.4,
+    "min": 310,
+    "max": 394
+  },
+  {
+    "classId": "priest",
+    "level": 10,
+    "spec": null,
+    "role": "dps",
+    "dps": 14.9,
+    "min": 14,
+    "max": 15
+  },
+  {
+    "classId": "priest",
+    "level": 30,
+    "spec": "shadow",
+    "role": "dps",
+    "dps": 64,
+    "min": 61,
+    "max": 66
+  },
+  {
+    "classId": "priest",
+    "level": 60,
+    "spec": "shadow",
+    "role": "dps",
+    "dps": 472.4,
+    "min": 463,
+    "max": 480
+  },
+  {
     "classId": "warrior",
     "level": 10,
     "spec": null,
@@ -13,16 +175,16 @@
     "level": 30,
     "spec": "arms",
     "role": "dps",
-    "dps": 53.2,
-    "min": 50,
-    "max": 58
+    "dps": 53.7,
+    "min": 51,
+    "max": 56
   },
   {
     "classId": "warrior",
     "level": 30,
     "spec": "fury",
     "role": "dps",
-    "dps": 55,
+    "dps": 54.4,
     "min": 48,
     "max": 57
   },
@@ -31,53 +193,53 @@
     "level": 60,
     "spec": "arms",
     "role": "dps",
-    "dps": 187.2,
+    "dps": 171.1,
     "min": 166,
-    "max": 216
+    "max": 174
   },
   {
     "classId": "warrior",
     "level": 60,
     "spec": "fury",
     "role": "dps",
-    "dps": 232.6,
+    "dps": 235.1,
     "min": 222,
-    "max": 246
+    "max": 258
   },
   {
     "classId": "rogue",
     "level": 10,
     "spec": null,
     "role": "dps",
-    "dps": 12.9,
+    "dps": 12.8,
     "min": 12,
-    "max": 14
+    "max": 13
   },
   {
     "classId": "rogue",
     "level": 30,
     "spec": "assassination",
     "role": "dps",
-    "dps": 61.3,
-    "min": 59,
-    "max": 64
+    "dps": 64.1,
+    "min": 63,
+    "max": 67
   },
   {
     "classId": "rogue",
     "level": 30,
     "spec": "combat",
     "role": "dps",
-    "dps": 66.2,
-    "min": 61,
-    "max": 70
+    "dps": 60.6,
+    "min": 58,
+    "max": 64
   },
   {
     "classId": "rogue",
     "level": 30,
     "spec": "subtlety",
     "role": "dps",
-    "dps": 59.6,
-    "min": 57,
+    "dps": 59.2,
+    "min": 55,
     "max": 63
   },
   {
@@ -85,26 +247,26 @@
     "level": 60,
     "spec": "assassination",
     "role": "dps",
-    "dps": 218.6,
-    "min": 209,
-    "max": 241
+    "dps": 228.6,
+    "min": 220,
+    "max": 236
   },
   {
     "classId": "rogue",
     "level": 60,
     "spec": "combat",
     "role": "dps",
-    "dps": 225.2,
-    "min": 207,
-    "max": 241
+    "dps": 211,
+    "min": 202,
+    "max": 225
   },
   {
     "classId": "rogue",
     "level": 60,
     "spec": "subtlety",
     "role": "dps",
-    "dps": 189.6,
-    "min": 172,
-    "max": 205
+    "dps": 187,
+    "min": 170,
+    "max": 202
   }
 ]

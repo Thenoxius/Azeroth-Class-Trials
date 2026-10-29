@@ -13,7 +13,7 @@ import { runTrial } from './bots/harness.mjs';
 for (const [classId, races] of Object.entries(CLASS_RACES)) {
   assert.equal(validRace(classId, 'gnome'), races[0], 'unknown race falls back to the default');
   for (const race of races) {
-    for (const level of [10, 30, 60]) {
+    for (const level of (kitOf(classId).supportedLevels || [10, 30, 60])) {
       const b = kitOf(classId).build({ level, race, trialId: 't1' });
       assert.equal(b.race, race);
       assert.equal(b.template.portrait, `${race}-${classId}`);
@@ -33,13 +33,14 @@ for (const [classId, races] of Object.entries(CLASS_RACES)) {
 const hp = (race) => KITS.hunter.build({ level: 60, race, trialId: 't1' }).template.maxHp;
 assert.ok(hp('tauren') > hp('orc') * 1.04, 'Endurance: Tauren has more health');
 const crit = (race) => KITS.mage.build({ level: 60, race, trialId: 't1' }).template.stats.critSpell;
-assert.ok(Math.abs(crit('orc') - crit('troll') - 0.01) < 0.002, 'Savage: Orc +1 % spell crit');
+assert.ok(Math.abs(crit('orc') - crit('troll')) < 0.002, 'October 26: Orc Savage removed');
 assert.ok(KITS.hunter.build({ level: 60, race: 'skyborne', trialId: 't1' }).template.auras.some((a) => a.id === 'race.windblessed'));
 
 // A competent bot wins T1 with every race (the racials must not break a fight).
 for (const [classId, races] of Object.entries(CLASS_RACES).filter(([c]) => BOTS[c])) {
   for (const race of races) {
-    const r = runTrial({ classId, trialId: 't1', level: 30, race, seed: 1, policy: BOTS[classId].competent({ level: 30 }), maxSeconds: 600 });
+    const spec = kitOf(classId).specs?.[30]?.[0]?.id;
+    const r = runTrial({ classId, trialId: 't1', level: 30, spec, race, seed: 1, policy: BOTS[classId].competent({ level: 30, spec }), maxSeconds: 600 });
     console.log(`${classId.padEnd(7)} ${race.padEnd(9)} T1 L30: ${r.outcome && r.outcome.result} in ${Math.round(r.t)} s`);
     assert.equal(r.outcome && r.outcome.result, 'victory', `${race} ${classId} wins T1`);
     assert.equal(r.player.portrait, `${race}-${classId}`);

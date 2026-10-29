@@ -4,6 +4,7 @@
 // Tide is an active cooldown. Spell ranks: Wowhead datamine, live build 1.60.1.70630.
 import { registerAbilities } from '../../engine/registry.js';
 import { roll, val } from './shared.js';
+import { applyRace, validRace } from '../races.js';
 import { deriveStats, buffTotals, GEAR, WEAPONS } from '../stats.js';
 
 const DM = (note) => ({ status: 'beta-observation', src: 'wh-forever', note });
@@ -42,13 +43,14 @@ registerAbilities({
       type: 'custom',
       fn: (ctx) => {
         const { state, u, t, api } = ctx;
-        shamanHeal(ctx);
+        const riptideBonus = t.auras.some(a => a.id === 'shaman.riptide' && a.srcId === u.id) ? 1.25 : 1;
+        shamanHeal(ctx, { mult: riptideBonus });
         const done = new Set([t.id]);
         let from = t, mult = 0.5;
         for (let i = 0; i < 2; i++) {
           const next = api.alliesOf(state, u, (a) => !done.has(a.id) && a.hp < a.maxHp && Math.hypot(a.x - from.x, a.y - from.y) <= 12).sort((a, b) => a.hp / a.maxHp - b.hp / b.maxHp)[0];
           if (!next) break;
-          shamanHeal({ ...ctx, t: next }, { mult });
+          shamanHeal({ ...ctx, t: next }, { mult: mult * riptideBonus });
           done.add(next.id); from = next; mult /= 2;
         }
       },
@@ -60,8 +62,8 @@ registerAbilities({
     desc: 'An instant heal plus a heal over 15 s.',
     forever: DM('New Restoration capstone; datamine rank 3 at 60: 838–922 plus 953 over 15 s, 6 s cooldown.'),
     range: 40, cooldown: 6, cost: { mana: 'mana' },
-    effects: [{ type: 'custom', fn: (ctx) => { shamanHeal(ctx); if (ctx.t.alive) ctx.api.applyAura(ctx.state, ctx.u, ctx.t, { id: 'shaman.riptide', name: 'Riptide', icon: 'renew', school: 'nature', duration: 15, tick: { interval: 3, type: 'heal', amount: val(ctx.ab, 'hot') / 5 } }); } }],
-    byLevel: { 60: { heal: [838, 922], hot: 953, mana: 385, coef: 0.43 } },
+    effects: [{ type: 'custom', fn: (ctx) => { shamanHeal(ctx); if (ctx.t.alive) ctx.api.applyAura(ctx.state, ctx.u, ctx.t, { id: 'shaman.riptide', name: 'Riptide', icon: 'renew', school: 'nature', duration: 15, tick: { interval: 3, type: 'heal', amount: val(ctx.ab, 'hot') / 5 * (T(ctx.u).purification || 1), coef: 0.1 * (T(ctx.u).purification || 1) } }); } }],
+    byLevel: { 60: { heal: [838, 922], hot: 953, mana: 385, coef: 0.214 } },
   },
   'shaman.es': {
     name: 'Earth Shock', icon: 'nova', school: 'nature', category: 'interrupt', tags: ['interrupt'],
@@ -108,9 +110,20 @@ export const KIT = {
   resource: 'mana',
   race: 'Orc',
   portrait: 'orc-shaman',
-  npcOnly: true,
+  tagline: 'Restoration preview — dungeon and raid healing at 30 and 60.',
+  supportedLevels: [30,60],
+  rolesFor: () => ['healer'],
+  races: () => ['orc'],
+  specsFor: (level) => level >= 30 ? [{id:'resto',name:'Restoration',blurb:'Healing Wave, interrupts and healing cooldowns. Totems are currently modelled as group buffs.'}] : [],
+  build(opts) {
+    if(opts.npc) return this.npcBuild(opts);
+    if(![30,60].includes(opts.level)) throw Error('Shaman preview supports level 30 and 60 only');
+    const race=validRace('shaman',opts.race);
+    const b=this.npcBuild({...opts,race});
+    return applyRace({...b,consumables:['item.rest','item.healpot','item.manapot'],loopHint:'Restoration preview: keep the tank alive, interrupt with Earth Shock when safe; Riptide then Chain Heal on its target at 60. Totem placement and DPS specs are not implemented.'},{classId:'shaman',race});
+  },
   specs: { 30: [{ id: 'resto', name: 'Restoration' }], 60: [{ id: 'resto', name: 'Restoration' }] },
-  build({ level, race = 'orc', groupBuffs = [] }) {
+  npcBuild({ level, race = 'orc', groupBuffs = [] }) {
     const L = snap(level);
     const tal = TALENTS['resto' + L];
     const S = deriveStats({ classId: 'shaman', race, level: L, gear: GEAR.shamanHealer[L], buffs: buffTotals(groupBuffs, L) });

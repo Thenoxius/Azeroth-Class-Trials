@@ -122,16 +122,14 @@ registerAbilities({
     tags: ['racial', 'cooldown', 'burst'],
     target: 'self',
     gcd: 0,
-    cooldown: 180,
-    desc: 'Orc racial. Attack power and spell power +10 % for 15 s. 3 min cooldown.',
-    forever: { status: 'confirmed-official', note: 'Cooldown raised to 3 min in the Oct 15 build.', src: 'bz-devnotes' },
+    cooldown: 120,
+    desc: 'Orc racial. Attack power and spell power +10 % for 15 s. 2 min cooldown.',
+    forever: { status: 'confirmed-official', note: 'Cooldown reduced to 2 min in the official October 26 update.', src: 'bz-devnotes' },
     effects: [{
       type: 'custom',
       fn: ({ state, u, api }) => {
         const add = { ap: Math.round(u.stats.ap * 0.1), rap: Math.round(u.stats.rap * 0.1), sp: Math.round(u.stats.sp * 0.1) };
         api.applyAura(state, u, u, { id: 'race.bloodfury', name: 'Blood Fury', icon: 'axe', school: 'physical', duration: 15, mods: { statAdd: add } });
-        const pet = api.U(state, u.petId);
-        if (pet && pet.alive) api.applyAura(state, u, pet, { id: 'race.bloodfury.pet', name: 'Blood Fury', icon: 'axe', duration: 15, mods: { dmgDone: { all: 1.05 } } });
       },
     }],
   },

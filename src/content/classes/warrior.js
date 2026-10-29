@@ -49,7 +49,7 @@ function strike(ctx, o = {}) {
   const { state, u, t, ab, api } = ctx;
   if (!t || !t.alive) return 0;
   const amount = ((o.weapon ? weaponHit(state, api, u) : 0) + roll(state, val(ab, o.amount ?? 'dmg', 0)) + (o.extra || 0)) * (o.mult || 1);
-  return api.dealDamage(state, u, t, { amount, school: 'physical', kind: 'melee', ability: ab.id, flatThreat: val(ab, 'thr', 0) * (o.threatMult || 1), threat: o.threat ?? 1, noAvoid: o.noAvoid });
+  return api.dealDamage(state, u, t, { amount, school: 'physical', kind: 'melee', ability: ab.id, flatThreat: val(ab, 'thr', 0) * (o.threatMult || 1), threat: o.threat ?? 1, noAvoid: o.noAvoid, critMult: 2 + ((T(u).impale || 1) - 1) });
 }
 const hit = (o) => ({ type: 'custom', fn: (ctx) => strike(ctx, o) });
 
@@ -147,7 +147,7 @@ registerAbilities({
     byLevel: { 30: { rage: 10, ap: 91 }, 60: { rage: 10, ap: 210 } },
   },
   'warrior.taunt': {
-    name: 'Taunt', icon: 'taunt', school: 'physical', mechanic: 'physical', category: 'utility', tags: ['threat'], range: 10, gcd: 0,
+    name: 'Taunt', icon: 'taunt', school: 'physical', mechanic: 'physical', category: 'utility', tags: ['threat'], range: 5, gcd: 0,
     desc: 'Forces the target to attack you for 3 s and matches the top threat on it. Defensive Stance.', requiresStance: ['defensive'],
     forever: DM('Datamine: 8 s cooldown (Classic 10 s).'),
     cooldown: 8, effects: [{ type: 'threat', mode: 'taunt', duration: 3 }],
@@ -188,7 +188,7 @@ registerAbilities({
     forever: DM('Datamine: 12 s, 15 min cooldown (Improved Shield Wall: −11 min).'),
     cooldown: 'cd',
     effects: [{ type: 'aura', to: 'self', aura: { id: 'warrior.shieldwall', name: 'Shield Wall', icon: 'shield-wall', duration: 12, mods: { dmgTaken: { all: 0.4 } } } }],
-    byLevel: { 30: { cd: 900 }, 60: { cd: 240 } },
+    byLevel: { 30: { cd: 900 }, 60: { cd: 900 } },
   },
   'warrior.laststand': {
     name: 'Last Stand', icon: 'shield-wall', school: 'physical', mechanic: 'physical', category: 'defensive', tags: ['defensive'], target: 'self', gcd: 0,
@@ -442,8 +442,8 @@ function playerAfterDamageTaken({ state, u, api, final }) {
 // Talent picks (Forever trees): 21 points at 30, 51 at 60. Values are what the talents do in
 // the engine; Arms/Fury tooltips without numbers (weapon specs) use the Classic value.
 const PLAYER_TALENTS = {
-  arms30: { impHs: 3, impRend: 0.35, impCharge: 6, impTacticalMastery: true, angerMgmt: true, deepWounds: true, twoHandSpec: 1.05 },
-  arms60: { impHs: 3, impRend: 0.35, impCharge: 6, impTacticalMastery: true, angerMgmt: true, deepWounds: true, twoHandSpec: 1.05, impOverpower: 0.5, impale: 1.2, cruelty: 0.05 },
+  arms30: { impHs: 3, impRend: 0.35, impCharge: 6, impTacticalMastery: true, angerMgmt: true, deepWounds: true, twoHandSpec: 1.03 },
+  arms60: { impHs: 3, impRend: 0.35, impCharge: 6, impTacticalMastery: true, angerMgmt: true, deepWounds: true, twoHandSpec: 1.03, impOverpower: 0.5, impale: 1.2, cruelty: 0.05 },
   fury30: { cruelty: 0.05, unbridledWrath: 0.6, dwSpec: 1.25, impExecute: 5, bloodCraze: true },
   fury60: { cruelty: 0.05, unbridledWrath: 0.6, dwSpec: 1.25, impExecute: 5, bloodCraze: true, flurry: true, enrage: true, deathWish: true, impIntercept: 10, impBerserkerRage: true, impHs: 3 },
 };
@@ -508,10 +508,10 @@ function playerBuild({ level, spec, role, race, groupBuffs = [] }) {
   const stance = tank ? 'defensive' : sp === 'fury' && L >= 30 ? 'berserker' : 'battle';
   const auras = [{ ...STANCES[stance], mods: { ...STANCES[stance].mods, ...(tank ? { dmgDone: { all: 0.9 * (tal.bastion || 1) }, threat: 1.3 * (tal.defiance || 1) } : {}) } }];
   if (tal.twoHandSpec) auras.push({ id: 'warrior.t.2h', name: 'Two-Handed Weapon Specialization', hidden: true, permanent: true, mods: { dmgDone: { physical: tal.twoHandSpec } } });
-  if (tal.impale) auras.push({ id: 'warrior.t.impale', name: 'Impale', hidden: true, permanent: true, mods: { critDamage: { physical: tal.impale } } });
   if (tal.angerMgmt) auras.push({ id: 'warrior.t.anger', name: 'Anger Management', hidden: true, permanent: true, tick: { interval: 3, type: 'custom', fn: ({ state, u, api }) => { if (api.inCombat(state, u)) api.gainRage(u, 1); } } });
   const bar = PLAYER_BARS[key];
   const tweaks = {};
+  if (tal.impShieldWall) tweaks['warrior.shieldwall'] = { cd: 240 };
   const rageOff = (id, n) => { if (n) tweaks[id] = { ...(tweaks[id] || {}), costMultFn: (u, ab) => Math.max(0, (val(ab, ab.cost.rage) - n) / val(ab, ab.cost.rage)) }; };
   rageOff('warrior.hs', tal.impHs);
   rageOff('warrior.execute', tal.impExecute);
@@ -603,6 +603,7 @@ export const KIT = {
     const auras = [{ id: 'warrior.defstance', name: 'Defensive Stance', icon: 'shield', stance: 'defensive', permanent: true, mods: { dmgTaken: { all: 0.9 }, dmgDone: { all: 0.9 * (tal.bastion || 1) }, threat: 1.3 * (tal.defiance || 1) } }];
     const bar = ['warrior.sunder', 'warrior.revenge', 'warrior.shieldblock', 'warrior.hs', 'warrior.cleave', 'warrior.thunderclap', 'warrior.demoshout', 'warrior.taunt', 'warrior.shieldbash', 'warrior.bloodrage', 'warrior.shieldwall', 'warrior.laststand', ...(L >= 60 ? ['warrior.shieldslam'] : [])];
     const tweaks = {};
+    if (tal.impShieldWall) tweaks['warrior.shieldwall'] = { cd: 240 };
     const rageOff = (id, n) => { if (n) tweaks[id] = { ...(tweaks[id] || {}), costMultFn: (u, ab) => Math.max(0, (val(ab, ab.cost.rage) - n) / val(ab, ab.cost.rage)) }; };
     rageOff('warrior.sunder', tal.impSunder);
     rageOff('warrior.hs', tal.impHs);

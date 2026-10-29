@@ -11,7 +11,8 @@ import { escapeZones, tryRotation } from '../../engine/ai.js';
 
 const APPROX = { status: 'approximation', note: 'Original raid boss ability for this trial.' };
 // Sized for this 14-player raid of real level-60 classes: about four minutes of their damage.
-const BOSS_HP = 340000;
+// Encounter approximation recalibrated after correcting NPC Rogue talent damage (audit 2026-10-29).
+const BOSS_HP = 300000;
 
 registerAbilities({
   't5.cleave': {
@@ -129,7 +130,7 @@ export const TRIAL = {
   levels: [60],
   kind: 'raid',
   blurb: 'A 20-person raid boss in miniature: three phases, class duties, and three and a half minutes of your rotation.',
-  rolesFor: (classId) => (classId === 'priest' ? ['dps', 'healer'] : classId === 'warrior' ? ['dps', 'tank'] : ['dps']),
+  rolesFor: (classId) => (classId === 'shaman' ? ['healer'] : classId === 'priest' ? ['dps', 'healer'] : classId === 'warrior' ? ['dps', 'tank'] : ['dps']),
   // Buffs from the raid's classes: Priest (Fortitude, Divine Spirit), Mage (Arcane Intellect),
   // Hunter (Trueshot Aura), Warrior (Battle Shout) and Shaman totems (Mana Spring, Strength of
   // Earth, Grace of Air) — several are raid-wide in Forever.
@@ -143,7 +144,7 @@ export const TRIAL = {
       text: 'Vorgrath the Ember Tyrant rules the Molten Throne. Twelve raiders stand with you. The fight lasts minutes, not seconds: phase one is his fire, phase two his imps and hounds, phase three a burn while he frenzies. Your damage (or healing) matters — but nobody expects you to carry it alone.',
       goals: ['Defeat Vorgrath', 'Your duty: ' + duty, 'Stay out of Magma Pools'],
       tips: [
-        'The Filler autopilot button casts your filler whenever you are idle. It is never required — use it if you like.',
+        role === 'healer' ? 'Select party frames or use mouseover healing; keep enough mana for the final phase.' : 'The Filler autopilot button casts your filler whenever you are idle. It is never required — use it if you like.',
         'Raiders handle duties too, just slower. A missed duty costs time or a death, not an instant wipe.',
         'Too much AoE on the imps pulls them onto you.',
       ],

@@ -296,7 +296,7 @@ registerAbilities({
         const { state, u, t, api } = ctx;
         api.removeAuraById(state, u, MONGOOSE_READY.id);
         const d = shot(ctx, { weapon: true, melee: true });
-        if (T(u).laceratingStrikes && d > 0 && t.alive) api.applyAura(state, u, t, { id: 'hunter.lacerate', name: 'Lacerating Strikes', icon: 'claw', debuff: true, duration: 21, tick: { interval: 3, amount: (d * 0.4) / 7, school: 'physical' } });
+        if (T(u).laceratingStrikes && d > 0 && t.alive) api.applyAura(state, u, t, { id: 'hunter.lacerate', name: 'Lacerating Strikes', icon: 'claw', debuff: true, duration: 21, tick: { interval: 3, amount: (d * 0.4) / 7, school: 'physical', canCrit: true } });
       },
     }],
     byLevel: { 30: { dmg: [22, 22], mana: 40 }, 60: { dmg: [57, 57], mana: 65 } },

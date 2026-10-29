@@ -4,7 +4,8 @@
 // racial actives on the bar, passives as auras/stat changes, and a stat offset.
 import { registerAbilities } from '../engine/registry.js';
 
-const WH = (note) => ({ status: 'confirmed-official', src: 'wh-forever', note: 'Wowhead Forever racial tooltip' + (note ? '. ' + note : '.') });
+const OFF26 = (note) => ({status:'confirmed-official',src:'bz-devnotes',note:'Official October 26 racial update. '+note});
+const WH = (note) => ({ status: 'beta-observation', src: 'wh-forever', note: 'Wowhead Forever racial tooltip' + (note ? '. ' + note : '.') });
 
 export const RACES = {
   orc: { id: 'orc', name: 'Orc' },
@@ -21,6 +22,7 @@ export const CLASS_RACES = {
   priest: ['undead', 'troll'],
   warrior: ['orc', 'troll', 'tauren', 'undead', 'skyborne'],
   rogue: ['orc', 'troll', 'undead', 'skyborne'],
+  shaman: ['orc'],
 };
 export const defaultRace = (classId) => (CLASS_RACES[classId] || ['orc'])[0];
 export const racesFor = (classId) => CLASS_RACES[classId] || [defaultRace(classId)];
@@ -32,9 +34,9 @@ registerAbilities({
   'race.berserking': {
     name: 'Berserking', icon: 'beast-wrath', school: 'physical', mechanic: 'physical', category: 'cooldown',
     tags: ['racial', 'cooldown', 'burst'], target: 'self', gcd: 0, cooldown: 180,
-    desc: 'Troll racial. Spellcasting and attack speed +10 % for 10 s. 3 min cooldown.',
+    desc: 'Troll racial. Spellcasting and attack speed +10 % for 15 s. 3 min cooldown.',
     forever: WH(),
-    effects: [{ type: 'aura', to: 'self', aura: { id: 'race.berserking', name: 'Berserking', school: 'physical', duration: 10, mods: { castTime: 1 / 1.1, meleeHaste: 0.1, rangedHaste: 0.1 } } }],
+    effects: [{ type: 'aura', to: 'self', aura: { id: 'race.berserking', name: 'Berserking', school: 'physical', duration: 15, mods: { castTime: 1 / 1.1, meleeHaste: 0.1, rangedHaste: 0.1 } } }],
   },
   'race.rapidregen': {
     name: 'Rapid Regeneration', icon: 'renew', school: 'nature', mechanic: 'physical', category: 'defensive',
@@ -70,15 +72,15 @@ registerAbilities({
   // Passive proc, never on the bar; registered so logs and the meter can name it.
   'race.totg': {
     name: 'Touch of the Grave', icon: 'skull', school: 'shadow', mechanic: 'physical', category: 'passive', tags: ['racial', 'passive'], passive: true,
-    desc: 'Undead racial passive: 30 % chance on a spell or attack to drain up to 5 % of your maximum health from the target. 25 s cooldown.',
+    desc: 'Undead racial passive: 20 % chance for Warriors/Rogues, 30 % for casters, to drain up to 5 % of your maximum health from the target. 15 s cooldown.',
     forever: WH(),
   },
   'race.skysight': {
     name: 'Skysight', icon: 'dash', school: 'nature', mechanic: 'physical', category: 'mobility',
-    tags: ['racial', 'mobility', 'optional-utility'], target: 'self', castTime: 0.5, cooldown: 120,
-    desc: 'Skyborne racial. 0.5 s cast: movement speed +10 % for 30 s (15 min near an elemental convergence, which these trials do not have). 2 min cooldown.',
+    tags: ['racial', 'mobility', 'optional-utility'], target: 'self', castTime: 0.5, castWhileMoving: true, cooldown: 120,
+    desc: 'Skyborne racial. 0.5 s cast: movement speed +15 % for 15 s (convergence Attuned/Charged bonuses are not modelled). 2 min cooldown.',
     forever: WH(),
-    effects: [{ type: 'aura', to: 'self', aura: { id: 'race.skysight', name: 'Skysight', school: 'nature', duration: 30, mods: { speed: 0.1 } } }],
+    effects: [{ type: 'aura', to: 'self', aura: { id: 'race.skysight', name: 'Skysight', school: 'nature', duration: 15, mods: { speed: 0.15 } } }],
   },
 });
 
@@ -99,11 +101,11 @@ const P = (name, desc, forever) => ({ name, desc, forever, racial: true });
 // max health from the target; 25 s internal cooldown.
 function touchOfTheGrave({ state, u, dst, pk, api }) {
   if (!dst || dst === u || !dst.alive || !api.hostile(u, dst) || pk.isTick) return;
-  if ((u.meta.totgReady || 0) > state.t || state.rng() >= 0.3) return;
-  u.meta.totgReady = state.t + 25;
+  if ((u.meta.totgReady || 0) > state.t || state.rng() >= (['warrior','rogue'].includes(u.classId) ? 0.2 : 0.3)) return;
+  u.meta.totgReady = state.t + 15;
   const amount = Math.round(u.maxHp * 0.05);
-  api.dealDamage(state, u, dst, { amount, school: 'shadow', kind: 'spell', canCrit: false, ability: 'race.totg' });
-  api.healUnit(state, u, u, { amount, canCrit: false, ability: 'race.totg' });
+  const drained = api.dealDamage(state, u, dst, { amount, school: 'shadow', kind: 'spell', canCrit: false, ignoreSourceModifiers: true, ignoreTargetModifiers: true, ability: 'race.totg' });
+  api.healUnit(state, u, u, { amount: drained, canCrit: false, ability: 'race.totg' });
 }
 
 function chainHook(hooks, name, fn) {
@@ -117,11 +119,12 @@ function applyPassives(race, t) {
   const stats = (t.stats = { ...t.stats });
   const hooks = (t.hooks = { ...(t.hooks || {}) });
   if (race === 'orc') {
-    stats.critPhys = (stats.critPhys || 0) + 0.01;
-    stats.critSpell = (stats.critSpell || 0) + 0.01;
+    auras.push({ id:'race.command', name:'Command', hidden:true, permanent:true, mods:{ petDamage:1.05 } });
+
+
     auras.push({ id: 'race.hardiness', name: 'Hardiness', hidden: true, permanent: true, mods: { stunDuration: 0.8 } });
     return [
-      P('Savage', 'Critical strike chance with all spells and abilities +1 %.', WH('Replaced Axe Specialization in the Oct 15 build.')),
+      P('Command', 'Hunter and Warlock pet damage +5 %.', OFF26('Savage removed; Command restored.')),
       P('Hardiness', 'Stun effects on you last 20 % shorter.', WH()),
     ];
   }
@@ -137,23 +140,23 @@ function applyPassives(race, t) {
   }
   if (race === 'tauren') {
     t.maxHp = Math.round(t.maxHp * 1.05);
-    auras.push({ id: 'race.endurance', name: 'Endurance', hidden: true, permanent: true, mods: { critDamage: 1.02, critHeal: 1.02 } });
+
     auras.push({ id: 'race.plainsrunning', name: 'Plainsrunning', hidden: true, permanent: true });
     chainHook(hooks, 'onTick', plainsrunning);
     return [
-      P('Endurance', 'Total health +5 %; critical strike damage and healing +2 %.', WH('Was +1 % hit before Forever.')),
-      P('Plainsrunning', 'Movement speed +1 % per 5 s spent moving, up to +30 %. Taking damage or standing still lowers it.', WH()),
+      P('Endurance', 'Total health +5 %.', OFF26('Endurance now provides health only.')),
+      P('Plainsrunning', 'Movement speed +2 % per 5 s spent moving, up to +60 %. Taking damage or standing still lowers it.', WH()),
     ];
   }
   if (race === 'undead') {
     chainHook(hooks, 'afterDamage', touchOfTheGrave);
-    return [P('Touch of the Grave', 'Your spells and attacks have a 30 % chance to drain up to 5 % of your maximum health from the target (25 s cooldown).', WH())];
+    return [P('Touch of the Grave', 'Your spells and attacks have a 30 % chance to drain up to 5 % of your maximum health from the target (15 s cooldown).', WH())];
   }
   if (race === 'skyborne') {
-    auras.push({ id: 'race.windblessed', name: 'Wind Blessed', hidden: true, permanent: true, mods: { castTime: 1 / 1.03, meleeHaste: 0.03, rangedHaste: 0.03 } });
+    auras.push({ id: 'race.windblessed', name: 'Wind Blessed', hidden: true, permanent: true, mods: { castTime: 1 / 1.02, meleeHaste: 0.02, rangedHaste: 0.02 } });
     auras.push({ id: 'race.elementalinsight', name: 'Elemental Insight', hidden: true, permanent: true, mods: { dmgVsTag: { elemental: 1.05 } } });
     return [
-      P('Wind Blessed', 'Spellcasting, melee and ranged haste +3 %.', WH('Raised from 1 % in the Oct 15 build.')),
+      P('Wind Blessed', 'Spellcasting, melee and ranged haste +2 %.', OFF26('Wind Blessed reduced from 3% to 2%.')),
       P('Elemental Insight', 'Damage against Elementals +5 %.', WH()),
     ];
   }
@@ -167,7 +170,7 @@ function plainsrunning({ state, u, dt }) {
   const m = u.meta;
   m.plains = moving && !hit ? Math.min(30, (m.plains || 0) + (dt || 0) / 5) : Math.max(0, (m.plains || 0) - (dt || 0) * (hit ? 10 : 3));
   const a = u.auras.find((x) => x.id === 'race.plainsrunning');
-  if (a) a.def = { ...a.def, mods: { speed: Math.floor(m.plains) / 100 } };
+  if (a) a.def = { ...a.def, mods: { speed: Math.floor(m.plains) * 2 / 100 } };
 }
 
 // Layer a race onto a kit build. Mutates nothing shared; returns a new build.

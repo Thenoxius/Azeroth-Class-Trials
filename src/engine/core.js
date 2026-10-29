@@ -909,12 +909,13 @@ export function dealDamage(state, src, dst, p) {
     // Debuffs like Hunter's Mark add attack power for attacks against their holder.
     amt += p.coef * (statOf(src, powerKey) + modAdd(dst, 'attackerPower', powerKey));
   }
-  if (src) amt *= modMultFor(src, 'dmgDone', school, kind);
+  if (src && !p.ignoreSourceModifiers) amt *= modMultFor(src, 'dmgDone', school, kind);
+  if (src && src.ownerId && !p.ignoreSourceModifiers) { const owner = U(state, src.ownerId); if (owner && ['hunter','warlock'].includes(owner.classId)) amt *= modMult(owner, 'petDamage'); }
   // Creature-type bonuses (Beast Slaying, Elemental Insight): mods.dmgVsTag = { beast: 1.05 }.
-  if (src && dst.tags) for (const a of src.auras) { const v = a.def.mods && a.def.mods.dmgVsTag; if (v) for (const tag of dst.tags) if (v[tag]) amt *= v[tag]; }
-  amt *= modMultFor(dst, 'dmgTaken', school, kind);
+  if (src && !p.ignoreSourceModifiers && dst.tags) for (const a of src.auras) { const v = a.def.mods && a.def.mods.dmgVsTag; if (v) for (const tag of dst.tags) if (v[tag]) amt *= v[tag]; }
+  if (!p.ignoreTargetModifiers) amt *= modMultFor(dst, 'dmgTaken', school, kind);
   // Debuffs that only amplify their own caster's damage (Improved Shadow Bolt, Shadow Weaving, Improved Scorch).
-  if (src) for (const a of dst.auras) {
+  if (src && !p.ignoreTargetModifiers) for (const a of dst.auras) {
     const v = a.srcId === src.id && a.def.mods && a.def.mods.dmgTakenMine;
     if (!v) continue;
     const per = typeof v === 'object' ? v[school] ?? v.all : v;
@@ -1127,7 +1128,7 @@ export function healUnit(state, src, dst, p) {
   if (src) amt *= modMult(src, 'healDone');
   amt *= modMult(dst, 'healTaken');
   let crit = false;
-  if (src && !p.isTick && p.canCrit !== false && state.rng() < (src.stats.critSpell || 0) + modAdd(src, 'healCrit') + (p.critBonus || 0)) {
+  if (src && (!p.isTick || p.canCrit === true) && p.canCrit !== false && state.rng() < (src.stats.critSpell || 0) + modAdd(src, 'healCrit') + (p.critBonus || 0)) {
     crit = true;
     amt *= 1.5 * modMult(src, 'critHeal');
   }
@@ -1340,7 +1341,7 @@ function auraTick(state, u, a) {
   const stacks = tk.perStack ? a.stacks : 1;
   if (tk.type === 'heal') {
     const bonus = (tk.coef || 0) * (a.snap.heal || 0);
-    healUnit(state, src && src.alive ? src : null, u, { amount: (amt + bonus) * stacks, ability: a.def.ability || a.id, isTick: true });
+    healUnit(state, src && src.alive ? src : null, u, { amount: (amt + bonus) * stacks, ability: a.def.ability || a.id, isTick: true, canCrit: tk.canCrit });
   } else if (tk.type === 'mana' || tk.type === 'resource') {
     const r = u.res[tk.resource || 'mana'];
     if (r) {

@@ -1,0 +1,127 @@
+[
+  {
+    "abilities": [
+      "mage.ignite"
+    ],
+    "status": "confirmed-official-component",
+    "source": "https://us.forums.blizzard.com/en/wow/t/wow-forever-beta-development-notes-%E2%80%93-updated-october-26/2360696/1",
+    "correction": "Ignite no longer reapplies source percentage damage multipliers to already-scaled critical damage."
+  },
+  {
+    "abilities": [
+      "priest.renew",
+      "priest.dp",
+      "hunter.mongoose"
+    ],
+    "status": "confirmed-official-component",
+    "source": "https://us.forums.blizzard.com/en/wow/t/wow-forever-beta-development-notes-%E2%80%93-updated-october-26/2360696/1",
+    "correction": "Opt-in crits for Renew, Devouring Plague and the Lacerating Strikes bleed; generic periodic healing stays non-critical unless opted in."
+  },
+  {
+    "abilities": [
+      "warrior.hs",
+      "warrior.cleave",
+      "warrior.ms",
+      "warrior.slam",
+      "warrior.bt",
+      "warrior.ww"
+    ],
+    "status": "snapshot-and-formula-correction",
+    "source": "research/forever-warrior-rogue.json",
+    "correction": "Impale affects the critical bonus on abilities, not white swings; 2H specialization capped at 3% in the recorded tree."
+  },
+  {
+    "abilities": [
+      "rogue.ss",
+      "rogue.backstab",
+      "rogue.mutilate",
+      "rogue.hemo",
+      "rogue.ambush"
+    ],
+    "status": "snapshot-correction",
+    "source": "research/forever-warrior-rogue.json",
+    "correction": "Lethality maximum 20%, only its listed generators; Precision 3%; offhand specialization multiplies the 50% offhand penalty; Aggression only its listed abilities."
+  },
+  {
+    "abilities": [
+      "rogue.poison.instant",
+      "rogue.poison.deadly"
+    ],
+    "status": "snapshot-correction-with-open-coefficient",
+    "source": "research/forever-warrior-rogue.json",
+    "correction": "Improved Poisons adds proc chance rather than Nature damage; Vile Poisons adds damage. Exact poison AP scaling remains unverified and is not invented."
+  },
+  {
+    "abilities": [
+      "rogue.bladeflurry"
+    ],
+    "status": "simulation-correction",
+    "source": "engine review",
+    "correction": "Copied final damage does not receive a second armor reduction or second crit; exact per-target armor semantics remain approximate."
+  },
+  {
+    "abilities": [
+      "warrior.taunt"
+    ],
+    "status": "snapshot-correction",
+    "source": "research/forever-warrior-rogue.json",
+    "correction": "Range 10 to 5 yards."
+  },
+  {
+    "abilities": [
+      "warrior.shieldwall"
+    ],
+    "status": "snapshot-correction",
+    "source": "research/forever-warrior-rogue.json",
+    "correction": "Base cooldown 900 seconds; 240 only on builds selecting Improved Shield Wall."
+  },
+  {
+    "abilities": [
+      "rogue.evasion",
+      "rogue.snd"
+    ],
+    "status": "snapshot-correction",
+    "source": "research/forever-warrior-rogue.json",
+    "correction": "Evasion base 300 seconds; the old globally applied Endurance reduction removed. Slice and Dice range 100 yards per raw reference."
+  },
+  {
+    "abilities": [
+      "shaman.riptide",
+      "shaman.ch"
+    ],
+    "status": "datamined-component-and-official-behaviour",
+    "source": "https://www.wowhead.com/forever/spell=1239243/riptide",
+    "correction": "Riptide initial coefficient .214, periodic .1 per tick; Purification applies to periodic component. Own Riptide on initial Chain Heal target grants 25% healing. Database tooltip/effect values disagree in some fields, so base snapshot values retained and conflict recorded."
+  },
+  {
+    "abilities": [
+      "race.berserking",
+      "race.bloodfury",
+      "race.shattercurse",
+      "race.warstomp"
+    ],
+    "status": "source-label-correction",
+    "source": "src/content/races.js",
+    "correction": "Wowhead-derived racial evidence is datamined/beta, not automatically Blizzard-confirmed."
+  },
+  {
+    "abilities": [
+      "race.berserking",
+      "race.bloodfury",
+      "race.skysight",
+      "race.totg"
+    ],
+    "status": "confirmed-official-component",
+    "source": "https://us.forums.blizzard.com/en/wow/t/wow-forever-beta-development-notes-%E2%80%93-updated-october-26/2360696/7",
+    "correction": "October 26 supersedes snapshot racial text: Savage removed, Command restored (5% Hunter/Warlock pet damage), Blood Fury 120s cooldown, Berserking 15s, Endurance health only, Plainsrunning 2%/stack, Touch of the Grave ICD 15s, Wind Blessed 2%, Skysight 15%/15s. Leyline/convergence conditional buffs remain outside the trial model."
+  },
+  {
+    "abilities": [
+      "rogue.poison.instant",
+      "rogue.poison.deadly"
+    ],
+    "status": "snapshot-correction",
+    "source": "research/forever-warrior-rogue.json",
+    "correction": "Malice and Precision apply to poison spell crit/hit as well as physical attacks. Exact AP coefficient and charge consumption are not confirmed."
+  }
+]

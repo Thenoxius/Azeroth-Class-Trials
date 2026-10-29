@@ -188,7 +188,7 @@ registerAbilities({
             interval: 3, type: 'custom',
             fn: ({ state: st, u: holder, src, api: a2 }) => {
               if (!src || !src.alive) return;
-              const d = a2.dealDamage(st, src, holder, { amount: per, school: 'shadow', kind: 'dot', ability: 'priest.dp', isTick: true });
+              const d = a2.dealDamage(st, src, holder, { amount: per, school: 'shadow', kind: 'dot', ability: 'priest.dp', isTick: true, canCrit: true });
               if (d > 0) a2.healUnit(st, src, src, { amount: d, ability: 'priest.dp', isTick: true });
             },
           },
@@ -263,7 +263,7 @@ registerAbilities({
       fn: ({ state, u, t, ab, api }) => {
         const tal = T(u);
         const per = (val(ab, 'tick') + 0.2 * api.statOf(u, 'heal')) * (tal.impRenew ? 1.15 : 1) * (tal.spiritualHealing ? 1.1 : 1);
-        api.applyAura(state, u, t, { id: 'priest.renew', name: 'Renew', icon: 'renew', school: 'holy', duration: 15, dispel: 'magic', tick: { interval: 3, type: 'heal', amount: per } });
+        api.applyAura(state, u, t, { id: 'priest.renew', name: 'Renew', icon: 'renew', school: 'holy', duration: 15, dispel: 'magic', tick: { interval: 3, type: 'heal', amount: per, canCrit: true } });
       },
     }],
     byLevel: { 10: { tick: 9, mana: 30 }, 30: { tick: 32, mana: 140 }, 60: { tick: 166, mana: 410 } },

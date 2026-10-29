@@ -57,7 +57,7 @@ const feedback = [
   { sessionId: sessions[1].id, trialId: 't1', classId: 'hunter', level: 10, enjoyment: null, frustration: null, again: null, moment: null, custom: null, skipped: true },
 ];
 const a = analyze({ sessions, feedback, trials: TRIALS });
-assert.equal(a.ranking.length, 5);
+assert.equal(a.ranking.length, 6);
 for (const r of a.ranking) assert.ok(Number.isFinite(r.total), 'class total is a number');
 for (const cls of ['hunter', 'mage', 'priest']) {
   for (const dim of DIM_IDS) {

@@ -62,6 +62,7 @@ export function AbilityTooltip({ state, u, id, petUnit }) {
         {(ab.gcd ?? 1.5) === 0 && <span>Off GCD</span>}
       </div>
       <p className="tt-desc">{ab.desc}</p>
+      <p className="tt-rankdata">Source scope: rank values may be datamined; power scaling, talent interactions and estimated gear are not thereby officially confirmed.</p>
       {rank && <p className="tt-rankdata">Forever {rank.rank ? `rank ${rank.rank}` : 'spell'} (learned at {rank.level}): {rank.text}</p>}
       <div className={cx('tt-status', 'st-' + f.status)}>
         <b>{STATUS_LABEL[f.status] || f.status}</b>

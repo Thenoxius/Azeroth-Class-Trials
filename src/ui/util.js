@@ -11,7 +11,7 @@ export const DISPEL_COLORS = { magic: '#3f8cff', curse: '#a24bff', disease: '#b0
 export const STATUS_LABEL = {
   'confirmed-official': 'Confirmed by Blizzard',
   'reported-guide': 'Reported by guides',
-  'beta-observation': 'Seen in beta',
+  'beta-observation': 'Forever datamine / beta evidence',
   'classic-baseline': 'Classic baseline',
   approximation: 'Game approximation',
   speculative: 'Speculative',

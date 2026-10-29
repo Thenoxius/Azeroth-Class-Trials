@@ -92,7 +92,7 @@ function igniteDef() {
         const per = (aura.data.pool || 0) / left;
         aura.data.pool -= per;
         aura.data.left = left - 1;
-        if (src && src.alive && per > 0) api.dealDamage(state, src, holder, { amount: per, school: 'fire', kind: 'dot', ability: 'mage.ignite', isTick: true });
+        if (src && src.alive && per > 0) api.dealDamage(state, src, holder, { amount: per, school: 'fire', kind: 'dot', ability: 'mage.ignite', isTick: true, ignoreSourceModifiers: true });
       },
     },
   };

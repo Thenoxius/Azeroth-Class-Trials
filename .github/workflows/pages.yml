@@ -26,6 +26,8 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm test
+      - run: npm run audit
+      - run: node scripts/verify-classic.mjs
       - run: npm run build
       # dist/preview.html is the full standalone page; dist/index.html is the
       # artifact fragment without <html>/<head>.
@@ -35,7 +37,7 @@ jobs:
           cp dist/preview.html _site/index.html
           touch _site/.nojekyll
       - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v4
         with:
           path: _site
 

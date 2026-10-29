@@ -7,3 +7,5 @@ scratch/
 art-source/
 # Raw page dumps the research JSON was distilled from.
 research/raw/
+
+site-preview/

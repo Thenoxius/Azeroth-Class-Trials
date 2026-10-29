@@ -3,8 +3,8 @@
 // shown to the player on the Method screen — there is no hidden score.
 import { DIMENSIONS } from '../content/facts.js';
 
-export const CLASSES = ['hunter', 'mage', 'priest', 'warrior', 'rogue'];
-export const CLASS_NAMES = { hunter: 'Hunter', mage: 'Mage', priest: 'Priest', warrior: 'Warrior', rogue: 'Rogue' };
+export const CLASSES = ['hunter', 'mage', 'priest', 'warrior', 'rogue', 'shaman'];
+export const CLASS_NAMES = { hunter: 'Hunter', mage: 'Mage', priest: 'Priest', warrior: 'Warrior', rogue: 'Rogue', shaman: 'Shaman' };
 export const DIM_IDS = DIMENSIONS.map((d) => d.id);
 export const DIM_NAMES = Object.fromEntries(DIMENSIONS.map((d) => [d.id, d.name]));
 
@@ -157,6 +157,7 @@ export const DIM_WEIGHT_FORMULA = {
 
 // Mechanical facts the observed rules must respect (not preferences).
 export const CLASS_TRAITS = {
+  shaman: { autoRepeatIsCore: false, pet: false, healer: true },
   warrior: { autoRepeatIsCore: true, pet: false, healer: false },
   rogue: { autoRepeatIsCore: true, pet: false, healer: false },
   hunter: { autoRepeatIsCore: true, pet: true, healer: false },

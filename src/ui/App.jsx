@@ -134,7 +134,7 @@ export function App({ initial }) {
         trial={trial}
         kit={kit}
         sel={sel}
-        classOrder={CLASS_ORDER}
+        classOrder={PLAYABLE}
         kits={VIEW_KITS}
         feedbackGiven={evidence.feedback.some((f) => f.sessionId === result.session.id)}
         onFeedback={onFeedback}

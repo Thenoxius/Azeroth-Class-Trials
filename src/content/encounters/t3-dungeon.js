@@ -97,8 +97,8 @@ export const TRIAL = {
   level: 30,
   levels: [30],
   kind: 'dungeon',
-  blurb: 'A five-player dungeon in miniature: a trash pull with a healer to interrupt, then Abbot Varnath. Priests may heal.',
-  rolesFor: (classId) => (classId === 'priest' ? ['dps', 'healer'] : classId === 'warrior' ? ['dps', 'tank'] : ['dps']),
+  blurb: 'A five-player dungeon in miniature: a trash pull with a healer to interrupt, then Abbot Varnath. Priests and the Restoration Shaman preview may heal.',
+  rolesFor: (classId) => (classId === 'shaman' ? ['healer'] : classId === 'priest' ? ['dps', 'healer'] : classId === 'warrior' ? ['dps', 'tank'] : ['dps']),
   groupBuffs: partyBuffs,
   intro(classId, level, role) {
     const healer = role === 'healer';
