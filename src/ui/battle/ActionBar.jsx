@@ -22,7 +22,17 @@ export function ActionButton({ state, u, id, hotkey, onUse, onHover, queued, fla
   return (
     <button
       type="button"
-      className={cx('abtn', small && 'small', st.noRes && 'nores', st.outOfRange && 'oor', unusable && 'unusable', st.active && 'active', queued && 'queued', flash && 'flash', st.cd > 0 && 'oncd')}
+      className={cx(
+        'abtn',
+        small && 'small',
+        st.noRes && 'nores',
+        st.outOfRange && 'oor',
+        unusable && 'unusable',
+        st.active && 'active',
+        queued && 'queued',
+        flash && 'flash',
+        st.cd > 0 && 'oncd',
+      )}
       onClick={(e) => onUse(id, e)}
       onPointerEnter={() => onHover && onHover(id)}
       onPointerLeave={() => onHover && onHover(null)}
@@ -57,13 +67,27 @@ export function AbilityTooltip({ state, u, id, petUnit }) {
       <div className="tt-meta">
         {describeCost(cost) && <span>{describeCost(cost)}</span>}
         {range ? <span>{ab.minRange ? `${ab.minRange}–${range}` : range} yd</span> : <span>Self</span>}
-        <span>{ab.channel ? `Channeled ${ab.channel.duration}s` : ab.onNextSwing ? 'Next melee swing · press again to cancel' : ct > 0 ? `${ct.toFixed(1)}s cast` : 'Instant'}</span>
+        <span>
+          {ab.channel
+            ? `Channeled ${ab.channel.duration}s`
+            : ab.onNextSwing
+              ? 'Next melee swing · press again to cancel'
+              : ct > 0
+                ? `${ct.toFixed(1)}s cast`
+                : 'Instant'}
+        </span>
         {cd > 0 && <span>{cd >= 60 ? `${Math.round(cd / 60)} min` : `${Math.round(cd * 10) / 10}s`} cooldown</span>}
         {(ab.gcd ?? 1.5) === 0 && <span>Off GCD</span>}
       </div>
       <p className="tt-desc">{ab.desc}</p>
-      <p className="tt-rankdata">Source scope: rank values may be datamined; power scaling, talent interactions and estimated gear are not thereby officially confirmed.</p>
-      {rank && <p className="tt-rankdata">Forever {rank.rank ? `rank ${rank.rank}` : 'spell'} (learned at {rank.level}): {rank.text}</p>}
+      <p className="tt-rankdata">
+        Source scope: rank values may be datamined; power scaling, talent interactions and estimated gear are not thereby officially confirmed.
+      </p>
+      {rank && (
+        <p className="tt-rankdata">
+          Forever {rank.rank ? `rank ${rank.rank}` : 'spell'} (learned at {rank.level}): {rank.text}
+        </p>
+      )}
       <div className={cx('tt-status', 'st-' + f.status)}>
         <b>{STATUS_LABEL[f.status] || f.status}</b>
         {f.note ? ` — ${f.note}` : ''}
@@ -93,7 +117,14 @@ export function PetBar({ state, pet, bar, onCommand, onPetAbility, onToggleAuto,
     <div className="petbar" aria-label="Pet controls">
       <div className="petbar-row">
         {PET_CMDS.map((c, i) => (
-          <button type="button" key={c.cmd} className={cx('pbtn', pet.petCmd === c.cmd && 'on')} onClick={() => onCommand(c.cmd)} title={`${c.label} (Shift+${i + 1})`} disabled={!pet.alive}>
+          <button
+            type="button"
+            key={c.cmd}
+            className={cx('pbtn', pet.petCmd === c.cmd && 'on')}
+            onClick={() => onCommand(c.cmd)}
+            title={`${c.label} (Shift+${i + 1})`}
+            disabled={!pet.alive}
+          >
             <AbilityIcon icon={c.glyph} school="nature" size={32} />
             <span className="pbtn-label">{c.label}</span>
             <kbd className="abtn-key">⇧{i + 1}</kbd>
@@ -123,7 +154,12 @@ export function PetBar({ state, pet, bar, onCommand, onPetAbility, onToggleAuto,
                 {sweep > 0 && <span className="abtn-cd" style={{ '--p': sweep }} />}
                 <kbd className="abtn-key">⇧{PET_CMDS.length + i + 1}</kbd>
               </button>
-              <button type="button" className={cx('auto-tab', pet.autocast[id] && 'on')} onClick={() => onToggleAuto(id)} aria-label={`Toggle autocast for ${ab.name}`}>
+              <button
+                type="button"
+                className={cx('auto-tab', pet.autocast[id] && 'on')}
+                onClick={() => onToggleAuto(id)}
+                aria-label={`Toggle autocast for ${ab.name}`}
+              >
                 A
               </button>
             </span>

@@ -8,3 +8,5 @@ docs/
 research/
 *.gen.js
 package-lock.json
+*.md
+src/shell.html

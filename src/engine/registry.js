@@ -25,7 +25,9 @@ export const allAbilities = () => ABILITIES;
 export function resolveAbility(def, level) {
   if (!def) return null;
   if (!def.byLevel) return def;
-  const keys = Object.keys(def.byLevel).map(Number).sort((a, b) => a - b);
+  const keys = Object.keys(def.byLevel)
+    .map(Number)
+    .sort((a, b) => a - b);
   let pick = keys[0];
   for (const k of keys) if (k <= level) pick = k;
   const o = def.byLevel[pick];

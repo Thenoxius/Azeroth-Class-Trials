@@ -6,7 +6,14 @@
 const K = '#0a0710';
 const hx = (c) => [1, 3, 5].map((i) => parseInt(c.slice(i, i + 2), 16));
 const mix = (a, b, t) =>
-  '#' + hx(a).map((v, i) => Math.round(v + (hx(b)[i] - v) * t).toString(16).padStart(2, '0')).join('');
+  '#' +
+  hx(a)
+    .map((v, i) =>
+      Math.round(v + (hx(b)[i] - v) * t)
+        .toString(16)
+        .padStart(2, '0'),
+    )
+    .join('');
 const gid = (n, c) => n + '-' + c.slice(1);
 const u = (id) => `url(#${id})`;
 const star = (cx, cy, n, ro, ri, rot = -90) =>
@@ -18,7 +25,8 @@ const star = (cx, cy, n, ro, ri, rot = -90) =>
   }).join(' ');
 // Archimedean spiral path: `turns` turns from radius r0 out to r1.
 const spiral = (cx, cy, turns, r0, r1, rot = 0) =>
-  'M' + Array.from({ length: 49 }, (_, i) => {
+  'M' +
+  Array.from({ length: 49 }, (_, i) => {
     const t = i / 48;
     const a = (rot + t * turns * 360) * (Math.PI / 180);
     const r = r0 + (r1 - r0) * t;
@@ -70,7 +78,12 @@ const Skull = ({ x = 32, y = 32, s = 1, fill, eye = K }) => (
 );
 const Flame = ({ x, y, s = 1, outer, inner }) => (
   <g transform={`translate(${x} ${y}) scale(${s})`} strokeLinejoin="round">
-    <path d="M0 -24C3 -16 12 -12 12 0C12 8 7 13 0 13C-7 13 -12 8 -12 0C-12 -7 -7 -9 -6 -16C-3 -12 -3 -9 -2 -7C0 -12 -2 -18 0 -24Z" fill={outer} stroke={K} strokeWidth={1.6 / s} />
+    <path
+      d="M0 -24C3 -16 12 -12 12 0C12 8 7 13 0 13C-7 13 -12 8 -12 0C-12 -7 -7 -9 -6 -16C-3 -12 -3 -9 -2 -7C0 -12 -2 -18 0 -24Z"
+      fill={outer}
+      stroke={K}
+      strokeWidth={1.6 / s}
+    />
     <path d="M0 -6C2 -2 6 0 6 5C6 9 3 11 0 11C-3 11 -6 9 -6 5C-6 1 -3 0 -2 -3C-1 -2 -1 0 0 1C1 -2 0 -4 0 -6Z" fill={inner} />
   </g>
 );
@@ -81,13 +94,18 @@ const Leaf = ({ x, y, r = 0, s = 1, fill }) => (
   </g>
 );
 const Sparkle = ({ x, y, r = 5, fill }) => (
-  <path d={`M${x} ${y - r}L${x + r * 0.28} ${y - r * 0.28}L${x + r} ${y}L${x + r * 0.28} ${y + r * 0.28}L${x} ${y + r}L${x - r * 0.28} ${y + r * 0.28}L${x - r} ${y}L${x - r * 0.28} ${y - r * 0.28}Z`} fill={fill} />
+  <path
+    d={`M${x} ${y - r}L${x + r * 0.28} ${y - r * 0.28}L${x + r} ${y}L${x + r * 0.28} ${y + r * 0.28}L${x} ${y + r}L${x - r * 0.28} ${y + r * 0.28}L${x - r} ${y}L${x - r * 0.28} ${y - r * 0.28}Z`}
+    fill={fill}
+  />
 );
 const Potion = ({ n, liquid: [la, lb, lc], c1 }) => {
   const g = n + '-liq';
   return (
     <g>
-      <defs><Lin id={g} a={la} b={lb} c={lc} d={0.7} /></defs>
+      <defs>
+        <Lin id={g} a={la} b={lb} c={lc} d={0.7} />
+      </defs>
       <rect x="28" y="5" width="8" height="7" rx="1.6" fill="#9a6a3a" stroke={K} strokeWidth="1.4" />
       <path d="M27.5 12V22.7A16 16 0 1 0 36.5 22.7V12Z" fill={c1} fillOpacity="0.14" />
       <path d="M17.2 32A16 16 0 1 0 46.8 32Q39.4 29.2 32 32Q24.6 34.8 17.2 32Z" fill={u(g)} />
@@ -109,7 +127,9 @@ export const GLYPHS_B = {
       const f = gid('volley-f', c2);
       return (
         <g>
-          <defs><Lin id={f} a={c1} b={c2} c={c3} /></defs>
+          <defs>
+            <Lin id={f} a={c1} b={c2} c={c3} />
+          </defs>
           <path d="M14 7l-.8 5M31 7l-.8 6M43 7l-.6 3.5M54 7l-.8 5" stroke={c1} strokeOpacity="0.45" strokeWidth="1.5" strokeLinecap="round" />
           <Arrow x={13} y={44} a={100} l={28} head={u(f)} shaft={c2} />
           <Arrow x={25} y={55} a={100} l={32} head={u(f)} shaft={c2} />
@@ -126,7 +146,9 @@ export const GLYPHS_B = {
       const sp = spiral(19, 21, 1.4, 1.5, 10, 0) + spiral(45, 43, 1.4, 1.5, 10, 180);
       return (
         <g strokeLinecap="round">
-          <defs><Lin id={f} a={c1} b={c2} c={c3} /></defs>
+          <defs>
+            <Lin id={f} a={c1} b={c2} c={c3} />
+          </defs>
           <path d={sp} fill="none" stroke={K} strokeWidth="4.6" />
           <path d={sp} fill="none" stroke={c1} strokeWidth="2.4" />
           <Arrow x={54} y={10} a={-45} l={44} head={u(f)} shaft={c2} w={3.2} />
@@ -141,7 +163,9 @@ export const GLYPHS_B = {
       const f = gid('paw-f', c2);
       return (
         <g>
-          <defs><Lin id={f} a={c1} b={c2} c={c3} /></defs>
+          <defs>
+            <Lin id={f} a={c1} b={c2} c={c3} />
+          </defs>
           <Paw x={32} y={35} s={1.42} fill={u(f)} />
         </g>
       );
@@ -153,7 +177,9 @@ export const GLYPHS_B = {
       const s = 'M36 8Q33 34 9 43Q23 25 36 8ZM47 9Q42 40 14 55Q30 31 47 9ZM56 18Q51 44 26 57Q40 35 56 18Z';
       return (
         <g strokeLinejoin="round">
-          <defs><Lin id={f} a={c1} b={mix(c1, c2, 0.5)} c={c2} d={0.7} /></defs>
+          <defs>
+            <Lin id={f} a={c1} b={mix(c1, c2, 0.5)} c={c2} d={0.7} />
+          </defs>
           <path d={s} fill={c2} fillOpacity="0.4" stroke={c2} strokeOpacity="0.4" strokeWidth="5" />
           <path d={s} fill={u(f)} stroke={K} strokeWidth="1.6" />
           <path d="M33.5 13Q30 30 14 40M44.5 14Q39 36 19 51M53.5 23Q48 41 31 53" fill="none" stroke="#fff" strokeOpacity="0.7" strokeWidth="1" />
@@ -166,7 +192,9 @@ export const GLYPHS_B = {
       const f = gid('bite-f', c2);
       return (
         <g stroke={K} strokeLinejoin="round">
-          <defs><Lin id={f} a={c1} b={c2} c={c3} /></defs>
+          <defs>
+            <Lin id={f} a={c1} b={c2} c={c3} />
+          </defs>
           <ellipse cx="32" cy="33" rx="20" ry="11" fill="#000" fillOpacity="0.75" stroke="none" />
           <g fill={c1} strokeWidth="1.2">
             <path d="M14 29L21 26.5L18 41Z" />
@@ -189,8 +217,15 @@ export const GLYPHS_B = {
       const f = gid('growl-f', c2);
       return (
         <g strokeLinejoin="round">
-          <defs><Lin id={f} a={c1} b={c2} c={c3} /></defs>
-          <path d="M6 56C4 44 6 32 12 24L13 9L21 19C27 17 34 18 38 22L46 26L45 30L34 32L42 38L40 41C34 43 28 44 24 47C22 50 20 53 19 56Z" fill={u(f)} stroke={K} strokeWidth="1.7" />
+          <defs>
+            <Lin id={f} a={c1} b={c2} c={c3} />
+          </defs>
+          <path
+            d="M6 56C4 44 6 32 12 24L13 9L21 19C27 17 34 18 38 22L46 26L45 30L34 32L42 38L40 41C34 43 28 44 24 47C22 50 20 53 19 56Z"
+            fill={u(f)}
+            stroke={K}
+            strokeWidth="1.7"
+          />
           <path d="M45 30L34 32L42 38Z" fill="#000" />
           <path d="M43 30.2L41.5 34L40 30.6ZM38 31.2L37 34.2L36 31.5ZM40.5 36.6L39.2 33.6L38.2 35.6Z" fill={c1} />
           <path d="M24 24L31 23L29 26.5Z" fill={c1} stroke={K} strokeWidth="0.8" />
@@ -209,7 +244,9 @@ export const GLYPHS_B = {
       const f = gid('dash-f', c2);
       return (
         <g>
-          <defs><Lin id={f} a={c1} b={c2} c={c3} /></defs>
+          <defs>
+            <Lin id={f} a={c1} b={c2} c={c3} />
+          </defs>
           <g strokeLinecap="round">
             <path d="M8 22H22M12 32H20M7 42H21" stroke={K} strokeWidth="5" />
             <path d="M8 22H22M12 32H20M7 42H21" stroke={c1} strokeWidth="2.8" />
@@ -241,7 +278,9 @@ export const GLYPHS_B = {
       const f = gid('call-pet-f', c2);
       return (
         <g stroke={K} strokeLinejoin="round">
-          <defs><Lin id={f} a={c1} b={c2} c={c3} /></defs>
+          <defs>
+            <Lin id={f} a={c1} b={c2} c={c3} />
+          </defs>
           <path d="M9 47C22 44 33 30 38 14L54 26C44 42 26 52 11 51Z" fill={u(f)} strokeWidth="1.7" />
           <ellipse cx="46" cy="20" rx="10" ry="4" transform="rotate(37 46 20)" fill={mix(c3, '#000000', 0.4)} strokeWidth="1.6" />
           <path d="M37.6 15.2A10 4 37 0 1 54.3 26.4" fill="none" stroke={c1} strokeWidth="1.3" />
@@ -304,19 +343,36 @@ export const GLYPHS_B = {
       const f = gid('kill-command-f', c2);
       return (
         <g stroke={K} strokeLinejoin="round">
-          <defs><Lin id={f} a={c1} b={c2} c={c3} /></defs>
+          <defs>
+            <Lin id={f} a={c1} b={c2} c={c3} />
+          </defs>
           {/* the beast's upper jaw looms over the commanding hand: two great fangs under an arched gum */}
-          <path d="M20 12L30 15.5C30 21 29 26 27 31C25 25.5 22.5 19 20 12ZM34 15.5L44 12C41.5 19 39 25.5 37 31C35 26 34 21 34 15.5Z" fill={c1} strokeWidth="1.7" />
+          <path
+            d="M20 12L30 15.5C30 21 29 26 27 31C25 25.5 22.5 19 20 12ZM34 15.5L44 12C41.5 19 39 25.5 37 31C35 26 34 21 34 15.5Z"
+            fill={c1}
+            strokeWidth="1.7"
+          />
           <path d="M30.2 16.5H33.8L32 21.5Z" fill={c1} strokeWidth="1.2" />
           <path d="M14 8Q32 21 50 8L50.5 12.5Q32 26 13.5 12.5Z" fill={mix(c3, '#000000', 0.3)} strokeWidth="1.6" />
           <path d="M15.5 10Q24 15.5 32 16.5" fill="none" stroke={c2} strokeWidth="1.3" strokeLinecap="round" />
-          <path d="M23 18C24.5 22 25.6 25 26.5 28M37.5 19.5C37.6 22.5 37.4 25 37 27" fill="none" stroke="#fff" strokeOpacity="0.85" strokeWidth="1.2" strokeLinecap="round" />
+          <path
+            d="M23 18C24.5 22 25.6 25 26.5 28M37.5 19.5C37.6 22.5 37.4 25 37 27"
+            fill="none"
+            stroke="#fff"
+            strokeOpacity="0.85"
+            strokeWidth="1.2"
+            strokeLinecap="round"
+          />
           <g transform="translate(1 3)">
-          <path d="M5 33L15 31L17 52L7 54Z" fill={mix(c3, '#000000', 0.2)} strokeWidth="1.5" />
-          <path d="M15 32C19 30 23 29 27 30L45 29C48 29 49.5 31 49.5 32.5C49.5 34 48 35.5 45 35.5L32 36C34 37 35 39 33 40.5C35 41.5 35.5 44 33 45C35 46 35 49 32 49.5C33 51 32 53 29 53L17 52Z" fill={u(f)} strokeWidth="1.6" />
-          <path d="M19 36C23 34 28 34.5 31 36.5L29 39.5C26 38.5 22 39 19 40" fill={u(f)} strokeWidth="1.3" />
-          <path d="M14 33L16 52" fill="none" stroke={c2} strokeWidth="1.6" />
-          <path d="M21 31C26 29.5 36 29.5 44 29.6" fill="none" stroke={c1} strokeOpacity="0.8" strokeWidth="1.2" />
+            <path d="M5 33L15 31L17 52L7 54Z" fill={mix(c3, '#000000', 0.2)} strokeWidth="1.5" />
+            <path
+              d="M15 32C19 30 23 29 27 30L45 29C48 29 49.5 31 49.5 32.5C49.5 34 48 35.5 45 35.5L32 36C34 37 35 39 33 40.5C35 41.5 35.5 44 33 45C35 46 35 49 32 49.5C33 51 32 53 29 53L17 52Z"
+              fill={u(f)}
+              strokeWidth="1.6"
+            />
+            <path d="M19 36C23 34 28 34.5 31 36.5L29 39.5C26 38.5 22 39 19 40" fill={u(f)} strokeWidth="1.3" />
+            <path d="M14 33L16 52" fill="none" stroke={c2} strokeWidth="1.6" />
+            <path d="M21 31C26 29.5 36 29.5 44 29.6" fill="none" stroke={c1} strokeOpacity="0.8" strokeWidth="1.2" />
           </g>
         </g>
       );
@@ -328,8 +384,15 @@ export const GLYPHS_B = {
       const f = gid('eye-f', c2);
       return (
         <g strokeLinejoin="round">
-          <defs><Lin id={f} a={c1} b={c2} c={c3} /></defs>
-          <path d="M32 15V8M40.5 17.3L44 11.2M46.7 23.5L52.8 20M23.5 17.3L20 11.2M17.3 23.5L11.2 20M32 49V56M40.5 46.7L44 52.8M23.5 46.7L20 52.8" stroke={c1} strokeWidth="2.2" strokeLinecap="round" />
+          <defs>
+            <Lin id={f} a={c1} b={c2} c={c3} />
+          </defs>
+          <path
+            d="M32 15V8M40.5 17.3L44 11.2M46.7 23.5L52.8 20M23.5 17.3L20 11.2M17.3 23.5L11.2 20M32 49V56M40.5 46.7L44 52.8M23.5 46.7L20 52.8"
+            stroke={c1}
+            strokeWidth="2.2"
+            strokeLinecap="round"
+          />
           <path d="M5 32Q32 6 59 32Q32 58 5 32Z" fill={c1} fillOpacity="0.9" stroke={K} strokeWidth="2" />
           <circle cx="32" cy="32" r="11" fill={u(f)} stroke={K} strokeWidth="1.5" />
           <ellipse cx="32" cy="32" rx="3" ry="7" fill={K} />
@@ -344,7 +407,9 @@ export const GLYPHS_B = {
       const f = gid('skull-f', c2);
       return (
         <g>
-          <defs><Lin id={f} a={c1} b={c2} c={c3} /></defs>
+          <defs>
+            <Lin id={f} a={c1} b={c2} c={c3} />
+          </defs>
           <Skull x={32} y={33} s={1} fill={u(f)} />
           <circle cx="23" cy="31" r="1.8" fill={c1} />
           <circle cx="41" cy="31" r="1.8" fill={c1} />
@@ -355,10 +420,13 @@ export const GLYPHS_B = {
   swp: {
     draw: ({ c1, c2, c3 }) => {
       const f = gid('swp-f', c2);
-      const t = 'M24 22C18 15 9 15 9 22C9 27 15 27 15 23M40 22C46 15 55 15 55 22C55 27 49 27 49 23M23 44C17 50 9 50 9 44C9 39 14 39 15 42M41 44C47 50 55 50 55 44C55 39 50 39 49 42';
+      const t =
+        'M24 22C18 15 9 15 9 22C9 27 15 27 15 23M40 22C46 15 55 15 55 22C55 27 49 27 49 23M23 44C17 50 9 50 9 44C9 39 14 39 15 42M41 44C47 50 55 50 55 44C55 39 50 39 49 42';
       return (
         <g strokeLinejoin="round">
-          <defs><Lin id={f} a={c1} b={c2} c={c3} /></defs>
+          <defs>
+            <Lin id={f} a={c1} b={c2} c={c3} />
+          </defs>
           <path d={t} fill="none" stroke={K} strokeWidth="5.6" strokeLinecap="round" />
           <path d={t} fill="none" stroke={c2} strokeWidth="3.2" strokeLinecap="round" />
           <path d="M14 18L11 14M50 18L53 14M13 47L10 51M51 47L54 51" stroke={c2} strokeWidth="2" strokeLinecap="round" />
@@ -376,8 +444,15 @@ export const GLYPHS_B = {
       const f = gid('mind-blast-f', c2);
       return (
         <g strokeLinejoin="round">
-          <defs><Lin id={f} a={c2} b={mix(c2, c3, 0.5)} c={c3} /></defs>
-          <path d="M45 57V48C51 46 53 40 51 32C49 22 41 18 33 18C23 18 17 25 17 32L12 39L15.5 41L14.5 45C14.5 48 18 48 21 48L24 49V57Z" fill={u(f)} stroke={K} strokeWidth="1.7" />
+          <defs>
+            <Lin id={f} a={c2} b={mix(c2, c3, 0.5)} c={c3} />
+          </defs>
+          <path
+            d="M45 57V48C51 46 53 40 51 32C49 22 41 18 33 18C23 18 17 25 17 32L12 39L15.5 41L14.5 45C14.5 48 18 48 21 48L24 49V57Z"
+            fill={u(f)}
+            stroke={K}
+            strokeWidth="1.7"
+          />
           <polygon points={star(35, 19, 9, [16, 12], 6.5)} fill={c2} stroke={K} strokeWidth="1.5" />
           <polygon points={star(35, 19, 9, [9, 7], 3.5, -70)} fill={c1} />
           <path d="M35 27L33 33L36 38" fill="none" stroke={c1} strokeWidth="1.6" strokeLinecap="round" />
@@ -412,9 +487,16 @@ export const GLYPHS_B = {
       const g = gid('shadowform-g', c2);
       return (
         <g strokeLinejoin="round">
-          <defs><Glow id={g} c={c2} o={0.85} /></defs>
+          <defs>
+            <Glow id={g} c={c2} o={0.85} />
+          </defs>
           <ellipse cx="32" cy="33" rx="26" ry="27" fill={u(g)} />
-          <path d="M32 7C20 7 13 18 14 30C14 40 10 48 7 57L14 52L19 57L25 51L30 57L34 51L39 57L45 51L50 57L57 57C54 48 50 40 50 30C51 18 44 7 32 7Z" fill="#0b0614" stroke={c2} strokeWidth="1.6" />
+          <path
+            d="M32 7C20 7 13 18 14 30C14 40 10 48 7 57L14 52L19 57L25 51L30 57L34 51L39 57L45 51L50 57L57 57C54 48 50 40 50 30C51 18 44 7 32 7Z"
+            fill="#0b0614"
+            stroke={c2}
+            strokeWidth="1.6"
+          />
           <path d="M32 17C24 17 20 24 21 31C22 38 27 42 32 42C37 42 42 38 43 31C44 24 40 17 32 17Z" fill="#000" />
           <path d="M23.5 28L30.5 31L24.5 33.5Z" fill={c1} />
           <path d="M40.5 28L33.5 31L39.5 33.5Z" fill={c1} />
@@ -428,7 +510,9 @@ export const GLYPHS_B = {
       const f = gid('shadow-word-death-f', c2);
       return (
         <g strokeLinecap="round">
-          <defs><Lin id={f} a={c1} b={c2} c={c3} /></defs>
+          <defs>
+            <Lin id={f} a={c1} b={c2} c={c3} />
+          </defs>
           <circle cx="32" cy="32" r="23" fill="none" stroke={K} strokeWidth="6.5" />
           <circle cx="32" cy="32" r="23" fill="none" stroke={c2} strokeWidth="3.4" />
           <polygon points="32,53.5 13.4,21.3 50.6,21.3" fill="none" stroke={c2} strokeOpacity="0.75" strokeWidth="1.6" />
@@ -443,7 +527,9 @@ export const GLYPHS_B = {
       const f = gid('vampiric-f', c2);
       return (
         <g stroke={K} strokeLinejoin="round">
-          <defs><Lin id={f} a={c1} b={c2} c={c3} /></defs>
+          <defs>
+            <Lin id={f} a={c1} b={c2} c={c3} />
+          </defs>
           <path d="M8 24C20 23 26 23 32 25C38 23 44 23 56 24C46 33 38 35 32 35C26 35 18 33 8 24Z" fill="#000" stroke="none" />
           <path d="M18.5 23.5L25 24L22 36.5Z" fill={c1} strokeWidth="1.2" />
           <path d="M45.5 23.5L39 24L42 36.5Z" fill={c1} strokeWidth="1.2" />
@@ -461,8 +547,15 @@ export const GLYPHS_B = {
       const f = gid('silence-f', c1);
       return (
         <g strokeLinejoin="round">
-          <defs><Lin id={f} a={c1} b={mix(c1, c2, 0.55)} c={c3} /></defs>
-          <path d="M13 33C17 27 22 22.5 27 23.5C29.5 24 31 25.5 32 26.5C33 25.5 34.5 24 37 23.5C42 22.5 47 27 51 33C43 31.5 37 31 32 32.5C27 31 21 31.5 13 33Z" fill={u(f)} stroke={K} strokeWidth="1.6" />
+          <defs>
+            <Lin id={f} a={c1} b={mix(c1, c2, 0.55)} c={c3} />
+          </defs>
+          <path
+            d="M13 33C17 27 22 22.5 27 23.5C29.5 24 31 25.5 32 26.5C33 25.5 34.5 24 37 23.5C42 22.5 47 27 51 33C43 31.5 37 31 32 32.5C27 31 21 31.5 13 33Z"
+            fill={u(f)}
+            stroke={K}
+            strokeWidth="1.6"
+          />
           <path d="M13 33C21 33.6 27 34.2 32 34.2C37 34.2 43 33.6 51 33C46 42 39 45 32 45C25 45 18 42 13 33Z" fill={u(f)} stroke={K} strokeWidth="1.6" />
           <path d="M25 39.5Q29 41.5 34 41" fill="none" stroke="#fff" strokeOpacity="0.6" strokeWidth="1.4" strokeLinecap="round" />
           <g fill="none" strokeLinecap="round">
@@ -482,7 +575,9 @@ export const GLYPHS_B = {
       const w = 'M46 24.3A17 17 0 0 1 46 43.7M50.5 20.6A22 22 0 0 1 50.5 47.4M18 24.3A17 17 0 0 0 18 43.7M13.5 20.6A22 22 0 0 0 13.5 47.4';
       return (
         <g strokeLinejoin="round">
-          <defs><Lin id={f} a={c1} b={c2} c={c3} /></defs>
+          <defs>
+            <Lin id={f} a={c1} b={c2} c={c3} />
+          </defs>
           <path d={w} fill="none" stroke={K} strokeWidth="5" strokeLinecap="round" />
           <path d={w} fill="none" stroke={c1} strokeWidth="2.6" strokeLinecap="round" />
           <path d="M32 12C39 12 43 19 43 28C43 40 38 52 32 52C26 52 21 40 21 28C21 19 25 12 32 12Z" fill={u(f)} stroke={K} strokeWidth="1.7" />
@@ -549,7 +644,9 @@ export const GLYPHS_B = {
       const p = 'M17 55C33 51 48 45 44 36C40 28 20 33 22 24C24 16 38 17 40 9';
       return (
         <g>
-          <defs><Lin id={f} a={c1} b={c2} c={c3} /></defs>
+          <defs>
+            <Lin id={f} a={c1} b={c2} c={c3} />
+          </defs>
           <path d={p} fill="none" stroke={c2} strokeOpacity="0.45" strokeWidth="8" strokeLinecap="round" />
           <path d={p} fill="none" stroke={K} strokeWidth="4.6" strokeLinecap="round" />
           <path d={p} fill="none" stroke={c1} strokeWidth="2.6" strokeLinecap="round" />
@@ -587,7 +684,9 @@ export const GLYPHS_B = {
       const f = gid('flash-heal-f', c2);
       return (
         <g strokeLinejoin="round">
-          <defs><Lin id={f} a={c1} b={c2} c={c3} /></defs>
+          <defs>
+            <Lin id={f} a={c1} b={c2} c={c3} />
+          </defs>
           <polygon points={star(32, 32, 8, [25, 23], 5, -90)} fill={c2} stroke={K} strokeWidth="1.3" />
           <polygon points={star(32, 32, 8, [14, 18], 4, -90)} fill={c1} fillOpacity="0.8" />
           <path d="M28 16h8v12h12v8h-12v12h-8v-12h-12v-8h12z" fill={u(f)} stroke={K} strokeWidth="1.7" />
@@ -621,7 +720,8 @@ export const GLYPHS_B = {
       const f = gid('prayer-f', c2);
       const g = gid('prayer-g', c1);
       // Left hand: fingers fan out in steps from the shared fingertip; the right hand mirrors it.
-      const hand = 'M32 46V10C32 6.5 27.5 6.5 27.5 10V12C26 9.6 22.4 10.6 23 14.5V17C21.4 15.2 18.4 16.6 19.2 20.5V23C17.4 21.8 15 24 16.2 27.5C16.8 33 18.8 37 21 40L23 46Z';
+      const hand =
+        'M32 46V10C32 6.5 27.5 6.5 27.5 10V12C26 9.6 22.4 10.6 23 14.5V17C21.4 15.2 18.4 16.6 19.2 20.5V23C17.4 21.8 15 24 16.2 27.5C16.8 33 18.8 37 21 40L23 46Z';
       const seams = 'M27.5 12L29.5 28M23 16.5L26 31M19.2 22.5L22.5 33M32 42C29 40 28 35 29 30.5';
       return (
         <g strokeLinejoin="round">
@@ -649,7 +749,9 @@ export const GLYPHS_B = {
       const f = gid('holy-fire-f', c2);
       return (
         <g fill="none" strokeLinecap="round">
-          <defs><Lin id={f} a={c1} b={c2} c={c3} /></defs>
+          <defs>
+            <Lin id={f} a={c1} b={c2} c={c3} />
+          </defs>
           <path d="M14 18A18 6.5 0 0 1 50 18" stroke={K} strokeWidth="5" />
           <path d="M14 18A18 6.5 0 0 1 50 18" stroke={c1} strokeWidth="2.6" />
           <Flame x={32} y={41} s={1.12} outer={u(f)} inner={c1} />
@@ -692,7 +794,9 @@ export const GLYPHS_B = {
       const g = gid('inner-fire-g', c2);
       return (
         <g strokeLinejoin="round">
-          <defs><Glow id={g} c={c2} o={0.9} /></defs>
+          <defs>
+            <Glow id={g} c={c2} o={0.9} />
+          </defs>
           <circle cx="32" cy="18" r="8.5" fill="#0c0812" stroke={c2} strokeWidth="1.5" />
           <path d="M9 57C9 42 18 31 32 31C46 31 55 42 55 57Z" fill="#0c0812" stroke={c2} strokeWidth="1.5" />
           <path d="M11 52C12 41 20 33.5 30 33M24.5 15C25.5 12 28 10.5 31 10.3" fill="none" stroke={c1} strokeWidth="1.4" strokeLinecap="round" />
@@ -708,8 +812,15 @@ export const GLYPHS_B = {
       const arc = 'M48.4 20.5A20 20 0 0 1 48.4 43.5';
       return (
         <g strokeLinejoin="round">
-          <defs><Lin id={f} a={c1} b={c2} c={c3} /></defs>
-          {[[4, 3.5], [96, 3.5], [184, 3.5], [272, 3.5]].map(([r, d]) => (
+          <defs>
+            <Lin id={f} a={c1} b={c2} c={c3} />
+          </defs>
+          {[
+            [4, 3.5],
+            [96, 3.5],
+            [184, 3.5],
+            [272, 3.5],
+          ].map(([r, d]) => (
             <g key={r} transform={`rotate(${r} 32 32) translate(${d} 0)`} fill="none" strokeLinecap="round">
               <path d={arc} stroke={K} strokeWidth="6" />
               <path d={arc} stroke={c2} strokeWidth="3.4" />
@@ -733,7 +844,9 @@ export const GLYPHS_B = {
       const f = gid('cure-f', c2);
       return (
         <g strokeLinejoin="round">
-          <defs><Lin id={f} a={c1} b={c2} c={c3} d={0.7} /></defs>
+          <defs>
+            <Lin id={f} a={c1} b={c2} c={c3} d={0.7} />
+          </defs>
           <rect x="27" y="5" width="10" height="6.5" rx="1.5" fill="#9a6a3a" stroke={K} strokeWidth="1.4" />
           <path d="M28 11V18C22 19 19 22 19 27V51C19 54 22 56 25 56H39C42 56 45 54 45 51V27C45 22 42 19 36 18V11Z" fill={c1} fillOpacity="0.14" />
           <path d="M19.8 30H44.2V51C44.2 53.5 42 55.2 39 55.2H25C22 55.2 19.8 53.5 19.8 51Z" fill={u(f)} />
@@ -774,11 +887,24 @@ export const GLYPHS_B = {
       const f = gid('devour-f', c2);
       return (
         <g strokeLinejoin="round">
-          <defs><Lin id={f} a={c1} b={c2} c={c3} d={0.75} /></defs>
-          <path d="M14 42C7 42 7 31 15 31C14 22 24 18 29 23C32 15 44 16 45 24C52 23 57 31 52 36C57 41 52 48 46 45C42 51 32 51 30 46C24 51 14 49 14 42Z" fill={u(f)} stroke={K} strokeWidth="1.7" />
+          <defs>
+            <Lin id={f} a={c1} b={c2} c={c3} d={0.75} />
+          </defs>
+          <path
+            d="M14 42C7 42 7 31 15 31C14 22 24 18 29 23C32 15 44 16 45 24C52 23 57 31 52 36C57 41 52 48 46 45C42 51 32 51 30 46C24 51 14 49 14 42Z"
+            fill={u(f)}
+            stroke={K}
+            strokeWidth="1.7"
+          />
           <path d="M21 33C22 30 26 30 27 33C26 36 22 36 21 33ZM37 33C38 30 42 30 43 33C42 36 38 36 37 33Z" fill={K} />
           <path d="M26 41L28 39L30 41L32 39L34 41L36 39L38 41" fill="none" stroke={K} strokeWidth="1.6" />
-          {[[12, 14, -20], [50, 11, 15], [55, 53, 30], [16, 55, -35], [33, 9, 5]].map(([x, y, r]) => (
+          {[
+            [12, 14, -20],
+            [50, 11, 15],
+            [55, 53, 30],
+            [16, 55, -35],
+            [33, 9, 5],
+          ].map(([x, y, r]) => (
             <g key={x} transform={`translate(${x} ${y}) rotate(${r})`}>
               <ellipse cx="-2.6" cy="-1.8" rx="3" ry="1.5" transform="rotate(30 -2.6 -1.8)" fill={c1} fillOpacity="0.75" />
               <ellipse cx="2.6" cy="-1.8" rx="3" ry="1.5" transform="rotate(-30 2.6 -1.8)" fill={c1} fillOpacity="0.75" />
@@ -795,13 +921,19 @@ export const GLYPHS_B = {
       const fing = 'M27 36L25 27L22 20L20 14M31.5 35L31 25L30 16L31 10M36 35L37 26L39 18L40 12M40.5 37L44 30L47 25L49 21M24 45L18 41L14 35L13 31';
       return (
         <g strokeLinecap="round" strokeLinejoin="round">
-          <defs><Lin id={f} a={c1} b={c2} c={c3} /></defs>
+          <defs>
+            <Lin id={f} a={c1} b={c2} c={c3} />
+          </defs>
           <path d={fing} fill="none" stroke={K} strokeWidth="6.6" />
           <path d="M22 57V47C20 41 22 36 26 34H40C44 36 44 42 42 48V57Z" fill={u(f)} stroke={K} strokeWidth="1.6" />
           <path d={fing} fill="none" stroke={c2} strokeWidth="4" />
           <path d="M27.5 37.5L25.5 28.5L22.5 21.5M31.8 36L31.3 26.5" fill="none" stroke={c1} strokeOpacity="0.7" strokeWidth="1.2" />
           <g fill={c3}>
-            <circle cx="25" cy="27" r="1.4" /><circle cx="31" cy="25" r="1.4" /><circle cx="37" cy="26" r="1.4" /><circle cx="44" cy="30" r="1.4" /><circle cx="18" cy="41" r="1.4" />
+            <circle cx="25" cy="27" r="1.4" />
+            <circle cx="31" cy="25" r="1.4" />
+            <circle cx="37" cy="26" r="1.4" />
+            <circle cx="44" cy="30" r="1.4" />
+            <circle cx="18" cy="41" r="1.4" />
           </g>
           <path d="M30 44C29 48 31 50 30 53M36 43C37 47 35 49 36 52" fill="none" stroke={c3} strokeWidth="1.5" />
           <path d="M48 44C50 47 50 49 48 50C46 49 46 47 48 44ZM53 36C54.5 38.5 54.5 40 53 41C51.5 40 51.5 38.5 53 36Z" fill={c2} stroke={K} strokeWidth="1" />
@@ -814,10 +946,17 @@ export const GLYPHS_B = {
       const g = gid('power-infusion-g', c1);
       return (
         <g strokeLinejoin="round">
-          <defs><Glow id={g} c={c1} o={0.95} /></defs>
+          <defs>
+            <Glow id={g} c={c1} o={0.95} />
+          </defs>
           <polygon points={star(32, 31, 14, [27, 19], 8, -90)} fill={c2} stroke={K} strokeWidth="1.2" />
           <circle cx="32" cy="31" r="15" fill={u(g)} />
-          <path d="M26.5 22.5L19.5 9L23.5 7L30.5 20.5H33.5L40.5 7L44.5 9L37.5 22.5L36.5 36L40 56H34.5L32 44L29.5 56H24L27.5 36Z" fill={K} stroke={c1} strokeWidth="1.4" />
+          <path
+            d="M26.5 22.5L19.5 9L23.5 7L30.5 20.5H33.5L40.5 7L44.5 9L37.5 22.5L36.5 36L40 56H34.5L32 44L29.5 56H24L27.5 36Z"
+            fill={K}
+            stroke={c1}
+            strokeWidth="1.4"
+          />
           <circle cx="32" cy="13.5" r="4.4" fill={K} stroke={c1} strokeWidth="1.4" />
         </g>
       );
@@ -862,7 +1001,13 @@ export const GLYPHS_B = {
               <stop offset="1" stopColor={c2} stopOpacity="0.1" />
             </linearGradient>
           </defs>
-          <path d="M32 7C42 7 47 15 46 25C45 35 40 41 36 47C33 52 29 57 21 57C26 53 27 49 25 46C19 43 16 35 17 25C17 15 22 7 32 7Z" fill={u(f)} stroke={c1} strokeOpacity="0.6" strokeWidth="1.2" />
+          <path
+            d="M32 7C42 7 47 15 46 25C45 35 40 41 36 47C33 52 29 57 21 57C26 53 27 49 25 46C19 43 16 35 17 25C17 15 22 7 32 7Z"
+            fill={u(f)}
+            stroke={c1}
+            strokeOpacity="0.6"
+            strokeWidth="1.2"
+          />
           <ellipse cx="26.5" cy="23" rx="3" ry="4.2" fill={K} />
           <ellipse cx="37.5" cy="23" rx="3" ry="4.2" fill={K} />
           <ellipse cx="32" cy="33" rx="2.4" ry="3.4" fill={K} />
@@ -881,9 +1026,22 @@ export const GLYPHS_B = {
       const f = gid('star-f', c2);
       return (
         <g strokeLinejoin="round">
-          <defs><Lin id={f} a={c1} b={c2} c={c3} /></defs>
+          <defs>
+            <Lin id={f} a={c1} b={c2} c={c3} />
+          </defs>
           <polygon points={star(32, 34, 5, 24, 10)} fill={u(f)} stroke={K} strokeWidth="1.8" />
-          <path d={'M32 34L' + star(32, 34, 5, 24, 10).split(' ').filter((_, i) => i % 2).join('M32 34L')} stroke={K} strokeOpacity="0.35" strokeWidth="1" />
+          <path
+            d={
+              'M32 34L' +
+              star(32, 34, 5, 24, 10)
+                .split(' ')
+                .filter((_, i) => i % 2)
+                .join('M32 34L')
+            }
+            stroke={K}
+            strokeOpacity="0.35"
+            strokeWidth="1"
+          />
           <path d="M32 11.5L28.5 25" stroke="#fff" strokeOpacity="0.8" strokeWidth="1.3" />
           <Sparkle x={52} y={13} r={4} fill={c1} />
           <Sparkle x={11} y={14} r={2.6} fill={c1} />
@@ -914,7 +1072,9 @@ export const GLYPHS_B = {
       const f = gid('moon-f', c2);
       return (
         <g strokeLinejoin="round">
-          <defs><Lin id={f} a={c1} b={c2} c={c3} /></defs>
+          <defs>
+            <Lin id={f} a={c1} b={c2} c={c3} />
+          </defs>
           <path d="M42 9A23 23 0 1 0 55 40A18 18 0 1 1 42 9Z" fill={u(f)} stroke={K} strokeWidth="1.8" />
           <g fill={c3} fillOpacity="0.45">
             <circle cx="20" cy="27" r="3" />
@@ -933,8 +1093,17 @@ export const GLYPHS_B = {
       const f = gid('hourglass-f', c2);
       return (
         <g strokeLinejoin="round">
-          <defs><Lin id={f} a={c1} b={c2} c={c3} /></defs>
-          <path d="M20 13C20 24 30 28 30 32C30 36 20 40 20 51H44C44 40 34 36 34 32C34 28 44 24 44 13Z" fill={c1} fillOpacity="0.14" stroke={c1} strokeOpacity="0.8" strokeWidth="1.5" />
+          <defs>
+            <Lin id={f} a={c1} b={c2} c={c3} />
+          </defs>
+          <path
+            d="M20 13C20 24 30 28 30 32C30 36 20 40 20 51H44C44 40 34 36 34 32C34 28 44 24 44 13Z"
+            fill={c1}
+            fillOpacity="0.14"
+            stroke={c1}
+            strokeOpacity="0.8"
+            strokeWidth="1.5"
+          />
           <path d="M23 20H41C39 25 33 27.5 32 30.5C31 27.5 25 25 23 20Z" fill={c1} />
           <path d="M32 30V46" stroke={c1} strokeWidth="1.3" />
           <path d="M21.5 50.5C23 44 28 41.5 32 41.5C36 41.5 41 44 42.5 50.5Z" fill={c1} />
@@ -957,7 +1126,9 @@ export const GLYPHS_B = {
       const f = 'bread-f';
       return (
         <g strokeLinejoin="round">
-          <defs><Lin id={f} a="#f6d08c" b="#c47e3a" c="#3e1f08" /></defs>
+          <defs>
+            <Lin id={f} a="#f6d08c" b="#c47e3a" c="#3e1f08" />
+          </defs>
           <path d="M7 41C7 28 19 19 33 19C47 19 58 27 57 40C56 47 48 50 32 50C16 50 7 47 7 41Z" fill={u(f)} stroke={K} strokeWidth="1.8" />
           <path d="M8 42C14 46 24 47 32 47C42 47 52 46 56.5 41" fill="none" stroke="#5e3414" strokeWidth="1.6" />
           <g strokeLinecap="round">
@@ -976,7 +1147,9 @@ export const GLYPHS_B = {
       const f = gid('cup-f', c2);
       return (
         <g strokeLinejoin="round">
-          <defs><Lin id={f} a={c1} b={c2} c={c3} /></defs>
+          <defs>
+            <Lin id={f} a={c1} b={c2} c={c3} />
+          </defs>
           <path d="M47.5 27C56 26 57 41 46 42" fill="none" stroke={K} strokeWidth="6" strokeLinecap="round" />
           <path d="M47.5 27C56 26 57 41 46 42" fill="none" stroke={mix(c2, c3, 0.3)} strokeWidth="3" strokeLinecap="round" />
           <path d="M13 20L18 52C18 55.5 46 55.5 46 52L51 20Z" fill={u(f)} stroke={K} strokeWidth="1.8" />
@@ -995,7 +1168,9 @@ export const GLYPHS_B = {
       const f = 'bandage-f';
       return (
         <g strokeLinejoin="round">
-          <defs><Lin id={f} a="#ffffff" b="#e6dcc6" c="#6d5f48" /></defs>
+          <defs>
+            <Lin id={f} a="#ffffff" b="#e6dcc6" c="#6d5f48" />
+          </defs>
           <path d="M36 43C42 44 46 49 50 53C52 55 55 56 57 55L55 49C51 50 48 46 44 42Z" fill="#d9cdb4" stroke={K} strokeWidth="1.5" />
           <path d="M22 20H38A9 13 0 0 1 38 46H22Z" fill={u(f)} stroke={K} strokeWidth="1.7" />
           <path d="M26 20.2H37M26 45.8H37" stroke={c2} strokeWidth="1.6" />
@@ -1012,7 +1187,9 @@ export const GLYPHS_B = {
       const f = gid('sword-f', c2);
       return (
         <g transform="rotate(45 32 32)" strokeLinejoin="round">
-          <defs><Lin id={f} a={c1} b={c2} c={c3} x1={0} y1={0} x2={1} y2={0} /></defs>
+          <defs>
+            <Lin id={f} a={c1} b={c2} c={c3} x1={0} y1={0} x2={1} y2={0} />
+          </defs>
           <polygon points="32,4 37,12 37,41 27,41 27,12" fill={u(f)} stroke={K} strokeWidth="1.7" />
           <path d="M32 12V39" stroke={c3} strokeOpacity="0.7" strokeWidth="1.6" />
           <path d="M28.3 12.5L32 6.5" stroke="#fff" strokeOpacity="0.85" strokeWidth="1.2" />
@@ -1029,7 +1206,9 @@ export const GLYPHS_B = {
       const f = gid('axe-f', c2);
       return (
         <g transform="translate(32 32) rotate(28) scale(0.86) translate(-32 -32)" strokeLinejoin="round">
-          <defs><Lin id={f} a={c1} b={c2} c={c3} /></defs>
+          <defs>
+            <Lin id={f} a={c1} b={c2} c={c3} />
+          </defs>
           <path d="M35 8V60" stroke={K} strokeWidth="7" strokeLinecap="round" />
           <path d="M35 8V60" stroke={mix(c2, c3, 0.55)} strokeWidth="4.2" strokeLinecap="round" />
           <path d="M33 50H37M33 54H37" stroke={c1} strokeWidth="1.3" />
@@ -1048,14 +1227,19 @@ export const GLYPHS_B = {
       const f = gid('shield-wall-f', c2);
       return (
         <g strokeLinejoin="round">
-          <defs><Lin id={f} a={c1} b={c2} c={c3} /></defs>
+          <defs>
+            <Lin id={f} a={c1} b={c2} c={c3} />
+          </defs>
           <path d="M13 8Q32 4 51 8V38C51 47 43 53 32 58C21 53 13 47 13 38Z" fill={u(f)} stroke={K} strokeWidth="2" />
           <path d="M17 11.5Q32 8.5 47 11.5V38C47 45 41 49.5 32 53.5C23 49.5 17 45 17 38Z" fill="none" stroke={c3} strokeWidth="2" />
           <path d="M32 9V54M15 28H49" stroke={K} strokeWidth="5" />
           <path d="M32 9V54M15 28H49" stroke={c2} strokeWidth="2.6" />
           <circle cx="32" cy="28" r="6" fill={u(f)} stroke={K} strokeWidth="1.6" />
           <g fill={c1} stroke={K} strokeWidth="0.8">
-            <circle cx="19" cy="14" r="1.5" /><circle cx="45" cy="14" r="1.5" /><circle cx="19" cy="42" r="1.5" /><circle cx="45" cy="42" r="1.5" />
+            <circle cx="19" cy="14" r="1.5" />
+            <circle cx="45" cy="14" r="1.5" />
+            <circle cx="19" cy="42" r="1.5" />
+            <circle cx="45" cy="42" r="1.5" />
           </g>
           <path d="M15 36V10.5Q24 7.5 32 7" fill="none" stroke="#fff" strokeOpacity="0.7" strokeWidth="1.3" />
         </g>
@@ -1091,7 +1275,9 @@ export const GLYPHS_B = {
       const f = gid('generic-f', c2);
       return (
         <g strokeLinejoin="round" strokeLinecap="round">
-          <defs><Lin id={f} a={mix(c2, c1, 0.3)} b={mix(c2, c3, 0.35)} c={c3} /></defs>
+          <defs>
+            <Lin id={f} a={mix(c2, c1, 0.3)} b={mix(c2, c3, 0.35)} c={c3} />
+          </defs>
           <path d="M32 8L48 17L50 45L32 56L14 45L16 17Z" fill={u(f)} stroke={K} strokeWidth="1.8" />
           <path d="M32 16V48M32 27L24 19M32 27L40 19M32 37L24 45M32 37L40 45" fill="none" stroke={K} strokeWidth="4.4" />
           <path d="M32 16V48M32 27L24 19M32 27L40 19M32 37L24 45M32 37L40 45" fill="none" stroke={c1} strokeWidth="2.2" />

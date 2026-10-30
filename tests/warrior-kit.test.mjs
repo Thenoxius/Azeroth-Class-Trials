@@ -23,9 +23,18 @@ for (const race of CLASS_RACES.warrior) {
   }
 }
 assert.ok(KIT.build({ level: 60, spec: 'fury', trialId: 't1' }).template.melee.oh, 'Fury dual-wields');
-assert.ok(KIT.build({ level: 30, npc: true }).template.auras.some((a) => a.stance === 'defensive'), 'NPC tank build unchanged');
+assert.ok(
+  KIT.build({ level: 30, npc: true }).template.auras.some((a) => a.stance === 'defensive'),
+  'NPC tank build unchanged',
+);
 
-for (const [trialId, level, spec] of [['t1', 10, null], ['t1', 30, 'arms'], ['t1', 30, 'fury'], ['t2', 30, 'arms'], ['t2', 30, 'fury']]) {
+for (const [trialId, level, spec] of [
+  ['t1', 10, null],
+  ['t1', 30, 'arms'],
+  ['t1', 30, 'fury'],
+  ['t2', 30, 'arms'],
+  ['t2', 30, 'fury'],
+]) {
   const res = { competent: 0, careless: 0 };
   for (const mode of ['competent', 'careless']) {
     for (const seed of [1, 2, 3]) {

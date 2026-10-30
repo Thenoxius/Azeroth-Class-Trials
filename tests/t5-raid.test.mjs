@@ -16,7 +16,13 @@ for (const r of rows.filter((x) => x.mode === 'competent')) {
 // raider (the Hunter once did 1.6–2.2×). Casters may sit lower: against a level-63 fire boss
 // they miss 17 % of spells before hit talents, lose damage to fire resistance and run on mana
 // for four minutes — real Classic raid conditions, not a bug.
-for (const [classId, spec] of [['hunter', 'bm'], ['hunter', 'mm'], ['hunter', 'sv'], ['mage', 'arcane'], ['priest', 'shadow']]) {
+for (const [classId, spec] of [
+  ['hunter', 'bm'],
+  ['hunter', 'mm'],
+  ['hunter', 'sv'],
+  ['mage', 'arcane'],
+  ['priest', 'shadow'],
+]) {
   // Averaged over seeds: on one seed the best NPC rogue alone can swing ±8 %.
   const ratios = [];
   const shares = [];
@@ -27,10 +33,13 @@ for (const [classId, spec] of [['hunter', 'bm'], ['hunter', 'mm'], ['hunter', 's
     const mine = r.state.list.filter((u) => u.id === P.id || u.ownerId === P.id).reduce((a, u) => a + (r.meters.dmg[u.id] || 0), 0);
     const best = Math.max(...r.state.list.filter((u) => u.kind === 'ally' && u.role === 'dps').map((u) => r.meters.dmg[u.id] || 0));
     ratios.push(mine / best);
-    const raidDamage = r.state.list.filter(u => u.side === 'player').reduce((n,u)=>n+(r.meters.dmg[u.id]||0),0);
+    const raidDamage = r.state.list.filter((u) => u.side === 'player').reduce((n, u) => n + (r.meters.dmg[u.id] || 0), 0);
     shares.push(mine / raidDamage);
   }
   const ratio = ratios.reduce((a, b) => a + b, 0) / ratios.length;
-  assert.ok(ratio > 0.6 && shares.every(s => s < 0.2), `t5 ${classId} ${spec}: player / best NPC raider damage ${ratio.toFixed(2)} (seeds ${ratios.map((x) => x.toFixed(2)).join(', ')})`);
+  assert.ok(
+    ratio > 0.6 && shares.every((s) => s < 0.2),
+    `t5 ${classId} ${spec}: player / best NPC raider damage ${ratio.toFixed(2)} (seeds ${ratios.map((x) => x.toFixed(2)).join(', ')})`,
+  );
 }
 console.log('t5 ok');

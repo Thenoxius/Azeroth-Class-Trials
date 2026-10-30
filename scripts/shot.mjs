@@ -9,5 +9,9 @@ const base = process.env.SHOT_BASE || 'http://localhost:8642/preview.html';
 const url = base + (hash ? '#' + hash : '');
 const edge = 'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe';
 const file = resolve(out);
-execFileSync(edge, ['--headless=new', '--disable-gpu', '--hide-scrollbars', `--window-size=${w},${h}`, `--virtual-time-budget=${vt}`, `--screenshot=${file}`, url], { stdio: 'ignore' });
+execFileSync(
+  edge,
+  ['--headless=new', '--disable-gpu', '--hide-scrollbars', `--window-size=${w},${h}`, `--virtual-time-budget=${vt}`, `--screenshot=${file}`, url],
+  { stdio: 'ignore' },
+);
 console.log('saved', file, 'for', url);

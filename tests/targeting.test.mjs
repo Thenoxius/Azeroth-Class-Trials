@@ -23,7 +23,10 @@ const run = (secs) => {
 };
 
 run(12); // the tank has pulled; enemies are engaged
-assert.ok(s.list.some((u) => u.side === 'enemy' && u.engaged), 'the pull should have happened');
+assert.ok(
+  s.list.some((u) => u.side === 'enemy' && u.engaged),
+  'the pull should have happened',
+);
 
 setTarget(s, dps.id);
 run(2);
@@ -52,7 +55,10 @@ playerCast(s, 'priest.wand');
 run(4);
 const shots = events.filter((e) => e.type === 'autoShot' && e.src === P.id);
 assert.ok(shots.length > 0, 'the wand keeps firing while a friend is selected');
-assert.ok(shots.every((e) => s.units[e.dst].side === 'enemy'), 'wand shots hit enemies');
+assert.ok(
+  shots.every((e) => s.units[e.dst].side === 'enemy'),
+  'wand shots hit enemies',
+);
 assert.equal(P.target, tank.id, 'wanding does not drop the selected tank');
 
 console.log('targeting ok');

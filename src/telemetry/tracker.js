@@ -27,7 +27,15 @@ export function createTracker(meta) {
     errors: {},
     gcd: { activeSeconds: 0, idleSeconds: 0, utilization: 0, buckets: [] },
     movement: { yards: 0, moveOrders: 0, movingSeconds: 0 },
-    pet: { present: false, commands: { attack: 0, follow: 0, stay: 0, aggressive: 0, defensive: 0, passive: 0, ability: 0, autocast: 0 }, manualAbilities: 0, autocastToggles: 0, deaths: 0, mendPetCasts: 0, damageShare: 0 },
+    pet: {
+      present: false,
+      commands: { attack: 0, follow: 0, stay: 0, aggressive: 0, defensive: 0, passive: 0, ability: 0, autocast: 0 },
+      manualAbilities: 0,
+      autocastToggles: 0,
+      deaths: 0,
+      mendPetCasts: 0,
+      damageShare: 0,
+    },
     control: { uses: 0, targets: 0, brokenBySelf: 0 },
     defensive: { uses: 0, timely: 0 },
     interrupts: { attempts: 0, success: 0 },
@@ -116,7 +124,10 @@ export function createTracker(meta) {
           case 'castStart':
             if (e.src === pid && e.ability === 'item.rest') {
               rec.resource.restCount++;
-              rec.resource.restStarts.push({ hp: p ? +(p.hp / p.maxHp).toFixed(2) : null, res: p && p.res.mana ? +(p.res.mana.cur / p.res.mana.max).toFixed(2) : null });
+              rec.resource.restStarts.push({
+                hp: p ? +(p.hp / p.maxHp).toFixed(2) : null,
+                res: p && p.res.mana ? +(p.res.mana.cur / p.res.mana.max).toFixed(2) : null,
+              });
             }
             break;
           case 'cast': {
@@ -162,7 +173,13 @@ export function createTracker(meta) {
           case 'dispel':
             if (mine(e.src)) {
               rec.dispels.success++;
-              moment(t, 'dispel', 'teamplay', `${clock(t)}: you removed ${e.aura ? prettyAura(state, e) : 'a debuff'} from ${e.dst === pid ? 'yourself' : name(state, e.dst)}`, 0.8);
+              moment(
+                t,
+                'dispel',
+                'teamplay',
+                `${clock(t)}: you removed ${e.aura ? prettyAura(state, e) : 'a debuff'} from ${e.dst === pid ? 'yourself' : name(state, e.dst)}`,
+                0.8,
+              );
             }
             break;
           case 'error':
@@ -184,7 +201,8 @@ export function createTracker(meta) {
               const k = e.ability + '@' + t.toFixed(2);
               ccBurst[k] = (ccBurst[k] || 0) + 1;
               if (ccBurst[k] === 2) moment(t, 'control', 'control', `${clock(t)}: ${abilityName(state, e.ability)} caught two enemies at once`, 1.4);
-              else if (ccBurst[k] === 1 && (e.cc || []).some((c) => c === 'incap' || c === 'fear' || c === 'stun')) moment(t, 'control', 'control', `${clock(t)}: ${abilityName(state, e.ability)} took ${name(state, e.dst)} out of the fight`, 1);
+              else if (ccBurst[k] === 1 && (e.cc || []).some((c) => c === 'incap' || c === 'fear' || c === 'stun'))
+                moment(t, 'control', 'control', `${clock(t)}: ${abilityName(state, e.ability)} took ${name(state, e.dst)} out of the fight`, 1);
             }
             break;
           case 'auraFade':
@@ -195,7 +213,8 @@ export function createTracker(meta) {
               rec.damage.done += e.amount;
               if (e.src === petId || (e.src !== pid && state.units[e.src] && state.units[e.src].ownerId === pid)) rec.damage.petDone += e.amount;
               if (e.src === pid && (e.ability === 'autoshot' || e.ability === 'wand')) rec.damage.autoRepeat += e.amount;
-              if (e.crit && e.src === pid && !e.tick && (!biggestCrit || e.amount > biggestCrit.amount)) biggestCrit = { t, amount: e.amount, ability: e.ability };
+              if (e.crit && e.src === pid && !e.tick && (!biggestCrit || e.amount > biggestCrit.amount))
+                biggestCrit = { t, amount: e.amount, ability: e.ability };
             }
             if (e.dst === pid) rec.damage.taken += e.amount;
             break;
@@ -208,7 +227,8 @@ export function createTracker(meta) {
               if (e.dst === pid) rec.healing.onSelf += e.amount;
               else if (dst && dst.role === 'tank') rec.healing.onTank += e.amount;
               else rec.healing.onOthers += e.amount;
-              if (!e.tick && (!biggestHeal || e.amount > biggestHeal.amount) && e.amount > 0) biggestHeal = { t, amount: e.amount, ability: e.ability, dst: e.dst };
+              if (!e.tick && (!biggestHeal || e.amount > biggestHeal.amount) && e.amount > 0)
+                biggestHeal = { t, amount: e.amount, ability: e.ability, dst: e.dst };
             }
             break;
           case 'target':
@@ -217,7 +237,8 @@ export function createTracker(meta) {
           case 'death':
             if (e.dst === pid) rec.damage.deaths++;
             if (e.dst === petId) rec.pet.deaths++;
-            if (e.src && mine(e.src) && state.units[e.dst] && state.units[e.dst].kind === 'boss') moment(t, 'kill', 'burst', `${clock(t)}: you landed the killing blow on ${name(state, e.dst)}`, 1.5);
+            if (e.src && mine(e.src) && state.units[e.dst] && state.units[e.dst].kind === 'boss')
+              moment(t, 'kill', 'burst', `${clock(t)}: you landed the killing blow on ${name(state, e.dst)}`, 1.5);
             break;
           case 'evade':
             if (p && p.flags.feigned) moment(t, 'feign', 'utility', `${clock(t)}: Feign Death made ${name(state, e.src)} give up`, 1.2);
@@ -234,7 +255,8 @@ export function createTracker(meta) {
               openMech[e.data.id] = { kind: e.data.kind, id: e.data.id, label: e.label, at: t };
             } else if (e.key === 'mechanicResolved' && e.data) {
               const m = openMech[e.data.id] || { kind: e.data.kind, id: e.data.id, at: t };
-              const by = e.data.by === pid ? 'you' : e.data.by && state.units[e.data.by] && state.units[e.data.by].ownerId === pid ? 'you' : e.data.by ? 'ally' : null;
+              const by =
+                e.data.by === pid ? 'you' : e.data.by && state.units[e.data.by] && state.units[e.data.by].ownerId === pid ? 'you' : e.data.by ? 'ally' : null;
               rec.mechanics.push({ kind: m.kind, id: m.id, ok: !!e.data.ok, by, latency: +(t - m.at).toFixed(2) });
               delete openMech[e.data.id];
             }
@@ -248,7 +270,10 @@ export function createTracker(meta) {
       if (type === 'pause') {
         if (!paused) {
           rec.ui.pauses++;
-          if (data.why === 'hidden') { rec.ui.autoPauses++; autoPaused = true; }
+          if (data.why === 'hidden') {
+            rec.ui.autoPauses++;
+            autoPaused = true;
+          }
         }
         paused = true;
       } else if (type === 'resume') {
@@ -265,7 +290,8 @@ export function createTracker(meta) {
       rec.ui.pauseSeconds = +(rec.pausedMs / 1000).toFixed(1);
       rec.control.targets = ccTargets.size;
       rec.pet.damageShare = rec.damage.done > 0 ? +(rec.damage.petDone / rec.damage.done).toFixed(3) : 0;
-      rec.healing.overhealPct = rec.healing.done + rec.healing.overheal > 0 ? +(rec.healing.overheal / (rec.healing.done + rec.healing.overheal)).toFixed(3) : 0;
+      rec.healing.overhealPct =
+        rec.healing.done + rec.healing.overheal > 0 ? +(rec.healing.overheal / (rec.healing.done + rec.healing.overheal)).toFixed(3) : 0;
       const p = state.units[state.playerId];
       if (p && p.res.mana) rec.resource.endResPct = +(p.res.mana.cur / p.res.mana.max).toFixed(3);
       rec.outcome = extra.abandoned ? 'abandoned' : state.outcome ? state.outcome.result : 'abandoned';
@@ -273,14 +299,46 @@ export function createTracker(meta) {
       rec.endedAt = new Date().toISOString();
       // Highlight candidates for the optional feedback question.
       const clockT = (t) => `${Math.floor(t / 60)}:${String(Math.floor(t % 60)).padStart(2, '0')}`;
-      if (biggestCrit) momentList.push({ t: biggestCrit.t, kind: 'crit', system: biggestCrit.ability === 'autoshot' ? 'rotation' : 'burst', text: `${clockT(biggestCrit.t)}: a ${Math.round(biggestCrit.amount)} critical ${abilityName(state, biggestCrit.ability)}`, weight: 1.1 });
-      if (biggestHeal && biggestHeal.amount > 0) momentList.push({ t: biggestHeal.t, kind: 'heal', system: 'healing', text: `${clockT(biggestHeal.t)}: a ${Math.round(biggestHeal.amount)} ${abilityName(state, biggestHeal.ability)} on ${biggestHeal.dst === state.playerId ? 'yourself' : name(state, biggestHeal.dst)}`, weight: 1 });
-      if (rec.pet.present && rec.pet.damageShare > 0.25) momentList.push({ t: state.t, kind: 'pet', system: 'pet', text: `Your pet dealt ${Math.round(rec.pet.damageShare * 100)} % of your damage`, weight: 1 });
+      if (biggestCrit)
+        momentList.push({
+          t: biggestCrit.t,
+          kind: 'crit',
+          system: biggestCrit.ability === 'autoshot' ? 'rotation' : 'burst',
+          text: `${clockT(biggestCrit.t)}: a ${Math.round(biggestCrit.amount)} critical ${abilityName(state, biggestCrit.ability)}`,
+          weight: 1.1,
+        });
+      if (biggestHeal && biggestHeal.amount > 0)
+        momentList.push({
+          t: biggestHeal.t,
+          kind: 'heal',
+          system: 'healing',
+          text: `${clockT(biggestHeal.t)}: a ${Math.round(biggestHeal.amount)} ${abilityName(state, biggestHeal.ability)} on ${biggestHeal.dst === state.playerId ? 'yourself' : name(state, biggestHeal.dst)}`,
+          weight: 1,
+        });
+      if (rec.pet.present && rec.pet.damageShare > 0.25)
+        momentList.push({
+          t: state.t,
+          kind: 'pet',
+          system: 'pet',
+          text: `Your pet dealt ${Math.round(rec.pet.damageShare * 100)} % of your damage`,
+          weight: 1,
+        });
       const dangerAnswered = rec.danger.find((d) => d.firstAbility && d.latency != null);
-      if (dangerAnswered) momentList.push({ t: dangerAnswered.at, kind: 'danger', system: systemOf(dangerAnswered.firstCategory), text: `${clockT(dangerAnswered.at)}: “${dangerAnswered.label}” — you answered with ${abilityName(state, dangerAnswered.firstAbility)}`, weight: 1.3 });
-      if (rec.resource.restCount >= 2) momentList.push({ t: state.t, kind: 'rest', system: 'resource', text: `Sitting down to eat and drink ${rec.resource.restCount} times`, weight: 0.7 });
-      const top = Object.entries(rec.abilities).filter(([id]) => !id.startsWith('item.')).sort((a, b) => b[1] - a[1])[0];
-      if (top && top[1] >= 8) momentList.push({ t: state.t, kind: 'rotation', system: 'rotation', text: `Casting ${abilityName(state, top[0])} ${top[1]} times`, weight: 0.8 });
+      if (dangerAnswered)
+        momentList.push({
+          t: dangerAnswered.at,
+          kind: 'danger',
+          system: systemOf(dangerAnswered.firstCategory),
+          text: `${clockT(dangerAnswered.at)}: “${dangerAnswered.label}” — you answered with ${abilityName(state, dangerAnswered.firstAbility)}`,
+          weight: 1.3,
+        });
+      if (rec.resource.restCount >= 2)
+        momentList.push({ t: state.t, kind: 'rest', system: 'resource', text: `Sitting down to eat and drink ${rec.resource.restCount} times`, weight: 0.7 });
+      const top = Object.entries(rec.abilities)
+        .filter(([id]) => !id.startsWith('item.'))
+        .sort((a, b) => b[1] - a[1])[0];
+      if (top && top[1] >= 8)
+        momentList.push({ t: state.t, kind: 'rotation', system: 'rotation', text: `Casting ${abilityName(state, top[0])} ${top[1]} times`, weight: 0.8 });
       if (rec.outcome === 'escaped') momentList.push({ t: state.t, kind: 'escape', system: 'mobility', text: 'Getting away along the road', weight: 1.2 });
       // Keep a varied handful: best per system, then by weight.
       const seen = new Set();
@@ -311,8 +369,22 @@ function abilityName(state, id) {
 }
 function prettyAura(state, e) {
   const u = state.units[e.dst];
-  return (e.aura || '').split('.').pop().replace(/^\w/, (c) => c.toUpperCase());
+  return (e.aura || '')
+    .split('.')
+    .pop()
+    .replace(/^\w/, (c) => c.toUpperCase());
 }
 function systemOf(cat) {
-  return { control: 'control', defensive: 'defensive', movement: 'mobility', interrupt: 'utility', dispel: 'teamplay', pet: 'pet', heal: 'healing', utility: 'utility' }[cat] || 'rotation';
+  return (
+    {
+      control: 'control',
+      defensive: 'defensive',
+      movement: 'mobility',
+      interrupt: 'utility',
+      dispel: 'teamplay',
+      pet: 'pet',
+      heal: 'healing',
+      utility: 'utility',
+    }[cat] || 'rotation'
+  );
 }

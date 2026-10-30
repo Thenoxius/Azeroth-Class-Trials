@@ -1,7 +1,22 @@
 // Priest bot policies: Shadow damage, Discipline/Holy healing, and careless versions.
 import * as G from '../../src/engine/geometry.js';
 import { hpPct, resPct } from '../../src/engine/core.js';
-import { pickTarget, approach, meleeOn, restIfNeeded, dodge, potions, dispelTarget, busy, tryCast, findAura, carelessPolicy, interruptTarget, threatHigh, holdRangedSpot } from './common.mjs';
+import {
+  pickTarget,
+  approach,
+  meleeOn,
+  restIfNeeded,
+  dodge,
+  potions,
+  dispelTarget,
+  busy,
+  tryCast,
+  findAura,
+  carelessPolicy,
+  interruptTarget,
+  threatHigh,
+  holdRangedSpot,
+} from './common.mjs';
 
 const inForm = (me) => !!findAura(me, 'priest.sf');
 
@@ -25,27 +40,65 @@ export function competent({ level, spec, role } = {}) {
     if (kick && ctl.can('priest.silence', { targetId: kick.id })) ctl.cast('priest.silence', { targetId: kick.id });
     if (busy(me)) return;
     // Raid threat: Fade, or ease off for a moment.
-    if (threatHigh(state, ctl)) { if (ctl.can('priest.fade')) ctl.cast('priest.fade'); else { if (!me.autoRanged) ctl.cast('priest.wand'); return; } }
-    if (!findAura(me, 'priest.tow') && ctl.can('priest.touch') && !ctl.engaged().length) { ctl.cast('priest.touch'); return; }
+    if (threatHigh(state, ctl)) {
+      if (ctl.can('priest.fade')) ctl.cast('priest.fade');
+      else {
+        if (!me.autoRanged) ctl.cast('priest.wand');
+        return;
+      }
+    }
+    if (!findAura(me, 'priest.tow') && ctl.can('priest.touch') && !ctl.engaged().length) {
+      ctl.cast('priest.touch');
+      return;
+    }
     // Duels: Fear Ward yourself before a fear-capable opponent closes in.
-    if (t.kind === 'opponent' && !findAura(me, 'priest.fw') && ctl.can('priest.fearward', self)) { ctl.cast('priest.fearward', self); return; }
-    if (t.kind === 'opponent' && close.length && ctl.can('priest.scream')) { ctl.cast('priest.scream'); return; }
+    if (t.kind === 'opponent' && !findAura(me, 'priest.fw') && ctl.can('priest.fearward', self)) {
+      ctl.cast('priest.fearward', self);
+      return;
+    }
+    if (t.kind === 'opponent' && close.length && ctl.can('priest.scream')) {
+      ctl.cast('priest.scream');
+      return;
+    }
     // Shield before the pull and whenever it is free.
-    if (!findAura(me, 'priest.ws') && (hp < 0.8 || !t.engaged) && ctl.can('priest.pws', self)) { ctl.cast('priest.pws', self); return; }
-    if (close.length >= 2 && ctl.can('priest.scream')) { ctl.cast('priest.scream'); return; }
+    if (!findAura(me, 'priest.ws') && (hp < 0.8 || !t.engaged) && ctl.can('priest.pws', self)) {
+      ctl.cast('priest.pws', self);
+      return;
+    }
+    if (close.length >= 2 && ctl.can('priest.scream')) {
+      ctl.cast('priest.scream');
+      return;
+    }
     const debuffed = dispelTarget(state, ctl, ['magic']);
-    if (debuffed && ctl.can('priest.dispel', { targetId: debuffed.id })) { ctl.cast('priest.dispel', { targetId: debuffed.id }); return; }
+    if (debuffed && ctl.can('priest.dispel', { targetId: debuffed.id })) {
+      ctl.cast('priest.dispel', { targetId: debuffed.id });
+      return;
+    }
     if (!inForm(me)) {
-      if (hp < 0.35 && ctl.can('priest.flash', self)) { ctl.cast('priest.flash', self); return; }
-      if (hp < 0.6 && !findAura(me, 'priest.renew') && ctl.can('priest.renew', self)) { ctl.cast('priest.renew', self); return; }
-      if (hp < 0.3 && level === 10 && ctl.can('priest.lheal', self)) { ctl.cast('priest.lheal', self); return; }
+      if (hp < 0.35 && ctl.can('priest.flash', self)) {
+        ctl.cast('priest.flash', self);
+        return;
+      }
+      if (hp < 0.6 && !findAura(me, 'priest.renew') && ctl.can('priest.renew', self)) {
+        ctl.cast('priest.renew', self);
+        return;
+      }
+      if (hp < 0.3 && level === 10 && ctl.can('priest.lheal', self)) {
+        ctl.cast('priest.lheal', self);
+        return;
+      }
     }
     if (mana < 0.3 && hp > 0.75 && ctl.can('priest.darksac')) ctl.cast('priest.darksac');
     if (holdRangedSpot(state, ctl, 18)) return;
     if (approach(state, ctl, t, level >= 30 ? 19 : 27)) return;
     const lowMana = mana < (level === 10 ? 0.25 : 0.1);
-    const wandIt = () => { if (!me.autoRanged) ctl.cast('priest.wand'); };
-    if (lowMana) { wandIt(); return; }
+    const wandIt = () => {
+      if (!me.autoRanged) ctl.cast('priest.wand');
+    };
+    if (lowMana) {
+      wandIt();
+      return;
+    }
     if (level === 10) {
       const r = tryCast(ctl, [
         ['priest.mb', opts, !t.engaged || mana > 0.5],
@@ -82,7 +135,9 @@ function healer({ level, spec }) {
     const mana = resPct(me, 'mana');
     // Boss fights: hold a spot behind the boss (anchored on the main tank), never in front of it.
     const boss = ctl.engaged().find((e) => e.kind === 'boss');
-    if (boss) { if (holdRangedSpot(state, ctl, 18)) return; }
+    if (boss) {
+      if (holdRangedSpot(state, ctl, 18)) return;
+    }
     // Otherwise stay within range of everyone (roughly the party's centre).
     const far = boss ? [] : party.filter((u) => G.dist(u, me) > 36);
     if (far.length && !me.casting) {
@@ -99,12 +154,24 @@ function healer({ level, spec }) {
     if (busy(me)) return;
     const onMe = ctl.engaged().filter((e) => e.target === me.id && e.kind !== 'boss');
     if (onMe.length && ctl.can('priest.fade')) ctl.cast('priest.fade');
-    if (onMe.length && !findAura(me, 'priest.ws') && ctl.can('priest.pws', { targetId: me.id })) { ctl.cast('priest.pws', { targetId: me.id }); return; }
-    if (onMe.filter((e) => G.dist(e, me) < 8).length >= 2 && ctl.can('priest.scream')) { ctl.cast('priest.scream'); return; }
+    if (onMe.length && !findAura(me, 'priest.ws') && ctl.can('priest.pws', { targetId: me.id })) {
+      ctl.cast('priest.pws', { targetId: me.id });
+      return;
+    }
+    if (onMe.filter((e) => G.dist(e, me) < 8).length >= 2 && ctl.can('priest.scream')) {
+      ctl.cast('priest.scream');
+      return;
+    }
     const hurt = party.map((u) => ({ u, p: hpPct(u), d: u.maxHp - u.hp })).sort((a, b) => a.p - b.p);
     const worst = hurt[0];
     const lowCount = hurt.filter((h) => h.p < 0.7).length;
-    const go = (id, u) => { if (u && ctl.can(id, { targetId: u.id })) { ctl.cast(id, { targetId: u.id }); return true; } return false; };
+    const go = (id, u) => {
+      if (u && ctl.can(id, { targetId: u.id })) {
+        ctl.cast(id, { targetId: u.id });
+        return true;
+      }
+      return false;
+    };
     // Emergencies first.
     if (worst && worst.p < 0.35) {
       if (!findAura(worst.u, 'priest.ws') && go('priest.pws', worst.u)) return;
@@ -119,7 +186,10 @@ function healer({ level, spec }) {
     // Group damage.
     if (lowCount >= 3) {
       if (go('priest.pom', worst.u)) return;
-      if (party.filter((u) => G.dist(u, me) < 10 && hpPct(u) < 0.75).length >= 3 && ctl.can('priest.nova')) { ctl.cast('priest.nova'); return; }
+      if (party.filter((u) => G.dist(u, me) < 10 && hpPct(u) < 0.75).length >= 3 && ctl.can('priest.nova')) {
+        ctl.cast('priest.nova');
+        return;
+      }
       if (mana > 0.25 && go('priest.poh', worst.u)) return;
     }
     // Tank upkeep.
@@ -142,7 +212,10 @@ function healer({ level, spec }) {
     }
     // Nothing to heal: wand the focus target.
     const t = pickTarget(state, ctl, { pull: false });
-    if (t && inFight && !me.autoRanged && G.dist(me, t) < 30) { ctl.target(t.id); ctl.cast('priest.wand'); }
+    if (t && inFight && !me.autoRanged && G.dist(me, t) < 30) {
+      ctl.target(t.id);
+      ctl.cast('priest.wand');
+    }
   };
 }
 

@@ -52,9 +52,42 @@ assert.ok(heal.healing.done > 0 && heal.mechanics.length > 0, 'healer session ha
 
 // Feedback, including a "not sure" answer that must not count as a midpoint.
 const feedback = [
-  { sessionId: sessions[0].id, trialId: 't1', classId: 'mage', level: 10, enjoyment: 5, frustration: 1, again: 5, moment: sessions[0].moments[0], custom: null, skipped: false },
-  { sessionId: sessions[2].id, trialId: 't1', classId: 'priest', level: 10, enjoyment: 2, frustration: null, again: null, moment: 'none', custom: null, skipped: false },
-  { sessionId: sessions[1].id, trialId: 't1', classId: 'hunter', level: 10, enjoyment: null, frustration: null, again: null, moment: null, custom: null, skipped: true },
+  {
+    sessionId: sessions[0].id,
+    trialId: 't1',
+    classId: 'mage',
+    level: 10,
+    enjoyment: 5,
+    frustration: 1,
+    again: 5,
+    moment: sessions[0].moments[0],
+    custom: null,
+    skipped: false,
+  },
+  {
+    sessionId: sessions[2].id,
+    trialId: 't1',
+    classId: 'priest',
+    level: 10,
+    enjoyment: 2,
+    frustration: null,
+    again: null,
+    moment: 'none',
+    custom: null,
+    skipped: false,
+  },
+  {
+    sessionId: sessions[1].id,
+    trialId: 't1',
+    classId: 'hunter',
+    level: 10,
+    enjoyment: null,
+    frustration: null,
+    again: null,
+    moment: null,
+    custom: null,
+    skipped: true,
+  },
 ];
 const a = analyze({ sessions, feedback, trials: TRIALS });
 assert.equal(a.ranking.length, 6);
@@ -77,6 +110,10 @@ assert.ok(['empty', 'early', 'ready'].includes(a.recommendation.status));
 assert.ok(a.gaps.length > 0, 'unplayed trials are listed as gaps');
 // Weights are visible and move the totals.
 const b = analyze({ sessions, feedback, trials: TRIALS, weights: { raids: 3, pvp: 0, questing: 0.25, dungeons: 0.25 } });
-assert.notDeepEqual(a.ranking.map((r) => r.total), b.ranking.map((r) => r.total), 'weights change the totals');
+assert.notDeepEqual(
+  a.ranking.map((r) => r.total),
+  b.ranking.map((r) => r.total),
+  'weights change the totals',
+);
 console.log(a.ranking.map((r) => `${r.name} ${r.total}`).join(' · '), '| status', a.recommendation.status, '| conflicts', a.conflicts.length);
 console.log('analysis ok');

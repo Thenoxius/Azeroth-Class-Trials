@@ -26,13 +26,26 @@ export function competent({ level, spec, role } = {}) {
     const d = G.dist(me, t) - (t.radius || 0.8) - (me.radius || 0.5);
     // Open with Charge (Battle Stance, out of combat) or Intercept (Berserker, in combat).
     if (d > 8 && d < 24 && !busy(me)) {
-      if (ctl.can('warrior.charge', opts)) { ctl.cast('warrior.charge', opts); return; }
-      if (ctl.can('warrior.intercept', opts)) { ctl.cast('warrior.intercept', opts); return; }
+      if (ctl.can('warrior.charge', opts)) {
+        ctl.cast('warrior.charge', opts);
+        return;
+      }
+      if (ctl.can('warrior.intercept', opts)) {
+        ctl.cast('warrior.intercept', opts);
+        return;
+      }
     }
     if (approach(state, ctl, t, 4)) return;
     attackOn(ctl, me);
     const kick = interruptTarget(state, ctl, 5);
-    if (kick && tryCast(ctl, [['warrior.pummel', { targetId: kick.id }], ['warrior.shieldbash', { targetId: kick.id }]])) return;
+    if (
+      kick &&
+      tryCast(ctl, [
+        ['warrior.pummel', { targetId: kick.id }],
+        ['warrior.shieldbash', { targetId: kick.id }],
+      ])
+    )
+      return;
     if (busy(me)) return;
     const hp = hpPct(me);
     const crowd = ctl.engaged().filter((e) => e.target === me.id && G.dist(e, me) < 8).length;

@@ -17,7 +17,13 @@ export function runKitSuite(classId, bots, situational = {}) {
     const c = dummyDps(b, bots.competent(b));
     const k = dummyDps(b, bots.careless(b));
     const oom = timeToOom(b, bots.careless(b), 400);
-    rows.push({ build: `${b.level} ${b.spec || '-'}`, dps: c.dps.toFixed(1), careless: k.dps.toFixed(1), manaEnd: c.manaEnd == null ? '-' : c.manaEnd.toFixed(2), oomCareless: oom ? oom.toFixed(0) + 's' : '-' });
+    rows.push({
+      build: `${b.level} ${b.spec || '-'}`,
+      dps: c.dps.toFixed(1),
+      careless: k.dps.toFixed(1),
+      manaEnd: c.manaEnd == null ? '-' : c.manaEnd.toFixed(2),
+      oomCareless: oom ? oom.toFixed(0) + 's' : '-',
+    });
     const [lo, hi] = DPS_BAND[b.level];
     assert.ok(c.dps >= lo && c.dps <= hi, `${classId} ${b.level} ${b.spec}: dummy DPS ${c.dps.toFixed(1)} outside ${lo}–${hi}`);
     assert.ok(k.dps <= c.dps * 1.05, `${classId} ${b.level} ${b.spec}: careless (${k.dps.toFixed(1)}) beats competent (${c.dps.toFixed(1)})`);

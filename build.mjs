@@ -62,7 +62,9 @@ function cssFiles(dir) {
 }
 const main = resolve(root, 'src/styles.css');
 const classic = resolve(root, 'src/ui/chrome/classic-shell.css');
-const extra = cssFiles(resolve(root, 'src')).filter((p) => p !== main && p !== classic).sort();
+const extra = cssFiles(resolve(root, 'src'))
+  .filter((p) => p !== main && p !== classic)
+  .sort();
 const css = [main, ...extra, classic].map((p) => readFileSync(p, 'utf8')).join('\n');
 const shell = readFileSync(resolve(root, 'src/shell.html'), 'utf8');
 const pageFor = (code) => shell.replace('/*__CSS__*/', () => css).replace('/*__JS__*/', () => code);
@@ -82,4 +84,6 @@ for (const f of readdirSync(IMG_DIR)) {
   artBytes += statSync(resolve(IMG_DIR, f)).size;
 }
 const kb = (n) => (n / 1024).toFixed(0) + ' KB';
-console.log(`dist/preview.html ${kb(Buffer.byteLength(page))} (js ${kb(js.length)}, css ${kb(css.length)}) + dist/art ${kb(artBytes)}; dist/index.html (artifact, art inlined) ${kb(Buffer.byteLength(artifact))}`);
+console.log(
+  `dist/preview.html ${kb(Buffer.byteLength(page))} (js ${kb(js.length)}, css ${kb(css.length)}) + dist/art ${kb(artBytes)}; dist/index.html (artifact, art inlined) ${kb(Buffer.byteLength(artifact))}`,
+);

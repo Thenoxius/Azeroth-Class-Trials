@@ -15,8 +15,26 @@
 import * as G from './geometry.js';
 import { getBehavior } from './registry.js';
 import {
-  U, hostile, gap, canCast, startCast, threatTarget, engage, enemiesOf, alliesOf, hpPct, resPct, emit, say,
-  canAct, MELEE_RANGE, player, nearest, cancelCast, zoneVictims, api,
+  U,
+  hostile,
+  gap,
+  canCast,
+  startCast,
+  threatTarget,
+  engage,
+  enemiesOf,
+  alliesOf,
+  hpPct,
+  resPct,
+  emit,
+  say,
+  canAct,
+  MELEE_RANGE,
+  player,
+  nearest,
+  cancelCast,
+  zoneVictims,
+  api,
 } from './core.js';
 
 export function thinkUnit(state, u, dt) {
@@ -39,7 +57,10 @@ export function stop(u) {
 export function moveToward(state, u, p, within = 0) {
   if (u.casting && !u.casting.ab.castWhileMoving) return;
   const d = G.dist(u, p);
-  if (d <= within + 0.05) { u.move.to = null; return; }
+  if (d <= within + 0.05) {
+    u.move.to = null;
+    return;
+  }
   if (within > 0) {
     const n = G.norm(p.x - u.x, p.y - u.y);
     u.move.to = { x: p.x - n.x * within, y: p.y - n.y * within };
@@ -65,10 +86,14 @@ export function resolveRotTarget(state, u, r, t) {
 }
 
 export function lowestAlly(state, u, maxPct = 1) {
-  let best = null, bp = maxPct;
+  let best = null,
+    bp = maxPct;
   for (const a of alliesOf(state, u)) {
     const p = hpPct(a);
-    if (p < bp - 1e-9) { bp = p; best = a; }
+    if (p < bp - 1e-9) {
+      bp = p;
+      best = a;
+    }
   }
   return best;
 }
@@ -88,7 +113,10 @@ export function tryRotation(state, u, t, rotation) {
     if (ab.target === 'point') opts.point = r.point ? r.point(state, u, tgt) : tgt ? { x: tgt.x, y: tgt.y } : { x: u.x, y: u.y };
     const chk = canCast(state, u, r.id, opts);
     if (!chk.ok) continue;
-    if ((ab.castTime || ab.channel) && !ab.castWhileMoving) { stop(u); u.moving = false; }
+    if ((ab.castTime || ab.channel) && !ab.castWhileMoving) {
+      stop(u);
+      u.moving = false;
+    }
     const res = startCast(state, u, r.id, opts);
     if (res.ok) {
       if (r.say) say(state, u, r.say, 'yell');
@@ -110,7 +138,11 @@ export function zoneAt(state, u, p) {
 export function escapeZones(state, u) {
   const mem = u.ai.mem;
   const danger = state.zones.filter((z) => harms(z, u) && G.pointInZone(z, u));
-  if (!danger.length) { mem.dangerSince = null; mem.escape = null; return false; }
+  if (!danger.length) {
+    mem.dangerSince = null;
+    mem.escape = null;
+    return false;
+  }
   const z = danger[0];
   if (mem.dangerZone !== z.id) {
     mem.dangerZone = z.id;
@@ -120,10 +152,16 @@ export function escapeZones(state, u) {
     mem.dodgeDelay = (u.ai.react ?? 0.8) * (0.6 + state.rng() * 0.8);
   }
   if (!mem.willDodge && !z.armed) return false; // misjudged the telegraph — gets hit, then moves
-  if (!mem.willDodge && z.armed && state.t - mem.dangerSince < (mem.dodgeDelay + 1.2)) return false;
+  if (!mem.willDodge && z.armed && state.t - mem.dangerSince < mem.dodgeDelay + 1.2) return false;
   if (state.t - mem.dangerSince < mem.dodgeDelay) return false;
   if (u.casting && !u.casting.channel) cancelCast(state, u, 'moved');
-  const p = G.escapeClear(z, state.zones.filter((o) => harms(o, u)), u, 2, state.arena);
+  const p = G.escapeClear(
+    z,
+    state.zones.filter((o) => harms(o, u)),
+    u,
+    2,
+    state.arena,
+  );
   p.x = G.clamp(p.x, 1, state.arena.w - 1);
   p.y = G.clamp(p.y, 1, state.arena.h - 1);
   u.move.to = p;
@@ -156,7 +194,10 @@ function patrol(state, u) {
     mem.pi++;
     mem.waitUntil = state.t + (u.ai.patrolWait ?? 1.5);
   }
-  if (mem.waitUntil && state.t < mem.waitUntil) { stop(u); return; }
+  if (mem.waitUntil && state.t < mem.waitUntil) {
+    stop(u);
+    return;
+  }
   u.move.to = { ...p[mem.pi % p.length] };
   u.home = { x: u.x, y: u.y };
 }
@@ -185,14 +226,23 @@ function fleeCheck(state, u) {
 // ---------------------------------------------------------------- enemy behaviours
 
 function enemyPrelude(state, u) {
-  if (u.evading) { u.move.to = { ...u.home }; return null; }
+  if (u.evading) {
+    u.move.to = { ...u.home };
+    return null;
+  }
   if (!u.engaged) {
     checkAggro(state, u);
-    if (!u.engaged) { patrol(state, u); return null; }
+    if (!u.engaged) {
+      patrol(state, u);
+      return null;
+    }
   }
   if (fleeCheck(state, u)) return null;
   const t = threatTarget(state, u);
-  if (!t) { stop(u); return null; }
+  if (!t) {
+    stop(u);
+    return null;
+  }
   if (u.target !== t.id) {
     u.target = t.id;
     emit(state, { type: 'retarget', src: u.id, dst: t.id });
@@ -253,21 +303,34 @@ function idle(state, u) {
 
 function pet(state, u) {
   const owner = U(state, u.ownerId);
-  if (!owner || !owner.alive) { stop(u); return; }
+  if (!owner || !owner.alive) {
+    stop(u);
+    return;
+  }
   const mem = u.ai.mem;
   if (escapeZones(state, u)) return;
   let t = U(state, u.target);
-  if (t && (!t.alive || !hostile(u, t) || t.evading || t.hidden)) { t = null; u.target = null; mem.attackOrder = null; }
+  if (t && (!t.alive || !hostile(u, t) || t.evading || t.hidden)) {
+    t = null;
+    u.target = null;
+    mem.attackOrder = null;
+  }
   const ordered = mem.attackOrder && U(state, mem.attackOrder);
   if (ordered && ordered.alive) t = ordered;
   if (!ordered && u.petCmd !== 'stay') {
     if (u.petMode === 'defensive' && (!t || u.petCmd === 'follow')) {
       // Defend: whoever is beating on the owner or the pet.
       const attackers = enemiesOf(state, u, (e) => e.engaged && (e.target === owner.id || e.target === u.id) && !e.cc.incap && !hasCCBreakable(e));
-      if (attackers.length) { t = nearest(attackers, u); u.petCmd = 'attack'; }
+      if (attackers.length) {
+        t = nearest(attackers, u);
+        u.petCmd = 'attack';
+      }
     } else if (u.petMode === 'aggressive' && !t) {
       const near = enemiesOf(state, u, (e) => G.dist(u, e) < 18 && !e.cc.incap && !hasCCBreakable(e));
-      if (near.length) { t = nearest(near, u); u.petCmd = 'attack'; }
+      if (near.length) {
+        t = nearest(near, u);
+        u.petCmd = 'attack';
+      }
     }
   }
   if (u.petCmd === 'follow' && !ordered) t = null;
@@ -276,8 +339,14 @@ function pet(state, u) {
   u.target = t ? t.id : null;
   if (u.casting) return;
   if (!t) {
-    if (u.petCmd === 'stay' && mem.stayAt) { moveToward(state, u, mem.stayAt, 0.3); return; }
-    const spot = { x: owner.x - Math.cos(owner.facing) * 2.2 + Math.cos(owner.facing + Math.PI / 2) * 1.4, y: owner.y - Math.sin(owner.facing) * 2.2 + Math.sin(owner.facing + Math.PI / 2) * 1.4 };
+    if (u.petCmd === 'stay' && mem.stayAt) {
+      moveToward(state, u, mem.stayAt, 0.3);
+      return;
+    }
+    const spot = {
+      x: owner.x - Math.cos(owner.facing) * 2.2 + Math.cos(owner.facing + Math.PI / 2) * 1.4,
+      y: owner.y - Math.sin(owner.facing) * 2.2 + Math.sin(owner.facing + Math.PI / 2) * 1.4,
+    };
     if (G.dist(u, spot) > 1.5) moveToward(state, u, spot, 0.3);
     else stop(u);
     return;
@@ -357,7 +426,10 @@ function tank(state, u) {
 function mdps(state, u) {
   if (escapeZones(state, u)) return;
   const t = partyFocus(state, u);
-  if (!t) { followLeader(state, u); return; }
+  if (!t) {
+    followLeader(state, u);
+    return;
+  }
   u.target = t.id;
   if (u.casting) return;
   if (tryRotation(state, u, t)) return;
@@ -366,7 +438,10 @@ function mdps(state, u) {
   const victim = U(state, t.target);
   const anchor = victim && victim.alive && victim !== u ? victim : alliesOf(state, u, (a) => a.role === 'tank')[0];
   const spot = meleeSpot(state, u, t, anchor ? G.behind(anchor, t, (t.radius || 0.8) + 1.3) : t);
-  if (!spot) { stop(u); return; }
+  if (!spot) {
+    stop(u);
+    return;
+  }
   if (!inMelee(u, t) || G.dist(u, spot) > 2.2) moveToward(state, u, spot, 0.2);
   else stop(u);
 }
@@ -387,7 +462,10 @@ function meleeSpot(state, u, t, spot) {
 function rdps(state, u) {
   if (escapeZones(state, u)) return;
   const t = partyFocus(state, u);
-  if (!t) { followLeader(state, u); return; }
+  if (!t) {
+    followLeader(state, u);
+    return;
+  }
   u.target = t.id;
   if (u.casting) return;
   const range = u.ai.range ?? 26;
@@ -395,7 +473,10 @@ function rdps(state, u) {
     moveToward(state, u, u.ai.spot || t, u.ai.spot ? 0.3 : range - 4);
     return;
   }
-  if (u.ai.spot && G.dist(u, u.ai.spot) > 3 && !zoneAt(state, u, u.ai.spot)) { moveToward(state, u, u.ai.spot, 0.3); return; }
+  if (u.ai.spot && G.dist(u, u.ai.spot) > 3 && !zoneAt(state, u, u.ai.spot)) {
+    moveToward(state, u, u.ai.spot, 0.3);
+    return;
+  }
   stop(u);
   if (u.ranged && u.ranged.kind === 'autoshot') u.autoRanged = true;
   tryRotation(state, u, t);
@@ -413,15 +494,21 @@ function allyHealer(state, u) {
   const spot = u.ai.spot;
   const party = alliesOf(state, u, (a) => a.kind !== 'pet' || (u.ai.healPets ?? true));
   // tankBias < 1 makes a tank's missing health count for more (raid healers on tank duty).
-  const eff = (a) => hpPct(a) * (a.role === 'tank' ? u.ai.tankBias ?? 1 : 1);
+  const eff = (a) => hpPct(a) * (a.role === 'tank' ? (u.ai.tankBias ?? 1) : 1);
   const hurt = party.filter((a) => hpPct(a) < 0.92).sort((a, b) => eff(a) - eff(b));
   if (hurt.length) {
     const tgt = hurt[0];
-    if (gap(u, tgt) > 36 || !G.hasLoS(state.arena, u, tgt)) { moveToward(state, u, tgt, 26); return; }
+    if (gap(u, tgt) > 36 || !G.hasLoS(state.arena, u, tgt)) {
+      moveToward(state, u, tgt, 26);
+      return;
+    }
     stop(u);
     if (tryRotation(state, u, tgt)) return;
   }
-  if (spot && G.dist(u, spot) > 2 && !zoneAt(state, u, spot)) { moveToward(state, u, spot, 0.3); return; }
+  if (spot && G.dist(u, spot) > 2 && !zoneAt(state, u, spot)) {
+    moveToward(state, u, spot, 0.3);
+    return;
+  }
   // Nothing to heal: help with damage if configured.
   if (u.ai.dpsRotation) {
     const t = partyFocus(state, u);
@@ -432,7 +519,10 @@ function allyHealer(state, u) {
 function followLeader(state, u) {
   const p = player(state);
   const lead = (u.ai.follow && U(state, u.ai.follow)) || p;
-  if (!lead || lead === u) { stop(u); return; }
+  if (!lead || lead === u) {
+    stop(u);
+    return;
+  }
   const off = u.ai.followOffset || { x: -2, y: 1.5 };
   const spot = { x: lead.x + off.x, y: lead.y + off.y };
   if (G.dist(u, spot) > 2.5) moveToward(state, u, spot, 0.5);

@@ -76,7 +76,10 @@ export function escapePoint(state, ctl, from, dist = 12) {
     }
     if (state.zones.some((z) => z.side !== me.side && !z.harmless && G.pointInZone(z, { ...p, radius: 3 }))) s -= 40;
     if (state.zones.some((z) => z.exit && G.pointInZone(z, { ...p, radius: 6 }))) s -= 400;
-    if (s > bestScore) { bestScore = s; best = p; }
+    if (s > bestScore) {
+      bestScore = s;
+      best = p;
+    }
   }
   return best || { x: state.arena.w / 2, y: state.arena.h / 2 };
 }
@@ -95,8 +98,14 @@ export function restIfNeeded(state, ctl, threshold = 0.55) {
   const low = hpPct(me) < threshold || (me.res.mana && resPct(me, 'mana') < threshold);
   if (!low) return false;
   if (me.moving || me.move.to) ctl.stop();
-  if (ctl.can('race.cannibalize') && hpPct(me) < 0.8) { ctl.cast('race.cannibalize'); return true; }
-  if (ctl.can('item.rest')) { ctl.cast('item.rest'); return true; }
+  if (ctl.can('race.cannibalize') && hpPct(me) < 0.8) {
+    ctl.cast('race.cannibalize');
+    return true;
+  }
+  if (ctl.can('item.rest')) {
+    ctl.cast('item.rest');
+    return true;
+  }
   return false;
 }
 
@@ -126,7 +135,16 @@ export function dispelTarget(state, ctl, types) {
 // An engaged enemy casting something interruptible within range (heals first).
 export function interruptTarget(state, ctl, range) {
   const me = ctl.me();
-  const list = ctl.engaged().filter((e) => e.casting && e.casting.ab.mechanic !== 'physical' && !e.casting.ab.uninterruptible && G.dist(e, me) - (e.radius || 0.8) <= range && G.hasLoS(state.arena, me, e));
+  const list = ctl
+    .engaged()
+    .filter(
+      (e) =>
+        e.casting &&
+        e.casting.ab.mechanic !== 'physical' &&
+        !e.casting.ab.uninterruptible &&
+        G.dist(e, me) - (e.radius || 0.8) <= range &&
+        G.hasLoS(state.arena, me, e),
+    );
   list.sort((a, b) => (b.casting.ab.category === 'heal') - (a.casting.ab.category === 'heal') || (a.casting.remaining ?? 9) - (b.casting.remaining ?? 9));
   return list[0] || null;
 }
@@ -164,7 +182,10 @@ export function holdRangedSpot(state, ctl, dist = 24) {
   spot.x = G.clamp(spot.x, 3, state.arena.w - 3);
   spot.y = G.clamp(spot.y, 3, state.arena.h - 3);
   if (state.zones.some((z) => z.side !== me.side && !z.harmless && G.pointInZone(z, spot))) return false;
-  if (G.dist(me, spot) > 6) { ctl.moveTo(spot.x, spot.y); return true; }
+  if (G.dist(me, spot) > 6) {
+    ctl.moveTo(spot.x, spot.y);
+    return true;
+  }
   return false;
 }
 

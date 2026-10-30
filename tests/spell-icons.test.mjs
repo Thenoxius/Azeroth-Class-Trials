@@ -4,7 +4,7 @@ import { allAbilities } from '../src/engine/registry.js';
 import { ABILITY_IMG, IMAGE_FILES } from '../src/ui/art/art-images.gen.js';
 for (const f of readdirSync(new URL('../src/content/classes/', import.meta.url))) await import('../src/content/classes/' + f);
 const fallbacks = JSON.parse(readFileSync(new URL('../assets/spell-icons-extra/svg-fallbacks.json', import.meta.url), 'utf8'));
-const allowed = new Set(fallbacks.map(a => a.abilityId));
+const allowed = new Set(fallbacks.map((a) => a.abilityId));
 for (const ab of Object.values(allAbilities())) {
   if (allowed.has(ab.id)) continue;
   assert.ok(Number.isInteger(ABILITY_IMG[ab.id]), `Missing bitmap for ${ab.id} (${ab.name}); regenerate or explicitly review the fallback`);

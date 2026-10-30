@@ -10,12 +10,17 @@ const server = http.createServer(async (req, res) => {
     const pathname = decodeURIComponent(new URL(req.url, 'http://localhost').pathname);
     const path = resolve(root, '.' + (pathname === '/' ? '/preview.html' : pathname));
     const rel = relative(root, path);
-    if (rel.startsWith('..') || isAbsolute(rel)) { res.writeHead(403); res.end('Forbidden'); return; }
+    if (rel.startsWith('..') || isAbsolute(rel)) {
+      res.writeHead(403);
+      res.end('Forbidden');
+      return;
+    }
     const data = await readFile(path);
     res.setHeader('Content-Type', path.endsWith('.html') ? 'text/html; charset=utf-8' : path.endsWith('.webp') ? 'image/webp' : 'application/octet-stream');
     res.end(data);
   } catch {
-    res.writeHead(404); res.end('Not found');
+    res.writeHead(404);
+    res.end('Not found');
   }
 });
 server.on('error', (error) => {

@@ -143,7 +143,7 @@ export function spawnUnit(state, tpl, o = {}) {
   };
   for (const [k, v] of Object.entries(d.resources || {})) {
     const max = typeof v === 'number' ? v : v.max;
-    const cur = typeof v === 'number' ? (k === 'rage' ? 0 : v) : v.cur ?? v.max;
+    const cur = typeof v === 'number' ? (k === 'rage' ? 0 : v) : (v.cur ?? v.max);
     u.res[k] = { cur, max };
   }
   if (!u.primary) u.primary = Object.keys(u.res)[0] || null;
@@ -210,10 +210,14 @@ export function unitsInRadius(state, p, r, filter) {
   return state.list.filter((x) => x.alive && !x.hidden && G.dist(p, x) <= r + (x.radius || 0) * 0.5 && (!filter || filter(x)));
 }
 export function nearest(list, p) {
-  let best = null, bd = Infinity;
+  let best = null,
+    bd = Infinity;
   for (const x of list) {
     const d = G.dist(p, x);
-    if (d < bd) { bd = d; best = x; }
+    if (d < bd) {
+      bd = d;
+      best = x;
+    }
   }
   return best;
 }
@@ -242,7 +246,7 @@ export function modMult(u, key, school) {
   for (const a of u.auras) {
     const v = a.def.mods && a.def.mods[key];
     if (v === undefined) continue;
-    const per = typeof v === 'object' ? v[school] ?? v.all : v;
+    const per = typeof v === 'object' ? (v[school] ?? v.all) : v;
     if (per !== undefined) m *= Math.pow(per, a.def.stackMods ? a.stacks : 1);
   }
   return m;
@@ -276,20 +280,35 @@ export function modAdd(u, key, school) {
   for (const a of u.auras) {
     const v = a.def.mods && a.def.mods[key];
     if (v === undefined) continue;
-    const per = typeof v === 'object' ? v[school] ?? v.all : v;
+    const per = typeof v === 'object' ? (v[school] ?? v.all) : v;
     if (per !== undefined) s += per * (a.def.stackMods ? a.stacks : 1);
   }
   return s;
 }
 
 function emptyCC() {
-  return { stun: false, root: false, incap: false, fear: false, silence: false, disarm: false, frozen: false, immune: false, slow: 0, haste: 0, castSlow: 0, fearSrc: null };
+  return {
+    stun: false,
+    root: false,
+    incap: false,
+    fear: false,
+    silence: false,
+    disarm: false,
+    frozen: false,
+    immune: false,
+    slow: 0,
+    haste: 0,
+    castSlow: 0,
+    fearSrc: null,
+  };
 }
 
 function computeCC(u) {
   const cc = emptyCC();
-  let maxSlow = 0, maxSpeed = 0;
-  let stance = null, stealth = false;
+  let maxSlow = 0,
+    maxSpeed = 0;
+  let stance = null,
+    stealth = false;
   for (const a of u.auras) {
     const d = a.def;
     if (d.stance) stance = d.stance;
@@ -299,8 +318,10 @@ function computeCC(u) {
       if (c === 'stun') cc.stun = true;
       else if (c === 'root') cc.root = true;
       else if (c === 'incap') cc.incap = true;
-      else if (c === 'fear') { cc.fear = true; cc.fearSrc = a.srcId; }
-      else if (c === 'silence') cc.silence = true;
+      else if (c === 'fear') {
+        cc.fear = true;
+        cc.fearSrc = a.srcId;
+      } else if (c === 'silence') cc.silence = true;
       else if (c === 'disarm') cc.disarm = true;
     }
     if (d.frozen) cc.frozen = true;
@@ -487,7 +508,17 @@ export function canCast(state, u, id, opts = {}) {
   if (u.cc.silence && !physical && !ab.usableWhileCC) return { ok: false, reason: 'silenced', ab };
   if (!physical && u.schoolLock[ab.school] > state.t) return { ok: false, reason: 'locked', ab };
   if (ab.noRoot && u.cc.root) return { ok: false, reason: 'rooted', ab }; // Charge / Intercept
-  if (u.cc.disarm && ab.mechanic === 'physical' && !ab.ranged && ab.category !== 'consumable' && num(ab, ab.range, MELEE_RANGE) <= MELEE_RANGE && ab.target !== 'self' && ab.target !== 'none' && ab.target !== 'pet') return { ok: false, reason: 'disarmed', ab };
+  if (
+    u.cc.disarm &&
+    ab.mechanic === 'physical' &&
+    !ab.ranged &&
+    ab.category !== 'consumable' &&
+    num(ab, ab.range, MELEE_RANGE) <= MELEE_RANGE &&
+    ab.target !== 'self' &&
+    ab.target !== 'none' &&
+    ab.target !== 'pet'
+  )
+    return { ok: false, reason: 'disarmed', ab };
   if (u.casting && !opts.ignoreCasting) return { ok: false, reason: 'casting', ab };
   const gcd = ab.gcd ?? GCD;
   if (gcd > 0 && u.gcd > 1e-6 && !opts.ignoreGcd) return { ok: false, reason: 'gcd', ab };
@@ -530,7 +561,10 @@ function applyAutoTarget(u, t, auto) {
 
 export function startCast(state, u, id, opts = {}) {
   // Clicking a queued strike again cancels it, even after rage or target is lost.
-  if (!opts.resolveSwing && u.nextSwing === id) { u.nextSwing = null; return { ok: true, cancelled: true }; }
+  if (!opts.resolveSwing && u.nextSwing === id) {
+    u.nextSwing = null;
+    return { ok: true, cancelled: true };
+  }
   const chk = canCast(state, u, id, opts);
   if (!chk.ok) {
     if (u.isPlayer || opts.reportFail) emit(state, { type: 'error', src: u.id, ability: id, reason: chk.reason, text: reasonText(chk.reason, chk.ab, u) });
@@ -539,7 +573,8 @@ export function startCast(state, u, id, opts = {}) {
   const { ab, t } = chk;
   applyAutoTarget(u, t, chk.auto);
   if (ab.onNextSwing && !opts.resolveSwing) {
-    u.nextSwing = id; u.autoMelee = true;
+    u.nextSwing = id;
+    u.autoMelee = true;
     return { ok: true, ab, queued: true };
   }
   const point = opts.point || (ab.target === 'point' ? (t ? { x: t.x, y: t.y } : { x: u.x, y: u.y }) : null);
@@ -565,10 +600,35 @@ export function startCast(state, u, id, opts = {}) {
     // Channels scale with 'channelTime' mods only, so cast-time effects (Presence of Mind) leave them alone.
     const dur = num(ab, ab.channel.duration, 3) * modMult(u, 'channelTime', ab.school);
     const ticks = num(ab, ab.channel.ticks, 3);
-    u.casting = { id, ab, targetId: t ? t.id : null, point, channel: true, duration: dur, elapsed: 0, ticks, ticksDone: 0, interval: dur / ticks, nextTick: ab.channel.tickOnStart ? 0 : dur / ticks, cut: 0, pushbacks: 0, startedAt: state.t };
+    u.casting = {
+      id,
+      ab,
+      targetId: t ? t.id : null,
+      point,
+      channel: true,
+      duration: dur,
+      elapsed: 0,
+      ticks,
+      ticksDone: 0,
+      interval: dur / ticks,
+      nextTick: ab.channel.tickOnStart ? 0 : dur / ticks,
+      cut: 0,
+      pushbacks: 0,
+      startedAt: state.t,
+    };
     if (ab.onChannelStart) ab.onChannelStart({ state, u, t, ab, point, api });
     // A channel counts as cast when it starts (telemetry + on-cast talents such as Clearcasting).
-    emit(state, { type: 'cast', src: u.id, dst: t ? t.id : null, ability: id, cat: ab.category, tags: ab.tags || null, channel: true, x: point ? point.x : null, y: point ? point.y : null });
+    emit(state, {
+      type: 'cast',
+      src: u.id,
+      dst: t ? t.id : null,
+      ability: id,
+      cat: ab.category,
+      tags: ab.tags || null,
+      channel: true,
+      x: point ? point.x : null,
+      y: point ? point.y : null,
+    });
     runHooks(state, u, 'onCast', { ab, t, point });
     if (ab.channel.tickOnStart) {
       u.casting.nextTick = dur / ticks;
@@ -662,7 +722,16 @@ function failCast(state, u, reason) {
 }
 
 function resolveCast(state, u, ab, t, point) {
-  emit(state, { type: 'cast', src: u.id, dst: t ? t.id : null, ability: ab.id, cat: ab.category, tags: ab.tags || null, x: point ? point.x : null, y: point ? point.y : null });
+  emit(state, {
+    type: 'cast',
+    src: u.id,
+    dst: t ? t.id : null,
+    ability: ab.id,
+    cat: ab.category,
+    tags: ab.tags || null,
+    x: point ? point.x : null,
+    y: point ? point.y : null,
+  });
   runHooks(state, u, 'onCast', { ab, t, point });
   if (ab.onCast) ab.onCast({ state, u, t, ab, point, api });
   // Slam: finishing the cast restarts the main-hand swing timer.
@@ -683,7 +752,13 @@ function channelTick(state, u, c) {
   const effects = c.ab.channel.effects || c.ab.effects || [];
   const ctxExtra = { tick: c.ticksDone, ticks: c.ticks };
   if (c.ab.channel.projectile && t) {
-    spawnProjectile(state, u, t, { speed: c.ab.channel.projectile.speed ?? 30, visual: c.ab.channel.projectile.visual || c.ab.school, ab: c.ab, effects, extra: ctxExtra });
+    spawnProjectile(state, u, t, {
+      speed: c.ab.channel.projectile.speed ?? 30,
+      visual: c.ab.channel.projectile.visual || c.ab.school,
+      ab: c.ab,
+      effects,
+      extra: ctxExtra,
+    });
   } else {
     applyEffects(state, u, c.ab, t, c.point, effects, ctxExtra);
   }
@@ -718,7 +793,18 @@ function effectTargets(state, u, ab, e, primary, point) {
     const center = e.aoe.center === 'self' ? u : e.aoe.center === 'point' ? point || u : primary || point || u;
     if (!center) return [];
     const affects = e.aoe.affects || (e.type === 'heal' ? 'allies' : 'enemies');
-    const coneDef = e.aoe.cone ? { x: center.x, y: center.y, shape: { type: 'cone', range: num(ab, e.aoe.radius, 10), angle: num(ab, e.aoe.cone, Math.PI / 2), dir: primary && primary !== u && e.aoe.center === 'self' ? G.angleTo(u, primary) : u.facing } } : null;
+    const coneDef = e.aoe.cone
+      ? {
+          x: center.x,
+          y: center.y,
+          shape: {
+            type: 'cone',
+            range: num(ab, e.aoe.radius, 10),
+            angle: num(ab, e.aoe.cone, Math.PI / 2),
+            dir: primary && primary !== u && e.aoe.center === 'self' ? G.angleTo(u, primary) : u.facing,
+          },
+        }
+      : null;
     let list = unitsInRadius(state, center, num(ab, e.aoe.radius, 8), (x) => {
       if (coneDef && !G.pointInZone(coneDef, x)) return false;
       if (affects === 'enemies') return hostile(u, x);
@@ -741,12 +827,26 @@ function effectTargets(state, u, ab, e, primary, point) {
 export function rollAmount(state, ab, e, key = 'amount') {
   const v = e[key];
   let lo, hi;
-  if (Array.isArray(v)) { lo = v[0]; hi = v[1]; }
-  else if (typeof v === 'string') {
+  if (Array.isArray(v)) {
+    lo = v[0];
+    hi = v[1];
+  } else if (typeof v === 'string') {
     const r = ab[v];
-    if (Array.isArray(r)) { lo = r[0]; hi = r[1]; } else { lo = hi = r || 0; }
-  } else if (typeof v === 'function') { const r = v(ab); if (Array.isArray(r)) { lo = r[0]; hi = r[1]; } else lo = hi = r; }
-  else { lo = hi = v || 0; }
+    if (Array.isArray(r)) {
+      lo = r[0];
+      hi = r[1];
+    } else {
+      lo = hi = r || 0;
+    }
+  } else if (typeof v === 'function') {
+    const r = v(ab);
+    if (Array.isArray(r)) {
+      lo = r[0];
+      hi = r[1];
+    } else lo = hi = r;
+  } else {
+    lo = hi = v || 0;
+  }
   return lo + (hi - lo) * state.rng();
 }
 
@@ -816,7 +916,7 @@ const EFFECTS = {
       const steps = 20;
       let last = { x: u.x, y: u.y };
       for (let i = 1; i <= steps; i++) {
-        const p = { x: u.x + dir.x * (d * i / steps), y: u.y + dir.y * (d * i / steps), radius: u.radius };
+        const p = { x: u.x + dir.x * ((d * i) / steps), y: u.y + dir.y * ((d * i) / steps), radius: u.radius };
         if ((state.arena.obstacles || []).some((o) => o.solid !== false && G.dist(p, o) < o.r + u.radius)) break;
         last = p;
       }
@@ -832,8 +932,10 @@ const EFFECTS = {
       dest = away;
     }
     if (!dest) return;
-    const fx = u.x, fy = u.y;
-    u.x = dest.x; u.y = dest.y;
+    const fx = u.x,
+      fy = u.y;
+    u.x = dest.x;
+    u.y = dest.y;
     G.collide(state.arena, u);
     u.move.to = null;
     emit(state, { type: 'teleport', src: u.id, fx, fy, x: u.x, y: u.y, ability: ab.id, mode: e.mode });
@@ -842,8 +944,10 @@ const EFFECTS = {
     if (!t || t.immune.knockback) return;
     const d = num(ab, e.distance, 8);
     const n = G.norm(t.x - u.x, t.y - u.y);
-    const fx = t.x, fy = t.y;
-    t.x += n.x * d; t.y += n.y * d;
+    const fx = t.x,
+      fy = t.y;
+    t.x += n.x * d;
+    t.y += n.y * d;
     G.collide(state.arena, t);
     if (t.casting && !t.casting.channel) cancelCast(state, t, 'knockback');
     emit(state, { type: 'teleport', src: t.id, fx, fy, x: t.x, y: t.y, ability: ab.id, mode: 'knockback' });
@@ -853,7 +957,14 @@ const EFFECTS = {
     const count = num(ab, e.count, 1);
     for (let i = 0; i < count; i++) {
       const ang = state.rng() * Math.PI * 2;
-      const s = spawnUnit(state, e.template, { x: at.x + Math.cos(ang) * (e.spread || 2), y: at.y + Math.sin(ang) * (e.spread || 2), side: e.side || u.side, ownerId: e.owned ? u.id : null, level: u.level, ...(e.overrides || {}) });
+      const s = spawnUnit(state, e.template, {
+        x: at.x + Math.cos(ang) * (e.spread || 2),
+        y: at.y + Math.sin(ang) * (e.spread || 2),
+        side: e.side || u.side,
+        ownerId: e.owned ? u.id : null,
+        level: u.level,
+        ...(e.overrides || {}),
+      });
       if (e.engage && t && hostile(s, t)) engage(state, s, t);
     }
   },
@@ -911,24 +1022,37 @@ export function dealDamage(state, src, dst, p) {
     amt += p.coef * (statOf(src, powerKey) + modAdd(dst, 'attackerPower', powerKey));
   }
   if (src && !p.ignoreSourceModifiers) amt *= modMultFor(src, 'dmgDone', school, kind);
-  if (src && src.ownerId && !p.ignoreSourceModifiers) { const owner = U(state, src.ownerId); if (owner && ['hunter','warlock'].includes(owner.classId)) amt *= modMult(owner, 'petDamage'); }
+  if (src && src.ownerId && !p.ignoreSourceModifiers) {
+    const owner = U(state, src.ownerId);
+    if (owner && ['hunter', 'warlock'].includes(owner.classId)) amt *= modMult(owner, 'petDamage');
+  }
   // Creature-type bonuses (Beast Slaying, Elemental Insight): mods.dmgVsTag = { beast: 1.05 }.
-  if (src && !p.ignoreSourceModifiers && dst.tags) for (const a of src.auras) { const v = a.def.mods && a.def.mods.dmgVsTag; if (v) for (const tag of dst.tags) if (v[tag]) amt *= v[tag]; }
+  if (src && !p.ignoreSourceModifiers && dst.tags)
+    for (const a of src.auras) {
+      const v = a.def.mods && a.def.mods.dmgVsTag;
+      if (v) for (const tag of dst.tags) if (v[tag]) amt *= v[tag];
+    }
   if (!p.ignoreTargetModifiers) amt *= modMultFor(dst, 'dmgTaken', school, kind);
   // Debuffs that only amplify their own caster's damage (Improved Shadow Bolt, Shadow Weaving, Improved Scorch).
-  if (src && !p.ignoreTargetModifiers) for (const a of dst.auras) {
-    const v = a.srcId === src.id && a.def.mods && a.def.mods.dmgTakenMine;
-    if (!v) continue;
-    const per = typeof v === 'object' ? v[school] ?? v.all : v;
-    if (per !== undefined) amt *= Math.pow(per, a.def.stackMods ? a.stacks : 1);
-  }
+  if (src && !p.ignoreTargetModifiers)
+    for (const a of dst.auras) {
+      const v = a.srcId === src.id && a.def.mods && a.def.mods.dmgTakenMine;
+      if (!v) continue;
+      const per = typeof v === 'object' ? (v[school] ?? v.all) : v;
+      if (per !== undefined) amt *= Math.pow(per, a.def.stackMods ? a.stacks : 1);
+    }
   amt *= p.bonusMult || 1;
   amt *= 1 - mitigationOf(src, dst, school, p);
   const physCrit = school === 'physical' || kind === 'melee' || kind === 'ranged';
   // Weapon attacks use the Classic attack table; spells use level-based spell hit.
   const table = src && (kind === 'melee' || kind === 'ranged') ? physicalTable(src, dst) : null;
   const critSup = !src ? 0 : table ? table.critSuppression : !isMob(src) && isMob(dst) ? spellCritSuppression(src.level, dst.level) : 0;
-  const critBase = p.canCrit === false || (p.isTick && !p.canCrit) ? 0 : (src ? (physCrit ? src.stats.critPhys : src.stats.critSpell) + modAdd(src, 'crit', school) : 0) + (p.critBonus || 0) + (dst ? modAdd(dst, 'critTaken', school) : 0);
+  const critBase =
+    p.canCrit === false || (p.isTick && !p.canCrit)
+      ? 0
+      : (src ? (physCrit ? src.stats.critPhys : src.stats.critSpell) + modAdd(src, 'crit', school) : 0) +
+        (p.critBonus || 0) +
+        (dst ? modAdd(dst, 'critTaken', school) : 0);
   const pk = {
     ...p,
     school,
@@ -945,10 +1069,15 @@ export function dealDamage(state, src, dst, p) {
   if (src && src.ownerId) runHooks(state, U(state, src.ownerId), 'beforePetDamage', { pk, dst });
   // White melee swings resolve on one roll (miss, dodge, parry, glancing, crushing, crit, hit);
   // specials, ranged and spells roll hit first and crit separately.
-  let whiteRoll = null, whiteEdge = 0, glancing = false, crushing = false, blocked = false;
+  let whiteRoll = null,
+    whiteEdge = 0,
+    glancing = false,
+    crushing = false,
+    blocked = false;
   if (!p.noMiss && !p.isTick && src) {
     const roll = state.rng();
-    let edge, avoid = null;
+    let edge,
+      avoid = null;
     if (table) {
       const hit = Math.max(0, (src.stats.hit || 0) + modAdd(src, 'hit') - table.hitSuppression);
       const dualWield = p.ability === 'melee' && src.melee && src.melee.dualWield ? 0.19 : 0;
@@ -1011,7 +1140,10 @@ export function dealDamage(state, src, dst, p) {
         const r = dst.res[drain.resource || 'mana'];
         take = Math.min(take, r ? Math.floor(r.cur / drain.per) : 0);
         if (r) r.cur -= take * drain.per;
-        if (take <= 0) { removeAura(state, dst, a, 'consumed'); continue; }
+        if (take <= 0) {
+          removeAura(state, dst, a, 'consumed');
+          continue;
+        }
       }
       a.absorbLeft -= take;
       final -= take;
@@ -1042,7 +1174,21 @@ export function dealDamage(state, src, dst, p) {
     gainRage(src, r * (player && pk.crit ? 2 : 1));
   }
   if (dst.res.rage && final > 0) gainRage(dst, (2.5 * final) / rageConversion(dst.level));
-  emit(state, { type: 'damage', src: src && src.id, owner: ownerId, dst: dst.id, ability: p.ability, amount: final, absorbed, overkill, crit: pk.crit, blocked: !!pk.blocked, school, kind, tick: !!p.isTick });
+  emit(state, {
+    type: 'damage',
+    src: src && src.id,
+    owner: ownerId,
+    dst: dst.id,
+    ability: p.ability,
+    amount: final,
+    absorbed,
+    overkill,
+    crit: pk.crit,
+    blocked: !!pk.blocked,
+    school,
+    kind,
+    tick: !!p.isTick,
+  });
   // A landed weapon strike or swing (Rogue poisons, weapon procs). hand: 'mh' | 'oh'.
   if (src && kind === 'melee' && !p.isTick && dst.alive) runHooks(state, src, 'onWeaponHit', { dst, pk, hand: p.hand || 'mh' });
   if (src && dst.threat) {
@@ -1057,7 +1203,11 @@ export function dealDamage(state, src, dst, p) {
       const resist = Math.min(1, modAdd(dst, 'pushbackResist', c.ab.school));
       if (state.rng() >= resist) {
         if (c.channel) {
-          if (c.pushbacks < MAX_PUSHBACKS) { c.cut += c.duration * 0.25; c.pushbacks++; emit(state, { type: 'pushback', dst: dst.id }); }
+          if (c.pushbacks < MAX_PUSHBACKS) {
+            c.cut += c.duration * 0.25;
+            c.pushbacks++;
+            emit(state, { type: 'pushback', dst: dst.id });
+          }
         } else if (c.pushbacks < MAX_PUSHBACKS) {
           c.remaining = Math.min(c.total, c.remaining + PUSHBACK);
           c.pushbacks++;
@@ -1077,7 +1227,8 @@ export function dealDamage(state, src, dst, p) {
       }
     }
   }
-  for (const a of [...dst.auras]) if (a.def.onHolderDamaged && dst.auras.includes(a)) a.def.onHolderDamaged({ state, u: dst, aura: a, api, src, final, absorbed, pk });
+  for (const a of [...dst.auras])
+    if (a.def.onHolderDamaged && dst.auras.includes(a)) a.def.onHolderDamaged({ state, u: dst, aura: a, api, src, final, absorbed, pk });
   runHooks(state, src, 'afterDamage', { pk, dst, final, absorbed });
   runHooks(state, dst, 'afterDamageTaken', { pk, src, final, absorbed });
   if (state.encounter.onDamage) state.encounter.onDamage(state, api, { src, dst, amount: final, absorbed, ability: p.ability, crit: pk.crit, school, kind });
@@ -1129,7 +1280,12 @@ export function healUnit(state, src, dst, p) {
   if (src) amt *= modMult(src, 'healDone');
   amt *= modMult(dst, 'healTaken');
   let crit = false;
-  if (src && (!p.isTick || p.canCrit === true) && p.canCrit !== false && state.rng() < (src.stats.critSpell || 0) + modAdd(src, 'healCrit') + (p.critBonus || 0)) {
+  if (
+    src &&
+    (!p.isTick || p.canCrit === true) &&
+    p.canCrit !== false &&
+    state.rng() < (src.stats.critSpell || 0) + modAdd(src, 'healCrit') + (p.critBonus || 0)
+  ) {
     crit = true;
     amt *= 1.5 * modMult(src, 'critHeal');
   }
@@ -1151,7 +1307,9 @@ export function healUnit(state, src, dst, p) {
 }
 
 function healThreat(state, src, dst, eff) {
-  const foes = state.list.filter((e) => e.alive && e.engaged && e.threat && e.side !== src.side && (e.threat[dst.id] !== undefined || e.threat[src.id] !== undefined));
+  const foes = state.list.filter(
+    (e) => e.alive && e.engaged && e.threat && e.side !== src.side && (e.threat[dst.id] !== undefined || e.threat[src.id] !== undefined),
+  );
   if (!foes.length) return;
   const each = (eff * 0.5) / foes.length;
   for (const e of foes) addThreat(state, e, src, each);
@@ -1271,14 +1429,30 @@ export function applyAura(state, src, dst, def, opts = {}) {
     };
     dst.auras.push(a);
     if (def.onApply) def.onApply({ state, u: dst, src, aura: a, api });
-    if (!opts.silent) emit(state, { type: 'auraApply', src: src && src.id, dst: dst.id, aura: def.id, name: def.name || null, debuff: !!def.debuff, cc: list.length ? list : null, dr: def.dr || null, duration, ability: opts.ab ? opts.ab.id : null });
+    if (!opts.silent)
+      emit(state, {
+        type: 'auraApply',
+        src: src && src.id,
+        dst: dst.id,
+        aura: def.id,
+        name: def.name || null,
+        debuff: !!def.debuff,
+        cc: list.length ? list : null,
+        dr: def.dr || null,
+        duration,
+        ability: opts.ab ? opts.ab.id : null,
+      });
   }
   if (list.length) {
     computeCC(dst);
     if ((dst.cc.stun || dst.cc.incap || dst.cc.fear) && dst.casting) cancelCast(state, dst, 'cc');
     if (dst.cc.silence && dst.casting && dst.casting.ab.mechanic !== 'physical') cancelCast(state, dst, 'silenced');
-    if (dst.cc.stun || dst.cc.incap || dst.cc.root || dst.cc.fear) { dst.move.to = null; }
-    if (list.includes('incap') && def.healsTarget === false) { /* nothing */ }
+    if (dst.cc.stun || dst.cc.incap || dst.cc.root || dst.cc.fear) {
+      dst.move.to = null;
+    }
+    if (list.includes('incap') && def.healsTarget === false) {
+      /* nothing */
+    }
   } else {
     computeCC(dst);
   }
@@ -1394,7 +1568,8 @@ export function engage(state, enemy, unit, chain = true) {
   if (!was) {
     emit(state, { type: 'aggro', src: enemy.id, dst: unit.id });
     if (state.encounter.onEngage) state.encounter.onEngage(state, api, enemy, unit);
-    if (chain && enemy.group) for (const e of state.list) if (e !== enemy && e.alive && e.group === enemy.group && !e.engaged && !e.hidden) engage(state, e, unit, false);
+    if (chain && enemy.group)
+      for (const e of state.list) if (e !== enemy && e.alive && e.group === enemy.group && !e.engaged && !e.hidden) engage(state, e, unit, false);
   }
 }
 
@@ -1426,12 +1601,16 @@ export function threatTarget(state, e) {
     const tu = U(state, e.taunt.by);
     if (tu && tu.alive && !tu.flags.feigned) return tu;
   }
-  let top = null, topT = -1;
+  let top = null,
+    topT = -1;
   for (const [id, v] of Object.entries(e.threat || {})) {
     const x = U(state, id);
     if (!x || !x.alive || x.flags.feigned || x.hidden) continue;
     const vv = x.cc.immune ? v * 0.001 : v; // Ice Block-like immunity: look elsewhere if anyone else is listed
-    if (vv > topT) { topT = vv; top = x; }
+    if (vv > topT) {
+      topT = vv;
+      top = x;
+    }
   }
   if (!top) return null;
   const cur = U(state, e.target);
@@ -1469,7 +1648,8 @@ function updateThreatAndCombat(state, dt) {
       if (G.dist(e, e.home) < 0.6) {
         e.evading = false;
         e.hp = e.maxHp;
-        e.x = e.home.x; e.y = e.home.y;
+        e.x = e.home.x;
+        e.y = e.home.y;
         e.move.to = null;
         emit(state, { type: 'evadeEnd', src: e.id });
       } else {
@@ -1501,7 +1681,21 @@ export function startEvade(state, e) {
 // ---------------------------------------------------------------- projectiles & zones
 
 export function spawnProjectile(state, src, dst, o) {
-  const p = { id: 'p' + ++state.evSeq, src: src.id, dst: dst.id, x: src.x, y: src.y, speed: o.speed || 28, visual: o.visual || 'arcane', ab: o.ab, effects: o.effects, point: o.point, extra: o.extra || {}, onHit: o.onHit, born: state.t };
+  const p = {
+    id: 'p' + ++state.evSeq,
+    src: src.id,
+    dst: dst.id,
+    x: src.x,
+    y: src.y,
+    speed: o.speed || 28,
+    visual: o.visual || 'arcane',
+    ab: o.ab,
+    effects: o.effects,
+    point: o.point,
+    extra: o.extra || {},
+    onHit: o.onHit,
+    born: state.t,
+  };
   state.projectiles.push(p);
   return p;
 }
@@ -1569,7 +1763,10 @@ function updateZones(state, dt) {
   for (const z of state.zones) {
     if (z.follow) {
       const f = U(state, z.follow);
-      if (f && f.alive) { z.x = f.x; z.y = f.y; }
+      if (f && f.alive) {
+        z.x = f.x;
+        z.y = f.y;
+      }
     }
     if (!z.armed && state.t >= z.armAt) {
       z.armed = true;
@@ -1611,7 +1808,16 @@ function zoneApply(state, z, effects, victims) {
   for (const e of effects) {
     for (const t of v) {
       if (e.type === 'damage') {
-        dealDamage(state, src, t, { amount: rollAmount(state, ab, e), coef: num(ab, e.coef, 0), school: e.school || ab.school || 'fire', kind: e.kind || 'spell', ability: ab.id, isTick: !e.notTick, noMiss: true, threat: e.threat ?? 1 });
+        dealDamage(state, src, t, {
+          amount: rollAmount(state, ab, e),
+          coef: num(ab, e.coef, 0),
+          school: e.school || ab.school || 'fire',
+          kind: e.kind || 'spell',
+          ability: ab.id,
+          isTick: !e.notTick,
+          noMiss: true,
+          threat: e.threat ?? 1,
+        });
       } else if (e.type === 'aura') {
         applyAura(state, src || t, t, materializeAura(e.aura, ab), { ab });
       } else if (e.type === 'heal') {
@@ -1642,7 +1848,10 @@ function steerAround(state, u, vx, vy, distLeft) {
     let tx = -ny / nl;
     let ty = nx / nl;
     const lean = tx * vx + ty * vy;
-    if (lean < 0 || (Math.abs(lean) < 0.05 && u.id.charCodeAt(u.id.length - 1) % 2)) { tx = -tx; ty = -ty; }
+    if (lean < 0 || (Math.abs(lean) < 0.05 && u.id.charCodeAt(u.id.length - 1) % 2)) {
+      tx = -tx;
+      ty = -ty;
+    }
     return { x: tx * 0.85 + vx * 0.15, y: ty * 0.85 + vy * 0.15 };
   }
   return { x: vx, y: vy };
@@ -1655,18 +1864,22 @@ function updateMovement(state, u, dt) {
     u.stillFor += dt;
     return;
   }
-  let vx = 0, vy = 0, speedMult = 1;
+  let vx = 0,
+    vy = 0,
+    speedMult = 1;
   if (cc.fear) {
     const fs = U(state, cc.fearSrc) || u;
     const n = G.norm(u.x - fs.x, u.y - fs.y);
     u.ai && (u.ai.mem.fearWobble = (u.ai.mem.fearWobble || state.rng() * 6) + dt * 0.8);
-    const w = Math.sin(state.t * 1.3 + (u.id.length * 7));
+    const w = Math.sin(state.t * 1.3 + u.id.length * 7);
     const ang = Math.atan2(n.y, n.x) + w * 0.9;
-    vx = Math.cos(ang); vy = Math.sin(ang);
+    vx = Math.cos(ang);
+    vy = Math.sin(ang);
     speedMult = 0.65;
   } else if (u.move.dir && (u.move.dir.x || u.move.dir.y)) {
     const n = G.norm(u.move.dir.x, u.move.dir.y);
-    vx = n.x; vy = n.y;
+    vx = n.x;
+    vy = n.y;
   } else if (u.move.to) {
     const d = G.dist(u, u.move.to);
     if (d < 0.15) {
@@ -1675,15 +1888,22 @@ function updateMovement(state, u, dt) {
       vx = (u.move.to.x - u.x) / d;
       vy = (u.move.to.y - u.y) / d;
       const st = steerAround(state, u, vx, vy, d);
-      vx = st.x; vy = st.y;
+      vx = st.x;
+      vy = st.y;
     }
   }
-  if (cc.root) { vx = 0; vy = 0; }
+  if (cc.root) {
+    vx = 0;
+    vy = 0;
+  }
   if (vx || vy) {
     let sp = u.speed * (1 + cc.haste) * (1 - cc.slow) * speedMult;
     if (u.casting && !u.casting.ab.castWhileMoving) {
       if (u.isPlayer || u.kind === 'player') cancelCast(state, u, 'moved');
-      else { u.moving = false; return; }
+      else {
+        u.moving = false;
+        return;
+      }
     }
     let stepLen = sp * dt;
     if (u.move.to && !u.move.dir) stepLen = Math.min(stepLen, G.dist(u, u.move.to));
@@ -1733,13 +1953,32 @@ function updateAutoAttacks(state, u, dt) {
   }
   if (u.melee) {
     u.swingT = Math.max(0, u.swingT - dt * (1 + modAdd(u, 'meleeHaste')));
-    if (u.swingT <= 0 && u.autoMelee && t && t.alive && hostile(u, t) && !t.hidden && !u.cc.disarm && !(u.casting && !u.casting.ab.meleeWhileCasting) && gap(u, t) <= (u.melee.range || MELEE_RANGE) && !u.flags.feigned && !u.flags.noMelee) {
+    if (
+      u.swingT <= 0 &&
+      u.autoMelee &&
+      t &&
+      t.alive &&
+      hostile(u, t) &&
+      !t.hidden &&
+      !u.cc.disarm &&
+      !(u.casting && !u.casting.ab.meleeWhileCasting) &&
+      gap(u, t) <= (u.melee.range || MELEE_RANGE) &&
+      !u.flags.feigned &&
+      !u.flags.noMelee
+    ) {
       const next = u.nextSwing;
       u.nextSwing = null;
       const replaced = next && startCast(state, u, next, { resolveSwing: true, targetId: t.id }).ok;
       if (!replaced) {
         const amount = u.melee.min + (u.melee.max - u.melee.min) * state.rng();
-        dealDamage(state, u, t, { amount, school: u.melee.school || 'physical', kind: 'melee', ability: 'melee', threat: u.melee.threat ?? 1, coef: u.melee.coef ?? 0 });
+        dealDamage(state, u, t, {
+          amount,
+          school: u.melee.school || 'physical',
+          kind: 'melee',
+          ability: 'melee',
+          threat: u.melee.threat ?? 1,
+          coef: u.melee.coef ?? 0,
+        });
       }
       u.swingT = u.melee.speed;
       u.facing = G.angleTo(u, t);
@@ -1750,9 +1989,29 @@ function updateAutoAttacks(state, u, dt) {
     const oh = u.melee.oh;
     if (oh) {
       u.ohSwingT = Math.max(0, (u.ohSwingT ?? oh.speed / 2) - dt * (1 + modAdd(u, 'meleeHaste')));
-      if (u.ohSwingT <= 0 && u.autoMelee && t && t.alive && hostile(u, t) && !t.hidden && !u.cc.disarm && !(u.casting && !u.casting.ab.meleeWhileCasting) && gap(u, t) <= (u.melee.range || MELEE_RANGE) && !u.flags.feigned && !u.flags.noMelee) {
+      if (
+        u.ohSwingT <= 0 &&
+        u.autoMelee &&
+        t &&
+        t.alive &&
+        hostile(u, t) &&
+        !t.hidden &&
+        !u.cc.disarm &&
+        !(u.casting && !u.casting.ab.meleeWhileCasting) &&
+        gap(u, t) <= (u.melee.range || MELEE_RANGE) &&
+        !u.flags.feigned &&
+        !u.flags.noMelee
+      ) {
         const amount = (oh.min + (oh.max - oh.min) * state.rng()) * (oh.mult ?? 0.5);
-        dealDamage(state, u, t, { amount, school: 'physical', kind: 'melee', ability: 'melee', hand: 'oh', threat: u.melee.threat ?? 1, coef: (oh.coef ?? oh.speed / 14) * (oh.mult ?? 0.5) });
+        dealDamage(state, u, t, {
+          amount,
+          school: 'physical',
+          kind: 'melee',
+          ability: 'melee',
+          hand: 'oh',
+          threat: u.melee.threat ?? 1,
+          coef: (oh.coef ?? oh.speed / 14) * (oh.mult ?? 0.5),
+        });
         u.ohSwingT = oh.speed;
       }
     }
@@ -1763,7 +2022,18 @@ function updateAutoAttacks(state, u, dt) {
       u.autoRanged = true;
       u.wandResume = false;
     }
-    if (u.autoRanged && u.rangedT <= 0 && t && t.alive && hostile(u, t) && !t.hidden && !u.moving && (!u.casting || u.casting.ab.keepsAutoShot) && u.stillFor >= (u.ranged.windup || 0) && !u.flags.feigned) {
+    if (
+      u.autoRanged &&
+      u.rangedT <= 0 &&
+      t &&
+      t.alive &&
+      hostile(u, t) &&
+      !t.hidden &&
+      !u.moving &&
+      (!u.casting || u.casting.ab.keepsAutoShot) &&
+      u.stillFor >= (u.ranged.windup || 0) &&
+      !u.flags.feigned
+    ) {
       const ed = gap(u, t);
       if (ed <= (u.ranged.range || 30) && ed >= (u.ranged.minRange || 0) && G.hasLoS(state.arena, u, t)) {
         const amount = u.ranged.min + (u.ranged.max - u.ranged.min) * state.rng();
@@ -1774,7 +2044,15 @@ function updateAutoAttacks(state, u, dt) {
           speed: r.projectileSpeed || 40,
           visual: r.visual || (r.kind === 'wand' ? r.school || 'shadow' : 'arrow'),
           onHit: (st, s, d) => {
-            dealDamage(st, s, d, { amount, coef: r.coef ?? 0, power: r.kind === 'wand' ? 'none' : 'rap', school: r.school || 'physical', kind: r.kind === 'wand' ? 'spell' : 'ranged', ability: ab.id, threat: 1 });
+            dealDamage(st, s, d, {
+              amount,
+              coef: r.coef ?? 0,
+              power: r.kind === 'wand' ? 'none' : 'rap',
+              school: r.school || 'physical',
+              kind: r.kind === 'wand' ? 'spell' : 'ranged',
+              ability: ab.id,
+              threat: 1,
+            });
             if (s.hooks.onAutoHit) s.hooks.onAutoHit({ state: st, u: s, t: d, api, kind: r.kind });
           },
         });
@@ -1815,7 +2093,10 @@ function updateTimers(u, dt) {
 function processQueue(state, u) {
   if (!u.queued || !u.alive) return;
   const q = u.queued;
-  if (state.t - q.at > 1.2) { u.queued = null; return; }
+  if (state.t - q.at > 1.2) {
+    u.queued = null;
+    return;
+  }
   if (u.casting || u.gcd > 1e-6) return;
   u.queued = null;
   startCast(state, u, q.id, q.opts);
@@ -1853,7 +2134,10 @@ export function step(state, dt) {
   updateZones(state, dt);
   updateThreatAndCombat(state, dt);
   const p = player(state);
-  if (p) { processQueue(state, p); autopilot(state, p); }
+  if (p) {
+    processQueue(state, p);
+    autopilot(state, p);
+  }
   if (state.encounter.onTick) state.encounter.onTick(state, api, dt);
   if (!state.outcome && state.encounter.checkOutcome) {
     const o = state.encounter.checkOutcome(state, api);
@@ -1965,7 +2249,9 @@ export function setTarget(state, id) {
 export function cycleTarget(state) {
   const u = player(state);
   if (!u) return;
-  const foes = enemiesOf(state, u).filter((e) => e.engaged || G.dist(u, e) < 40).sort((a, b) => G.dist(u, a) - G.dist(u, b));
+  const foes = enemiesOf(state, u)
+    .filter((e) => e.engaged || G.dist(u, e) < 40)
+    .sort((a, b) => G.dist(u, a) - G.dist(u, b));
   if (!foes.length) return;
   const i = foes.findIndex((f) => f.id === u.target);
   setTarget(state, foes[(i + 1) % foes.length].id);
@@ -2045,20 +2331,76 @@ export function abilityStatus(state, u, id) {
     reason: chk.reason || null,
     noRes: chk.reason === 'nores',
     outOfRange: chk.reason === 'range' || chk.reason === 'minrange' || chk.reason === 'los',
-    active: ab.onNextSwing ? u.nextSwing === id : ab.toggle === 'autoshot' || ab.toggle === 'wand' ? u.autoRanged || u.wandResume : ab.toggle === 'melee' ? u.autoMelee : false,
+    active: ab.onNextSwing
+      ? u.nextSwing === id
+      : ab.toggle === 'autoshot' || ab.toggle === 'wand'
+        ? u.autoRanged || u.wandResume
+        : ab.toggle === 'melee'
+          ? u.autoMelee
+          : false,
     cost: abilityCost(u, ab),
   };
 }
 
 // Everything content scripts may need, passed as `api` to hooks and scripts.
 export const api = {
-  spawnUnit, learn, removeUnit, emit, say, banner,
-  U, player, hostile, gap, alive, enemiesOf, alliesOf, unitsInRadius, nearest, hpPct, resPct,
-  hasAura, findAura, auraRemaining, modMult, modAdd, statOf, canAct, inCombat,
-  abilityCost, canCast, startCast, cancelCast, interruptCast, applyEffects, dealDamage, healUnit, killUnit, reviveUnit,
-  applyAura, removeAura, removeAuraById, dispelUnit,
-  addThreat, engage, dropThreat, taunt, threatTarget, threatPctOn, startEvade, gainRage,
-  spawnProjectile, spawnZone, zoneVictims, endBattle,
-  playerCast, setMoveDir, moveTo, setTarget, petCommand, petCast,
-  getBehavior, G,
+  spawnUnit,
+  learn,
+  removeUnit,
+  emit,
+  say,
+  banner,
+  U,
+  player,
+  hostile,
+  gap,
+  alive,
+  enemiesOf,
+  alliesOf,
+  unitsInRadius,
+  nearest,
+  hpPct,
+  resPct,
+  hasAura,
+  findAura,
+  auraRemaining,
+  modMult,
+  modAdd,
+  statOf,
+  canAct,
+  inCombat,
+  abilityCost,
+  canCast,
+  startCast,
+  cancelCast,
+  interruptCast,
+  applyEffects,
+  dealDamage,
+  healUnit,
+  killUnit,
+  reviveUnit,
+  applyAura,
+  removeAura,
+  removeAuraById,
+  dispelUnit,
+  addThreat,
+  engage,
+  dropThreat,
+  taunt,
+  threatTarget,
+  threatPctOn,
+  startEvade,
+  gainRage,
+  spawnProjectile,
+  spawnZone,
+  zoneVictims,
+  endBattle,
+  playerCast,
+  setMoveDir,
+  moveTo,
+  setTarget,
+  petCommand,
+  petCast,
+  getBehavior,
+  G,
 };

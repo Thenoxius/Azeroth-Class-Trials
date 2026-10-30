@@ -25,7 +25,13 @@ for (const classId of CLASS_ORDER.filter((c) => trialSupports('t6', c))) {
     assert.ok(rep.critPct >= 0 && rep.critPct <= 1 && rep.executeShare >= 0 && rep.executeShare <= 1);
     const dummy = r.state.script.dummy;
     assert.ok(dummy.alive && dummy.hp / dummy.maxHp < 0.02, `t6 ${classId} ${spec}: dummy health should follow the clock to ~0 %`);
-    rows.push({ build: `${classId} ${spec}`, dps: Math.round(rep.dps), crit: Math.round(rep.critPct * 100) + '%', exec: Math.round(rep.executeShare * 100) + '%', idle: Math.round(rep.idle) + 's' });
+    rows.push({
+      build: `${classId} ${spec}`,
+      dps: Math.round(rep.dps),
+      crit: Math.round(rep.critPct * 100) + '%',
+      exec: Math.round(rep.executeShare * 100) + '%',
+      idle: Math.round(rep.idle) + 's',
+    });
   }
 }
 table(rows, ['build', 'dps', 'crit', 'exec', 'idle']);

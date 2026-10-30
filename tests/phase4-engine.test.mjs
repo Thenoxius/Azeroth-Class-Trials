@@ -20,8 +20,12 @@ console.log('phase4 engine ok');
   const { rageKept } = await import('../src/content/classes/warrior.js');
   let w;
   const enc = {
-    id: 'stance', level: 30, arena: { w: 40, h: 30, obstacles: [] },
-    setup(state, api) { w = spawnClassMember(state, api, { classId: 'warrior', role: 'tank', name: 'W' }, { x: 10, y: 15, level: 30 }); },
+    id: 'stance',
+    level: 30,
+    arena: { w: 40, h: 30, obstacles: [] },
+    setup(state, api) {
+      w = spawnClassMember(state, api, { classId: 'warrior', role: 'tank', name: 'W' }, { x: 10, y: 15, level: 30 });
+    },
     checkOutcome: () => null,
   };
   const state = createBattle(enc, { classId: 'mage', level: 30, kit: KITS.mage, trialId: 'stance', seed: 1 });
@@ -49,10 +53,24 @@ console.log('stances ok');
   const { getAbility } = await import('../src/engine/registry.js');
   let r, mob;
   const enc = {
-    id: 'stealth', level: 30, arena: { w: 60, h: 30, obstacles: [] },
+    id: 'stealth',
+    level: 30,
+    arena: { w: 60, h: 30, obstacles: [] },
     setup(state, api) {
       r = spawnClassMember(state, api, { classId: 'rogue', role: 'dps', name: 'R' }, { x: 10, y: 15, level: 30 });
-      mob = api.spawnUnit(state, { name: 'Mob', side: 'enemy', kind: 'enemy', level: 30, maxHp: 5000, x: 30, y: 15, speed: 0, aggroRadius: 10, ai: { type: 'idle' }, melee: null });
+      mob = api.spawnUnit(state, {
+        name: 'Mob',
+        side: 'enemy',
+        kind: 'enemy',
+        level: 30,
+        maxHp: 5000,
+        x: 30,
+        y: 15,
+        speed: 0,
+        aggroRadius: 10,
+        ai: { type: 'idle' },
+        melee: null,
+      });
     },
     checkOutcome: () => null,
   };
@@ -66,7 +84,10 @@ console.log('stances ok');
   r.x = mob.x - 6; // inside the 10-yard aggro radius, outside 35 % of it
   for (let i = 0; i < 10; i++) step(state, 0.05);
   assert.equal(mob.engaged, false, 'not noticed at 6 yards while stealthed');
-  for (let i = 0; i < 10 && r.flags.stealthed; i++) { dealDamage(state, mob, r, { amount: 10, school: 'fire', kind: 'spell', ability: 'test' }); step(state, 0.05); }
+  for (let i = 0; i < 10 && r.flags.stealthed; i++) {
+    dealDamage(state, mob, r, { amount: 10, school: 'fire', kind: 'spell', ability: 'test' });
+    step(state, 0.05);
+  }
   step(state, 0.05);
   assert.equal(r.flags.stealthed, false, 'taking damage breaks stealth');
 }
@@ -80,10 +101,24 @@ console.log('stealth ok');
   const { poisonOnHit } = await import('../src/content/classes/rogue.js');
   let r, mob;
   const enc = {
-    id: 'poison', level: 60, arena: { w: 40, h: 30, obstacles: [] },
+    id: 'poison',
+    level: 60,
+    arena: { w: 40, h: 30, obstacles: [] },
     setup(state, api) {
       r = spawnClassMember(state, api, { classId: 'rogue', role: 'dps', name: 'R' }, { x: 10, y: 15, level: 60 });
-      mob = api.spawnUnit(state, { name: 'Mob', side: 'enemy', kind: 'enemy', level: 60, maxHp: 1e7, x: 11.5, y: 15, speed: 0, ai: { type: 'idle' }, melee: null, flags: { noEvade: true } });
+      mob = api.spawnUnit(state, {
+        name: 'Mob',
+        side: 'enemy',
+        kind: 'enemy',
+        level: 60,
+        maxHp: 1e7,
+        x: 11.5,
+        y: 15,
+        speed: 0,
+        ai: { type: 'idle' },
+        melee: null,
+        flags: { noEvade: true },
+      });
     },
     checkOutcome: () => null,
   };
@@ -91,7 +126,8 @@ console.log('stealth ok');
   r.ai = null;
   r.meta.poisons = { mh: 'instant', oh: 'deadly' };
   r.hooks = { ...r.hooks, onWeaponHit: poisonOnHit };
-  let instant = 0, hitsMh = 0;
+  let instant = 0,
+    hitsMh = 0;
   for (let i = 0; i < 400; i++) {
     const before = state.meters.dmg[r.id] || 0;
     dealDamage(state, r, mob, { amount: 100, school: 'physical', kind: 'melee', ability: 'test', hand: i % 2 ? 'oh' : 'mh' });
@@ -114,18 +150,41 @@ console.log('poisons ok');
   const { spawnClassMember } = await import('../src/content/party.js');
   let w, mob;
   const enc = {
-    id: 'war', level: 30, arena: { w: 40, h: 30, obstacles: [] },
+    id: 'war',
+    level: 30,
+    arena: { w: 40, h: 30, obstacles: [] },
     setup(state, api) {
       w = spawnClassMember(state, api, { classId: 'warrior', role: 'tank', name: 'W' }, { x: 10, y: 15, level: 30 });
-      mob = api.spawnUnit(state, { name: 'Mob', side: 'enemy', kind: 'enemy', level: 30, maxHp: 1e7, x: 11.5, y: 15, speed: 0, ai: { type: 'idle' }, melee: null, flags: { noEvade: true }, stats: { dodge: 0.5 } });
+      mob = api.spawnUnit(state, {
+        name: 'Mob',
+        side: 'enemy',
+        kind: 'enemy',
+        level: 30,
+        maxHp: 1e7,
+        x: 11.5,
+        y: 15,
+        speed: 0,
+        ai: { type: 'idle' },
+        melee: null,
+        flags: { noEvade: true },
+        stats: { dodge: 0.5 },
+      });
     },
     checkOutcome: () => null,
   };
   const state = createBattle(enc, { classId: 'mage', level: 30, kit: KITS.mage, trialId: 'war', seed: 2 });
   w.ai = null;
   let dodged = 0;
-  w.hooks = { ...w.hooks, onAttackAvoided: ({ avoid }) => { if (avoid === 'dodge') dodged++; } };
-  for (let i = 0; i < 60; i++) { dealDamage(state, w, mob, { amount: 50, school: 'physical', kind: 'melee', ability: 'test' }); step(state, 0.01); }
+  w.hooks = {
+    ...w.hooks,
+    onAttackAvoided: ({ avoid }) => {
+      if (avoid === 'dodge') dodged++;
+    },
+  };
+  for (let i = 0; i < 60; i++) {
+    dealDamage(state, w, mob, { amount: 50, school: 'physical', kind: 'melee', ability: 'test' });
+    step(state, 0.01);
+  }
   assert.ok(dodged > 5, `onAttackAvoided saw dodges (${dodged})`);
 }
 console.log('warrior hooks ok');
@@ -136,10 +195,36 @@ console.log('warrior hooks ok');
   const { createBattle, step, drainEvents } = await import('../src/engine/core.js');
   let u, mob;
   const enc = {
-    id: 'dw', level: 30, arena: { w: 40, h: 30, obstacles: [] },
+    id: 'dw',
+    level: 30,
+    arena: { w: 40, h: 30, obstacles: [] },
     setup(state, api) {
-      mob = api.spawnUnit(state, { name: 'Mob', side: 'enemy', kind: 'enemy', level: 30, maxHp: 1e7, x: 11.5, y: 15, speed: 0, ai: { type: 'idle' }, melee: null, flags: { noEvade: true } });
-      u = api.spawnUnit(state, { name: 'DW', side: 'player', kind: 'ally', level: 30, maxHp: 2000, x: 10, y: 15, speed: 0, autoMelee: true, ai: null, melee: { min: 40, max: 40, speed: 2, coef: 0, dualWield: true, oh: { min: 40, max: 40, speed: 1.5, coef: 0 } } });
+      mob = api.spawnUnit(state, {
+        name: 'Mob',
+        side: 'enemy',
+        kind: 'enemy',
+        level: 30,
+        maxHp: 1e7,
+        x: 11.5,
+        y: 15,
+        speed: 0,
+        ai: { type: 'idle' },
+        melee: null,
+        flags: { noEvade: true },
+      });
+      u = api.spawnUnit(state, {
+        name: 'DW',
+        side: 'player',
+        kind: 'ally',
+        level: 30,
+        maxHp: 2000,
+        x: 10,
+        y: 15,
+        speed: 0,
+        autoMelee: true,
+        ai: null,
+        melee: { min: 40, max: 40, speed: 2, coef: 0, dualWield: true, oh: { min: 40, max: 40, speed: 1.5, coef: 0 } },
+      });
       u.target = mob.id;
     },
     checkOutcome: () => null,
@@ -147,8 +232,16 @@ console.log('warrior hooks ok');
   const state = createBattle(enc, { classId: 'mage', level: 30, kit: KITS.mage, trialId: 'dw', seed: 5 });
   const hands = { mh: 0, oh: 0 };
   let ohDmg = 0;
-  u.hooks = { onWeaponHit: ({ hand, pk }) => { hands[hand]++; if (hand === 'oh') ohDmg = Math.max(ohDmg, pk.amount); } };
-  for (let i = 0; i < 1200; i++) { step(state, 0.05); drainEvents(state); }
+  u.hooks = {
+    onWeaponHit: ({ hand, pk }) => {
+      hands[hand]++;
+      if (hand === 'oh') ohDmg = Math.max(ohDmg, pk.amount);
+    },
+  };
+  for (let i = 0; i < 1200; i++) {
+    step(state, 0.05);
+    drainEvents(state);
+  }
   assert.ok(hands.mh > 15 && hands.oh > 15, `both hands land hits (${hands.mh} / ${hands.oh})`);
   assert.ok(ohDmg <= 41 && ohDmg >= 15, `off hand hits for about half (${Math.round(ohDmg)})`);
 }

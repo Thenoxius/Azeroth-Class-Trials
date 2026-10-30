@@ -28,16 +28,46 @@ export function trialMatrix(trialId, { level, seeds = 8, maxSeconds = 600, specs
             const b = { classId, level: lvl, spec, role };
             const r = runTrial({ ...b, trialId, seed, policy: BOTS[classId][mode](b), maxSeconds });
             const me = r.player;
-            res.push({ win: r.outcome && r.outcome.result === 'victory', result: r.outcome ? r.outcome.result : 'timeout', t: r.t, hp: me && me.alive ? me.hp / me.maxHp : 0, taken: r.meters.taken[r.state.playerId] || 0, state: r.state });
+            res.push({
+              win: r.outcome && r.outcome.result === 'victory',
+              result: r.outcome ? r.outcome.result : 'timeout',
+              t: r.t,
+              hp: me && me.alive ? me.hp / me.maxHp : 0,
+              taken: r.meters.taken[r.state.playerId] || 0,
+              state: r.state,
+            });
           }
           const wins = res.filter((x) => x.win);
           const ts = wins.map((x) => x.t).sort((a, b) => a - b);
-          out.push({ classId, spec, role, mode, n: res.length, wins: wins.length, winRate: wins.length / res.length, medianT: ts.length ? ts[Math.floor(ts.length / 2)] : null, avgHp: res.reduce((a, x) => a + x.hp, 0) / res.length, avgTaken: res.reduce((a, x) => a + x.taken, 0) / res.length, results: res.map((x) => x.result).join(',') });
+          out.push({
+            classId,
+            spec,
+            role,
+            mode,
+            n: res.length,
+            wins: wins.length,
+            winRate: wins.length / res.length,
+            medianT: ts.length ? ts[Math.floor(ts.length / 2)] : null,
+            avgHp: res.reduce((a, x) => a + x.hp, 0) / res.length,
+            avgTaken: res.reduce((a, x) => a + x.taken, 0) / res.length,
+            results: res.map((x) => x.result).join(','),
+          });
         }
       }
     }
   }
-  table(out.map((r) => ({ build: `${r.classId} ${r.spec || ''} ${r.role}`, mode: r.mode, wins: `${r.wins}/${r.n}`, medianT: r.medianT ? r.medianT.toFixed(0) + 's' : '-', avgHp: r.avgHp.toFixed(2), taken: Math.round(r.avgTaken), results: r.results.slice(0, 60) })), ['build', 'mode', 'wins', 'medianT', 'avgHp', 'taken', 'results']);
+  table(
+    out.map((r) => ({
+      build: `${r.classId} ${r.spec || ''} ${r.role}`,
+      mode: r.mode,
+      wins: `${r.wins}/${r.n}`,
+      medianT: r.medianT ? r.medianT.toFixed(0) + 's' : '-',
+      avgHp: r.avgHp.toFixed(2),
+      taken: Math.round(r.avgTaken),
+      results: r.results.slice(0, 60),
+    })),
+    ['build', 'mode', 'wins', 'medianT', 'avgHp', 'taken', 'results'],
+  );
   return out;
 }
 
@@ -54,6 +84,9 @@ export function assertTrial(rows, { minCompetent = 0.75, minBuild = 0.6, label =
   for (const r of rows.filter((x) => x.mode === 'competent')) {
     assert.ok(r.winRate >= minBuild, `${label} ${r.classId} ${r.spec || ''} ${r.role}: competent win rate ${(r.winRate * 100).toFixed(0)} %`);
     const c = rows.find((x) => x.mode === 'careless' && x.classId === r.classId && x.spec === r.spec && x.role === r.role);
-    assert.ok(c.winRate < r.winRate || c.avgHp < r.avgHp - 0.15 || (c.medianT && r.medianT && c.medianT > r.medianT * 1.25) || c.avgTaken > r.avgTaken * 2, `${label} ${r.classId} ${r.spec || ''}: careless play is not clearly worse`);
+    assert.ok(
+      c.winRate < r.winRate || c.avgHp < r.avgHp - 0.15 || (c.medianT && r.medianT && c.medianT > r.medianT * 1.25) || c.avgTaken > r.avgTaken * 2,
+      `${label} ${r.classId} ${r.spec || ''}: careless play is not clearly worse`,
+    );
   }
 }
