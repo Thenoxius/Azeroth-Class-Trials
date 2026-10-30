@@ -1,137 +1,95 @@
 {
   "version": 1,
-  "visual_authority": "reference/approved-characters-footer.png",
-  "source": "User-supplied screenshot of the original World of Warcraft Community Site",
-  "generation": "Lossless PNG crops of supplied raster reference; CSS and SVG details are manually defined; no new image generation.",
-  "quality_note": "Screenshot-resolution presentation assets, not recovered pristine source files. Use near native size; do not upscale. Side illustration is a rectangular plate with its original dark background, not a transparent cutout.",
+  "source": "Original: scripts/build-chrome.mjs and assets/original-branding-v1.",
+  "generation": "Procedural textures and hand-defined SVG; no crops of third-party images.",
   "assets": [
     {
       "id": "metal-top-tile",
-      "path": "assets/metal-top-tile.png",
-      "source_crop_xyxy": [
-        0,
-        0,
-        280,
-        87
-      ],
+      "path": "assets/metal-top-tile.webp",
       "width": 280,
       "height": 87,
-      "sha256": "c82fe84a0279c92bcef518d78c34e9b67f9102861326920ede83b1292b523331",
+      "sha256": "53855c2877afff5a4c8a93f36f993ef460864e78ae57ee33472890335d859428",
       "role": "decorative chrome",
       "runtime_path": "assets/metal-top-tile.webp",
-      "runtime_sha256": "9e64546910dc15cce63abc8048c48792038e7cf451ea8eb657583851a888b7b5"
+      "runtime_sha256": "53855c2877afff5a4c8a93f36f993ef460864e78ae57ee33472890335d859428",
+      "source": "scripts/build-chrome.mjs (procedural)"
     },
     {
       "id": "parchment-tile",
-      "path": "assets/parchment-tile.png",
-      "source_crop_xyxy": [
-        1025,
-        560,
-        1115,
-        690
-      ],
-      "width": 90,
-      "height": 130,
-      "sha256": "d180a434809f7c6c46c5f56a744d351f53a2ba8b29fa6bb3786ef70bfc6b3669",
+      "path": "assets/parchment-tile.webp",
+      "width": 128,
+      "height": 128,
+      "sha256": "5dbf55aa08f6e3c9809651609272d00d1ecb0d1fc1c1b8d3e80c7d35d2ce4a67",
       "role": "decorative chrome",
       "runtime_path": "assets/parchment-tile.webp",
-      "runtime_sha256": "870be4963e00a93c92a12cbbb1590d73880b9154328093c237f26610bc4e5f38"
+      "runtime_sha256": "5dbf55aa08f6e3c9809651609272d00d1ecb0d1fc1c1b8d3e80c7d35d2ce4a67",
+      "source": "scripts/build-chrome.mjs (procedural)"
     },
     {
       "id": "content-edge-left",
-      "path": "assets/content-edge-left.png",
-      "source_crop_xyxy": [
-        638,
-        340,
-        674,
-        700
-      ],
+      "path": "assets/content-edge-left.webp",
       "width": 36,
       "height": 360,
-      "sha256": "dd47e02a2dd50e24152bba1220a0ba808ae3617958d7d479a76945607d913834",
+      "sha256": "6cb403bc8f9ae89047047b4f7c33af51157fb790eaf6477c4443f939df5f1bb4",
       "role": "decorative chrome",
       "runtime_path": "assets/content-edge-left.webp",
-      "runtime_sha256": "a76cb22fd9fac887ac140f81a61d4a69ac4507f91870e5d2c001e2d1e5898fe2"
+      "runtime_sha256": "6cb403bc8f9ae89047047b4f7c33af51157fb790eaf6477c4443f939df5f1bb4",
+      "source": "scripts/build-chrome.mjs (procedural)"
     },
     {
       "id": "content-edge-right",
-      "path": "assets/content-edge-right.png",
-      "source_crop_xyxy": [
-        1374,
-        340,
-        1396,
-        700
-      ],
+      "path": "assets/content-edge-right.webp",
       "width": 22,
       "height": 360,
-      "sha256": "40deabb2267b4d5436b33971ad31c9e89928ea5d64ed78b5fbfa993c40c4fda3",
+      "sha256": "1fbea16712133cb81da3727264de4c4ec244205eea43944c00f9d41c56991af0",
       "role": "decorative chrome",
       "runtime_path": "assets/content-edge-right.webp",
-      "runtime_sha256": "00c9d62bbaa378d75c6f518bfcc4103694f9f409b4a4f483590ee632e79b1960"
+      "runtime_sha256": "1fbea16712133cb81da3727264de4c4ec244205eea43944c00f9d41c56991af0",
+      "source": "scripts/build-chrome.mjs (procedural)"
     },
     {
       "id": "blue-title-middle",
-      "path": "assets/blue-title-middle.png",
-      "source_crop_xyxy": [
-        845,
-        319,
-        1105,
-        336
-      ],
+      "path": "assets/blue-title-middle.webp",
       "width": 260,
       "height": 17,
-      "sha256": "d17fd960c8fa24c424fb6e5a1eccc5f1e130599bce70629021501a4e7b110069",
+      "sha256": "b55685f062f16eb81b94f001bab9b2f56d1083c9f4166e5f7f4d33b7144c82ac",
       "role": "decorative chrome",
       "runtime_path": "assets/blue-title-middle.webp",
-      "runtime_sha256": "dd31e016b0d0f5c453e4ef5cd4e5bf6f279e60c293e18dcb4736d8e1dc02d075"
+      "runtime_sha256": "b55685f062f16eb81b94f001bab9b2f56d1083c9f4166e5f7f4d33b7144c82ac",
+      "source": "scripts/build-chrome.mjs (procedural)"
     },
     {
       "id": "blue-title-left",
-      "path": "assets/blue-title-left.png",
-      "source_crop_xyxy": [
-        671,
-        315,
-        702,
-        339
-      ],
+      "path": "assets/blue-title-left.webp",
       "width": 31,
       "height": 24,
-      "sha256": "5e8df120378d876e3674518aae7c6fb6bc9ee059f564ed8b22f702a02ca84a2a",
+      "sha256": "9997483fe07e0d51c2cc454810dab3e66f33e2a81c0c7a4c8c41c5ffd69922d5",
       "role": "decorative chrome",
       "runtime_path": "assets/blue-title-left.webp",
-      "runtime_sha256": "555b415c6a4f25695ef7b01b25dd2d68d265a7a18f3928a48543477c2491b331"
+      "runtime_sha256": "9997483fe07e0d51c2cc454810dab3e66f33e2a81c0c7a4c8c41c5ffd69922d5",
+      "source": "scripts/build-chrome.mjs (procedural)"
     },
     {
       "id": "blue-title-right",
-      "path": "assets/blue-title-right.png",
-      "source_crop_xyxy": [
-        1115,
-        315,
-        1138,
-        339
-      ],
+      "path": "assets/blue-title-right.webp",
       "width": 23,
       "height": 24,
-      "sha256": "a47549d84cbe6824bae4773bf8f93480c19db57dfd50a57e3c04db5ce7286168",
+      "sha256": "72389aeb6a678c12e4424cafcd27cc1a5871ff1beb3cb2b1a484d258f3467af5",
       "role": "decorative chrome",
       "runtime_path": "assets/blue-title-right.webp",
-      "runtime_sha256": "3e69a52274d51ad0fa1c1b4a375bde62fda72afa861f84b45cf87c8f6980a2e2"
+      "runtime_sha256": "72389aeb6a678c12e4424cafcd27cc1a5871ff1beb3cb2b1a484d258f3467af5",
+      "source": "scripts/build-chrome.mjs (procedural)"
     },
     {
       "id": "nav-left-cap",
-      "path": "assets/nav-left-cap.png",
-      "source_crop_xyxy": [
-        490,
-        104,
-        514,
-        128
-      ],
+      "path": "assets/nav-left-cap.webp",
       "width": 24,
       "height": 24,
-      "sha256": "d7350fe3664a5ceec7eff83f1b6f777f22bc1d4014615fcceeb92ca2cc942ff2",
+      "sha256": "75a60c02246f0b78e699afbce177a6615c4133c7cb8ff3ac890720e366da3c31",
       "role": "decorative chrome",
       "runtime_path": "assets/nav-left-cap.webp",
-      "runtime_sha256": "7247693b6b6ad12888b7c8035b7c6a9bdab523dfb73129ef783e905a60157497"
+      "runtime_sha256": "75a60c02246f0b78e699afbce177a6615c4133c7cb8ff3ac890720e366da3c31",
+      "source": "scripts/build-chrome.mjs (procedural)"
     },
     {
       "id": "nav-right-chevron",
