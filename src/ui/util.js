@@ -2,6 +2,9 @@
 
 export const CLASS_COLORS = { hunter: '#AAD372', mage: '#3FC7EB', priest: '#FFFFFF', warrior: '#C69B6D', rogue: '#FFF468', shaman: '#0070DD', warlock: '#8788EE', paladin: '#F48CBA', druid: '#FF7C0A' };
 
+// Class colours for text on the dark Hall buttons: Shaman blue is unreadable there.
+export const CLASS_TEXT_ON_DARK = { ...CLASS_COLORS, shaman: '#4aa8ff' };
+
 export const SCHOOL_HEX = { fire: '#ff7a2f', frost: '#7fd4ff', arcane: '#c78bff', shadow: '#9b6bff', holy: '#ffe08a', nature: '#7ed957', physical: '#d8c7a8', arrow: '#e8dcc0', trap: '#9bd7ff', void: '#7a4bd6' };
 
 export const RES_COLORS = { mana: '#2f6fe0', focus: '#e08a2f', energy: '#f2d23c', rage: '#c8312b' };

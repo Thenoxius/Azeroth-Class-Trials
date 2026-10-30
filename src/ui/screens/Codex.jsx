@@ -1,4 +1,4 @@
-// The Forever codex: what is known about WoW: Forever for these three classes,
+// The Forever codex: what is known about WoW: Forever for the playable classes,
 // with every line's source status, and the open questions.
 import { GLOBAL_FACTS, CLASS_FACTS, SOURCES, RESEARCH_DATE } from '../../content/facts.js';
 import { STATUS_SHORT, STATUS_LABEL, CLASS_COLORS, cx } from '../util.js';
@@ -23,7 +23,7 @@ export function Codex({ onBack, kits, classOrder }) {
       <header className="an-head">
         <button type="button" className="btn small ghost" onClick={onBack}>← Hall</button>
         <h2>Forever codex</h2>
-        <span className="muted small">Research as of {RESEARCH_DATE} · beta capped at level 30</span>
+        <span className="muted small">Beta research as of {RESEARCH_DATE} · the live game may differ</span>
       </header>
       <div className="cx-tabs" role="tablist">
         {tabs.map(([id, label]) => (

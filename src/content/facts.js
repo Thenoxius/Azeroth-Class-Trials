@@ -73,7 +73,7 @@ export const GLOBAL_FACTS = [
   { topic: 'Level cap', text: 'The level cap is 60, with long-term horizontal progression instead of cap raises. The beta stopped at level 30 (cap raised from 20 on October 1).', status: 'confirmed-official', src: 'bz-devnotes' },
   { topic: 'Talents', text: 'Talents still start at 10 with the 11/21/31-point milestone talents, plus a new 16-point milestone in every tree. Respec at a city class trainer; Dual Specialization unlocks at 40. Still 51 points at 60.', status: 'confirmed-official', src: 'bz-dd-hunter' },
   { topic: 'Mana', text: 'Mana regeneration follows the five-second rule: regen from Spirit pauses for 5 s after a completed mana-costing cast. Wands, potions and food do not trigger it.', status: 'reported-guide', src: 'iv-shadow' },
-  { topic: 'Mana', text: 'Each of the three classes has talents that keep Spirit regen going while casting, and Blizzard buffed them (Bestial Discipline, Mage Armor/Arcane Meditation, Meditation).', status: 'confirmed-official', src: 'bz-dd-hunter' },
+  { topic: 'Mana', text: 'Hunter, Mage and Priest each have talents that keep Spirit regen going while casting, and Blizzard buffed them (Bestial Discipline, Mage Armor/Arcane Meditation, Meditation).', status: 'confirmed-official', src: 'bz-dd-hunter' },
   { topic: 'Downtime', text: 'Guides say drinking downtime, not spell damage, limits caster leveling speed.', status: 'reported-guide', src: 'iv-arcane' },
   { topic: 'Wands & Auto Shot', text: 'Wands and Auto Shot need you to stand still for 0.5 s before firing. Wands no longer gain damage from spell power.', status: 'confirmed-official', src: 'bz-devnotes' },
   { topic: 'Down-ranking', text: 'Spell ranks far below your level get less benefit from spell power and lower proc chances.', status: 'confirmed-official', src: 'bz-devnotes' },
@@ -86,6 +86,7 @@ export const GLOBAL_FACTS = [
   { topic: 'PvP', text: 'Critical strikes no longer have reduced effect in PvP (beta change).', status: 'confirmed-official', src: 'bz-devnotes' },
   { topic: 'Mounts', text: 'First riding at level 40 (about 100 gold) according to fan guides only; the level-30 beta could not show it.', status: 'reported-guide', src: 'iv-overview' },
   { topic: 'Races', text: 'Horde options: Hunter (Orc, Tauren, Troll, Skyborne), Mage (Orc, Undead, Troll), Priest (Undead, Troll). Undead still cannot be Hunters.', status: 'reported-guide', src: 'iv-main' },
+  { topic: 'Races', text: 'Also in these trials: Warrior (Orc, Troll, Tauren, Undead, Skyborne) and Rogue (Orc, Troll, Undead, Skyborne), from the Forever race pages. The Shaman is Orc here so far; more Shaman races are not in the trials yet.', status: 'beta-observation', src: 'wh-forever' },
   { topic: 'Uncertainty', text: 'Every level-60 rotation in guides is a projection: the beta never went past 30, and Blizzard says abilities “may continue to evolve”.', status: 'confirmed-official', src: 'bz-dd-mage' },
 ];
 

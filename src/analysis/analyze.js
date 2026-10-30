@@ -1,4 +1,4 @@
-// Evidence-based comparison of the three classes. Everything here is shown on the
+// Evidence-based comparison of the playable classes. Everything here is shown on the
 // Method screen: four kinds of evidence (Forever facts, observed behaviour, what you
 // said, predictions) per class × dimension, visible weights, no hidden personality score.
 // Observed behaviour is compared with your OWN play on the other classes, never with

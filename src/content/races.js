@@ -1,4 +1,4 @@
-// Playable races for the three trial classes, and their WoW: Forever racials.
+// Playable races per class, and their WoW: Forever racials.
 // Racial texts and numbers: Wowhead Forever race pages + spell tooltips (build
 // 1.60.1, read 2026-10-27). applyRace() layers a race onto a kit build: portrait,
 // racial actives on the bar, passives as auras/stat changes, and a stat offset.

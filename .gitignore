@@ -9,3 +9,17 @@ art-source/
 research/raw/
 
 site-preview/
+
+# Art packs under review or for later classes/races (masters, tens of MB). Only art the
+# game uses goes into git: the resized files in src/ui/art/img and the packs that
+# build-art.mjs reads (spell-icons-extra, shaman-totems-v1, ui-classic).
+assets/alliance-portraits-v1/
+assets/druid-forms-v2/
+assets/original-branding-v1/
+assets/shapeshift-portraits-v1/
+assets/shaman-totems-v1/generation-results.json
+assets/shaman-totems-v1/review.html
+# Validation screenshots and recovery copies stay local; the text logs are kept.
+docs/local-validation/**/*.jpg
+docs/local-validation/**/*.png
+docs/local-validation/temporary-worktree-recovery/

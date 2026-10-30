@@ -3,11 +3,11 @@
 // cannot play a trial yet shows that instead of a button.
 import { Portrait } from '../art/Portrait.jsx';
 import { runKey } from '../../telemetry/store.js';
-import { CLASS_COLORS, cx } from '../util.js';
+import { CLASS_COLORS, CLASS_TEXT_ON_DARK, cx } from '../util.js';
 import { RACES } from '../../content/races.js';
 import { trialSupports } from '../../content/index.js';
 
-const KIND_LABEL = { questing: 'Questing', danger: 'Unexpected danger', dungeon: 'Dungeon', pvp: 'PvP', raid: 'Raid' };
+const KIND_LABEL = { questing: 'Questing', danger: 'Unexpected danger', dungeon: 'Dungeon', pvp: 'PvP', raid: 'Raid', dummy: 'Target dummy' };
 
 // Rotate the class order per trial so no class always goes first (order effects).
 export function suggestedOrder(trialIndex, classOrder) {
@@ -72,7 +72,7 @@ export function Hall({ trials, kits, characters, progress, evidence, onPick, onC
                         <div className="tc st-locked" style={{ '--cc': CLASS_COLORS[c] }} title={`${k.name}s cannot play this trial yet (phase 4 in progress).`}>
                           <span className="tc-portrait"><Portrait id={portrait} size={40} dead /></span>
                           <span className="tc-text">
-                            <span className="tc-class">{ch.name}</span>
+                            <span className="tc-class" style={{ color: CLASS_TEXT_ON_DARK[c] }}>{ch.name}</span>
                             <span className="tc-status">Not available yet</span>
                           </span>
                         </div>
@@ -89,7 +89,7 @@ export function Hall({ trials, kits, characters, progress, evidence, onPick, onC
                           <button type="button" key={lv} className={cx('tc', 'st-' + status, isNext && 'next', lv !== t.level && 'variant')} style={{ '--cc': CLASS_COLORS[c] }} onClick={() => pickFor(ch, t, lv)} title={`${ch.name} — ${RACES[ch.race].name} ${k.name}`}>
                             <span className="tc-portrait"><Portrait id={portrait} size={40} /></span>
                             <span className="tc-text">
-                              <span className="tc-class">{ch.name}{lv !== t.level ? ` · L${lv}` : ''}</span>
+                              <span className="tc-class" style={{ color: CLASS_TEXT_ON_DARK[c] }}>{ch.name}{lv !== t.level ? ` · L${lv}` : ''}</span>
                               <span className="tc-status">{status === 'new' ? (isNext ? 'Suggested next' : 'Not tried') : r.bestDps ? `Best ${Math.round(r.bestDps).toLocaleString('en-US')} DPS` : status === 'won' ? `Won · ${r.attempts} ${r.attempts === 1 ? 'run' : 'runs'}` : `${r.attempts} ${r.attempts === 1 ? 'attempt' : 'attempts'}`}</span>
                             </span>
                           </button>
