@@ -32,7 +32,7 @@ export const emptyProgress = () => ({
   last: { classId: null, spec: {}, role: {} },
   settings: { speed: 1, tips: true, wandMacro: true, reduceMotion: false },
   seenIntro: false,
-  guide: null, // guided comparison: { classes, experience, practice, skipped, startedAt }
+  experience: {}, // classId -> 'new' | 'some' | 'lots', if the player said
   leaderboard: [], // finished T6 runs: { id, at, charId, name, race, classId, spec, dps, total, seconds }
 });
 

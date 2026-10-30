@@ -1,5 +1,5 @@
-// The guided comparison: one sensible next step at a time, in the same situations for every
-// chosen class. Plain JS so node tests can import it.
+// Which trials make classes comparable, and what is still missing. The player picks freely in
+// the Hall; this only names a useful next trial and when to ask the comparison question.
 import { trialById } from '../content/index.js';
 
 // Level 30 comes first on purpose: at 10 most classes have a thin baseline kit and no spec.
@@ -13,7 +13,6 @@ export const ROUTE = [
 ];
 
 export const situationKey = (trialId, level, role) => `${trialId}:${level}:${role || 'dps'}`;
-export const cellKey = (classId, trialId, level, role) => `${classId}@${situationKey(trialId, level, role)}`;
 const played = (s) => !s.abandoned;
 
 // All steps in order. Classes rotate per trial so no class always gets your freshest attention.
@@ -41,29 +40,13 @@ export function routeCells(classes) {
 const cellDone = (cell, sessions) =>
   sessions.some((s) => played(s) && s.classId === cell.classId && s.trialId === cell.trialId && s.level === cell.level && (s.role || 'dps') === cell.role);
 
-// What to do now: { type: 'practice' | 'trial', ... }, or null when the route is finished.
-export function nextStep(guide, sessions, characters) {
-  if (!guide || !guide.classes || !guide.classes.length) return null;
-  const skipped = guide.skipped || [];
-  const cell = routeCells(guide.classes).find((c) => !cellDone(c, sessions) && !skipped.includes(cellKey(c.classId, c.trialId, c.level, c.role)));
+// What to do now, or null when the route is finished.
+export function nextStep(classes, sessions, characters) {
+  const cell = routeCells(classes).find((c) => !cellDone(c, sessions));
   if (!cell) return null;
   const ch = characters.find((c) => c.classId === cell.classId) || null;
-  const known = (guide.practice || {})[cell.classId] || sessions.some((s) => s.classId === cell.classId);
-  if (!known) return { type: 'practice', classId: cell.classId, charId: ch && ch.id, race: ch && ch.race, then: cell };
-  return { type: 'trial', ...cell, charId: ch && ch.id, race: ch && ch.race };
+  return { ...cell, charId: ch && ch.id, race: ch && ch.race };
 }
-
-export function routeProgress(guide, sessions) {
-  const cells = guide && guide.classes ? routeCells(guide.classes) : [];
-  const skipped = (guide && guide.skipped) || [];
-  return {
-    total: cells.length,
-    done: cells.filter((c) => cellDone(c, sessions)).length,
-    skipped: cells.filter((c) => !cellDone(c, sessions) && skipped.includes(cellKey(c.classId, c.trialId, c.level, c.role))).length,
-  };
-}
-
-export const skipCell = (guide, cell) => ({ ...guide, skipped: [...(guide.skipped || []), cellKey(cell.classId, cell.trialId, cell.level, cell.role)] });
 
 // Only a finished run in the same trial, level and role is comparable. Asks about the most
 // recent other class that has not been compared with this one here yet; one question per trial.
@@ -75,6 +58,3 @@ export function pendingComparison(session, sessions, comparisons = []) {
   if (!others.length) return null;
   return { situation: key, a: others[others.length - 1].classId, b: session.classId };
 }
-
-// Practice never reaches the evidence store.
-export const countsAsEvidence = (trial) => !trial.practice;

@@ -19,9 +19,9 @@ alleen als die echt vastloopt. Noteer waar dat gebeurt. Open de site zonder uitl
 ## Taken
 
 1. Bekijk de startpagina 30 seconden. Wat kun je hier doen? Wat levert het op? Is een account nodig?
-2. Kies classes en begin.
-3. Doe de oefening, of sla die over. Wat is er duidelijk geworden?
-4. Speel de eerste twee voorgestelde proeven. Wat was je doel? Lukte er iets niet, en begreep je waarom?
+2. Kies classes en ga naar de Hall.
+3. Kies in de Hall een eerste proef. Weet je wat je moet doen?
+4. Speel twee proeven. Wat was je doel? Lukte er iets niet, en begreep je waarom?
 5. Beantwoord de vragen na een proef. Welke vraag was lastig te beantwoorden, en waarom?
 6. Lees de uitslag. Leg in eigen woorden uit wat er staat, hoe zeker het is en wat je nu zou doen.
 

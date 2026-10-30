@@ -1,6 +1,6 @@
 import { Portrait } from '../art/Portrait.jsx';
 
-export function Title({ onStart, onMethod, onHall, guideActive, hasCharacters }) {
+export function Title({ onStart, onMethod, onHall, hasCharacters }) {
   return (
     <div className="title-screen">
       <div className="title-inner">
@@ -25,12 +25,12 @@ export function Title({ onStart, onMethod, onHall, guideActive, hasCharacters })
             <b>Get</b> a plain comparison based on what you liked, with its reasons and what is still unknown.
           </li>
           <li>
-            <b>Start</b> by choosing two or three classes. The game then suggests one trial at a time.
+            <b>Start</b> by choosing the classes you want to try, and go straight to the Hall of Trials.
           </li>
         </ul>
         <div className="row gap center">
           <button type="button" className="btn primary big" onClick={onStart}>
-            {guideActive ? 'Continue comparing' : 'Choose your classes'}
+            {hasCharacters ? 'Enter the Hall of Trials' : 'Choose your classes'}
           </button>
         </div>
         <p className="muted small center title-facts">
@@ -40,14 +40,6 @@ export function Title({ onStart, onMethod, onHall, guideActive, hasCharacters })
           <button type="button" className="linkish" onClick={onMethod}>
             How it works
           </button>
-          {hasCharacters && (
-            <>
-              {' · '}
-              <button type="button" className="linkish" onClick={onHall}>
-                Free play in the Hall
-              </button>
-            </>
-          )}
         </p>
       </div>
     </div>

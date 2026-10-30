@@ -18,8 +18,6 @@ export function Result({
   characters = [],
   feedbackGiven,
   compare,
-  nextLabel,
-  onNext,
   onFeedback,
   onRetry,
   onOtherClass,
@@ -84,15 +82,10 @@ export function Result({
       {fbDone && result.report && <DamageReport report={result.report} kit={kit} />}
       {fbDone && trial.leaderboard && <Leaderboard entries={leaderboard} currentId={result.entryId} kits={kits} trial={trial} characters={characters} />}
       <div className="result-actions">
-        {onNext && (
-          <button type="button" className="btn primary" onClick={onNext}>
-            {nextLabel}
-          </button>
-        )}
-        <button type="button" className={cx('btn', !onNext && 'primary')} onClick={onRetry}>
+        <button type="button" className="btn" onClick={onRetry}>
           Play it again as {kit.name}
         </button>
-        <button type="button" className="btn ghost" onClick={onHall}>
+        <button type="button" className="btn primary" onClick={onHall}>
           Back to the Hall
         </button>
         <button type="button" className="btn ghost" onClick={onAnalysis}>

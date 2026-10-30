@@ -169,7 +169,20 @@ function Provenance({ a, kits, characters }) {
   return lines.some(Boolean) ? <p className="muted small">Runs per character. {lines.filter(Boolean).join(' · ')}.</p> : null;
 }
 
-export function Analysis({ evidence, kits, trials, classOrder, characters = [], guide, nextUp, leaderboard = [], onConfirm, onBack, onMethod, onPlayNext }) {
+export function Analysis({
+  evidence,
+  kits,
+  trials,
+  classOrder,
+  characters = [],
+  experience = {},
+  nextUp,
+  leaderboard = [],
+  onConfirm,
+  onBack,
+  onMethod,
+  onPlayNext,
+}) {
   const confirmations = evidence.confirmations || {};
   const [open, setOpen] = useState(null);
   const a = useMemo(
@@ -179,10 +192,10 @@ export function Analysis({ evidence, kits, trials, classOrder, characters = [], 
         feedback: evidence.feedback,
         comparisons: evidence.comparisons || [],
         confirmations,
-        experience: (guide && guide.experience) || {},
+        experience,
         trials,
       }),
-    [evidence, trials, guide],
+    [evidence, trials, experience],
   );
   const best = {};
   for (const e of leaderboard) if (!best[e.classId] || e.dps > best[e.classId]) best[e.classId] = e.dps;

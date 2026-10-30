@@ -33,12 +33,11 @@ git. `design/phase4.md` holds the original plan and its design decisions.
 - **Art:** original Class Trials branding and procedural menu chrome; no crops of the WoW site.
 - **Forever audit:** `npm run audit`, results in `docs/ability-audit/`.
 
-## First route and guided comparison
+## First route
 
 - **Start page** (`Title.jsx`): what you can try, what you get, how to begin. One main action.
-- **Class choice** (`ClassPicker.jsx`, `content/class-intro.js`): two or three classes, with a description and roles. It creates a character with a default race if the class has none. Race and name change later under Characters.
-- **Route** (`guide/route.js`, `Guide.jsx`, saved as `progress.guide`): one next step at a time, the same trial, level and role per class, starting at level 30 because level 10 has a thin kit. Other roles are their own steps. Roster and Hall stay as free play.
-- **Practice yard** (`encounters/t0-practice.js`): skippable, per class, not in `TRIALS`, and never written to the evidence or progress.
+- **Class choice** (`ClassPicker.jsx`, `content/class-intro.js`): any number of classes, with a description and roles. It creates a character with a default race if the class has none, then goes straight to the Hall. Race and name change later under Characters.
+- **Everything starts in the Hall.** There is no guided route and no practice: after choosing classes you enter the Hall, and after a trial you return to it. `guide/route.js` only names a useful next trial on the analysis screen and decides when to ask the comparison question.
 - **During a fight** (`guide/hints.js`): one goal line, at most three hints, and an explanation after a repeated failed press. The Tips setting turns hints off.
 
 ## How the analysis works

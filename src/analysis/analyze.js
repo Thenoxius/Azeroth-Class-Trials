@@ -283,7 +283,7 @@ function uncertainties(state) {
 export function analyze({ sessions = [], feedback = [], comparisons = [], confirmations = {}, experience = {}, trials } = {}) {
   const trialList = trials && trials.length ? trials : DEFAULT_TRIALS;
   const ids = new Set(trialList.map((t) => t.id));
-  // Practice and leaderboard runs are never evidence about preference.
+  // Leaderboard runs are never evidence about preference.
   const runs = sessions.filter((s) => ids.has(s.trialId));
   const answers = feedback.filter((f) => ids.has(f.trialId));
   const rows = situationTable(runs, answers, trialList);
