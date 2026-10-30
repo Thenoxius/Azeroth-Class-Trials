@@ -31,7 +31,7 @@ export const emptyProgress = () => ({
   last: { classId: null, spec: {}, role: {} },
   settings: { speed: 1, tips: true, wandMacro: true, reduceMotion: false },
   seenIntro: false,
-  leaderboard: [], // finished T6 runs: { id, at, charId, name, race, classId, spec, dps, total }
+  leaderboard: [], // finished T6 runs: { id, at, charId, name, race, classId, spec, dps, total, seconds }
 });
 
 export const emptyEvidence = () => ({

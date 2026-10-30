@@ -28,11 +28,13 @@ function Timeline({ report }) {
       <path d={`${line}L${W} ${H}L0 ${H}Z`} className="dr-area" />
       <path d={line} className="dr-line" />
       <line x1="0" y1={y(report.dps)} x2={W} y2={y(report.dps)} className="dr-avg" />
-      {[0, 60, 120, 180].map((s) => (
-        <text key={s} x={(s / report.seconds) * W} y={H + 11} textAnchor={s === 0 ? 'start' : s === 180 ? 'end' : 'middle'}>
-          {clock(s)}
-        </text>
-      ))}
+      {[0, 0.25, 0.5, 0.75, 1]
+        .map((f) => report.seconds * f)
+        .map((s) => (
+          <text key={s} x={(s / report.seconds) * W} y={H + 11} textAnchor={s === 0 ? 'start' : s === report.seconds ? 'end' : 'middle'}>
+            {clock(s)}
+          </text>
+        ))}
       <text x={exec + 3} y="10" className="dr-exec-label">
         execute
       </text>
@@ -44,7 +46,8 @@ function details(report) {
   const out = [];
   if (report.biggest) out.push(`Biggest hit: ${report.biggest.name} for ${num(report.biggest.amount)}${report.biggest.crit ? ' (crit)' : ''}.`);
   for (const u of report.uptimes.slice(0, 3)) out.push(`${u.name} was ${u.kind === 'debuff' ? 'on the dummy' : 'up'} ${pct(u.pct)} of the time.`);
-  if (report.executeShare > 0) out.push(`${pct(report.executeShare)} of your damage came in the execute phase (the last 36 s).`);
+  if (report.executeShare > 0)
+    out.push(`${pct(report.executeShare)} of your damage came in the execute phase (the last ${Math.round(report.seconds * 0.2)} s).`);
   if (report.petShare > 0) out.push(`Your pet and guardians did ${pct(report.petShare)} of the damage.`);
   if (report.idle >= 1) out.push(`${Math.round(report.idle)} s without a cast or global cooldown running.`);
   if (report.cap && report.cap.seconds >= 1)
@@ -128,7 +131,9 @@ export function DamageReport({ report, kit }) {
 }
 
 // Best run per class and spec, highest DPS first, plus the specs nobody tried yet.
-export function Leaderboard({ entries, currentId, kits, trial, characters }) {
+export function Leaderboard({ entries: allEntries, currentId, kits, trial, characters }) {
+  // Only runs of the current length compare; older, longer runs stay in the save, off the board.
+  const entries = allEntries.filter((e) => e.seconds === trial.seconds);
   const best = new Map();
   for (const e of entries) {
     const k = `${e.classId}:${e.spec}`;
@@ -192,7 +197,7 @@ export function Leaderboard({ entries, currentId, kits, trial, characters }) {
         <p className="muted">No finished runs yet.</p>
       )}
       {untested.length > 0 && <p className="muted small">Not tested yet: {untested.join(', ')}.</p>}
-      <p className="muted small">Your own runs in this browser. Same dummy, same three minutes, no raid buffs for every class.</p>
+      <p className="muted small">Your own runs in this browser. Same dummy, same minute, no raid buffs for every class.</p>
     </section>
   );
 }

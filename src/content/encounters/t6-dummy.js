@@ -1,15 +1,15 @@
 // Trial 6 — The Proving Grounds (level 60). One fixed standard for every class and
 // spec, so runs can be ranked on one leaderboard: a level-63 raid target dummy with
-// raid-boss armor, three minutes from your first hit, solo and without raid buffs.
-// Its health follows the clock (100 % → 0 % over the three minutes), so the last
+// raid-boss armor, one minute from your first hit, solo and without raid buffs.
+// Its health follows the clock (100 % → 0 % over the minute), so the last
 // 20 % of the time is an execute phase. The dummy never fights back.
 // Afterwards the trial hands the UI a damage report (see buildReport).
 import { registerTemplates, getAbility } from '../../engine/registry.js';
 import { spawnPlayer, marker, freshEvents } from '../common.js';
 
-export const DUMMY_SECONDS = 180;
+export const DUMMY_SECONDS = 60;
 const EXECUTE_AT = 0.8; // health is 20 % at 80 % of the time
-const BUCKET = 5; // seconds per point in the DPS-over-time chart
+const BUCKET = 2; // seconds per point in the DPS-over-time chart
 const START = { player: { x: 12, y: 13 }, dummy: { x: 30, y: 13 } };
 const WHITE = { melee: 'Auto Attack', autoshot: 'Auto Shot', wand: 'Shoot (wand)' };
 
@@ -113,14 +113,15 @@ export const TRIAL = {
   levels: [60],
   kind: 'dummy',
   leaderboard: true,
-  blurb: 'Three minutes against a raid target dummy. One standard for every class: your damage goes on the leaderboard.',
+  seconds: DUMMY_SECONDS,
+  blurb: 'One minute against a raid target dummy. One standard for every class: your damage goes on the leaderboard.',
   rolesFor: () => ['dps'],
   intro() {
     return {
-      text: 'A level-63 raid target dummy with the armor of a raid boss. You get three minutes — the clock starts at your first hit — solo and without raid buffs. Every class and spec plays exactly the same test, so the results go on one leaderboard.',
-      goals: ['Deal as much damage as you can in 3:00', 'The clock starts at your first hit — an opener counts'],
+      text: 'A level-63 raid target dummy with the armor of a raid boss. You get one minute — the clock starts at your first hit — solo and without raid buffs. Every class and spec plays exactly the same test, so the results go on one leaderboard.',
+      goals: ['Deal as much damage as you can in 1:00', 'The clock starts at your first hit — an opener counts'],
       tips: [
-        'The dummy’s health follows the clock: the last 36 seconds it is under 20 % — execute range.',
+        'The dummy’s health follows the clock: the last 12 seconds it is under 20 % — execute range.',
         'It never fights back, so this is your rotation and your resources, nothing else.',
         'Afterwards you get a damage report: per ability, over time, and where the damage went missing.',
       ],

@@ -121,8 +121,8 @@ export function Hall({ trials, kits, characters, progress, evidence, onPick, onC
                                   ? isNext
                                     ? 'Suggested next'
                                     : 'Not tried'
-                                  : r.bestDps
-                                    ? `Best ${Math.round(r.bestDps).toLocaleString('en-US')} DPS`
+                                  : r.bestDps1m
+                                    ? `Best ${Math.round(r.bestDps1m).toLocaleString('en-US')} DPS`
                                     : status === 'won'
                                       ? `Won · ${r.attempts} ${r.attempts === 1 ? 'run' : 'runs'}`
                                       : `${r.attempts} ${r.attempts === 1 ? 'attempt' : 'attempts'}`}

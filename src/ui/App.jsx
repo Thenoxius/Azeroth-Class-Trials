@@ -171,13 +171,14 @@ export function App({ initial }) {
           spec: s.spec || null,
           dps: Math.round(report.dps * 10) / 10,
           total: report.total,
+          seconds: report.seconds,
         }
       : null;
     setProgress((p) => {
       const k = runKey(session.trialId, session.classId, session.level);
       const r = p.runs[k] || { attempts: 0, wins: 0 };
       const won = outcome && outcome.result === 'victory';
-      const bestDps = entry ? Math.max(r.bestDps || 0, entry.dps) : r.bestDps;
+      const bestDps1m = entry ? Math.max(r.bestDps1m || 0, entry.dps) : r.bestDps1m;
       const leaderboard = entry ? [...(p.leaderboard || []), entry].slice(-500) : p.leaderboard || [];
       return {
         ...p,
@@ -191,7 +192,7 @@ export function App({ initial }) {
             lastResult: abandoned ? 'abandoned' : outcome ? outcome.result : null,
             lastAt: new Date().toISOString(),
             bestTime: won ? Math.min(r.bestTime || 1e9, session.simSeconds) : r.bestTime,
-            bestDps,
+            bestDps1m,
           },
         },
       };
