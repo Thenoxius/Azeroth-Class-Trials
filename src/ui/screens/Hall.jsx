@@ -3,11 +3,11 @@
 // cannot play a trial yet shows that instead of a button.
 import { Portrait } from '../art/Portrait.jsx';
 import { runKey } from '../../telemetry/store.js';
-import { CLASS_COLORS, cx } from '../util.js';
+import { CLASS_COLORS, CLASS_TEXT_ON_DARK, cx } from '../util.js';
 import { RACES } from '../../content/races.js';
 import { trialSupports } from '../../content/index.js';
 
-const KIND_LABEL = { questing: 'Questing', danger: 'Unexpected danger', dungeon: 'Dungeon', pvp: 'PvP', raid: 'Raid' };
+const KIND_LABEL = { questing: 'Questing', danger: 'Unexpected danger', dungeon: 'Dungeon', pvp: 'PvP', raid: 'Raid', dummy: 'Target dummy' };
 
 // Rotate the class order per trial so no class always goes first (order effects).
 export function suggestedOrder(trialIndex, classOrder) {
@@ -42,11 +42,17 @@ export function Hall({ trials, kits, characters, progress, evidence, onPick, onC
   return (
     <div className="hall">
       <header className="hall-head">
-        <button type="button" className="linkish" onClick={onTitle}>Azeroth Class Trials</button>
+        <button type="button" className="linkish" onClick={onTitle}>
+          Azeroth Class Trials
+        </button>
         <h2>The Hall of Trials</h2>
         <div className="row gap">
-          <button type="button" className="btn small ghost" onClick={onCodex}>Forever codex</button>
-          <button type="button" className="btn small ghost" onClick={onSettings}>Settings &amp; data</button>
+          <button type="button" className="btn small ghost" onClick={onCodex}>
+            Forever codex
+          </button>
+          <button type="button" className="btn small ghost" onClick={onSettings}>
+            Settings &amp; data
+          </button>
         </div>
       </header>
       <div className="hall-body">
@@ -69,10 +75,18 @@ export function Hall({ trials, kits, characters, progress, evidence, onPick, onC
                   if (!trialSupports(t.id, c)) {
                     return (
                       <div key={ch.id} className="tc-cell">
-                        <div className="tc st-locked" style={{ '--cc': CLASS_COLORS[c] }} title={`${k.name}s cannot play this trial yet (phase 4 in progress).`}>
-                          <span className="tc-portrait"><Portrait id={portrait} size={40} dead /></span>
+                        <div
+                          className="tc st-locked"
+                          style={{ '--cc': CLASS_COLORS[c] }}
+                          title={`${k.name}s cannot play this trial yet (phase 4 in progress).`}
+                        >
+                          <span className="tc-portrait">
+                            <Portrait id={portrait} size={40} dead />
+                          </span>
                           <span className="tc-text">
-                            <span className="tc-class">{ch.name}</span>
+                            <span className="tc-class" style={{ color: CLASS_TEXT_ON_DARK[c] }}>
+                              {ch.name}
+                            </span>
                             <span className="tc-status">Not available yet</span>
                           </span>
                         </div>
@@ -86,11 +100,33 @@ export function Hall({ trials, kits, characters, progress, evidence, onPick, onC
                         const isNext = next && next.trialId === t.id && next.charId === ch.id && next.level === lv;
                         const status = !r || !r.attempts ? 'new' : r.wins ? 'won' : 'tried';
                         return (
-                          <button type="button" key={lv} className={cx('tc', 'st-' + status, isNext && 'next', lv !== t.level && 'variant')} style={{ '--cc': CLASS_COLORS[c] }} onClick={() => pickFor(ch, t, lv)} title={`${ch.name} — ${RACES[ch.race].name} ${k.name}`}>
-                            <span className="tc-portrait"><Portrait id={portrait} size={40} /></span>
+                          <button
+                            type="button"
+                            key={lv}
+                            className={cx('tc', 'st-' + status, isNext && 'next', lv !== t.level && 'variant')}
+                            style={{ '--cc': CLASS_COLORS[c] }}
+                            onClick={() => pickFor(ch, t, lv)}
+                            title={`${ch.name} — ${RACES[ch.race].name} ${k.name}`}
+                          >
+                            <span className="tc-portrait">
+                              <Portrait id={portrait} size={40} />
+                            </span>
                             <span className="tc-text">
-                              <span className="tc-class">{ch.name}{lv !== t.level ? ` · L${lv}` : ''}</span>
-                              <span className="tc-status">{status === 'new' ? (isNext ? 'Suggested next' : 'Not tried') : r.bestDps ? `Best ${Math.round(r.bestDps).toLocaleString('en-US')} DPS` : status === 'won' ? `Won · ${r.attempts} ${r.attempts === 1 ? 'run' : 'runs'}` : `${r.attempts} ${r.attempts === 1 ? 'attempt' : 'attempts'}`}</span>
+                              <span className="tc-class" style={{ color: CLASS_TEXT_ON_DARK[c] }}>
+                                {ch.name}
+                                {lv !== t.level ? ` · L${lv}` : ''}
+                              </span>
+                              <span className="tc-status">
+                                {status === 'new'
+                                  ? isNext
+                                    ? 'Suggested next'
+                                    : 'Not tried'
+                                  : r.bestDps
+                                    ? `Best ${Math.round(r.bestDps).toLocaleString('en-US')} DPS`
+                                    : status === 'won'
+                                      ? `Won · ${r.attempts} ${r.attempts === 1 ? 'run' : 'runs'}`
+                                      : `${r.attempts} ${r.attempts === 1 ? 'attempt' : 'attempts'}`}
+                              </span>
                             </span>
                           </button>
                         );
@@ -107,14 +143,19 @@ export function Hall({ trials, kits, characters, progress, evidence, onPick, onC
             <div className="panel-title">Evidence so far</div>
             {classOrder.map((c) => (
               <div key={c} className="ev-row">
-                <span className="ev-class" style={{ color: CLASS_COLORS[c] }}>{kits[c].name}</span>
-                <span>{perClass[c].sessions} {perClass[c].sessions === 1 ? 'run' : 'runs'}</span>
+                <span className="ev-class" style={{ color: CLASS_COLORS[c] }}>
+                  {kits[c].name}
+                </span>
+                <span>
+                  {perClass[c].sessions} {perClass[c].sessions === 1 ? 'run' : 'runs'}
+                </span>
                 <span>{perClass[c].minutes.toFixed(0)} min</span>
                 <span>{perClass[c].feedback} notes</span>
               </div>
             ))}
             <p className="muted small">
-              The class order changes from trial to trial, so no class always gets your freshest attention. Replaying anything is fine — what you choose to replay counts as evidence.
+              The class order changes from trial to trial, so no class always gets your freshest attention. Replaying anything is fine — what you choose to
+              replay counts as evidence.
             </p>
           </div>
           {next ? (

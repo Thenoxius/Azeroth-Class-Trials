@@ -1,0 +1,12 @@
+node_modules/
+dist/
+site-preview/
+scratch/
+art-source/
+assets/
+docs/
+research/
+*.gen.js
+package-lock.json
+*.md
+src/shell.html

@@ -41,7 +41,10 @@ const contentFiles = () => [
 ];
 
 async function encode(file, px, quality) {
-  const buf = await sharp(resolve(file.startsWith('assets/') ? root : SRC, file)).resize(px, px, { fit: 'cover', kernel: 'lanczos3' }).webp({ quality, effort: 6 }).toBuffer();
+  const buf = await sharp(resolve(file.startsWith('assets/') ? root : SRC, file))
+    .resize(px, px, { fit: 'cover', kernel: 'lanczos3' })
+    .webp({ quality, effort: 6 })
+    .toBuffer();
   // Content-hashed names: unchanged art keeps its URL, so browsers keep it cached.
   const name = createHash('sha256').update(buf).digest('hex').slice(0, 12) + '.webp';
   writeFileSync(resolve(IMG_DIR, name), buf);
@@ -81,9 +84,9 @@ for (const a of json('gameplay-manifest.json').assets) {
 }
 
 // Approved Shaman element artwork, bundled from the canonical project.
-for(const a of JSON.parse(readFileSync(resolve(root,'assets/shaman-totems-v1/manifest.json'),'utf8'))){
- if(a.reviewStatus!=='user-approved')throw Error('Totem approval missing: '+a.id);
- portraits['totem-'+a.id]=await add('assets/shaman-totems-v1/'+a.file,128,84);
+for (const a of JSON.parse(readFileSync(resolve(root, 'assets/shaman-totems-v1/manifest.json'), 'utf8'))) {
+  if (a.reviewStatus !== 'user-approved') throw Error('Totem approval missing: ' + a.id);
+  portraits['totem-' + a.id] = await add('assets/shaman-totems-v1/' + a.file, 128, 84);
 }
 // ---------------------------------------------------------------- spell icons
 const R = await import(pathToFileURL(resolve(root, 'src/engine/registry.js')).href);
@@ -107,7 +110,7 @@ for (const m of mappings) {
 // This resolves names once at build time; the UI still uses only ability IDs.
 for (const ab of Object.values(abilities)) {
   if (abilityIcons[ab.id] !== undefined) continue;
-  const linked = mappings.find(m => m.name === ab.name && m.sourceVersion === 'forever' && m.file && ICON_OK.has(m.mappingStatus));
+  const linked = mappings.find((m) => m.name === ab.name && m.sourceVersion === 'forever' && m.file && ICON_OK.has(m.mappingStatus));
   if (linked) abilityIcons[ab.id] = await add(linked.projectAsset ? linked.file : 'spell-icons/' + linked.file, ICON_PX, 88);
 }
 
@@ -135,7 +138,9 @@ export const AURA_IMG = ${JSON.stringify(auraIcons)};
 `;
 writeFileSync(resolve(root, 'src/ui/art/art-images.gen.js'), out);
 const kb = (Buffer.byteLength(out) / 1024).toFixed(0);
-console.log(`art-images.gen.js ${kb} KB: ${images.length} images, ${Object.keys(portraits).length} portraits, ${Object.keys(abilityIcons).length}/${Object.keys(abilities).length} abilities, ${Object.keys(auraIcons).length} auras`);
+console.log(
+  `art-images.gen.js ${kb} KB: ${images.length} images, ${Object.keys(portraits).length} portraits, ${Object.keys(abilityIcons).length}/${Object.keys(abilities).length} abilities, ${Object.keys(auraIcons).length} auras`,
+);
 if (unmapped.length) console.log('abilities keeping their SVG glyph: ' + unmapped.join(', '));
 const svgOnly = [...usedPortraits].filter((id) => portraits[id] === undefined);
 if (svgOnly.length) console.log('portraits keeping their SVG: ' + svgOnly.join(', '));

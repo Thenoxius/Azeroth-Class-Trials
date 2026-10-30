@@ -13,7 +13,7 @@ import { runTrial } from './bots/harness.mjs';
 for (const [classId, races] of Object.entries(CLASS_RACES)) {
   assert.equal(validRace(classId, 'gnome'), races[0], 'unknown race falls back to the default');
   for (const race of races) {
-    for (const level of (kitOf(classId).supportedLevels || [10, 30, 60])) {
+    for (const level of kitOf(classId).supportedLevels || [10, 30, 60]) {
       const b = kitOf(classId).build({ level, race, trialId: 't1' });
       assert.equal(b.race, race);
       assert.equal(b.template.portrait, `${race}-${classId}`);

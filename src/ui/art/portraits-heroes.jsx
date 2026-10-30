@@ -18,9 +18,7 @@ const glow = (id, a, b = a, o = 1) => (
   </radialGradient>
 );
 const OL = { stroke: '#08060a', strokeOpacity: 0.75, strokeWidth: 1.2, strokeLinejoin: 'round' };
-const rim = (d, c = '#ffe6b8', o = 0.6, w = 1.3) => (
-  <path d={d} fill="none" stroke={c} strokeOpacity={o} strokeWidth={w} strokeLinecap="round" />
-);
+const rim = (d, c = '#ffe6b8', o = 0.6, w = 1.3) => <path d={d} fill="none" stroke={c} strokeOpacity={o} strokeWidth={w} strokeLinecap="round" />;
 // glowing eye pair; halo uses gradient `${p}-eye`
 const eyes = (p, core, { y = 44, l = 43.5, r = 56.5, rx = 2.6, ry = 1.3, t = 12, h = 6 } = {}) => (
   <g>
@@ -66,8 +64,14 @@ const trollFace = (p, shade, big = false) => (
     <path d="M46.5 55.8h2.4M51.1 55.8h2.4" stroke={shade} strokeWidth="1.5" strokeLinecap="round" />
     <path d="M41 62q9 3.5 18 0" stroke={shade} strokeWidth="1.5" fill="none" strokeLinecap="round" />
     <path
-      d={big ? 'M44.5 64.5C36 63 31 55 32 43c3 8 7 13.5 13.5 17zM55.5 64.5C64 63 69 55 68 43c-3 8-7 13.5-13.5 17z' : 'M43.5 63.5C38 61.5 35 55.5 35.5 48.5c2.5 6 5.5 10 10.5 13zM56.5 63.5c5.5-2 8.5-8 8-15-2.5 6-5.5 10-10.5 13z'}
-      fill="#f3e9cd" stroke="#4a3a20" strokeWidth=".7"
+      d={
+        big
+          ? 'M44.5 64.5C36 63 31 55 32 43c3 8 7 13.5 13.5 17zM55.5 64.5C64 63 69 55 68 43c-3 8-7 13.5-13.5 17z'
+          : 'M43.5 63.5C38 61.5 35 55.5 35.5 48.5c2.5 6 5.5 10 10.5 13zM56.5 63.5c5.5-2 8.5-8 8-15-2.5 6-5.5 10-10.5 13z'
+      }
+      fill="#f3e9cd"
+      stroke="#4a3a20"
+      strokeWidth=".7"
     />
     {rim('M37 36c2-5 6-9 12-10', '#fff0d0', 0.55)}
   </g>
@@ -169,7 +173,12 @@ export const PORTRAITS_HEROES = {
           <path d="M40 73l10 23 10-23" fill="#0c0b24" stroke="#8fe2ff" strokeWidth="1.8" />
           <path d="M43 63h14l1 11H42z" fill="#2a3430" />
           {forsaken(p, '#effdff')}
-          <path d="M34 42c0-12 6.5-19 16-19s16 7 16 19c0 10 1 22-1 32h-5c1-12 1-24-1-32-2-6-5-9-9-10-4 1-7 4-9 10-2 8-2 20-1 32h-5c-2-10-1-22-1-32z" fill="#24202c" {...OL} strokeWidth=".9" />
+          <path
+            d="M34 42c0-12 6.5-19 16-19s16 7 16 19c0 10 1 22-1 32h-5c1-12 1-24-1-32-2-6-5-9-9-10-4 1-7 4-9 10-2 8-2 20-1 32h-5c-2-10-1-22-1-32z"
+            fill="#24202c"
+            {...OL}
+            strokeWidth=".9"
+          />
           <path d="M37 40c-1 9-1 20 0 30M47 25c-5 2-8 7-9 12M63 40c1 9 1 20 0 30" stroke="#5e5470" strokeWidth=".9" fill="none" strokeLinecap="round" />
           {rim('M36 36c2-6 7-11 14-11', '#eef6dc', 0.6)}
           <circle cx="73" cy="81" r="12" fill={u(p + '-orb')} />
@@ -237,9 +246,20 @@ export const PORTRAITS_HEROES = {
           <path d="M35 37c-4 9-5 19-3 30" stroke="#1a1410" strokeWidth="3.6" fill="none" strokeLinecap="round" />
           <path d="M31.5 50h4M31.5 58h4" stroke="#c8a060" strokeWidth="1.6" />
           <path d="M81 48L37 100" stroke="#e8d8b0" strokeWidth="1.4" />
-          <path d="M4 100Q1 95 0 88Q4 89 6 86Q3 80 5 74Q9 78 12 75Q12 69 15 64Q18 69 21 67Q23 61 27 58Q29 63 32 63Q35 58 39 57Q40 62 42 64Q47 62 50 64Q48 68 48 70Q52 73 52 78Q49 79 48 81C28 85 15 91 4 100z" fill={u(p + '-fur')} {...OL} />
+          <path
+            d="M4 100Q1 95 0 88Q4 89 6 86Q3 80 5 74Q9 78 12 75Q12 69 15 64Q18 69 21 67Q23 61 27 58Q29 63 32 63Q35 58 39 57Q40 62 42 64Q47 62 50 64Q48 68 48 70Q52 73 52 78Q49 79 48 81C28 85 15 91 4 100z"
+            fill={u(p + '-fur')}
+            {...OL}
+          />
           <path d="M9 92q2-4 6-6M17 85q2-4 6-6M26 79q2-4 6-5M35 76q2-3 6-4" stroke="#2a1c10" strokeWidth="1.2" fill="none" strokeLinecap="round" />
-          <path d="M2 92q0-3-1.5-4M6 82q-1-5-.5-7M14 70q0-3 1-5M25 62q1-2 2-3.5M37 59.5q1-1 2-2" stroke="#fff0d0" strokeWidth="1.1" fill="none" strokeOpacity=".7" strokeLinecap="round" />
+          <path
+            d="M2 92q0-3-1.5-4M6 82q-1-5-.5-7M14 70q0-3 1-5M25 62q1-2 2-3.5M37 59.5q1-1 2-2"
+            stroke="#fff0d0"
+            strokeWidth="1.1"
+            fill="none"
+            strokeOpacity=".7"
+            strokeLinecap="round"
+          />
           <circle cx="40" cy="80" r="2.6" fill="#c8a060" stroke="#2a1608" strokeWidth=".8" />
         </g>
       );
@@ -320,7 +340,11 @@ export const PORTRAITS_HEROES = {
           <path d={BUST} fill={u(p + '-cloak')} {...OL} />
           <path d="M50 7C33 14 22 28 21 46c0 12 3 22 8 30h42c5-8 8-18 8-30-1-18-12-32-29-39z" fill={u(p + '-cloak')} {...OL} />
           <path d={HOLE} fill="#07060a" />
-          <path d="M50 28c-8.5 0-13.5 6.5-13.5 15 0 9 3.5 16 8 21 2 2 3.5 3 5.5 3s3.5-1 5.5-3c4.5-5 8-12 8-21 0-8.5-5-15-13.5-15z" fill={u(p + '-skin')} {...OL} />
+          <path
+            d="M50 28c-8.5 0-13.5 6.5-13.5 15 0 9 3.5 16 8 21 2 2 3.5 3 5.5 3s3.5-1 5.5-3c4.5-5 8-12 8-21 0-8.5-5-15-13.5-15z"
+            fill={u(p + '-skin')}
+            {...OL}
+          />
           <path d="M38.5 41.5l9-.5-1.2 4.2-6.6.3zM61.5 41.5l-9-.5 1.2 4.2 6.6.3z" fill="#0c0a08" />
           {eyes(p, '#e8ffd8', { y: 43.2, l: 43.5, r: 56.5, rx: 2.4, ry: 1, t: 6, h: 5.5 })}
           <path d="M48.6 50.5l-1.2 3h2zM51.4 50.5l1.2 3h-2z" fill="#2a2418" />
@@ -348,11 +372,18 @@ export const PORTRAITS_HEROES = {
             {lg(p + '-pale', '#f4f2ec', '#a8a49a')}
           </defs>
           <path d="M8 100c2-16 12-26 24-30l18 6 18-6c12 4 22 14 24 30z" fill={u(p + '-fur')} {...OL} />
-          <path d="M33 72c5 6 11 9 17 9s12-3 17-9l2 8-4 .5 2.5 5.5-5-.5 1 6.5-5-3-1 7-4-5-3.5 6-3.5-6-4 5-1-7-5 3 1-6.5-5 .5 2.5-5.5-4-.5z" fill={u(p + '-pale')} />
+          <path
+            d="M33 72c5 6 11 9 17 9s12-3 17-9l2 8-4 .5 2.5 5.5-5-.5 1 6.5-5-3-1 7-4-5-3.5 6-3.5-6-4 5-1-7-5 3 1-6.5-5 .5 2.5-5.5-4-.5z"
+            fill={u(p + '-pale')}
+          />
           <path d="M18 84l4-3M24 78l3-3M82 84l-4-3M76 78l-3-3" stroke="#30343a" strokeWidth="1.3" strokeLinecap="round" />
           <path d="M31 42L28 13l17 14zM69 42l3-29-17 14z" fill={u(p + '-fur')} {...OL} />
           <path d="M32 36l-1.5-16 9 9zM68 36l1.5-16-9 9z" fill="#3a2a2a" />
-          <path d="M50 24c-12 0-20 8-22 20l-6 12 7-2c3 6 8 10 12 14 3 4 6 8 9 8s6-4 9-8c4-4 9-8 12-14l7 2-6-12c-2-12-10-20-22-20z" fill={u(p + '-fur')} {...OL} />
+          <path
+            d="M50 24c-12 0-20 8-22 20l-6 12 7-2c3 6 8 10 12 14 3 4 6 8 9 8s6-4 9-8c4-4 9-8 12-14l7 2-6-12c-2-12-10-20-22-20z"
+            fill={u(p + '-fur')}
+            {...OL}
+          />
           <path d="M36 50c3-3 7-3 10-1l1 12c-4 0-8-3-11-11zM64 50c-3-3-7-3-10-1l-1 12c4 0 8-3 11-11z" fill={u(p + '-pale')} />
           <path d="M50 25c-4 4-5 12-3 21h6c2-9 1-17-3-21z" fill="#3a3e44" />
           <path d="M43.5 51c0-4 3-6 6.5-6s6.5 2 6.5 6c0 5 3.5 8 3.5 12.5 0 5.5-4.5 10-10 10s-10-4.5-10-10c0-4.5 3.5-7.5 3.5-12.5z" fill={u(p + '-pale')} />
@@ -378,26 +409,45 @@ export const PORTRAITS_HEROES = {
       const p = 'pet-cat';
       return (
         <g>
-          <defs>
-            {lg(p + '-fur', '#e2b874', '#7a5224')}
-          </defs>
+          <defs>{lg(p + '-fur', '#e2b874', '#7a5224')}</defs>
           <path d="M10 100c2-14 12-24 26-28h28c14 4 24 14 26 28z" fill={u(p + '-fur')} {...OL} />
-          {[[26, 84, 2], [34, 91, 1.8], [21, 94, 1.6], [42, 97, 1.6], [58, 97, 1.6], [66, 89, 1.8], [75, 94, 1.8], [79, 84, 2]].map(([x, y, r]) => (
+          {[
+            [26, 84, 2],
+            [34, 91, 1.8],
+            [21, 94, 1.6],
+            [42, 97, 1.6],
+            [58, 97, 1.6],
+            [66, 89, 1.8],
+            [75, 94, 1.8],
+            [79, 84, 2],
+          ].map(([x, y, r]) => (
             <circle key={x} cx={x} cy={y} r={r} fill="#3a2410" />
           ))}
           <path d="M31 39L29 14l14 15zM69 39l2-25-14 15z" fill={u(p + '-fur')} {...OL} />
           <path d="M29 15l-.5-6 2 6zM71 15l.5-6-2 6z" fill="#1a120a" stroke="#1a120a" strokeWidth="1.6" />
           <path d="M32 33l-1-13 7 8zM68 33l1-13-7 8z" fill="#f0dcc0" />
-          <path d="M50 26c-12 0-20 8-20 20 0 4-4 11-8 17 7 0 12 3 16 8 4 5 8 7 12 7s8-2 12-7c4-5 9-8 16-8-4-6-8-13-8-17 0-12-8-20-20-20z" fill={u(p + '-fur')} {...OL} />
+          <path
+            d="M50 26c-12 0-20 8-20 20 0 4-4 11-8 17 7 0 12 3 16 8 4 5 8 7 12 7s8-2 12-7c4-5 9-8 16-8-4-6-8-13-8-17 0-12-8-20-20-20z"
+            fill={u(p + '-fur')}
+            {...OL}
+          />
           <path d="M22 63c6-1 11 1 15 5l3-6c-6-2-12-2-18 1zM78 63c-6-1-11 1-15 5l-3-6c6-2 12-2 18 1z" fill="#f4e6cc" />
           <path d="M50 57c-4-2-10-1-10 4 0 5 5 8 10 5 5 3 10 0 10-5 0-5-6-6-10-4z" fill="#f6eedc" />
           <path d="M47 55.5h6L50 59z" fill="#a8605a" stroke="#3a1a10" strokeWidth=".7" />
           <path d="M50 59v3M46 64q4 2 4-2 0 4 4 2" stroke="#3a2410" strokeWidth=".9" fill="none" />
           <path d="M46 30l1 6M50 28v8M54 30l-1 6M35 50l3 1M65 50l-3 1M34 55l3 1M66 55l-3 1" stroke="#3a2410" strokeWidth="1.6" strokeLinecap="round" />
-          <circle cx="40" cy="36" r="1.2" fill="#3a2410" /><circle cx="60" cy="36" r="1.2" fill="#3a2410" />
-          <path d="M35.5 46.5q5.5-6 11.5-.5-5.5 5-11.5.5zM64.5 46.5q-5.5-6-11.5-.5 5.5 5 11.5.5z" fill="#d6ec4a" stroke="#120c04" strokeWidth="1.5" strokeLinejoin="round" />
+          <circle cx="40" cy="36" r="1.2" fill="#3a2410" />
+          <circle cx="60" cy="36" r="1.2" fill="#3a2410" />
+          <path
+            d="M35.5 46.5q5.5-6 11.5-.5-5.5 5-11.5.5zM64.5 46.5q-5.5-6-11.5-.5 5.5 5 11.5.5z"
+            fill="#d6ec4a"
+            stroke="#120c04"
+            strokeWidth="1.5"
+            strokeLinejoin="round"
+          />
           <path d="M41.3 42.8v6.2M58.7 42.8v6.2" stroke="#0e0a04" strokeWidth="1.9" strokeLinecap="round" />
-          <circle cx="39.6" cy="44.6" r=".7" fill="#fff" /><circle cx="57" cy="44.6" r=".7" fill="#fff" />
+          <circle cx="39.6" cy="44.6" r=".7" fill="#fff" />
+          <circle cx="57" cy="44.6" r=".7" fill="#fff" />
           <path d="M39.5 49.5l-2.5 5.5M60.5 49.5l2.5 5.5" stroke="#3a2410" strokeWidth="1.2" strokeLinecap="round" />
           {rim('M31 41c0-8 7-15 17-15', '#fff4dc', 0.6)}
         </g>
@@ -426,8 +476,10 @@ export const PORTRAITS_HEROES = {
           <path d="M33 40q7-6 13 1M67 40q-7-6-13 1" stroke="#140a04" strokeWidth="2.8" fill="none" strokeLinecap="round" />
           <ellipse cx="40.5" cy="45" rx="3.2" ry="2.2" fill="#120804" transform="rotate(18 40.5 45)" />
           <ellipse cx="59.5" cy="45" rx="3.2" ry="2.2" fill="#120804" transform="rotate(-18 59.5 45)" />
-          <circle cx="41" cy="45" r="1.4" fill="#ff6a2a" /><circle cx="59" cy="45" r="1.4" fill="#ff6a2a" />
-          <circle cx="40.5" cy="44.4" r=".5" fill="#fff" /><circle cx="58.5" cy="44.4" r=".5" fill="#fff" />
+          <circle cx="41" cy="45" r="1.4" fill="#ff6a2a" />
+          <circle cx="59" cy="45" r="1.4" fill="#ff6a2a" />
+          <circle cx="40.5" cy="44.4" r=".5" fill="#fff" />
+          <circle cx="58.5" cy="44.4" r=".5" fill="#fff" />
           <path d="M36 31l2 4M41 29l1.5 4M47 28l.5 4" stroke="#d8b08a" strokeWidth="1" strokeLinecap="round" strokeOpacity=".7" />
           <path d="M40.5 81q9.5 4 19 0" stroke="#140a04" strokeWidth="1.6" fill="none" strokeLinecap="round" />
           <ellipse cx="50" cy="74" rx="11.5" ry="7.2" fill={u(p + '-snout')} {...OL} />
@@ -448,16 +500,24 @@ export const PORTRAITS_HEROES = {
       const p = 'pet-raptor';
       return (
         <g>
-          <defs>
-            {lg(p + '-skin', '#eab454', '#7a4212')}
-          </defs>
-          <path d="M64 30C72 20 80 17 88 20c-6 3-11 8-16 15zM67 37c9-6 18-7 25-3-7 2-13 6-19 11zM67 45c8-2 16 0 21 5-7 0-13 1-19 4z" fill="#c63a2a" {...OL} strokeWidth=".8" />
+          <defs>{lg(p + '-skin', '#eab454', '#7a4212')}</defs>
+          <path
+            d="M64 30C72 20 80 17 88 20c-6 3-11 8-16 15zM67 37c9-6 18-7 25-3-7 2-13 6-19 11zM67 45c8-2 16 0 21 5-7 0-13 1-19 4z"
+            fill="#c63a2a"
+            {...OL}
+            strokeWidth=".8"
+          />
           <path d="M66 33c7-6 12-9 17-9M69 40c7-3 13-4 18-3" stroke="#2fb0a0" strokeWidth="1.6" fill="none" />
           <path d="M56 50c10 10 16 26 18 50H40c2-14 4-26 0-36z" fill={u(p + '-skin')} {...OL} />
           <path d="M50 64c6 0 12 2 18 6M48 76c8 0 15 2 22 6M44 88c9 0 18 2 27 5" stroke="#5a2c0c" strokeWidth="2.4" fill="none" strokeLinecap="round" />
           <path d="M70 36c-6-8-18-8-28-2C32 40 20 43 13 49c0 6 6 9 15 9 9 1 17 3 25 3 11 0 19-8 19-18z" fill={u(p + '-skin')} {...OL} />
           <path d="M17 56c9 6 21 9 33 8l3-4c-12 0-24-2-36-4z" fill="#8a4a18" {...OL} strokeWidth=".8" />
-          <path d="M20 56.5l1.5 2.6 1.4-2.3M26 57.4l1.5 2.7 1.4-2.3M32 58.2l1.5 2.8 1.4-2.3M38 59l1.4 2.7 1.4-2.2" fill="#fff8e8" stroke="#fff8e8" strokeWidth=".8" />
+          <path
+            d="M20 56.5l1.5 2.6 1.4-2.3M26 57.4l1.5 2.7 1.4-2.3M32 58.2l1.5 2.8 1.4-2.3M38 59l1.4 2.7 1.4-2.2"
+            fill="#fff8e8"
+            stroke="#fff8e8"
+            strokeWidth=".8"
+          />
           <path d="M44 36c-1 6 0 12 3 17M54 33c-1 7 0 14 4 20M62 33c-1 5 0 10 3 14" stroke="#5a2c0c" strokeWidth="2.2" fill="none" strokeLinecap="round" />
           <path d="M51 41q6-5 12 0-6 4-12 0z" fill="#ffe24a" stroke="#1a0e04" strokeWidth=".9" />
           <path d="M57 38.5v5" stroke="#0e0804" strokeWidth="1.4" />
@@ -520,9 +580,14 @@ export const PORTRAITS_HEROES = {
           </defs>
           <path d={BUST} fill="#2a2628" {...OL} />
           <path d="M34 72c4 6 10 9 16 9s12-3 16-9l2 12c-5 4-11 6-18 6s-13-2-18-6z" fill={u(p + '-plate')} {...OL} />
-          <path d="M6 92c0-12 8-22 22-24 6 0 10 2 12 6-6 2-10 8-12 16-7-1-15 0-22 2zM94 92c0-12-8-22-22-24-6 0-10 2-12 6 6 2 10 8 12 16 7-1 15 0 22 2z" fill={u(p + '-plate')} {...OL} />
+          <path
+            d="M6 92c0-12 8-22 22-24 6 0 10 2 12 6-6 2-10 8-12 16-7-1-15 0-22 2zM94 92c0-12-8-22-22-24-6 0-10 2-12 6 6 2 10 8 12 16 7-1 15 0 22 2z"
+            fill={u(p + '-plate')}
+            {...OL}
+          />
           <path d="M10 84c4-6 10-10 18-11M90 84c-4-6-10-10-18-11" stroke="#c8a050" strokeWidth="1.6" fill="none" />
-          <circle cx="20" cy="78" r="1.4" fill="#f0e0a0" /><circle cx="80" cy="78" r="1.4" fill="#f0e0a0" />
+          <circle cx="20" cy="78" r="1.4" fill="#f0e0a0" />
+          <circle cx="80" cy="78" r="1.4" fill="#f0e0a0" />
           {tauren(p, '#1a0c06')}
           <path d="M27 22.5l3 4.5M73 22.5l-3 4.5" stroke="#9aa0a8" strokeWidth="3" />
           <path d="M27 22.5l3 4.5M73 22.5l-3 4.5" stroke="#d8dce0" strokeWidth="1" />
@@ -593,9 +658,22 @@ export const PORTRAITS_HEROES = {
           <path d="M44 24c0-3 3-4 6-4s6 1 6 4l-.5 9c-1 3-3 4.5-5.5 4.5S45.5 36 44.5 33z" fill="#d4d6d8" {...OL} strokeWidth=".8" />
           <path d="M46.5 33q3.5-2.5 7 0-1 3.5-3.5 3.5t-3.5-3.5z" fill="#121216" />
           <path d="M35.5 24.5q3.5-2.5 6.5 1-3.5 1.5-6.5-1zM64.5 24.5q-3.5-2.5-6.5 1 3.5 1.5 6.5-1z" fill="#121216" />
-          <path d="M40 38.5l1.4 3.2 1.4-3.2M44 39l1.4 3.4 1.4-3.4M53.2 39l1.4 3.4 1.4-3.4M57.2 38.5l1.4 3.2 1.4-3.2" fill="#f4f0e4" stroke="#f4f0e4" strokeWidth=".7" />
+          <path
+            d="M40 38.5l1.4 3.2 1.4-3.2M44 39l1.4 3.4 1.4-3.4M53.2 39l1.4 3.4 1.4-3.4M57.2 38.5l1.4 3.2 1.4-3.2"
+            fill="#f4f0e4"
+            stroke="#f4f0e4"
+            strokeWidth=".7"
+          />
           <path d="M30 80q20 12 40 0" stroke="#3a2a1a" strokeWidth="1" fill="none" />
-          {[[30, 80, '#3fd0d8'], [36, 84, '#f0e6cc'], [43, 86.5, '#c83a2a'], [50, 87, '#3fd0d8'], [57, 86.5, '#c83a2a'], [64, 84, '#f0e6cc'], [70, 80, '#3fd0d8']].map(([x, y, c]) => (
+          {[
+            [30, 80, '#3fd0d8'],
+            [36, 84, '#f0e6cc'],
+            [43, 86.5, '#c83a2a'],
+            [50, 87, '#3fd0d8'],
+            [57, 86.5, '#c83a2a'],
+            [64, 84, '#f0e6cc'],
+            [70, 80, '#3fd0d8'],
+          ].map(([x, y, c]) => (
             <circle key={x} cx={x} cy={y} r="2.4" fill={c} stroke="#120c08" strokeWidth=".7" />
           ))}
           <circle cx="80" cy="74" r="11" fill={u(p + '-eye')} />
@@ -667,8 +745,10 @@ export const PORTRAITS_HEROES = {
           {trollEars(p, '#1a3a2c')}
           <path d="M19 40v7M81 40v7" stroke="#c8a050" strokeWidth="1" />
           <path d="M16.5 47h5l-.5 4.5c-1 1.5-3 1.5-4 0zM78.5 47h5l-.5 4.5c-1 1.5-3 1.5-4 0z" fill="#efe6cc" stroke="#3a2a14" strokeWidth=".7" />
-          <circle cx="18" cy="49" r=".7" fill="#1a1008" /><circle cx="20" cy="49" r=".7" fill="#1a1008" />
-          <circle cx="80" cy="49" r=".7" fill="#1a1008" /><circle cx="82" cy="49" r=".7" fill="#1a1008" />
+          <circle cx="18" cy="49" r=".7" fill="#1a1008" />
+          <circle cx="20" cy="49" r=".7" fill="#1a1008" />
+          <circle cx="80" cy="49" r=".7" fill="#1a1008" />
+          <circle cx="82" cy="49" r=".7" fill="#1a1008" />
           <path d="M64 84c2 4 2 9 0 13M68 82c3 3 4 8 3 12" stroke="#c63a2a" strokeWidth="2" strokeLinecap="round" fill="none" />
           <circle cx="62" cy="84" r="2.2" fill="#5ad0c8" stroke="#1a1008" strokeWidth=".6" />
           {rim('M10 90c2-8 10-15 22-17', '#fffaf0', 0.8, 1.4)}
@@ -697,12 +777,18 @@ export const PORTRAITS_HEROES = {
           <path d={BUST} fill={u(p + '-cloak')} {...OL} />
           <path d="M30 74l40 26" stroke="#3a2a1a" strokeWidth="3.2" />
           {hoodBack(u(p + '-cloak'))}
-          <path d="M50 31c-9.5 0-15 7-15 16 0 9 3 15.5 7 20 2.5 3 5.5 4.5 8 4.5s5.5-1.5 8-4.5c4-4.5 7-11 7-20 0-9-5.5-16-15-16z" fill={u(p + '-skin')} {...OL} strokeWidth=".9" />
+          <path
+            d="M50 31c-9.5 0-15 7-15 16 0 9 3 15.5 7 20 2.5 3 5.5 4.5 8 4.5s5.5-1.5 8-4.5c4-4.5 7-11 7-20 0-9-5.5-16-15-16z"
+            fill={u(p + '-skin')}
+            {...OL}
+            strokeWidth=".9"
+          />
           <path d="M40.5 57c1 7 4.5 12 9.5 14 5-2 8.5-7 9.5-14-2.5 3.5-5.5 5.5-9.5 5.5s-7-2-9.5-5.5z" fill="#3e2a1c" opacity=".75" />
           <path d="M39.5 43.5q4-2 7.5 0M53 43.5q3.5-2 7.5 0" stroke="#120c08" strokeWidth="1.5" fill="none" strokeLinecap="round" />
           <ellipse cx="43.5" cy="46.5" rx="2.3" ry="1.1" fill="#e2cca4" />
           <ellipse cx="56.5" cy="46.5" rx="2.3" ry="1.1" fill="#e2cca4" />
-          <circle cx="43.8" cy="46.5" r=".9" fill="#2a1a10" /><circle cx="56.8" cy="46.5" r=".9" fill="#2a1a10" />
+          <circle cx="43.8" cy="46.5" r=".9" fill="#2a1a10" />
+          <circle cx="56.8" cy="46.5" r=".9" fill="#2a1a10" />
           <path d="M50.5 47c.6 3 1.6 6 2.2 8.6-1.6 1-3.8 1-5.4 0" stroke="#4a3020" strokeWidth="1.1" fill="none" strokeLinecap="round" />
           <path d="M46 61.5q4 1.4 8 0" stroke="#1e120a" strokeWidth="1.2" fill="none" strokeLinecap="round" />
           {rim('M36 48c0 7 2.5 13 6.5 18', '#ffd8b0', 0.5, 1.1)}

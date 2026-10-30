@@ -4,7 +4,7 @@ import { registerAbilities } from '../../engine/registry.js';
 // Roll a [min,max] range (or a plain number).
 export const roll = (state, v) => (Array.isArray(v) ? v[0] + (v[1] - v[0]) * state.rng() : v || 0);
 // Resolve a value that may be a string key into the (resolved) ability.
-export const val = (ab, v, d = 0) => (typeof v === 'string' ? (ab[v] ?? d) : v ?? d);
+export const val = (ab, v, d = 0) => (typeof v === 'string' ? (ab[v] ?? d) : (v ?? d));
 
 export const stacksOf = (api, u, id) => {
   const a = api.findAura(u, id);
@@ -78,14 +78,16 @@ registerAbilities({
     desc: 'Undead racial. Instantly break all Charm, Fear and Sleep effects. 2 min cooldown.',
     forever: { status: 'reported-guide', note: 'Icy Veins race guide; not usable under Scatter Shot.', src: 'iv-main' },
     canUse: ({ u }) => (u.cc.fear || u.auras.some((a) => a.def.sleep) ? true : 'custom:Nothing to break'),
-    effects: [{
-      type: 'custom',
-      to: 'self',
-      fn: ({ state, u, api }) => {
-        breakCC(state, api, u, ['fear']);
-        for (const a of u.auras.filter((x) => x.def.sleep)) api.removeAura(state, u, a, 'broken');
+    effects: [
+      {
+        type: 'custom',
+        to: 'self',
+        fn: ({ state, u, api }) => {
+          breakCC(state, api, u, ['fear']);
+          for (const a of u.auras.filter((x) => x.def.sleep)) api.removeAura(state, u, a, 'broken');
+        },
       },
-    }],
+    ],
   },
   'race.cannibalize': {
     name: 'Cannibalize',
@@ -99,7 +101,11 @@ registerAbilities({
     channel: { duration: 10, ticks: 5, effects: [] },
     noPushback: true,
     desc: 'Undead racial. Feed on a humanoid or undead corpse within 5 yards: 35 % of health and mana over 10 s. Moving or taking damage stops it. 2 min cooldown.',
-    forever: { status: 'reported-guide', note: 'Forever: restores health AND mana (Classic: health only). Icy Veins calls it great for cutting downtime. Duration is the Classic 10 s.', src: 'iv-main' },
+    forever: {
+      status: 'reported-guide',
+      note: 'Forever: restores health AND mana (Classic: health only). Icy Veins calls it great for cutting downtime. Duration is the Classic 10 s.',
+      src: 'iv-main',
+    },
     canUse: ({ state, u }) => (corpseNear(state, u) ? true : 'custom:No humanoid or undead corpse nearby'),
     onChannelStart: ({ state, u }) => {
       const c = corpseNear(state, u);
@@ -107,7 +113,10 @@ registerAbilities({
       u.casting.startHp = u.hp;
     },
     onTick: ({ state, u, api }) => {
-      if (u.casting && u.lastHostileT > u.casting.startedAt + 0.05 && u.hp < u.casting.startHp) { api.cancelCast(state, u, 'damaged'); return; }
+      if (u.casting && u.lastHostileT > u.casting.startedAt + 0.05 && u.hp < u.casting.startHp) {
+        api.cancelCast(state, u, 'damaged');
+        return;
+      }
       u.hp = Math.min(u.maxHp, u.hp + u.maxHp * 0.07);
       if (u.res.mana) u.res.mana.cur = Math.min(u.res.mana.max, u.res.mana.cur + u.res.mana.max * 0.07);
       if (u.casting) u.casting.startHp = u.hp;
@@ -125,18 +134,27 @@ registerAbilities({
     cooldown: 120,
     desc: 'Orc racial. Attack power and spell power +10 % for 15 s. 2 min cooldown.',
     forever: { status: 'confirmed-official', note: 'Cooldown reduced to 2 min in the official October 26 update.', src: 'bz-devnotes' },
-    effects: [{
-      type: 'custom',
-      fn: ({ state, u, api }) => {
-        const add = { ap: Math.round(u.stats.ap * 0.1), rap: Math.round(u.stats.rap * 0.1), sp: Math.round(u.stats.sp * 0.1) };
-        api.applyAura(state, u, u, { id: 'race.bloodfury', name: 'Blood Fury', icon: 'axe', school: 'physical', duration: 15, mods: { statAdd: add } });
+    effects: [
+      {
+        type: 'custom',
+        fn: ({ state, u, api }) => {
+          const add = { ap: Math.round(u.stats.ap * 0.1), rap: Math.round(u.stats.rap * 0.1), sp: Math.round(u.stats.sp * 0.1) };
+          api.applyAura(state, u, u, { id: 'race.bloodfury', name: 'Blood Fury', icon: 'axe', school: 'physical', duration: 15, mods: { statAdd: add } });
+        },
       },
-    }],
+    ],
   },
 });
 
 function corpseNear(state, u) {
-  return state.list.find((x) => !x.alive && !x.flags.eaten && x.kind !== 'pet' && (x.tags || []).some((t) => t === 'humanoid' || t === 'undead') && Math.hypot(x.x - u.x, x.y - u.y) <= 5 + (x.radius || 0.8));
+  return state.list.find(
+    (x) =>
+      !x.alive &&
+      !x.flags.eaten &&
+      x.kind !== 'pet' &&
+      (x.tags || []).some((t) => t === 'humanoid' || t === 'undead') &&
+      Math.hypot(x.x - u.x, x.y - u.y) <= 5 + (x.radius || 0.8),
+  );
 }
 
 export const RACIALS = {

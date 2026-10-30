@@ -5,7 +5,9 @@ import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const dir = dirname(fileURLToPath(import.meta.url));
-const files = readdirSync(dir).filter((f) => f.endsWith('.test.mjs')).sort();
+const files = readdirSync(dir)
+  .filter((f) => f.endsWith('.test.mjs'))
+  .sort();
 let failed = 0;
 for (const f of files) {
   const t0 = Date.now();

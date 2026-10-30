@@ -10,7 +10,11 @@ assertTrial(trialMatrix('t3', { seeds: 4 }), { label: 't3' });
 // The party is real level-30 classes now, so the spread between you and the Rogue is the real
 // one: a mana-limited Frost Mage does about half a Combat Rogue's damage, a Beast Mastery Hunter
 // with its pet a bit more than the Rogue. Nobody carries the group (pets count for the player).
-for (const [classId, spec] of [['hunter', 'bm'], ['mage', 'frost'], ['priest', 'shadow']]) {
+for (const [classId, spec] of [
+  ['hunter', 'bm'],
+  ['mage', 'frost'],
+  ['priest', 'shadow'],
+]) {
   for (const seed of [1, 2]) {
     const b = { classId, level: 30, spec, role: 'dps' };
     const r = runTrial({ ...b, trialId: 't3', seed, policy: BOTS[classId].competent(b) });

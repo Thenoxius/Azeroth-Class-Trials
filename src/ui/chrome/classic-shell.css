@@ -10,70 +10,332 @@
   box-sizing: border-box;
   color: var(--act-ink);
   color-scheme: light;
-  font: 13px/1.5 Arial, Helvetica, sans-serif;
+  font:
+    13px/1.5 Arial,
+    Helvetica,
+    sans-serif;
   background-color: #000;
   background-image: var(--act-metal), var(--act-background);
-  background-position: left top, center top;
-  background-size: 280px 87px, cover;
+  background-position:
+    left top,
+    center top;
+  background-size:
+    280px 87px,
+    cover;
   background-repeat: repeat-x, no-repeat;
   background-attachment: scroll, fixed;
 }
-.act-classic-shell *, .act-classic-shell *::before, .act-classic-shell *::after { box-sizing: border-box; }
-.act-classic-shell .act-classic-layout { width: min(925px, calc(100% - 36px)); margin: 0 auto; display: grid; grid-template-columns: 146px minmax(0, 1fr); align-items: start; }
-.act-classic-shell .act-classic-sidebar { position: relative; padding-top: 21px; min-height: 516px; }
-.act-classic-shell .act-classic-logo { position: absolute; top: -88px; left: -13px; width: 183px; z-index: 2; text-align: center; line-height: 1; }
-.act-classic-shell .act-classic-logo img { width: 183px; height: auto; display: block; }
-.act-classic-shell .act-classic-nav { position: relative; display: grid; gap: 8px; padding-right: 2px; }
-.act-classic-shell .act-classic-nav-link { min-height: 27px; margin: 0; padding: 3px 19px 3px 25px; border: 1px solid #ac944b; border-radius: 0; color: #f0d469; text-align: left; text-shadow: 0 1px #000; font: 13px/18px Georgia, 'Times New Roman', serif; background-color: #0a1422; background-image: var(--act-nav-left), var(--act-nav-right), var(--act-title-middle); background-position: left center, right center, center; background-size: 24px 24px, 18px 24px, auto 100%; background-repeat: no-repeat, no-repeat, repeat-x; cursor: pointer; }
-.act-classic-shell .act-classic-nav-link.is-active { outline: 1px solid #f1d787; outline-offset: 1px; }
-.act-classic-shell .act-classic-nav-link:hover { color: #fff3bc; filter: brightness(1.12); }
-.act-classic-shell .act-classic-nav-link:focus-visible, .act-classic-shell a:focus-visible, .act-classic-shell button:focus-visible, .act-classic-shell input:focus-visible, .act-classic-shell select:focus-visible { outline: 2px solid #765005; outline-offset: 3px; }
-.act-classic-shell .act-classic-nav-link:focus-visible { outline-color: #fff3ad; }
-.act-classic-shell .act-classic-content { position: relative; min-width: 0; padding: 16px 22px 32px 38px; background: #dfd0a7 var(--act-paper) repeat; }
-.act-classic-shell .act-classic-content::before, .act-classic-shell .act-classic-content::after { content: ''; position: absolute; top: 0; bottom: 0; pointer-events: none; }
-.act-classic-shell .act-classic-content::before { left: 0; width: 36px; background: var(--act-edge-left) left top / 36px 360px repeat-y; }
-.act-classic-shell .act-classic-content::after { right: 0; width: 22px; background: var(--act-edge-right) right top / 22px 360px repeat-y; }
-.act-classic-shell .act-classic-content > .app { min-height: 0; height: auto; padding: 0; }
-.act-classic-shell .act-classic-footer { grid-column: 2; padding: 24px 16px 28px; text-align: center; color: #827d6d; font: 11px/1.6 Arial, Helvetica, sans-serif; }
-.act-classic-shell .act-classic-panel { background: transparent; border: 1px solid #8b7543; box-shadow: inset 0 0 0 2px #d8c596; }
-.act-classic-shell .act-classic-panel-body { padding: 14px; }
-.act-classic-shell .act-classic-titlebar, .act-classic-shell .panel > .panel-title { position: relative; min-height: 25px; margin: 0 0 12px; padding: 3px 25px 3px 30px; border: 1px solid #a98e47; color: #f5d45b; background-color: #102333; background-image: var(--act-title-left), var(--act-title-right), var(--act-title-middle); background-position: left center, right center, center; background-size: 31px 24px, 23px 24px, auto 100%; background-repeat: no-repeat, no-repeat, repeat-x; font: 14px/18px Georgia, 'Times New Roman', serif; letter-spacing: 0; text-transform: none; }
-.act-classic-shell h1, .act-classic-shell h2, .act-classic-shell h3 { color: var(--act-ink); font-family: Georgia, 'Times New Roman', serif; letter-spacing: 0; }
-.act-classic-shell .muted, .act-classic-shell .small { color: var(--act-muted); }
-.act-classic-shell .panel { background: transparent; border-radius: 0; color: var(--act-ink); box-shadow: none; border-color: #ad986d; }
-.act-classic-shell .btn, .act-classic-shell .chip, .act-classic-shell .race-card { color: var(--act-gold); background: #172c3b; border: 1px solid #47371d; border-radius: 0; box-shadow: inset 0 0 0 1px #c8a858; font: bold 12px/1.4 Arial, Helvetica, sans-serif; text-shadow: none; }
-.act-classic-shell .btn.primary { color: var(--act-gold); background: #172c3b; box-shadow: inset 0 0 0 1px #c8a858; }
-.act-classic-shell .btn:hover, .act-classic-shell .chip:hover, .act-classic-shell .race-card:hover { filter: brightness(1.12); }
-.act-classic-shell .btn:disabled { opacity: .48; cursor: not-allowed; }
-.act-classic-shell input, .act-classic-shell textarea, .act-classic-shell select { color: #302719; background: #ddd0ac; border: 1px solid #8c7548; border-radius: 0; font-family: Arial, Helvetica, sans-serif; }
-.act-classic-shell .roster-body { display: grid; grid-template-columns: minmax(0, 2.2fr) minmax(205px, 1fr); gap: 18px; }
-.act-classic-shell .roster-create, .act-classic-shell .roster-list { padding: 0 0 15px; border: 0; }
-.act-classic-shell .roster-create > :not(.panel-title), .act-classic-shell .roster-list > :not(.panel-title) { margin-left: 14px; margin-right: 14px; }
-.act-classic-shell .roster-preview { padding: 16px 0; }
-.act-classic-shell .roster-empty { color: #6a5a3c; background: transparent; border-color: #887b56; }
-.act-classic-shell .roster-row { padding: 10px 0 14px; border: 0; border-bottom: 1px solid #b5a277; border-radius: 0; background: transparent; }
-.act-classic-shell .roster-row-text b { color: #322819; }
-.act-classic-shell .roster-row .btn { padding: 4px 9px; }
-.act-classic-shell .roster-name { margin-top: 20px; }
-.act-classic-shell .roster .choice > .panel-title, .act-classic-shell .roster-name > .panel-title { color: #514025; font: bold 12px/1.5 Arial, Helvetica, sans-serif; }
-.act-classic-shell .roster .race-row { gap: 6px; }
-.act-classic-shell .roster .race-card { padding: 5px 8px; }
+.act-classic-shell *,
+.act-classic-shell *::before,
+.act-classic-shell *::after {
+  box-sizing: border-box;
+}
+.act-classic-shell .act-classic-layout {
+  width: min(925px, calc(100% - 36px));
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 146px minmax(0, 1fr);
+  align-items: start;
+}
+.act-classic-shell .act-classic-sidebar {
+  position: relative;
+  padding-top: 21px;
+  min-height: 516px;
+}
+.act-classic-shell .act-classic-logo {
+  position: absolute;
+  top: -88px;
+  left: -13px;
+  width: 183px;
+  z-index: 2;
+  text-align: center;
+  line-height: 1;
+}
+.act-classic-shell .act-classic-logo img {
+  width: 183px;
+  height: auto;
+  display: block;
+}
+.act-classic-shell .act-classic-nav {
+  position: relative;
+  display: grid;
+  gap: 8px;
+  padding-right: 2px;
+}
+.act-classic-shell .act-classic-nav-link {
+  min-height: 27px;
+  margin: 0;
+  padding: 3px 19px 3px 25px;
+  border: 1px solid #ac944b;
+  border-radius: 0;
+  color: #f0d469;
+  text-align: left;
+  text-shadow: 0 1px #000;
+  font:
+    13px/18px Georgia,
+    'Times New Roman',
+    serif;
+  background-color: #0a1422;
+  background-image: var(--act-nav-left), var(--act-nav-right), var(--act-title-middle);
+  background-position:
+    left center,
+    right center,
+    center;
+  background-size:
+    24px 24px,
+    18px 24px,
+    auto 100%;
+  background-repeat: no-repeat, no-repeat, repeat-x;
+  cursor: pointer;
+}
+.act-classic-shell .act-classic-nav-link.is-active {
+  outline: 1px solid #f1d787;
+  outline-offset: 1px;
+}
+.act-classic-shell .act-classic-nav-link:hover {
+  color: #fff3bc;
+  filter: brightness(1.12);
+}
+.act-classic-shell .act-classic-nav-link:focus-visible,
+.act-classic-shell a:focus-visible,
+.act-classic-shell button:focus-visible,
+.act-classic-shell input:focus-visible,
+.act-classic-shell select:focus-visible {
+  outline: 2px solid #765005;
+  outline-offset: 3px;
+}
+.act-classic-shell .act-classic-nav-link:focus-visible {
+  outline-color: #fff3ad;
+}
+.act-classic-shell .act-classic-content {
+  position: relative;
+  min-width: 0;
+  padding: 16px 22px 32px 38px;
+  background: #dfd0a7 var(--act-paper) repeat;
+}
+.act-classic-shell .act-classic-content::before,
+.act-classic-shell .act-classic-content::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  pointer-events: none;
+}
+.act-classic-shell .act-classic-content::before {
+  left: 0;
+  width: 36px;
+  background: var(--act-edge-left) left top / 36px 360px repeat-y;
+}
+.act-classic-shell .act-classic-content::after {
+  right: 0;
+  width: 22px;
+  background: var(--act-edge-right) right top / 22px 360px repeat-y;
+}
+.act-classic-shell .act-classic-content > .app {
+  min-height: 0;
+  height: auto;
+  padding: 0;
+}
+.act-classic-shell .act-classic-footer {
+  grid-column: 2;
+  padding: 24px 16px 28px;
+  text-align: center;
+  color: #827d6d;
+  font:
+    11px/1.6 Arial,
+    Helvetica,
+    sans-serif;
+}
+.act-classic-shell .act-classic-panel {
+  background: transparent;
+  border: 1px solid #8b7543;
+  box-shadow: inset 0 0 0 2px #d8c596;
+}
+.act-classic-shell .act-classic-panel-body {
+  padding: 14px;
+}
+.act-classic-shell .act-classic-titlebar,
+.act-classic-shell .panel > .panel-title {
+  position: relative;
+  min-height: 25px;
+  margin: 0 0 12px;
+  padding: 3px 25px 3px 30px;
+  border: 1px solid #a98e47;
+  color: #f5d45b;
+  background-color: #102333;
+  background-image: var(--act-title-left), var(--act-title-right), var(--act-title-middle);
+  background-position:
+    left center,
+    right center,
+    center;
+  background-size:
+    31px 24px,
+    23px 24px,
+    auto 100%;
+  background-repeat: no-repeat, no-repeat, repeat-x;
+  font:
+    14px/18px Georgia,
+    'Times New Roman',
+    serif;
+  letter-spacing: 0;
+  text-transform: none;
+}
+.act-classic-shell h1,
+.act-classic-shell h2,
+.act-classic-shell h3 {
+  color: var(--act-ink);
+  font-family: Georgia, 'Times New Roman', serif;
+  letter-spacing: 0;
+}
+.act-classic-shell .muted,
+.act-classic-shell .small {
+  color: var(--act-muted);
+}
+.act-classic-shell .panel {
+  background: transparent;
+  border-radius: 0;
+  color: var(--act-ink);
+  box-shadow: none;
+  border-color: #ad986d;
+}
+.act-classic-shell .btn,
+.act-classic-shell .chip,
+.act-classic-shell .race-card {
+  color: var(--act-gold);
+  background: #172c3b;
+  border: 1px solid #47371d;
+  border-radius: 0;
+  box-shadow: inset 0 0 0 1px #c8a858;
+  font:
+    bold 12px/1.4 Arial,
+    Helvetica,
+    sans-serif;
+  text-shadow: none;
+}
+.act-classic-shell .btn.primary {
+  color: var(--act-gold);
+  background: #172c3b;
+  box-shadow: inset 0 0 0 1px #c8a858;
+}
+.act-classic-shell .btn:hover,
+.act-classic-shell .chip:hover,
+.act-classic-shell .race-card:hover {
+  filter: brightness(1.12);
+}
+.act-classic-shell .btn:disabled {
+  opacity: 0.48;
+  cursor: not-allowed;
+}
+.act-classic-shell input,
+.act-classic-shell textarea,
+.act-classic-shell select {
+  color: #302719;
+  background: #ddd0ac;
+  border: 1px solid #8c7548;
+  border-radius: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.act-classic-shell .roster-body {
+  display: grid;
+  grid-template-columns: minmax(0, 2.2fr) minmax(205px, 1fr);
+  gap: 18px;
+}
+.act-classic-shell .roster-create,
+.act-classic-shell .roster-list {
+  padding: 0 0 15px;
+  border: 0;
+}
+.act-classic-shell .roster-create > :not(.panel-title),
+.act-classic-shell .roster-list > :not(.panel-title) {
+  margin-left: 14px;
+  margin-right: 14px;
+}
+.act-classic-shell .roster-preview {
+  padding: 16px 0;
+}
+.act-classic-shell .roster-empty {
+  color: #6a5a3c;
+  background: transparent;
+  border-color: #887b56;
+}
+.act-classic-shell .roster-row {
+  padding: 10px 0 14px;
+  border: 0;
+  border-bottom: 1px solid #b5a277;
+  border-radius: 0;
+  background: transparent;
+}
+.act-classic-shell .roster-row-text b {
+  color: #322819;
+}
+.act-classic-shell .roster-row .btn {
+  padding: 4px 9px;
+}
+.act-classic-shell .roster-name {
+  margin-top: 20px;
+}
+.act-classic-shell .roster .choice > .panel-title,
+.act-classic-shell .roster-name > .panel-title {
+  color: #514025;
+  font:
+    bold 12px/1.5 Arial,
+    Helvetica,
+    sans-serif;
+}
+.act-classic-shell .roster .race-row {
+  gap: 6px;
+}
+.act-classic-shell .roster .race-card {
+  padding: 5px 8px;
+}
 /* Keep selected and radio semantics from the existing components. */
-.act-classic-shell .race-card.on { outline: 2px solid #8b6322; outline-offset: 2px; }
-.act-classic-shell .act-classic-compat-links { margin-top: 20px; }
-.act-classic-shell .act-classic-compat-links a { color: #25466a; }
+.act-classic-shell .race-card.on {
+  outline: 2px solid #8b6322;
+  outline-offset: 2px;
+}
+.act-classic-shell .act-classic-compat-links {
+  margin-top: 20px;
+}
+.act-classic-shell .act-classic-compat-links a {
+  color: #25466a;
+}
 @media (max-width: 900px) {
-  .act-classic-shell .roster-body { grid-template-columns: minmax(0, 1fr); }
+  .act-classic-shell .roster-body {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
 @media (max-width: 760px) {
-  .act-classic-shell { padding-top: 15px; }
-  .act-classic-shell .act-classic-layout { width: min(100% - 20px, 650px); grid-template-columns: minmax(0, 1fr); }
-  .act-classic-shell .act-classic-sidebar { min-height: 0; padding: 0 0 16px; }
-  .act-classic-shell .act-classic-logo { position: static; margin: 0 auto 14px; }
-  .act-classic-shell .act-classic-nav { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; padding: 0 8px; }
-  .act-classic-shell .act-classic-nav-link { min-height: 44px; padding-top: 11px; padding-bottom: 11px; }
-  .act-classic-shell .act-classic-content { padding: 16px 22px 24px 32px; }
-  .act-classic-shell .act-classic-footer { grid-column: 1; }
+  .act-classic-shell {
+    padding-top: 15px;
+  }
+  .act-classic-shell .act-classic-layout {
+    width: min(100% - 20px, 650px);
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .act-classic-shell .act-classic-sidebar {
+    min-height: 0;
+    padding: 0 0 16px;
+  }
+  .act-classic-shell .act-classic-logo {
+    position: static;
+    margin: 0 auto 14px;
+  }
+  .act-classic-shell .act-classic-nav {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    padding: 0 8px;
+  }
+  .act-classic-shell .act-classic-nav-link {
+    min-height: 44px;
+    padding-top: 11px;
+    padding-bottom: 11px;
+  }
+  .act-classic-shell .act-classic-content {
+    padding: 16px 22px 24px 32px;
+  }
+  .act-classic-shell .act-classic-footer {
+    grid-column: 1;
+  }
 }
 /* COMBAT BOUNDARY: only this existing App-root class is decorated.
    No fonts, colors, dimensions, transforms, padding, grid, overflow or descendant
@@ -83,88 +345,370 @@
 }
 
 /* Menu integration. These rules never match the sibling battle root. */
-.act-classic-shell .roster { padding: 0; }
-.act-classic-shell .roster > .hall-head { margin: 22px 14px 4px; }
-.act-classic-shell .roster > .hall-head h3 { flex: 1; font-size: 25px; }
-.act-classic-shell .roster-intro { margin: 8px 14px 34px; }
-.act-classic-shell .roster-row { display: grid; grid-template-columns: 44px minmax(0,1fr); }
-.act-classic-shell .roster-row > .btn { grid-column: 2; justify-self: stretch; }
-.act-classic-shell .roster-row .portrait { border-radius: 0; border-color: #8b7543; }
-.act-classic-shell .roster-row-text { overflow-wrap: anywhere; }
-.act-classic-shell .roster-row-text [style*='color'] { color: #66583e !important; }
-.act-classic-shell .roster-create { min-height: 620px; }
-.act-classic-shell .roster-create > .btn { margin-top: 8px; padding: 11px; }
-.act-classic-shell .roster .class-card b { color: var(--act-gold) !important; }
-.act-classic-shell .hall-head, .act-classic-shell .an-head { display: flex; flex-wrap: wrap; gap: 12px; }
-.act-classic-shell .hall-head > .row { flex-wrap: wrap; }
-.act-classic-shell .hall-body, .act-classic-shell .brief-body { display: grid; grid-template-columns: minmax(0,1fr); }
-.act-classic-shell .hall-side { grid-template-columns: repeat(2,minmax(0,1fr)); }
-.act-classic-shell .trial-row { display: grid; grid-template-columns: minmax(0,1fr); background: transparent; border-radius: 0; border-bottom: 1px solid #ac986e; box-shadow: none; padding: 0 0 20px 14px; gap: 12px; }
-.act-classic-shell .trial-classes { justify-content: flex-start; display: grid; grid-template-columns: repeat(auto-fit,minmax(155px,1fr)); }
-.act-classic-shell .tc { width: 100%; min-width: 0; border-radius: 0; background: #172c3b; border: 1px solid #7f6535; box-shadow: inset 0 0 0 1px #c8a858; color: #f0ddb0; }
-.act-classic-shell .tc-text { min-width: 0; overflow-wrap: anywhere; }
-.act-classic-shell .tc-status { color: #d3c8ae; }
-.act-classic-shell .tc.next { outline: 2px solid #856216; outline-offset: 2px; }
-.act-classic-shell .tc.st-locked { opacity: .75; }
-.act-classic-shell .trial-blurb, .act-classic-shell .brief-text, .act-classic-shell .brief-tips li, .act-classic-shell .loop-hint, .act-classic-shell .title-copy, .act-classic-shell .title-tag { color: var(--act-ink); }
-.act-classic-shell .trial-eyebrow, .act-classic-shell .brief-eyebrow, .act-classic-shell .racials, .act-classic-shell .result-eyebrow, .act-classic-shell .stat span, .act-classic-shell .an-conf, .act-classic-shell .an-dw, .act-classic-shell .an-w-end, .act-classic-shell .fb-end { color: var(--act-muted); }
-.act-classic-shell .trial-title { font-size: 21px; }
-.act-classic-shell .brief-kit, .act-classic-shell .result-card, .act-classic-shell .an-verdict, .act-classic-shell .an-detail, .act-classic-shell .modal { color: var(--act-ink); background: #dfd0a7 var(--act-paper); border: 1px solid #a38a56; border-radius: 0; box-shadow: none; }
-.act-classic-shell .kit-ab, .act-classic-shell .stat { background: #bcaa7c40; border-radius: 0; }
-.act-classic-shell .choice-card { background: #d5c294; color: var(--act-ink); border-color: #9b8353; border-radius: 0; }
-.act-classic-shell .choice-card b, .act-classic-shell .kit-passive b, .act-classic-shell .panel-title, .act-classic-shell .cx-dim-name, .act-classic-shell .an-eyebrow, .act-classic-shell .method-rules th, .act-classic-shell .note { color: #604715; }
-.act-classic-shell .choice-card span { color: #55462c; }
-.act-classic-shell .choice-card.on { outline: 2px solid #765519; outline-offset: 1px; box-shadow: none; border-color: #765519; }
-.act-classic-shell .kit-name, .act-classic-shell .an-main-name, .act-classic-shell .an-rank-name { color: color-mix(in srgb,var(--cc) 40%,#302719); }
-.act-classic-shell .ev-class, .act-classic-shell .an-th[style*='color'], .act-classic-shell .an-detail-head[style*='color'] { color: #44331d !important; }
-.act-classic-shell .ev-row { border-color: #ae9c74; gap: 6px; font-size: 12px; }
-.act-classic-shell .linkish, .act-classic-shell a { color: #254d70; }
-.act-classic-shell .badge { color: #59431f; border-color: #97743e; }
-.act-classic-shell .kind-observed, .act-classic-shell .an-ev-item.pos .an-ev-w { color: #2d582d; }
-.act-classic-shell .kind-self, .act-classic-shell .an-ev-item.neg .an-ev-w, .act-classic-shell .r-defeat .result-title { color: #873d20; }
-.act-classic-shell .kind-prediction, .act-classic-shell .st-speculative { color: #614176; }
-.act-classic-shell .st-reported-guide, .act-classic-shell .cx-src { color: #254d70; }
-.act-classic-shell .st-beta-observation { color: #285f51; }
-.act-classic-shell .cx-facts li.neg { color: #803e28; }
-.act-classic-shell .an-cell { color: var(--act-ink); background: #d8c79e; border-color: #9c865b; border-radius: 0; }
-.act-classic-shell .an-cell.open { outline: 2px solid #765519; }
-.act-classic-shell .an-cell.conf-none { opacity: .8; }
-.act-classic-shell .fb-dot { background: #172c3b; color: var(--act-gold); border-color: #8b7543; }
-.act-classic-shell .fb-dot.on, .act-classic-shell .chip.on, .act-classic-shell .btn.on { outline: 2px solid #765519; outline-offset: 2px; box-shadow: inset 0 0 0 1px #efd885; }
-.act-classic-shell .btn.ghost { background: #172c3b; }
-.act-classic-shell .title-screen { min-height: 0; padding: 34px 0; }
-.act-classic-shell .title-name { background: none; filter: none; color: #503b18; font-size: 38px; }
-.act-classic-shell .title-sigils .sigil { max-width: 28%; }
-.act-classic-shell .title-sigils .portrait { max-width: 100%; height: auto; }
-.act-classic-shell .settings-grid, .act-classic-shell .an-side { grid-template-columns: minmax(0,1fr); }
-.act-classic-shell .an-verdict { grid-template-columns: minmax(0,1fr); }
-.act-classic-shell .method-rules td, .act-classic-shell .method-rules th { border-color: #b4a078; overflow-wrap: anywhere; }
-.act-classic-shell .roster-note { margin: 22px 14px 0; color: var(--act-muted); font-size: 12px; }
-.act-classic-shell .act-classic-titlebar, .act-classic-shell .panel > .panel-title { color: #f5d45b; }
-@media (max-width:760px) {
-  .act-classic-shell .roster-create { min-height: 0; }
-  .act-classic-shell .hall-side, .act-classic-shell .cx-two, .act-classic-shell .cx-specs, .act-classic-shell .cx-toolkit, .act-classic-shell .method-grid { grid-template-columns: minmax(0,1fr); }
-  .act-classic-shell .roster > .hall-head { margin-inline: 0; }
-  .act-classic-shell .roster > .hall-head h3 { flex-basis: 100%; order: -1; }
-  .act-classic-shell .roster-body { grid-template-columns: minmax(0,1fr); }
-  .act-classic-shell .an-head > h2 { order: -1; flex-basis: 100%; }
-  .act-classic-shell .an-dim { font-size: 12px; }
-  .act-classic-shell .an-th { font-size: 11px; letter-spacing: 0; }
-  .act-classic-shell .an-table { gap: 4px; grid-template-columns: minmax(80px,1fr) repeat(var(--cols),minmax(0,1fr)); }
-  .act-classic-shell .an-main { flex-wrap: wrap; }
-  .act-classic-shell .brief-head { flex-wrap: wrap; }
-  .act-classic-shell .method-rules { font-size: 11px; }
-  .act-classic-shell .method-rules td, .act-classic-shell .method-rules th { padding: 4px; }
-  .act-classic-shell .roster-intro { margin-inline: 0; }
+.act-classic-shell .roster {
+  padding: 0;
 }
-.act-classic-shell .trial-title, .act-classic-shell .an-head h2, .act-classic-shell .hall > .hall-head h2, .act-classic-shell .settings > .hall-head h2 { min-height: 25px; padding: 3px 25px 3px 30px; color: #f5d45b; border: 1px solid #a98e47; background: var(--act-title-left) left center / 31px 24px no-repeat, var(--act-title-right) right center / 23px 24px no-repeat, var(--act-title-middle) center / auto 100% repeat-x #102333; font: 14px/18px Georgia,serif; }
-.act-classic-shell .hall > .hall-head h2, .act-classic-shell .an-head h2 { flex-basis: 100%; order: -1; }
-.act-classic-shell .tc-class, .act-classic-shell .ev-class, .act-classic-shell .trial-eyebrow, .act-classic-shell .panel-title, .act-classic-shell .linkish { font-family: Arial,Helvetica,sans-serif; }
-.act-classic-shell .panel > .panel-title { font-family: Georgia,serif; }
+.act-classic-shell .roster > .hall-head {
+  margin: 22px 14px 4px;
+}
+.act-classic-shell .roster > .hall-head h3 {
+  flex: 1;
+  font-size: 25px;
+}
+.act-classic-shell .roster-intro {
+  margin: 8px 14px 34px;
+}
+.act-classic-shell .roster-row {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
+}
+.act-classic-shell .roster-row > .btn {
+  grid-column: 2;
+  justify-self: stretch;
+}
+.act-classic-shell .roster-row .portrait {
+  border-radius: 0;
+  border-color: #8b7543;
+}
+.act-classic-shell .roster-row-text {
+  overflow-wrap: anywhere;
+}
+.act-classic-shell .roster-row-text [style*='color'] {
+  color: #66583e !important;
+}
+.act-classic-shell .roster-create {
+  min-height: 620px;
+}
+.act-classic-shell .roster-create > .btn {
+  margin-top: 8px;
+  padding: 11px;
+}
+.act-classic-shell .roster .class-card b {
+  color: var(--act-gold) !important;
+}
+.act-classic-shell .hall-head,
+.act-classic-shell .an-head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.act-classic-shell .hall-head > .row {
+  flex-wrap: wrap;
+}
+.act-classic-shell .hall-body,
+.act-classic-shell .brief-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
+.act-classic-shell .hall-side {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.act-classic-shell .trial-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  background: transparent;
+  border-radius: 0;
+  border-bottom: 1px solid #ac986e;
+  box-shadow: none;
+  padding: 0 0 20px 14px;
+  gap: 12px;
+}
+.act-classic-shell .trial-classes {
+  justify-content: flex-start;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(155px, 1fr));
+}
+.act-classic-shell .tc {
+  width: 100%;
+  min-width: 0;
+  border-radius: 0;
+  background: #172c3b;
+  border: 1px solid #7f6535;
+  box-shadow: inset 0 0 0 1px #c8a858;
+  color: #f0ddb0;
+}
+.act-classic-shell .tc-text {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.act-classic-shell .tc-status {
+  color: #d3c8ae;
+}
+.act-classic-shell .tc.next {
+  outline: 2px solid #856216;
+  outline-offset: 2px;
+}
+.act-classic-shell .tc.st-locked {
+  opacity: 0.75;
+}
+.act-classic-shell .trial-blurb,
+.act-classic-shell .brief-text,
+.act-classic-shell .brief-tips li,
+.act-classic-shell .loop-hint,
+.act-classic-shell .title-copy,
+.act-classic-shell .title-tag {
+  color: var(--act-ink);
+}
+.act-classic-shell .trial-eyebrow,
+.act-classic-shell .brief-eyebrow,
+.act-classic-shell .racials,
+.act-classic-shell .result-eyebrow,
+.act-classic-shell .stat span,
+.act-classic-shell .an-conf,
+.act-classic-shell .an-dw,
+.act-classic-shell .an-w-end,
+.act-classic-shell .fb-end {
+  color: var(--act-muted);
+}
+.act-classic-shell .trial-title {
+  font-size: 21px;
+}
+.act-classic-shell .brief-kit,
+.act-classic-shell .result-card,
+.act-classic-shell .an-verdict,
+.act-classic-shell .an-detail,
+.act-classic-shell .modal {
+  color: var(--act-ink);
+  background: #dfd0a7 var(--act-paper);
+  border: 1px solid #a38a56;
+  border-radius: 0;
+  box-shadow: none;
+}
+.act-classic-shell .kit-ab,
+.act-classic-shell .stat {
+  background: #bcaa7c40;
+  border-radius: 0;
+}
+.act-classic-shell .choice-card {
+  background: #d5c294;
+  color: var(--act-ink);
+  border-color: #9b8353;
+  border-radius: 0;
+}
+.act-classic-shell .choice-card b,
+.act-classic-shell .kit-passive b,
+.act-classic-shell .panel-title,
+.act-classic-shell .cx-dim-name,
+.act-classic-shell .an-eyebrow,
+.act-classic-shell .method-rules th,
+.act-classic-shell .note {
+  color: #604715;
+}
+.act-classic-shell .choice-card span {
+  color: #55462c;
+}
+.act-classic-shell .choice-card.on {
+  outline: 2px solid #765519;
+  outline-offset: 1px;
+  box-shadow: none;
+  border-color: #765519;
+}
+.act-classic-shell .kit-name,
+.act-classic-shell .an-main-name,
+.act-classic-shell .an-rank-name {
+  color: color-mix(in srgb, var(--cc) 40%, #302719);
+}
+.act-classic-shell .ev-class,
+.act-classic-shell .an-th[style*='color'],
+.act-classic-shell .an-detail-head[style*='color'] {
+  color: #44331d !important;
+}
+.act-classic-shell .ev-row {
+  border-color: #ae9c74;
+  gap: 6px;
+  font-size: 12px;
+}
+.act-classic-shell .linkish,
+.act-classic-shell a {
+  color: #254d70;
+}
+.act-classic-shell .badge {
+  color: #59431f;
+  border-color: #97743e;
+}
+.act-classic-shell .kind-observed,
+.act-classic-shell .an-ev-item.pos .an-ev-w {
+  color: #2d582d;
+}
+.act-classic-shell .kind-self,
+.act-classic-shell .an-ev-item.neg .an-ev-w,
+.act-classic-shell .r-defeat .result-title {
+  color: #873d20;
+}
+.act-classic-shell .kind-prediction,
+.act-classic-shell .st-speculative {
+  color: #614176;
+}
+.act-classic-shell .st-reported-guide,
+.act-classic-shell .cx-src {
+  color: #254d70;
+}
+.act-classic-shell .st-beta-observation {
+  color: #285f51;
+}
+.act-classic-shell .cx-facts li.neg {
+  color: #803e28;
+}
+.act-classic-shell .an-cell {
+  color: var(--act-ink);
+  background: #d8c79e;
+  border-color: #9c865b;
+  border-radius: 0;
+}
+.act-classic-shell .an-cell.open {
+  outline: 2px solid #765519;
+}
+.act-classic-shell .an-cell.conf-none {
+  opacity: 0.8;
+}
+.act-classic-shell .fb-dot {
+  background: #172c3b;
+  color: var(--act-gold);
+  border-color: #8b7543;
+}
+.act-classic-shell .fb-dot.on,
+.act-classic-shell .chip.on,
+.act-classic-shell .btn.on {
+  outline: 2px solid #765519;
+  outline-offset: 2px;
+  box-shadow: inset 0 0 0 1px #efd885;
+}
+.act-classic-shell .btn.ghost {
+  background: #172c3b;
+}
+.act-classic-shell .title-screen {
+  min-height: 0;
+  padding: 34px 0;
+}
+.act-classic-shell .title-name {
+  background: none;
+  filter: none;
+  color: #503b18;
+  font-size: 38px;
+}
+.act-classic-shell .title-sigils .sigil {
+  max-width: 28%;
+}
+.act-classic-shell .title-sigils .portrait {
+  max-width: 100%;
+  height: auto;
+}
+.act-classic-shell .settings-grid,
+.act-classic-shell .an-side {
+  grid-template-columns: minmax(0, 1fr);
+}
+.act-classic-shell .an-verdict {
+  grid-template-columns: minmax(0, 1fr);
+}
+.act-classic-shell .method-rules td,
+.act-classic-shell .method-rules th {
+  border-color: #b4a078;
+  overflow-wrap: anywhere;
+}
+.act-classic-shell .roster-note {
+  margin: 22px 14px 0;
+  color: var(--act-muted);
+  font-size: 12px;
+}
+.act-classic-shell .act-classic-titlebar,
+.act-classic-shell .panel > .panel-title {
+  color: #f5d45b;
+}
+@media (max-width: 760px) {
+  .act-classic-shell .roster-create {
+    min-height: 0;
+  }
+  .act-classic-shell .hall-side,
+  .act-classic-shell .cx-two,
+  .act-classic-shell .cx-specs,
+  .act-classic-shell .cx-toolkit,
+  .act-classic-shell .method-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .act-classic-shell .roster > .hall-head {
+    margin-inline: 0;
+  }
+  .act-classic-shell .roster > .hall-head h3 {
+    flex-basis: 100%;
+    order: -1;
+  }
+  .act-classic-shell .roster-body {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .act-classic-shell .an-head > h2 {
+    order: -1;
+    flex-basis: 100%;
+  }
+  .act-classic-shell .an-dim {
+    font-size: 12px;
+  }
+  .act-classic-shell .an-th {
+    font-size: 11px;
+    letter-spacing: 0;
+  }
+  .act-classic-shell .an-table {
+    gap: 4px;
+    grid-template-columns: minmax(80px, 1fr) repeat(var(--cols), minmax(0, 1fr));
+  }
+  .act-classic-shell .an-main {
+    flex-wrap: wrap;
+  }
+  .act-classic-shell .brief-head {
+    flex-wrap: wrap;
+  }
+  .act-classic-shell .method-rules {
+    font-size: 11px;
+  }
+  .act-classic-shell .method-rules td,
+  .act-classic-shell .method-rules th {
+    padding: 4px;
+  }
+  .act-classic-shell .roster-intro {
+    margin-inline: 0;
+  }
+}
+.act-classic-shell .trial-title,
+.act-classic-shell .an-head h2,
+.act-classic-shell .hall > .hall-head h2,
+.act-classic-shell .settings > .hall-head h2 {
+  min-height: 25px;
+  padding: 3px 25px 3px 30px;
+  color: #f5d45b;
+  border: 1px solid #a98e47;
+  background:
+    var(--act-title-left) left center / 31px 24px no-repeat,
+    var(--act-title-right) right center / 23px 24px no-repeat,
+    var(--act-title-middle) center / auto 100% repeat-x #102333;
+  font:
+    14px/18px Georgia,
+    serif;
+}
+.act-classic-shell .hall > .hall-head h2,
+.act-classic-shell .an-head h2 {
+  flex-basis: 100%;
+  order: -1;
+}
+.act-classic-shell .tc-class,
+.act-classic-shell .ev-class,
+.act-classic-shell .trial-eyebrow,
+.act-classic-shell .panel-title,
+.act-classic-shell .linkish {
+  font-family: Arial, Helvetica, sans-serif;
+}
+.act-classic-shell .panel > .panel-title {
+  font-family: Georgia, serif;
+}
 /* Badges on blue headers retain light lettering, distinct from parchment badges. */
-.act-classic-shell .panel-title .badge { color: #f5d45b; border-color: #bda05c; }
-.act-classic-shell .r-abandoned .result-title { color: #66583e; }
-.act-classic-shell .title-inner > .row { flex-wrap: wrap; }
+.act-classic-shell .panel-title .badge {
+  color: #f5d45b;
+  border-color: #bda05c;
+}
+.act-classic-shell .r-abandoned .result-title {
+  color: #66583e;
+}
+.act-classic-shell .title-inner > .row {
+  flex-wrap: wrap;
+}
 
 /* Shared material around combat; all HUD descendants keep their own styles. */
 .act-classic-battle-frame {
@@ -172,13 +716,20 @@
   background-image: linear-gradient(180deg, #07131ce8, #020507ee);
   background-position: center;
   background-repeat: no-repeat;
-  box-shadow: inset 0 0 0 1px #c8a858, inset 0 0 0 3px #172c3b, inset 0 0 0 4px #6d5831;
+  box-shadow:
+    inset 0 0 0 1px #c8a858,
+    inset 0 0 0 3px #172c3b,
+    inset 0 0 0 4px #6d5831;
 }
 
 /* Deliberate interaction feedback, without moving controls or changing hit areas. */
 .act-classic-shell button:not(:disabled) {
   cursor: pointer;
-  transition: background-color 120ms ease, border-color 120ms ease, box-shadow 120ms ease, filter 120ms ease;
+  transition:
+    background-color 120ms ease,
+    border-color 120ms ease,
+    box-shadow 120ms ease,
+    filter 120ms ease;
 }
 @media (hover: hover) {
   .act-classic-shell button:not(:disabled):hover {
@@ -186,7 +737,9 @@
     outline: 1px solid #ad7e23;
     outline-offset: 2px;
   }
-  .act-classic-shell .act-classic-nav-link:hover { outline-color: #ffe7a0; }
+  .act-classic-shell .act-classic-nav-link:hover {
+    outline-color: #ffe7a0;
+  }
   .act-classic-shell .btn:not(:disabled):hover,
   .act-classic-shell .race-card:hover,
   .act-classic-shell .chip:hover,
@@ -194,26 +747,42 @@
   .act-classic-shell .fb-dot:hover {
     background-color: #254b65;
     border-color: #e5c66d;
-    box-shadow: inset 0 0 0 1px #efd885, 0 0 8px #bf94354d;
+    box-shadow:
+      inset 0 0 0 1px #efd885,
+      0 0 8px #bf94354d;
   }
   .act-classic-shell .choice-card:hover,
   .act-classic-shell .an-cell:hover,
-  .act-classic-shell .next-card:hover { background-color: #e8d8ad; }
-  .act-classic-shell .linkish:hover { text-decoration: underline; text-underline-offset: 3px; }
+  .act-classic-shell .next-card:hover {
+    background-color: #e8d8ad;
+  }
+  .act-classic-shell .linkish:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
 }
 .act-classic-shell button:not(:disabled):active {
   transform: none;
-  filter: brightness(.92);
-  box-shadow: inset 0 2px 5px #0006, inset 0 0 0 1px #efd885;
+  filter: brightness(0.92);
+  box-shadow:
+    inset 0 2px 5px #0006,
+    inset 0 0 0 1px #efd885;
 }
 .act-classic-shell button:focus-visible {
   outline: 2px solid #765005;
   outline-offset: 3px;
 }
-.act-classic-shell .act-classic-nav-link:focus-visible { outline-color: #fff3ad; }
-.act-classic-shell button:disabled { filter: none; transform: none; }
+.act-classic-shell .act-classic-nav-link:focus-visible {
+  outline-color: #fff3ad;
+}
+.act-classic-shell button:disabled {
+  filter: none;
+  transform: none;
+}
 @media (prefers-reduced-motion: reduce) {
-  .act-classic-shell button { transition: none; }
+  .act-classic-shell button {
+    transition: none;
+  }
 }
 
 /* 2004 combat chrome, requested after the initial outer-root-only version.
@@ -224,11 +793,15 @@
   background-image: var(--act-metal);
   background-position: left top;
   background-repeat: repeat-x;
-  box-shadow: inset 0 0 0 1px #d2b66b, inset 0 0 0 3px #24231e;
+  box-shadow:
+    inset 0 0 0 1px #d2b66b,
+    inset 0 0 0 3px #24231e;
 }
 .act-classic-battle-frame .b-top {
   background: linear-gradient(#091b29ee, #06111bea);
-  box-shadow: 0 1px #b69a51, 0 3px #080907;
+  box-shadow:
+    0 1px #b69a51,
+    0 3px #080907;
 }
 .act-classic-battle-frame .objectives,
 .act-classic-battle-frame .log,
@@ -240,7 +813,11 @@
   background-color: #091016;
   background-image: linear-gradient(90deg, #020508eb, #0a1822ed), var(--act-paper);
   border-radius: 0;
-  box-shadow: inset 0 0 0 1px #c2a462, inset 0 0 0 3px #29251c, inset 0 0 0 4px #7c693d, 0 0 0 1px #000;
+  box-shadow:
+    inset 0 0 0 1px #c2a462,
+    inset 0 0 0 3px #29251c,
+    inset 0 0 0 4px #7c693d,
+    0 0 0 1px #000;
 }
 .act-classic-battle-frame .objectives > .panel-title,
 .act-classic-battle-frame .log > .panel-title,
@@ -249,7 +826,9 @@
   background-image: var(--act-title-middle);
   background-repeat: repeat-x;
   background-position: center;
-  box-shadow: 0 -1px #bd9b49, 0 1px #bd9b49;
+  box-shadow:
+    0 -1px #bd9b49,
+    0 1px #bd9b49;
   border-radius: 0;
 }
 .act-classic-battle-frame .actionbar,
@@ -258,35 +837,121 @@
   background-image: linear-gradient(#111c25cc, #020406dd), var(--act-metal);
   background-position: center;
   border-radius: 0;
-  box-shadow: inset 0 0 0 1px #d2b66b, inset 0 0 0 3px #413c2e, inset 0 0 0 4px #8b794d, 0 0 0 1px #000;
+  box-shadow:
+    inset 0 0 0 1px #d2b66b,
+    inset 0 0 0 3px #413c2e,
+    inset 0 0 0 4px #8b794d,
+    0 0 0 1px #000;
 }
 .act-classic-battle-frame .bf {
   border-radius: 0;
-  box-shadow: 0 0 0 1px #bb9d58, 0 0 0 3px #25231c, inset 0 0 0 1px #000;
+  box-shadow:
+    0 0 0 1px #bb9d58,
+    0 0 0 3px #25231c,
+    inset 0 0 0 1px #000;
 }
 /* Desktop is the primary play surface. Let content use the available monitor width. */
 @media (min-width: 1100px) {
-  .act-classic-shell { font-size: 16px; }
-  .act-classic-shell .act-classic-layout { width: min(1900px, calc(100% - 64px)); grid-template-columns: 200px minmax(0, 1fr); }
-  .act-classic-shell .act-classic-content { min-height: 0; padding: 28px 38px 40px 50px; }
-  .act-classic-shell .act-classic-nav { gap: 12px; padding-right: 10px; }
-  .act-classic-shell .act-classic-nav-link { min-height: 40px; padding-top: 9px; padding-bottom: 9px; font-size: 16px; }
-  .act-classic-shell .act-classic-logo { left: 0; }
-  .act-classic-shell .btn, .act-classic-shell .chip, .act-classic-shell .race-card { font-size: 14px; }
-  .act-classic-shell .title-screen { min-height: clamp(560px, 65svh, 760px); padding: 32px 12px; }
-  .act-classic-shell .title-inner { width: 100%; max-width: 1240px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); column-gap: clamp(28px, 4vw, 72px); align-items: center; }
-  .act-classic-shell .title-sigils { grid-column: 1; margin: 0 0 28px; }
-  .act-classic-shell .title-name { grid-column: 1; font-size: clamp(34px, 2.5vw, 48px); margin: 0 0 16px; }
-  .act-classic-shell .title-tag { grid-column: 1; font-size: 18px; margin: 0 0 28px; }
-  .act-classic-shell .title-copy { grid-column: 2; grid-row: 1 / 5; max-width: 64ch; font-size: 16px; line-height: 1.7; margin: 0; }
-  .act-classic-shell .title-inner > .row { grid-column: 1; gap: 12px; }
-  .act-classic-shell .title-inner > .small { grid-column: 1; }
-  .act-classic-shell .roster-body { grid-template-columns: minmax(0, 1.7fr) minmax(300px, 1fr); gap: 32px; }
-  .act-classic-shell .hall-body { grid-template-columns: minmax(0, 1fr) 300px; gap: 28px; align-items: start; }
-  .act-classic-shell .hall-side { grid-template-columns: minmax(0, 1fr); }
-  .act-classic-shell .brief-body { grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 36px; align-items: start; }
+  .act-classic-shell {
+    font-size: 16px;
+  }
+  .act-classic-shell .act-classic-layout {
+    width: min(1900px, calc(100% - 64px));
+    grid-template-columns: 200px minmax(0, 1fr);
+  }
+  .act-classic-shell .act-classic-content {
+    min-height: 0;
+    padding: 28px 38px 40px 50px;
+  }
+  .act-classic-shell .act-classic-nav {
+    gap: 12px;
+    padding-right: 10px;
+  }
+  .act-classic-shell .act-classic-nav-link {
+    min-height: 40px;
+    padding-top: 9px;
+    padding-bottom: 9px;
+    font-size: 16px;
+  }
+  .act-classic-shell .act-classic-logo {
+    left: 0;
+  }
+  .act-classic-shell .btn,
+  .act-classic-shell .chip,
+  .act-classic-shell .race-card {
+    font-size: 14px;
+  }
+  .act-classic-shell .title-screen {
+    min-height: clamp(560px, 65svh, 760px);
+    padding: 32px 12px;
+  }
+  .act-classic-shell .title-inner {
+    width: 100%;
+    max-width: 1240px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    column-gap: clamp(28px, 4vw, 72px);
+    align-items: center;
+  }
+  .act-classic-shell .title-sigils {
+    grid-column: 1;
+    margin: 0 0 28px;
+  }
+  .act-classic-shell .title-name {
+    grid-column: 1;
+    font-size: clamp(34px, 2.5vw, 48px);
+    margin: 0 0 16px;
+  }
+  .act-classic-shell .title-tag {
+    grid-column: 1;
+    font-size: 18px;
+    margin: 0 0 28px;
+  }
+  .act-classic-shell .title-copy {
+    grid-column: 2;
+    grid-row: 1 / 5;
+    max-width: 64ch;
+    font-size: 16px;
+    line-height: 1.7;
+    margin: 0;
+  }
+  .act-classic-shell .title-inner > .row {
+    grid-column: 1;
+    gap: 12px;
+  }
+  .act-classic-shell .title-inner > .small {
+    grid-column: 1;
+  }
+  .act-classic-shell .roster-body {
+    grid-template-columns: minmax(0, 1.7fr) minmax(300px, 1fr);
+    gap: 32px;
+  }
+  .act-classic-shell .hall-body {
+    grid-template-columns: minmax(0, 1fr) 300px;
+    gap: 28px;
+    align-items: start;
+  }
+  .act-classic-shell .hall-side {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .act-classic-shell .brief-body {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: 36px;
+    align-items: start;
+  }
 }
-.act-classic-shell .act-classic-bottom-rail { grid-column: 2; height: 26px; border-top: 1px solid #b59b57; border-bottom: 1px solid #79683f; background: #151714 var(--act-metal) left bottom / 280px 87px repeat-x; box-shadow: inset 0 2px #090a08, inset 0 -2px #070807; }
+.act-classic-shell .act-classic-bottom-rail {
+  grid-column: 2;
+  height: 26px;
+  border-top: 1px solid #b59b57;
+  border-bottom: 1px solid #79683f;
+  background: #151714 var(--act-metal) left bottom / 280px 87px repeat-x;
+  box-shadow:
+    inset 0 2px #090a08,
+    inset 0 -2px #070807;
+}
 @media (max-width: 760px) {
-  .act-classic-shell .act-classic-bottom-rail { grid-column: 1; }
+  .act-classic-shell .act-classic-bottom-rail {
+    grid-column: 1;
+  }
 }

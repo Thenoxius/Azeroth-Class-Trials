@@ -23,7 +23,10 @@ registerAbilities({
     desc: `Sit down to eat and drink. Restores health and mana over ${REST_SECONDS} s (time-compressed ×${DOWNTIME_COMPRESSION}; about ${REST_SECONDS * DOWNTIME_COMPRESSION} s in the real game). Out of combat only; moving or being attacked stops it.`,
     forever: { status: 'approximation', note: 'Food and water exist in WoW: Forever as in Classic; the ×3 time compression is ours.' },
     onTick({ state, u, api }) {
-      if (api.inCombat(state, u)) { api.cancelCast(state, u, 'combat'); return; }
+      if (api.inCombat(state, u)) {
+        api.cancelCast(state, u, 'combat');
+        return;
+      }
       const hp = u.maxHp * 0.125;
       if (u.hp < u.maxHp) u.hp = Math.min(u.maxHp, u.hp + hp);
       for (const k of ['mana', 'focus']) {
@@ -78,7 +81,7 @@ export function spawnPlayer(state, api, pos = {}) {
   const tpl = b.template;
   const p = api.spawnUnit(state, {
     ...tpl,
-    meta:{...tpl.meta,groupBuffs},
+    meta: { ...tpl.meta, groupBuffs },
     id: 'player',
     isPlayer: true,
     side: 'player',

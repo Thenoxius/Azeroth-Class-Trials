@@ -11,19 +11,51 @@ const APPROX = { status: 'approximation', note: 'Original boss ability for this 
 
 registerAbilities({
   't3.cleave': {
-    name: 'Cleave', icon: 'axe', school: 'physical', mechanic: 'physical', category: 'damage', target: 'none', cooldown: 6, fx: 'none',
-    desc: 'A sweeping blow at everyone in front of the Abbot.', forever: APPROX,
-    onCast: ({ state, u, api }) => { const t = api.U(state, u.target); if (t) u.facing = api.G.angleTo(u, t); },
+    name: 'Cleave',
+    icon: 'axe',
+    school: 'physical',
+    mechanic: 'physical',
+    category: 'damage',
+    target: 'none',
+    cooldown: 6,
+    fx: 'none',
+    desc: 'A sweeping blow at everyone in front of the Abbot.',
+    forever: APPROX,
+    onCast: ({ state, u, api }) => {
+      const t = api.U(state, u.target);
+      if (t) u.facing = api.G.angleTo(u, t);
+    },
     effects: [{ type: 'damage', amount: [300, 370], kind: 'melee', aoe: { center: 'self', radius: 8, cone: Math.PI * 0.55, affects: 'enemies' } }],
   },
   't3.censure': {
-    name: 'Censure', icon: 'holy-fire', school: 'holy', category: 'control', castTime: 2.5, range: 40, cooldown: 0,
-    desc: 'A 2.5 s cast: if it finishes, the target is struck and flees in terror for 4 s. Interrupt it.', forever: APPROX,
-    effects: [{ type: 'damage', amount: [200, 240] }, { type: 'aura', aura: { id: 't3.censure', name: 'Censure', icon: 'scream', school: 'holy', debuff: true, duration: 4, cc: 'fear', dr: 'fear', dispel: 'magic' } }],
+    name: 'Censure',
+    icon: 'holy-fire',
+    school: 'holy',
+    category: 'control',
+    castTime: 2.5,
+    range: 40,
+    cooldown: 0,
+    desc: 'A 2.5 s cast: if it finishes, the target is struck and flees in terror for 4 s. Interrupt it.',
+    forever: APPROX,
+    effects: [
+      { type: 'damage', amount: [200, 240] },
+      {
+        type: 'aura',
+        aura: { id: 't3.censure', name: 'Censure', icon: 'scream', school: 'holy', debuff: true, duration: 4, cc: 'fear', dr: 'fear', dispel: 'magic' },
+      },
+    ],
   },
   't3.faithful.strike': {
-    name: 'Zealous Strike', icon: 'sword', school: 'holy', category: 'damage', range: 5, cooldown: 6, mechanic: 'physical',
-    desc: 'A holy-charged strike.', forever: APPROX, effects: [{ type: 'damage', amount: [70, 90], kind: 'melee', school: 'holy' }],
+    name: 'Zealous Strike',
+    icon: 'sword',
+    school: 'holy',
+    category: 'damage',
+    range: 5,
+    cooldown: 6,
+    mechanic: 'physical',
+    desc: 'A holy-charged strike.',
+    forever: APPROX,
+    effects: [{ type: 'damage', amount: [70, 90], kind: 'melee', school: 'holy' }],
   },
 });
 
@@ -33,18 +65,51 @@ const Z = { side: 'enemy', kind: 'enemy', tags: ['humanoid'], aggroRadius: 0, le
 registerTemplates({
   't3.guard': { ...Z, name: 'Zealot Guard', portrait: 'zealot-guard', mob: { elite: true, hp: 1.0, dmg: 1.0, armor: 1.3 }, ai: { type: 'melee' } },
   't3.footman': { ...Z, name: 'Zealot Footman', portrait: 'zealot', mob: { elite: true, hp: 0.85, dmg: 0.85 }, ai: { type: 'melee' } },
-  't3.fanatic': { ...Z, name: 'Zealot Fanatic', portrait: 'zealot', mob: { elite: true, hp: 0.85, dmg: 0.95, speed: 1.9, armor: 0.85 }, immune: { taunt: true }, speed: 8, ai: { type: 'melee' } },
+  't3.fanatic': {
+    ...Z,
+    name: 'Zealot Fanatic',
+    portrait: 'zealot',
+    mob: { elite: true, hp: 0.85, dmg: 0.95, speed: 1.9, armor: 0.85 },
+    immune: { taunt: true },
+    speed: 8,
+    ai: { type: 'melee' },
+  },
   't3.priest': {
-    ...Z, name: 'Zealot Priest', portrait: 'zealot-priest', mob: { elite: true, hp: 0.75, dmg: 0.45, caster: true }, tags: ['humanoid', 'caster'],
+    ...Z,
+    name: 'Zealot Priest',
+    portrait: 'zealot-priest',
+    mob: { elite: true, hp: 0.75, dmg: 0.45, caster: true },
+    tags: ['humanoid', 'caster'],
     abilities: ['npc.heal', 'npc.shadowbolt'],
-    ai: { type: 'healer', range: 28, rotation: [{ id: 'npc.heal', target: 'lowestAlly', maxPct: 0.75 }, { id: 'npc.shadowbolt', target: 'randomEnemy', chance: 0.5 }] },
+    ai: {
+      type: 'healer',
+      range: 28,
+      rotation: [
+        { id: 'npc.heal', target: 'lowestAlly', maxPct: 0.75 },
+        { id: 'npc.shadowbolt', target: 'randomEnemy', chance: 0.5 },
+      ],
+    },
   },
   't3.abbot': {
-    ...Z, name: 'Abbot Varnath', portrait: 'abbot', kind: 'boss', radius: 1.3, mob: { elite: true, dmg: 1.3, speed: 2.4, armor: 1.1 },
+    ...Z,
+    name: 'Abbot Varnath',
+    portrait: 'abbot',
+    kind: 'boss',
+    radius: 1.3,
+    mob: { elite: true, dmg: 1.3, speed: 2.4, armor: 1.1 },
     immune: { stun: true, incap: true, fear: true, cc: true, taunt: false },
-    abilities: ['t3.cleave', 't3.censure'], ai: { type: 'melee', rotation: [{ id: 't3.cleave' }] },
+    abilities: ['t3.cleave', 't3.censure'],
+    ai: { type: 'melee', rotation: [{ id: 't3.cleave' }] },
   },
-  't3.faithful': { ...Z, name: 'Faithful Initiate', portrait: 'zealot', mob: { hp: 0.4, dmg: 0.45 }, speed: 7.5, abilities: ['t3.faithful.strike'], ai: { type: 'melee', rotation: [{ id: 't3.faithful.strike' }] } },
+  't3.faithful': {
+    ...Z,
+    name: 'Faithful Initiate',
+    portrait: 'zealot',
+    mob: { hp: 0.4, dmg: 0.45 },
+    speed: 7.5,
+    abilities: ['t3.faithful.strike'],
+    ai: { type: 'melee', rotation: [{ id: 't3.faithful.strike' }] },
+  },
 });
 
 const TRASH = [
@@ -63,7 +128,9 @@ const L = 30;
 function partyRoster(opts) {
   const healer = opts.role === 'healer';
   return [
-    opts.role === 'tank' ? { classId: 'mage', role: 'dps', spec: 'frost', race: 'troll', name: 'Ilyra', at: { x: 7, y: 19 } } : { classId: 'warrior', role: 'tank', race: 'orc', name: 'Gorrak', portrait: 'orc-warrior', at: { x: 11, y: 17 } },
+    opts.role === 'tank'
+      ? { classId: 'mage', role: 'dps', spec: 'frost', race: 'troll', name: 'Ilyra', at: { x: 7, y: 19 } }
+      : { classId: 'warrior', role: 'tank', race: 'orc', name: 'Gorrak', portrait: 'orc-warrior', at: { x: 11, y: 17 } },
     { classId: 'rogue', role: 'dps', race: 'troll', name: 'Zaj’ka', portrait: 'troll-rogue', skill: 0.7, react: 1.2, at: { x: 9, y: 15 } },
     { classId: 'warlock', role: 'dps', race: 'undead', name: 'Mordessa', portrait: 'undead-warlock', skill: 0.7, react: 1.2, at: { x: 7, y: 15 } },
     healer
@@ -71,7 +138,7 @@ function partyRoster(opts) {
       : { classId: 'shaman', role: 'healer', race: 'orc', name: 'Thalga', portrait: 'orc-shaman', skill: 0.75, react: 1.0, at: { x: 6, y: 20 } },
   ];
 }
-const partyBuffs = (opts) => buffsFromClasses([...partyRoster(opts).map((m) => m.classId), ...(opts.classId==='shaman'?[]:[opts.classId])]);
+const partyBuffs = (opts) => buffsFromClasses([...partyRoster(opts).map((m) => m.classId), ...(opts.classId === 'shaman' ? [] : [opts.classId])]);
 // Abbot Varnath, a level-30 dungeon boss: about three and a half real elites' worth of health.
 const BOSS_HP = { dps: 9000, healer: 8000 };
 const healerOf = (state) => state.list.find((u) => u.side === 'player' && u.alive && u.role === 'healer');
@@ -84,8 +151,14 @@ const playerHasHumanoidCC = (state) => {
 function brandDef(state) {
   const curse = state.opts.classId === 'mage';
   return {
-    id: 't3.brand', name: curse ? 'Curse of Penance' : 'Brand of Zeal', icon: curse ? 'skull' : 'holy-fire', school: 'holy', debuff: true,
-    duration: 15, dispel: curse ? 'curse' : 'magic', tick: { interval: 3, amount: 80, school: 'holy' },
+    id: 't3.brand',
+    name: curse ? 'Curse of Penance' : 'Brand of Zeal',
+    icon: curse ? 'skull' : 'holy-fire',
+    school: 'holy',
+    debuff: true,
+    duration: 15,
+    dispel: curse ? 'curse' : 'magic',
+    tick: { interval: 3, amount: 80, school: 'holy' },
   };
 }
 
@@ -98,34 +171,50 @@ export const TRIAL = {
   levels: [30],
   kind: 'dungeon',
   blurb: 'A five-player dungeon in miniature: a trash pull with a healer to interrupt, then Abbot Varnath. Priests and the Restoration Shamans may heal.',
-  rolesFor: (classId) => (['shaman','priest'].includes(classId) ? ['dps', 'healer'] : classId === 'warrior' ? ['dps', 'tank'] : ['dps']),
+  rolesFor: (classId) => (['shaman', 'priest'].includes(classId) ? ['dps', 'healer'] : classId === 'warrior' ? ['dps', 'tank'] : ['dps']),
   groupBuffs: partyBuffs,
   intro(classId, level, role) {
     const healer = role === 'healer';
     return {
-      text: role === 'tank' ? 'You tank the zealots and Abbot Varnath. Thalga heals; keep enemies facing away from the party and build threat on the whole pack.' : healer
-        ? 'You are the group’s healer. Gorrak tanks, Zaj’ka and Mordessa deal damage. Keep them standing through a zealot pack and Abbot Varnath — your mana has to last.'
-        : 'Gorrak tanks, Zaj’ka stabs things, Thalga heals (and her mana is finite — avoidable damage costs the group). You bring damage, control and whatever utility your class has.',
+      text:
+        role === 'tank'
+          ? 'You tank the zealots and Abbot Varnath. Thalga heals; keep enemies facing away from the party and build threat on the whole pack.'
+          : healer
+            ? 'You are the group’s healer. Gorrak tanks, Zaj’ka and Mordessa deal damage. Keep them standing through a zealot pack and Abbot Varnath — your mana has to last.'
+            : 'Gorrak tanks, Zaj’ka stabs things, Thalga heals (and her mana is finite — avoidable damage costs the group). You bring damage, control and whatever utility your class has.',
       goals: ['Clear the zealot pack at the stairs', 'Defeat Abbot Varnath', 'Keep the tank and healer alive'],
       tips: [
         'The Zealot Priest’s Flash of Zeal and the Abbot’s Censure can be interrupted.',
         'Fire circles appear under people: step out.',
-        classId === 'mage' ? 'The Abbot’s Curse of Penance can be removed with Remove Lesser Curse.' : classId === 'priest' ? 'Brand of Zeal is Magic: Dispel Magic removes it.' : 'You cannot remove the Abbot’s Brand — but you can make sure nobody else needs healing.',
-        healer ? 'Click a party frame or press F1–F5 to target. Hover a frame and press a heal key to heal that member. Shields stop pushback.' : 'The skull marks the kill target. A Fanatic will go for the healer: peel it.',
+        classId === 'mage'
+          ? 'The Abbot’s Curse of Penance can be removed with Remove Lesser Curse.'
+          : classId === 'priest'
+            ? 'Brand of Zeal is Magic: Dispel Magic removes it.'
+            : 'You cannot remove the Abbot’s Brand — but you can make sure nobody else needs healing.',
+        healer
+          ? 'Click a party frame or press F1–F5 to target. Hover a frame and press a heal key to heal that member. Shields stop pushback.'
+          : 'The skull marks the kill target. A Fanatic will go for the healer: peel it.',
       ],
     };
   },
   arena: {
-    w: 64, h: 34, theme: 'crypt',
+    w: 64,
+    h: 34,
+    theme: 'crypt',
     obstacles: [
-      { x: 18, y: 7, r: 1.5, kind: 'pillar' }, { x: 18, y: 27, r: 1.5, kind: 'pillar' }, { x: 37, y: 7, r: 1.5, kind: 'pillar' },
-      { x: 37, y: 27, r: 1.5, kind: 'pillar' }, { x: 45, y: 9, r: 1.3, kind: 'pillar' }, { x: 45, y: 25, r: 1.3, kind: 'pillar' },
+      { x: 18, y: 7, r: 1.5, kind: 'pillar' },
+      { x: 18, y: 27, r: 1.5, kind: 'pillar' },
+      { x: 37, y: 7, r: 1.5, kind: 'pillar' },
+      { x: 37, y: 27, r: 1.5, kind: 'pillar' },
+      { x: 45, y: 9, r: 1.3, kind: 'pillar' },
+      { x: 45, y: 25, r: 1.3, kind: 'pillar' },
     ],
     decor: [
       { kind: 'rune', x: 50, y: 17, r: 6, color: '#a8323a' },
       { kind: 'label', x: 27, y: 10.5, text: 'Stair landing', size: 0.9 },
       { kind: 'label', x: 51, y: 9.5, text: 'Reliquary', size: 0.9 },
-      { kind: 'banner', x: 60, y: 6, color: '#8a1d1d' }, { kind: 'banner', x: 60, y: 28, color: '#8a1d1d' },
+      { kind: 'banner', x: 60, y: 6, color: '#8a1d1d' },
+      { kind: 'banner', x: 60, y: 28, color: '#8a1d1d' },
     ],
   },
   hud: { party: true, meters: true, timer: true, threat: true },
@@ -145,7 +234,13 @@ export const TRIAL = {
     state.script.phase = 'prep';
     state.script.prepEnd = 8;
     state.script.noPull = true; // bots follow the tank; a human may still pull early
-    api.banner(state, state.opts.role === 'tank' ? 'You tank: pull in 8 s' : 'Gorrak pulls in 8 s', playerHasHumanoidCC(state) ? 'Crowd-control one zealot now if you can.' : 'Get into position.', 3, 'info');
+    api.banner(
+      state,
+      state.opts.role === 'tank' ? 'You tank: pull in 8 s' : 'Gorrak pulls in 8 s',
+      playerHasHumanoidCC(state) ? 'Crowd-control one zealot now if you can.' : 'Get into position.',
+      3,
+      'info',
+    );
   },
   onTick(state, api, dt) {
     const s = state.script;
@@ -156,11 +251,19 @@ export const TRIAL = {
     for (const e of ev) {
       if (e.type === 'castStart' && e.ability === 'npc.heal') openWindow(state, api, 'interrupt', 'heal' + e.seq, 'Flash of Zeal', { caster: e.src });
       if (e.type === 'castStart' && e.ability === 't3.censure') openWindow(state, api, 'interrupt', 'censure' + e.seq, 'Censure', { caster: e.src });
-      if (e.type === 'interrupt') for (const w of Object.values(s.windows || {})) if (w.open && w.kind === 'interrupt' && w.caster === e.dst) resolveWindow(state, api, w.id, true, e.src);
-      if (e.type === 'castStop' && e.reason === 'complete') for (const w of Object.values(s.windows || {})) if (w.open && w.kind === 'interrupt' && w.caster === e.src) resolveWindow(state, api, w.id, false, null);
-      if (e.type === 'castStop' && e.reason !== 'complete') for (const w of Object.values(s.windows || {})) if (w.open && w.kind === 'interrupt' && w.caster === e.src && e.reason !== 'interrupted') resolveWindow(state, api, w.id, false, null);
-      if (e.type === 'dispel' && e.aura === 't3.brand') for (const w of Object.values(s.windows || {})) if (w.open && w.kind === 'dispel' && w.holder === e.dst) resolveWindow(state, api, w.id, true, e.src);
-      if (e.type === 'auraFade' && e.aura === 't3.brand' && e.reason === 'expired') for (const w of Object.values(s.windows || {})) if (w.open && w.kind === 'dispel' && w.holder === e.dst) resolveWindow(state, api, w.id, false, null);
+      if (e.type === 'interrupt')
+        for (const w of Object.values(s.windows || {}))
+          if (w.open && w.kind === 'interrupt' && w.caster === e.dst) resolveWindow(state, api, w.id, true, e.src);
+      if (e.type === 'castStop' && e.reason === 'complete')
+        for (const w of Object.values(s.windows || {}))
+          if (w.open && w.kind === 'interrupt' && w.caster === e.src) resolveWindow(state, api, w.id, false, null);
+      if (e.type === 'castStop' && e.reason !== 'complete')
+        for (const w of Object.values(s.windows || {}))
+          if (w.open && w.kind === 'interrupt' && w.caster === e.src && e.reason !== 'interrupted') resolveWindow(state, api, w.id, false, null);
+      if (e.type === 'dispel' && e.aura === 't3.brand')
+        for (const w of Object.values(s.windows || {})) if (w.open && w.kind === 'dispel' && w.holder === e.dst) resolveWindow(state, api, w.id, true, e.src);
+      if (e.type === 'auraFade' && e.aura === 't3.brand' && e.reason === 'expired')
+        for (const w of Object.values(s.windows || {})) if (w.open && w.kind === 'dispel' && w.holder === e.dst) resolveWindow(state, api, w.id, false, null);
     }
     // --- phases
     if (s.phase === 'prep' && state.t >= s.prepEnd) {
@@ -181,7 +284,9 @@ export const TRIAL = {
     if (s.phase === 'trash') {
       const trash = state.list.filter((u) => u.meta.trash);
       // A zealot coming out of crowd control rejoins the fight.
-      for (const u of trash) if (u.alive && !u.engaged && !u.evading && !u.auras.some((a) => a.def.breakOnDamage)) api.engage(state, u, tank && tank.alive ? tank : api.player(state), false);
+      for (const u of trash)
+        if (u.alive && !u.engaged && !u.evading && !u.auras.some((a) => a.def.breakOnDamage))
+          api.engage(state, u, tank && tank.alive ? tank : api.player(state), false);
       // Pre-pull CC: counts if a zealot sits in breakable CC within 4 s of the pull.
       const w = s.windows && s.windows.prepull;
       if (w && w.open) {
@@ -257,7 +362,21 @@ export const TRIAL = {
         s.nextCenser = state.t + 12;
         const picks = [...nonTank].sort(() => state.rng() - 0.5).slice(0, 2);
         for (const v of picks) {
-          const z = api.spawnZone(state, { shape: { type: 'circle', r: 4 }, x: v.x, y: v.y, owner: boss.id, side: boss.side, telegraph: 2, duration: 6, interval: 1, visual: 'fire', label: 'Smouldering Censer', school: 'fire', abilityId: 't3.censer', effects: [{ type: 'damage', amount: [110, 130], school: 'fire' }] });
+          const z = api.spawnZone(state, {
+            shape: { type: 'circle', r: 4 },
+            x: v.x,
+            y: v.y,
+            owner: boss.id,
+            side: boss.side,
+            telegraph: 2,
+            duration: 6,
+            interval: 1,
+            visual: 'fire',
+            label: 'Smouldering Censer',
+            school: 'fire',
+            abilityId: 't3.censer',
+            effects: [{ type: 'damage', amount: [110, 130], school: 'fire' }],
+          });
           if (v.id === state.playerId) openWindow(state, api, 'move', 'censer' + z.id, 'Step out of the fire', { zone: z.id });
         }
       }
@@ -265,7 +384,10 @@ export const TRIAL = {
         if (!w.open || w.kind !== 'move') continue;
         const z = state.zones.find((x) => x.id === w.zone);
         const p = api.player(state);
-        if (!z || !p) { resolveWindow(state, api, w.id, true, state.playerId); continue; }
+        if (!z || !p) {
+          resolveWindow(state, api, w.id, true, state.playerId);
+          continue;
+        }
         if (z.armed && state.t - z.armAt > 0.6) resolveWindow(state, api, w.id, !api.G.pointInZone(z, p), state.playerId);
       }
       // Brand of Zeal (Curse of Penance when a Mage is in the group).
@@ -284,7 +406,7 @@ export const TRIAL = {
         s.faithful = true;
         const healer = healerOf(state) || api.player(state);
         for (let i = 0; i < 3; i++) {
-          const f = (api.spawnUnit(state, scaled(L, getTemplate('t3.faithful')), { x: 61, y: i === 1 ? 17 : i === 0 ? 7 : 27, templateId: 't3.faithful' }));
+          const f = api.spawnUnit(state, scaled(L, getTemplate('t3.faithful')), { x: 61, y: i === 1 ? 17 : i === 0 ? 7 : 27, templateId: 't3.faithful' });
           api.engage(state, f, healer);
           f.threat[healer.id] = 500;
           f.target = healer.id;
@@ -331,14 +453,25 @@ export const TRIAL = {
   summary(state) {
     const p = state.units[state.playerId];
     const lines = [];
-    for (const [kind, label] of [['interrupt', 'Interrupts'], ['dispel', 'Dispels'], ['cc', 'Pre-pull CC'], ['peel', 'Fanatic peeled'], ['move', 'Fire dodged'], ['add', 'Faithful stopped']]) {
+    for (const [kind, label] of [
+      ['interrupt', 'Interrupts'],
+      ['dispel', 'Dispels'],
+      ['cc', 'Pre-pull CC'],
+      ['peel', 'Fanatic peeled'],
+      ['move', 'Fire dodged'],
+      ['add', 'Faithful stopped'],
+    ]) {
       const st = windowStats(state, kind);
       if (st.total) lines.push({ label, value: `${st.ok}/${st.total}${kind === 'move' ? '' : ` (you: ${st.byPlayer})`}` });
     }
     const deaths = state.list.filter((u) => u.side === 'player' && u.kind === 'ally' && !u.alive).length;
     lines.push({ label: 'Party deaths', value: String(deaths) });
     if (state.opts.role === 'healer') lines.push({ label: 'Healing done', value: String(Math.round(state.meters.heal[state.playerId] || 0)) });
-    else lines.push({ label: 'Damage done', value: String(Math.round((state.meters.dmg[state.playerId] || 0) + (p && p.petId ? state.meters.dmg[p.petId] || 0 : 0))) });
+    else
+      lines.push({
+        label: 'Damage done',
+        value: String(Math.round((state.meters.dmg[state.playerId] || 0) + (p && p.petId ? state.meters.dmg[p.petId] || 0 : 0))),
+      });
     if (p && p.res.mana) lines.push({ label: 'Mana at the end', value: `${Math.round((p.res.mana.cur / p.res.mana.max) * 100)} %` });
     return lines;
   },

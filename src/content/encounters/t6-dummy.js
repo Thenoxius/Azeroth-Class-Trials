@@ -16,8 +16,17 @@ const WHITE = { melee: 'Auto Attack', autoshot: 'Auto Shot', wand: 'Shoot (wand)
 registerTemplates({
   't6.dummy': {
     // Level 63 and 4691 armor: the same as the raid boss in T5 (Molten Core boss armor).
-    name: 'Raid Target Dummy', portrait: 'generic', side: 'enemy', kind: 'boss', level: 63, radius: 1.4,
-    maxHp: 10_000_000, armor: 4691, speed: 0, melee: null, ai: { type: 'idle' },
+    name: 'Raid Target Dummy',
+    portrait: 'generic',
+    side: 'enemy',
+    kind: 'boss',
+    level: 63,
+    radius: 1.4,
+    maxHp: 10_000_000,
+    armor: 4691,
+    speed: 0,
+    melee: null,
+    ai: { type: 'idle' },
     immune: { stun: true, incap: true, fear: true, root: true, slow: true, cc: true },
     flags: { noEvade: true, noLeash: true },
   },
@@ -39,7 +48,22 @@ function abilityRow(rec, state, p, e) {
   if (!rec.abilities[key]) {
     const ab = getAbility(e.ability);
     const base = WHITE[e.ability] || (ab && ab.name) || e.ability || 'Auto Attack';
-    rec.abilities[key] = { key, name: base, by: who === 'you' ? null : src ? src.name : who, who, ability: e.ability, school: e.school || (ab && ab.school) || 'physical', dmg: 0, hits: 0, crits: 0, ticks: 0, misses: 0, casts: 0, biggest: 0, biggestCrit: false };
+    rec.abilities[key] = {
+      key,
+      name: base,
+      by: who === 'you' ? null : src ? src.name : who,
+      who,
+      ability: e.ability,
+      school: e.school || (ab && ab.school) || 'physical',
+      dmg: 0,
+      hits: 0,
+      crits: 0,
+      ticks: 0,
+      misses: 0,
+      casts: 0,
+      biggest: 0,
+      biggestCrit: false,
+    };
   }
   return rec.abilities[key];
 }
@@ -103,8 +127,14 @@ export const TRIAL = {
     };
   },
   arena: {
-    w: 42, h: 26, theme: 'ruins', obstacles: [],
-    decor: [{ kind: 'banner', x: 39, y: 3, color: '#8a1d1d' }, { kind: 'banner', x: 3, y: 23, color: '#8a1d1d' }],
+    w: 42,
+    h: 26,
+    theme: 'ruins',
+    obstacles: [],
+    decor: [
+      { kind: 'banner', x: 39, y: 3, color: '#8a1d1d' },
+      { kind: 'banner', x: 3, y: 23, color: '#8a1d1d' },
+    ],
   },
   hud: { party: false, meters: true, timer: false, threat: false },
   setup(state, api) {
@@ -129,14 +159,17 @@ export const TRIAL = {
     const elapsed = state.t - s.startAt;
     const at = Math.min(elapsed, DUMMY_SECONDS - 1e-6);
     for (const e of ev) {
-      if (!mine(e, p) || e.dst !== dummy.id && e.type !== 'cast') continue;
+      if (!mine(e, p) || (e.dst !== dummy.id && e.type !== 'cast')) continue;
       if (e.type === 'damage') {
         const r = abilityRow(rec, state, p, e);
         r.dmg += e.amount;
         r.hits++;
         if (e.tick) r.ticks++;
         if (e.crit && !e.tick) r.crits++;
-        if (e.amount > r.biggest) { r.biggest = e.amount; r.biggestCrit = !!e.crit; }
+        if (e.amount > r.biggest) {
+          r.biggest = e.amount;
+          r.biggestCrit = !!e.crit;
+        }
         rec.total += e.amount;
         rec.buckets[Math.floor(at / BUCKET)] += e.amount;
         if (at >= DUMMY_SECONDS * EXECUTE_AT) rec.executeDmg += e.amount;
@@ -150,7 +183,10 @@ export const TRIAL = {
     if (p.alive && !p.casting && p.gcd <= 0) rec.idle += dt;
     for (const k of ['energy', 'rage']) {
       const r = p.res[k];
-      if (r && r.cur >= r.max - 0.5) { rec.cap += dt; rec.capRes = k; }
+      if (r && r.cur >= r.max - 0.5) {
+        rec.cap += dt;
+        rec.capRes = k;
+      }
     }
     if (p.res.mana && rec.oomAt == null && p.res.mana.cur < p.res.mana.max * 0.05) rec.oomAt = elapsed;
     const seen = new Set();
@@ -183,7 +219,11 @@ export const TRIAL = {
     const elapsed = s.startAt == null ? 0 : Math.min(DUMMY_SECONDS, state.t - s.startAt);
     const total = rec ? rec.total : 0;
     return [
-      { text: 'Time', progress: s.startAt == null ? 'starts at your first hit' : s.ended ? 'done' : `${fmtClock(DUMMY_SECONDS - elapsed)} left`, done: !!s.ended },
+      {
+        text: 'Time',
+        progress: s.startAt == null ? 'starts at your first hit' : s.ended ? 'done' : `${fmtClock(DUMMY_SECONDS - elapsed)} left`,
+        done: !!s.ended,
+      },
       { text: 'Damage', progress: Math.round(total).toLocaleString('en-US') },
       { text: 'DPS', progress: elapsed > 0 ? Math.round(total / elapsed).toLocaleString('en-US') : '—' },
     ];

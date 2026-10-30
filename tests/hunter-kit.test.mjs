@@ -7,23 +7,51 @@ import { createBattle, step, drainEvents, player, playerCast, petCommand, U } fr
 import { registerTemplates } from '../src/engine/registry.js';
 import { spawnPlayer } from '../src/content/common.js';
 
-runKitSuite('hunter', bots, { 'race.wotf': 1, 'race.cannibalize': 1, 'item.rest': 'out of combat only', 'hunter.revive': 'needs a dead pet', 'hunter.mongoose': 'needs a dodge', 'hunter.counter': 'needs a parry', 'hunter.tranq': 'needs an enrage' });
+runKitSuite('hunter', bots, {
+  'race.wotf': 1,
+  'race.cannibalize': 1,
+  'item.rest': 'out of combat only',
+  'hunter.revive': 'needs a dead pet',
+  'hunter.mongoose': 'needs a dodge',
+  'hunter.counter': 'needs a parry',
+  'hunter.tranq': 'needs an enrage',
+});
 
 registerTemplates({
-  'test.boar': { name: 'Test Boar', side: 'enemy', kind: 'enemy', maxHp: 2500, melee: { min: 30, max: 40, speed: 2 }, ai: { type: 'melee' }, aggroRadius: 8, tags: ['beast'] },
+  'test.boar': {
+    name: 'Test Boar',
+    side: 'enemy',
+    kind: 'enemy',
+    maxHp: 2500,
+    melee: { min: 30, max: 40, speed: 2 },
+    ai: { type: 'melee' },
+    aggroRadius: 8,
+    tags: ['beast'],
+  },
 });
 
 function arena(level, spec, extra) {
-  return createBattle({
-    id: 'hk', level, arena: { w: 60, h: 30, obstacles: [] },
-    setup(state, api) {
-      spawnPlayer(state, api, { x: 10, y: 15 });
-      api.spawnUnit(state, 'test.boar', { x: 30, y: 15, level });
-      if (extra) extra(state, api);
+  return createBattle(
+    {
+      id: 'hk',
+      level,
+      arena: { w: 60, h: 30, obstacles: [] },
+      setup(state, api) {
+        spawnPlayer(state, api, { x: 10, y: 15 });
+        api.spawnUnit(state, 'test.boar', { x: 30, y: 15, level });
+        if (extra) extra(state, api);
+      },
     },
-  }, { classId: 'hunter', level, spec, role: 'dps', trialId: 'hk', kit: KITS.hunter, seed: 5 });
+    { classId: 'hunter', level, spec, role: 'dps', trialId: 'hk', kit: KITS.hunter, seed: 5 },
+  );
 }
-const run = (state, secs, each) => { for (let i = 0; i < secs / 0.05; i++) { if (each) each(state); step(state, 0.05); drainEvents(state); } };
+const run = (state, secs, each) => {
+  for (let i = 0; i < secs / 0.05; i++) {
+    if (each) each(state);
+    step(state, 0.05);
+    drainEvents(state);
+  }
+};
 
 // 1. The pet attacks and Growl takes the boar off the Hunter.
 {

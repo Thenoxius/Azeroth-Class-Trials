@@ -24,7 +24,11 @@ function hashStart() {
   try {
     const h = (window.location.hash || '').slice(1);
     const m = h.match(/^(play|brief)-(t\d)-(\w+)-(\d+)(?:-(\w+))?(?:-(\w+))?$/);
-    if (m && KITS[m[3]] && trialById(m[2])) return { screen: m[1] === 'play' ? 'battle' : 'briefing', sel: { trialId: m[2], classId: m[3], level: Number(m[4]), spec: m[5] && m[5] !== 'x' ? m[5] : undefined, role: m[6] || undefined } };
+    if (m && KITS[m[3]] && trialById(m[2]))
+      return {
+        screen: m[1] === 'play' ? 'battle' : 'briefing',
+        sel: { trialId: m[2], classId: m[3], level: Number(m[4]), spec: m[5] && m[5] !== 'x' ? m[5] : undefined, role: m[6] || undefined },
+      };
     const s = h.match(/^screen-(\w+)$/);
     if (s) return { screen: s[1] };
   } catch {
@@ -56,10 +60,18 @@ export function App({ initial }) {
   selRef.current = sel;
   const charsRef = useRef([]);
 
-  useEffect(() => { saveProgress(progress); }, [progress]);
-  useEffect(() => { saveEvidence(evidence); }, [evidence]);
   useEffect(() => {
-    try { window.scrollTo(0, 0); } catch { /* ignore */ }
+    saveProgress(progress);
+  }, [progress]);
+  useEffect(() => {
+    saveEvidence(evidence);
+  }, [evidence]);
+  useEffect(() => {
+    try {
+      window.scrollTo(0, 0);
+    } catch {
+      /* ignore */
+    }
     setEvidence((e) => ({ ...e, ui: [...(e.ui || []).slice(-300), { t: new Date().toISOString(), screen }] }));
   }, [screen]);
 
@@ -74,25 +86,60 @@ export function App({ initial }) {
   const characters = useMemo(() => {
     if (Array.isArray(progress.characters)) return progress.characters;
     if (!evidence.sessions.length && !progress.seenIntro) return [];
-    return ['hunter', 'mage', 'priest'].map((c) => { const r = validRace(c, (progress.last.race || {})[c]); return { id: 'legacy-' + c, name: `${RACES[r].name} ${KITS[c].name}`, race: r, classId: c }; });
+    return ['hunter', 'mage', 'priest'].map((c) => {
+      const r = validRace(c, (progress.last.race || {})[c]);
+      return { id: 'legacy-' + c, name: `${RACES[r].name} ${KITS[c].name}`, race: r, classId: c };
+    });
   }, [progress.characters, progress.last.race, evidence.sessions.length, progress.seenIntro]);
   charsRef.current = characters;
   const setCharacters = (list) => setProgress((p) => ({ ...p, characters: list }));
   // Race shown for a class outside a character context (analysis, codex): its first character's.
-  const raceOf = (classId) => validRace(classId, ((characters.find((c) => c.classId === classId) || {}).race) || (progress.last.race || {})[classId]);
-  const VIEW_KITS = useMemo(() => Object.fromEntries(Object.entries(KITS).map(([id, k]) => { const r = raceOf(id); return [id, { ...k, race: RACES[r].name, raceId: r, portrait: r + '-' + id }]; })), [characters, progress.last.race]);
+  const raceOf = (classId) => validRace(classId, (characters.find((c) => c.classId === classId) || {}).race || (progress.last.race || {})[classId]);
+  const VIEW_KITS = useMemo(
+    () =>
+      Object.fromEntries(
+        Object.entries(KITS).map(([id, k]) => {
+          const r = raceOf(id);
+          return [id, { ...k, race: RACES[r].name, raceId: r, portrait: r + '-' + id }];
+        }),
+      ),
+    [characters, progress.last.race],
+  );
   // The selected character's own race and portrait.
-  const kit = sel ? { ...VIEW_KITS[sel.classId], ...(sel.race ? { race: RACES[sel.race].name, raceId: sel.race, portrait: sel.race + '-' + sel.classId } : {}) } : null;
+  const kit = sel
+    ? { ...VIEW_KITS[sel.classId], ...(sel.race ? { race: RACES[sel.race].name, raceId: sel.race, portrait: sel.race + '-' + sel.classId } : {}) }
+    : null;
   const trial = sel ? trialById(sel.trialId) : null;
 
-  const pick = useCallback((p) => {
-    setSel((old) => ({ trialId: p.trialId, classId: p.classId, level: p.level, race: p.race || raceOf(p.classId), charId: p.charId, spec: p.spec ?? (progress.last.spec || {})[`${p.classId}:${p.level}`], role: p.role ?? (progress.last.role || {})[`${p.classId}:${p.trialId}`] }));
-    setScreen('briefing');
-  }, [progress]);
+  const pick = useCallback(
+    (p) => {
+      setSel((old) => ({
+        trialId: p.trialId,
+        classId: p.classId,
+        level: p.level,
+        race: p.race || raceOf(p.classId),
+        charId: p.charId,
+        spec: p.spec ?? (progress.last.spec || {})[`${p.classId}:${p.level}`],
+        role: p.role ?? (progress.last.role || {})[`${p.classId}:${p.trialId}`],
+      }));
+      setScreen('briefing');
+    },
+    [progress],
+  );
 
   const start = ({ spec, role, race }) => {
     setSel((s) => ({ ...s, spec, role, race }));
-    setProgress((p) => ({ ...p, seenIntro: true, last: { ...p.last, classId: sel.classId, race: { ...(p.last.race || {}), [sel.classId]: race }, spec: { ...(p.last.spec || {}), [`${sel.classId}:${sel.level}`]: spec }, role: { ...(p.last.role || {}), [`${sel.classId}:${sel.trialId}`]: role } } }));
+    setProgress((p) => ({
+      ...p,
+      seenIntro: true,
+      last: {
+        ...p.last,
+        classId: sel.classId,
+        race: { ...(p.last.race || {}), [sel.classId]: race },
+        spec: { ...(p.last.spec || {}), [`${sel.classId}:${sel.level}`]: spec },
+        role: { ...(p.last.role || {}), [`${sel.classId}:${sel.trialId}`]: role },
+      },
+    }));
     seedRef.current = (Date.now() % 100000) + 1;
     setBattleKey((k) => k + 1);
     setScreen('battle');
@@ -113,14 +160,41 @@ export function App({ initial }) {
     setEvidence((e) => ({ ...e, sessions: [...e.sessions, session] }));
     const s = selRef.current || {};
     const ch = charsRef.current.find((c) => c.id === s.charId);
-    const entry = report ? { id: session.id, at: new Date().toISOString(), charId: s.charId || null, name: ch ? ch.name : null, race: s.race || null, classId: session.classId, spec: s.spec || null, dps: Math.round(report.dps * 10) / 10, total: report.total } : null;
+    const entry = report
+      ? {
+          id: session.id,
+          at: new Date().toISOString(),
+          charId: s.charId || null,
+          name: ch ? ch.name : null,
+          race: s.race || null,
+          classId: session.classId,
+          spec: s.spec || null,
+          dps: Math.round(report.dps * 10) / 10,
+          total: report.total,
+        }
+      : null;
     setProgress((p) => {
       const k = runKey(session.trialId, session.classId, session.level);
       const r = p.runs[k] || { attempts: 0, wins: 0 };
       const won = outcome && outcome.result === 'victory';
       const bestDps = entry ? Math.max(r.bestDps || 0, entry.dps) : r.bestDps;
       const leaderboard = entry ? [...(p.leaderboard || []), entry].slice(-500) : p.leaderboard || [];
-      return { ...p, leaderboard, runs: { ...p.runs, [k]: { ...r, attempts: r.attempts + 1, wins: r.wins + (won ? 1 : 0), lastResult: abandoned ? 'abandoned' : outcome ? outcome.result : null, lastAt: new Date().toISOString(), bestTime: won ? Math.min(r.bestTime || 1e9, session.simSeconds) : r.bestTime, bestDps } } };
+      return {
+        ...p,
+        leaderboard,
+        runs: {
+          ...p.runs,
+          [k]: {
+            ...r,
+            attempts: r.attempts + 1,
+            wins: r.wins + (won ? 1 : 0),
+            lastResult: abandoned ? 'abandoned' : outcome ? outcome.result : null,
+            lastAt: new Date().toISOString(),
+            bestTime: won ? Math.min(r.bestTime || 1e9, session.simSeconds) : r.bestTime,
+            bestDps,
+          },
+        },
+      };
     });
     setResult({ session, outcome, summary, report, entryId: entry ? entry.id : null, abandoned });
     setScreen('result');
@@ -131,13 +205,66 @@ export function App({ initial }) {
 
   let body = null;
   if (screen === 'title') {
-    body = <Title onStart={() => { setProgress((p) => ({ ...p, seenIntro: true, characters })); setScreen(characters.length ? 'hall' : 'roster'); }} onMethod={() => { setBackTo('title'); setScreen('method'); }} hasProgress={evidence.sessions.length > 0} sessions={evidence.sessions.length} />;
+    body = (
+      <Title
+        onStart={() => {
+          setProgress((p) => ({ ...p, seenIntro: true, characters }));
+          setScreen(characters.length ? 'hall' : 'roster');
+        }}
+        onMethod={() => {
+          setBackTo('title');
+          setScreen('method');
+        }}
+        hasProgress={evidence.sessions.length > 0}
+        sessions={evidence.sessions.length}
+      />
+    );
   } else if (screen === 'hall') {
-    body = <Hall trials={TRIALS} kits={VIEW_KITS} characters={characters} progress={progress} evidence={evidence} onPick={pick} onCodex={() => setScreen('codex')} onSettings={() => setScreen('settings')} onTitle={() => setScreen('title')} />;
+    body = (
+      <Hall
+        trials={TRIALS}
+        kits={VIEW_KITS}
+        characters={characters}
+        progress={progress}
+        evidence={evidence}
+        onPick={pick}
+        onCodex={() => setScreen('codex')}
+        onSettings={() => setScreen('settings')}
+        onTitle={() => setScreen('title')}
+      />
+    );
   } else if (screen === 'briefing' && kit && trial) {
-    body = <Briefing key={(sel.charId || sel.classId) + sel.trialId + sel.level} trial={trial} kit={kit} level={sel.level} initialSpec={sel.spec} initialRole={sel.role} initialRace={sel.race} raceLocked={!!sel.charId} onStart={start} onBack={() => setScreen('hall')} onSwitchCharacter={(c) => pick({ ...sel, classId: c.classId, charId: c.id, race: c.race, spec: undefined, role: undefined })} characters={characters.filter((c) => trialSupports(trial.id, c.classId))} characterId={sel.charId} kits={VIEW_KITS} />;
+    body = (
+      <Briefing
+        key={(sel.charId || sel.classId) + sel.trialId + sel.level}
+        trial={trial}
+        kit={kit}
+        level={sel.level}
+        initialSpec={sel.spec}
+        initialRole={sel.role}
+        initialRace={sel.race}
+        raceLocked={!!sel.charId}
+        onStart={start}
+        onBack={() => setScreen('hall')}
+        onSwitchCharacter={(c) => pick({ ...sel, classId: c.classId, charId: c.id, race: c.race, spec: undefined, role: undefined })}
+        characters={characters.filter((c) => trialSupports(trial.id, c.classId))}
+        characterId={sel.charId}
+        kits={VIEW_KITS}
+      />
+    );
   } else if (screen === 'battle' && kit && trial) {
-    body = <Battle key={battleKey} sel={sel} kit={kit} trial={trial} settings={progress.settings} sessionMeta={sessionMeta} onEnd={onEnd} onSettings={updateSettings} />;
+    body = (
+      <Battle
+        key={battleKey}
+        sel={sel}
+        kit={kit}
+        trial={trial}
+        settings={progress.settings}
+        sessionMeta={sessionMeta}
+        onEnd={onEnd}
+        onSettings={updateSettings}
+      />
+    );
   } else if (screen === 'result' && result && kit && trial) {
     body = (
       <Result
@@ -158,9 +285,34 @@ export function App({ initial }) {
       />
     );
   } else if (screen === 'analysis') {
-    body = <Analysis evidence={evidence} kits={VIEW_KITS} trials={ANALYSIS_TRIALS} classOrder={CLASS_ORDER} weights={progress.settings.weights} onWeights={(w) => updateSettings({ weights: w })} onBack={() => setScreen('hall')} onMethod={() => { setBackTo('analysis'); setScreen('method'); }} onPlay={pick} />;
+    body = (
+      <Analysis
+        evidence={evidence}
+        kits={VIEW_KITS}
+        trials={ANALYSIS_TRIALS}
+        classOrder={CLASS_ORDER}
+        weights={progress.settings.weights}
+        onWeights={(w) => updateSettings({ weights: w })}
+        onBack={() => setScreen('hall')}
+        onMethod={() => {
+          setBackTo('analysis');
+          setScreen('method');
+        }}
+        onPlay={pick}
+      />
+    );
   } else if (screen === 'roster') {
-    body = <Roster characters={characters} kits={KITS} playable={PLAYABLE} onChange={setCharacters} onDone={() => setScreen('hall')} onBack={characters.length ? () => setScreen('hall') : () => setScreen('title')} trialCount={(c) => TRIALS.filter((t) => trialSupports(t.id, c)).length} />;
+    body = (
+      <Roster
+        characters={characters}
+        kits={KITS}
+        playable={PLAYABLE}
+        onChange={setCharacters}
+        onDone={() => setScreen('hall')}
+        onBack={characters.length ? () => setScreen('hall') : () => setScreen('title')}
+        trialCount={(c) => TRIALS.filter((t) => trialSupports(t.id, c)).length}
+      />
+    );
   } else if (screen === 'codex') {
     body = <Codex kits={VIEW_KITS} classOrder={CLASS_ORDER} onBack={() => setScreen('hall')} />;
   } else if (screen === 'method') {
@@ -171,20 +323,41 @@ export function App({ initial }) {
         progress={progress}
         evidence={evidence}
         onChange={updateSettings}
-        onImport={(v) => { setProgress(v.progress); setEvidence(v.evidence); }}
-        onReset={() => { resetAll(); setProgress(emptyProgress()); setEvidence(emptyEvidence()); }}
+        onImport={(v) => {
+          setProgress(v.progress);
+          setEvidence(v.evidence);
+        }}
+        onReset={() => {
+          resetAll();
+          setProgress(emptyProgress());
+          setEvidence(emptyEvidence());
+        }}
         onBack={() => setScreen('hall')}
       />
     );
   } else {
-    body = <Hall trials={TRIALS} kits={VIEW_KITS} characters={characters} progress={progress} evidence={evidence} onPick={pick} onCodex={() => setScreen('codex')} onSettings={() => setScreen('settings')} onTitle={() => setScreen('title')} />;
+    body = (
+      <Hall
+        trials={TRIALS}
+        kits={VIEW_KITS}
+        characters={characters}
+        progress={progress}
+        evidence={evidence}
+        onPick={pick}
+        onCodex={() => setScreen('codex')}
+        onSettings={() => setScreen('settings')}
+        onTitle={() => setScreen('title')}
+      />
+    );
   }
   if (screen === 'battle') return <ClassicBattleFrame>{body}</ClassicBattleFrame>;
   const navigateClassic = (destination) => {
     if (destination === 'method' && screen !== 'method') setBackTo(screen);
     setScreen(destination === 'hall' && !characters.length ? 'roster' : destination);
   };
-  return <ClassicShell screen={screen} onNavigate={navigateClassic} hasCharacters={characters.length > 0}>
-    <div className={'app screen-' + screen}>{body}</div>
-  </ClassicShell>;
+  return (
+    <ClassicShell screen={screen} onNavigate={navigateClassic} hasCharacters={characters.length > 0}>
+      <div className={'app screen-' + screen}>{body}</div>
+    </ClassicShell>
+  );
 }

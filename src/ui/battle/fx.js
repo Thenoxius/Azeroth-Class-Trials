@@ -30,20 +30,41 @@ export function ingestFx(fx, events, state) {
         if (!fromMe && !toMe && !(dst.kind === 'boss' && src && src.side === 'player')) break;
         if (!fromMe && !toMe) break;
         const text = e.amount > 0 ? String(e.amount) + (e.crit ? '!' : '') : e.absorbed ? 'Absorb' : '0';
-        add(fx.floaters, { id: ++fx.seq, x: dst.x, y: dst.y, t0: t, text, kind: toMe ? 'taken' : e.src === petId ? 'pet' : e.tick ? 'tick' : 'dealt', crit: e.crit, school: e.school, jitter: (fx.seq % 5) - 2 });
-        if (e.absorbed && e.amount > 0 && toMe) add(fx.floaters, { id: ++fx.seq, x: dst.x, y: dst.y, t0: t + 0.05, text: `(${e.absorbed} absorbed)`, kind: 'absorb', jitter: 1 });
+        add(fx.floaters, {
+          id: ++fx.seq,
+          x: dst.x,
+          y: dst.y,
+          t0: t,
+          text,
+          kind: toMe ? 'taken' : e.src === petId ? 'pet' : e.tick ? 'tick' : 'dealt',
+          crit: e.crit,
+          school: e.school,
+          jitter: (fx.seq % 5) - 2,
+        });
+        if (e.absorbed && e.amount > 0 && toMe)
+          add(fx.floaters, { id: ++fx.seq, x: dst.x, y: dst.y, t0: t + 0.05, text: `(${e.absorbed} absorbed)`, kind: 'absorb', jitter: 1 });
         break;
       }
       case 'heal': {
         if (!dst || e.amount <= 0) break;
         if (!mine(e.src) && !mine(e.dst)) break;
         if (e.tick && !mine(e.src)) break;
-        add(fx.floaters, { id: ++fx.seq, x: dst.x, y: dst.y, t0: t, text: '+' + e.amount + (e.crit ? '!' : ''), kind: 'heal', crit: e.crit, jitter: (fx.seq % 5) - 2 });
+        add(fx.floaters, {
+          id: ++fx.seq,
+          x: dst.x,
+          y: dst.y,
+          t0: t,
+          text: '+' + e.amount + (e.crit ? '!' : ''),
+          kind: 'heal',
+          crit: e.crit,
+          jitter: (fx.seq % 5) - 2,
+        });
         if (!e.tick) add(fx.effects, { id: ++fx.seq, type: 'heal', x: dst.x, y: dst.y, t0: t, dur: LIFE.heal, school: 'holy' });
         break;
       }
       case 'miss':
-        if (dst && (mine(e.src) || mine(e.dst))) add(fx.floaters, { id: ++fx.seq, x: dst.x, y: dst.y, t0: t, text: e.resist ? 'Resist' : 'Miss', kind: 'miss', jitter: 0 });
+        if (dst && (mine(e.src) || mine(e.dst)))
+          add(fx.floaters, { id: ++fx.seq, x: dst.x, y: dst.y, t0: t, text: e.resist ? 'Resist' : 'Miss', kind: 'miss', jitter: 0 });
         break;
       case 'immune':
         if (dst && (mine(e.src) || mine(e.dst))) add(fx.floaters, { id: ++fx.seq, x: dst.x, y: dst.y, t0: t, text: 'Immune', kind: 'miss', jitter: 0 });
@@ -58,10 +79,12 @@ export function ingestFx(fx, events, state) {
         if (dst) add(fx.floaters, { id: ++fx.seq, x: dst.x, y: dst.y, t0: t, text: 'Dispelled', kind: 'cc', jitter: 0 });
         break;
       case 'auraApply':
-        if (dst && e.cc && e.name && (mine(e.src) || mine(e.dst) || dst.kind === 'boss')) add(fx.floaters, { id: ++fx.seq, x: dst.x, y: dst.y, t0: t, text: e.name, kind: 'cc', jitter: 0 });
+        if (dst && e.cc && e.name && (mine(e.src) || mine(e.dst) || dst.kind === 'boss'))
+          add(fx.floaters, { id: ++fx.seq, x: dst.x, y: dst.y, t0: t, text: e.name, kind: 'cc', jitter: 0 });
         break;
       case 'auraFade':
-        if (dst && e.cc && e.reason === 'broken' && e.name) add(fx.floaters, { id: ++fx.seq, x: dst.x, y: dst.y, t0: t, text: e.name + ' broke', kind: 'miss', jitter: 0 });
+        if (dst && e.cc && e.reason === 'broken' && e.name)
+          add(fx.floaters, { id: ++fx.seq, x: dst.x, y: dst.y, t0: t, text: e.name + ' broke', kind: 'miss', jitter: 0 });
         break;
       case 'cast': {
         if (!src) break;
@@ -75,8 +98,20 @@ export function ingestFx(fx, events, state) {
         } else if (ab.fx === 'point' || (ab.target === 'point' && e.x != null)) {
           add(fx.effects, { id: ++fx.seq, type: 'ring', x: e.x ?? src.x, y: e.y ?? src.y, t0: t, dur: LIFE.ring, school, r: ab.fxRadius || 6 });
         } else if (tgt && tgt !== src && !ab.projectile && ab.fx !== 'none') {
-          if (ab.mechanic === 'physical' && !ab.ranged) add(fx.effects, { id: ++fx.seq, type: 'flash', x: tgt.x, y: tgt.y, t0: t, dur: LIFE.flash, school, r: 1.3 });
-          else add(fx.effects, { id: ++fx.seq, type: 'beam', x: src.x, y: src.y, x2: tgt.x, y2: tgt.y, t0: t, dur: LIFE.beam, school: ab.ranged && school === 'physical' ? 'arrow' : school });
+          if (ab.mechanic === 'physical' && !ab.ranged)
+            add(fx.effects, { id: ++fx.seq, type: 'flash', x: tgt.x, y: tgt.y, t0: t, dur: LIFE.flash, school, r: 1.3 });
+          else
+            add(fx.effects, {
+              id: ++fx.seq,
+              type: 'beam',
+              x: src.x,
+              y: src.y,
+              x2: tgt.x,
+              y2: tgt.y,
+              t0: t,
+              dur: LIFE.beam,
+              school: ab.ranged && school === 'physical' ? 'arrow' : school,
+            });
         } else if (ab.fx === 'self' || (tgt === src && (ab.category === 'defensive' || ab.category === 'buff' || ab.category === 'cooldown'))) {
           add(fx.effects, { id: ++fx.seq, type: 'flash', x: src.x, y: src.y, t0: t, dur: LIFE.flash * 1.6, school, r: 2 });
         }
@@ -93,12 +128,26 @@ export function ingestFx(fx, events, state) {
         break;
       case 'zoneTrigger': {
         const u = state.units[e.dst];
-        if (u) add(fx.effects, { id: ++fx.seq, type: 'ring', x: u.x, y: u.y, t0: t, dur: LIFE.ring, school: e.visual === 'trap' ? 'frost' : e.visual || 'frost', r: 3 });
+        if (u)
+          add(fx.effects, {
+            id: ++fx.seq,
+            type: 'ring',
+            x: u.x,
+            y: u.y,
+            t0: t,
+            dur: LIFE.ring,
+            school: e.visual === 'trap' ? 'frost' : e.visual || 'frost',
+            r: 3,
+          });
         break;
       }
       case 'say':
         if (e.src) fx.bubbles[e.src] = { text: e.text, t0: t, kind: e.kind };
-        add(fx.log, { t, kind: e.kind === 'yell' ? 'yell' : 'say', text: (src ? src.name : '') + (e.kind === 'emote' ? ' ' : ': ') + e.text.replace(src ? src.name + ' ' : '', '') });
+        add(fx.log, {
+          t,
+          kind: e.kind === 'yell' ? 'yell' : 'say',
+          text: (src ? src.name : '') + (e.kind === 'emote' ? ' ' : ': ') + e.text.replace(src ? src.name + ' ' : '', ''),
+        });
         break;
       case 'error':
         if (e.src === pid && e.text) add(fx.errors, { id: ++fx.seq, text: e.text, t0: t }, 3);
@@ -146,12 +195,20 @@ function logLine(e, state, mine) {
       const what = abName(state, e.src, e.ability);
       const tgt = e.dst === state.playerId ? 'you' : nm(state, e.dst, mine);
       const abs = e.absorbed ? ` (${e.absorbed} absorbed)` : '';
-      return { t, kind: mine(e.dst) ? 'hurt' : mine(e.src) ? 'hit' : 'other', text: `${who}${what && what !== 'melee' ? ' ' + what : ''} ${e.crit ? 'crits' : 'hits'} ${tgt} for ${e.amount}${abs}${e.school && e.school !== 'physical' ? ' ' + e.school : ''}.` };
+      return {
+        t,
+        kind: mine(e.dst) ? 'hurt' : mine(e.src) ? 'hit' : 'other',
+        text: `${who}${what && what !== 'melee' ? ' ' + what : ''} ${e.crit ? 'crits' : 'hits'} ${tgt} for ${e.amount}${abs}${e.school && e.school !== 'physical' ? ' ' + e.school : ''}.`,
+      };
     }
     case 'heal':
       if (!mine(e.src) && !mine(e.dst)) return null;
       if (e.tick && e.amount === 0) return null;
-      return { t, kind: 'heal', text: `${nm(state, e.src, mine)} ${abName(state, e.src, e.ability)} heals ${e.dst === state.playerId ? 'you' : nm(state, e.dst, mine)} for ${e.amount}${e.overheal ? ` (${e.overheal} over)` : ''}.` };
+      return {
+        t,
+        kind: 'heal',
+        text: `${nm(state, e.src, mine)} ${abName(state, e.src, e.ability)} heals ${e.dst === state.playerId ? 'you' : nm(state, e.dst, mine)} for ${e.amount}${e.overheal ? ` (${e.overheal} over)` : ''}.`,
+      };
     case 'interrupt':
       return { t, kind: 'cc', text: `${nm(state, e.src, mine)} interrupted ${nm(state, e.dst, mine)}'s ${abName(state, e.dst, e.interrupted)}.` };
     case 'death':

@@ -1,5 +1,18 @@
 // The battle screen: owns the simulation loop, input, HUD and telemetry feed.
-import { createBattle, step, drainEvents, playerCast, setMoveDir, moveTo, setTarget, cycleTarget, petCommand, petCast, togglePetAutocast, stopCasting } from '../../engine/core.js';
+import {
+  createBattle,
+  step,
+  drainEvents,
+  playerCast,
+  setMoveDir,
+  moveTo,
+  setTarget,
+  cycleTarget,
+  petCommand,
+  petCast,
+  togglePetAutocast,
+  stopCasting,
+} from '../../engine/core.js';
 import { createTracker } from '../../telemetry/tracker.js';
 import { Battlefield } from './Battlefield.jsx';
 import { UnitFrame, PartyFrames, RaidFrames, PlayerCastBar } from './Frames.jsx';
@@ -34,9 +47,27 @@ export function Battle({ sel, kit, trial, settings, sessionMeta, onEnd, onExit, 
   const endedRef = useRef(false);
 
   if (!stateRef.current) {
-    stateRef.current = createBattle(trial, { classId: kit.id, level: sel.level, spec: sel.spec, role: sel.role, race: sel.race, trialId: trial.id, kit, seed: sessionMeta.seed });
+    stateRef.current = createBattle(trial, {
+      classId: kit.id,
+      level: sel.level,
+      spec: sel.spec,
+      role: sel.role,
+      race: sel.race,
+      trialId: trial.id,
+      kit,
+      seed: sessionMeta.seed,
+    });
     fxRef.current = createFx();
-    trackerRef.current = createTracker({ ...sessionMeta, trialId: trial.id, classId: kit.id, level: sel.level, spec: sel.spec, role: sel.role, race: sel.race, kind: trial.kind });
+    trackerRef.current = createTracker({
+      ...sessionMeta,
+      trialId: trial.id,
+      classId: kit.id,
+      level: sel.level,
+      spec: sel.spec,
+      role: sel.role,
+      race: sel.race,
+      kind: trial.kind,
+    });
     const p = stateRef.current.units[stateRef.current.playerId];
     if (p) p.flags.wandMacro = settings.wandMacro !== false;
   }
@@ -62,7 +93,14 @@ export function Battle({ sel, kit, trial, settings, sessionMeta, onEnd, onExit, 
       setEnded(true);
       const s = stateRef.current;
       const session = tracker.finish(s, extra);
-      onEnd({ session, outcome: s.outcome, summary: trial.summary ? trial.summary(s) : [], report: trial.report && !extra.abandoned ? trial.report(s) : null, state: s, abandoned: !!extra.abandoned });
+      onEnd({
+        session,
+        outcome: s.outcome,
+        summary: trial.summary ? trial.summary(s) : [],
+        report: trial.report && !extra.abandoned ? trial.report(s) : null,
+        state: s,
+        abandoned: !!extra.abandoned,
+      });
     },
     [onEnd, trial, tracker],
   );
@@ -152,15 +190,22 @@ export function Battle({ sel, kit, trial, settings, sessionMeta, onEnd, onExit, 
   const doPetAbility = useCallback((id) => petCast(stateRef.current, id), []);
   const doToggleAuto = useCallback((id) => togglePetAutocast(stateRef.current, id), []);
 
-  const partyList = useMemo(() => () => stateRef.current.list.filter((u) => u.side === 'player' && !u.hidden && (u.kind === 'ally' || u.kind === 'player' || u.kind === 'pet')), []);
+  const partyList = useMemo(
+    () => () => stateRef.current.list.filter((u) => u.side === 'player' && !u.hidden && (u.kind === 'ally' || u.kind === 'player' || u.kind === 'pet')),
+    [],
+  );
 
   // Keyboard.
   useEffect(() => {
     const updateMove = () => {
-      let x = 0, y = 0;
+      let x = 0,
+        y = 0;
       for (const k of keysRef.current) {
         const v = MOVE_KEYS[k];
-        if (v) { x += v[0]; y += v[1]; }
+        if (v) {
+          x += v[0];
+          y += v[1];
+        }
       }
       setMoveDir(stateRef.current, x || y ? { x, y } : null);
     };
@@ -177,9 +222,21 @@ export function Battle({ sel, kit, trial, settings, sessionMeta, onEnd, onExit, 
         e.preventDefault();
         return;
       }
-      if (k === ' ') { e.preventDefault(); togglePause('key'); return; }
-      if (k === 'tab') { e.preventDefault(); cycleTarget(stateRef.current); return; }
-      if (k === 'escape') { setTargeting(null); stopCasting(stateRef.current); return; }
+      if (k === ' ') {
+        e.preventDefault();
+        togglePause('key');
+        return;
+      }
+      if (k === 'tab') {
+        e.preventDefault();
+        cycleTarget(stateRef.current);
+        return;
+      }
+      if (k === 'escape') {
+        setTargeting(null);
+        stopCasting(stateRef.current);
+        return;
+      }
       if (/^f[1-5]$/.test(k)) {
         e.preventDefault();
         const m = partyList()[Number(k.slice(1)) - 1];
@@ -272,9 +329,18 @@ export function Battle({ sel, kit, trial, settings, sessionMeta, onEnd, onExit, 
   const ringAb = targeting ? P && P.ab[targeting] : hoverAb;
   if (ringAb && P) {
     const aoe = (ringAb.effects || []).find((x) => x.aoe);
-    if (targeting && aoe) hoverRing = { r: typeof aoe.aoe.radius === 'number' ? aoe.aoe.radius : 8, school: ringAb.school, at: 'cursor', x: cursor && cursor.x, y: cursor && cursor.y, fill: true };
+    if (targeting && aoe)
+      hoverRing = {
+        r: typeof aoe.aoe.radius === 'number' ? aoe.aoe.radius : 8,
+        school: ringAb.school,
+        at: 'cursor',
+        x: cursor && cursor.x,
+        y: cursor && cursor.y,
+        fill: true,
+      };
     else if (ringAb.target === 'none' && aoe) hoverRing = { r: typeof aoe.aoe.radius === 'number' ? aoe.aoe.radius : 8, school: ringAb.school, fill: true };
-    else if (ringAb.range && ringAb.target !== 'self') hoverRing = { r: typeof ringAb.range === 'number' ? ringAb.range : 30, school: ringAb.school, min: ringAb.minRange };
+    else if (ringAb.range && ringAb.target !== 'self')
+      hoverRing = { r: typeof ringAb.range === 'number' ? ringAb.range : 30, school: ringAb.school, min: ringAb.minRange };
   }
   const hud = trial.hud || {};
   const showParty = hud.party || state.list.some((u) => u.kind === 'ally');
@@ -290,29 +356,62 @@ export function Battle({ sel, kit, trial, settings, sessionMeta, onEnd, onExit, 
       <header className="b-top">
         <div className="b-title">
           <span className="b-trial">{trial.title}</span>
-          <span className="b-place">{trial.place} · Level {sel.level} {kit.name}{sel.spec ? ` · ${specName(kit, sel)}` : ''}{sel.role === 'healer' ? ' · Healer' : ''}</span>
+          <span className="b-place">
+            {trial.place} · Level {sel.level} {kit.name}
+            {sel.spec ? ` · ${specName(kit, sel)}` : ''}
+            {sel.role === 'healer' ? ' · Healer' : ''}
+          </span>
         </div>
         <div className="b-controls">
-          <span className="b-clock" title="Fight time">{fmtTime(state.t)}</span>
-          <button type="button" className={cx('btn', 'small', paused && 'on')} onClick={() => togglePause('button')}>{paused ? 'Resume' : 'Pause'} <kbd>Space</kbd></button>
+          <span className="b-clock" title="Fight time">
+            {fmtTime(state.t)}
+          </span>
+          <button type="button" className={cx('btn', 'small', paused && 'on')} onClick={() => togglePause('button')}>
+            {paused ? 'Resume' : 'Pause'} <kbd>Space</kbd>
+          </button>
           <div className="seg" role="group" aria-label="Game speed">
             {SPEEDS.map((v) => (
-              <button type="button" key={v} className={cx('seg-b', speed === v && 'on')} onClick={() => onSpeed(v)}>{v}×</button>
+              <button type="button" key={v} className={cx('seg-b', speed === v && 'on')} onClick={() => onSpeed(v)}>
+                {v}×
+              </button>
             ))}
           </div>
           {build.filler && trial.kind === 'raid' && (
-            <button type="button" className={cx('btn', 'small', autopilotOn && 'on')} onClick={toggleAutopilot} title="When on, your filler spell is cast automatically whenever you are idle. Everything else stays manual.">
+            <button
+              type="button"
+              className={cx('btn', 'small', autopilotOn && 'on')}
+              onClick={toggleAutopilot}
+              title="When on, your filler spell is cast automatically whenever you are idle. Everything else stays manual."
+            >
               Filler autopilot {autopilotOn ? 'on' : 'off'}
             </button>
           )}
-          <button type="button" className="btn small ghost" onClick={() => setConfirmLeave(true)}>Leave</button>
+          <button type="button" className="btn small ghost" onClick={() => setConfirmLeave(true)}>
+            Leave
+          </button>
         </div>
       </header>
 
       <div className={cx('b-main', showParty && 'with-party', raidMode && 'with-raid')}>
         {showParty && (
           <aside className="b-side">
-            {raidMode ? <RaidFrames state={state} onPick={(u) => setTarget(state, u.id)} onHoverMember={(id) => (hoverMemberRef.current = id)} selectedId={P && P.target} kitColor={kit.color} /> : <PartyFrames state={state} onPick={(u) => setTarget(state, u.id)} onHoverMember={(id) => (hoverMemberRef.current = id)} selectedId={P && P.target} kitColor={kit.color} />}
+            {raidMode ? (
+              <RaidFrames
+                state={state}
+                onPick={(u) => setTarget(state, u.id)}
+                onHoverMember={(id) => (hoverMemberRef.current = id)}
+                selectedId={P && P.target}
+                kitColor={kit.color}
+              />
+            ) : (
+              <PartyFrames
+                state={state}
+                onPick={(u) => setTarget(state, u.id)}
+                onHoverMember={(id) => (hoverMemberRef.current = id)}
+                selectedId={P && P.target}
+                kitColor={kit.color}
+              />
+            )}
             <p className="b-side-hint">Click a frame to target it. Hover a frame and press a heal key to heal that member.</p>
             {meterRows && <Meters rows={meterRows} />}
           </aside>
@@ -326,11 +425,22 @@ export function Battle({ sel, kit, trial, settings, sessionMeta, onEnd, onExit, 
             <UnitFrame u={tgt} kind="target" state={state} kitColor={kit.color} />
           </div>
           <div className="b-stage">
-            <Battlefield state={state} fx={fx} kitColor={kit.color} targeting={!!targeting} hoverRing={hoverRing} onGround={onGround} onUnit={onUnit} onHover={targeting ? setCursor : null} />
+            <Battlefield
+              state={state}
+              fx={fx}
+              kitColor={kit.color}
+              targeting={!!targeting}
+              hoverRing={hoverRing}
+              onGround={onGround}
+              onUnit={onUnit}
+              onHover={targeting ? setCursor : null}
+            />
           </div>
           {errors.length > 0 && (
             <div className="b-errors" role="status">
-              {errors.slice(-2).map((e) => <div key={e.id}>{e.text}</div>)}
+              {errors.slice(-2).map((e) => (
+                <div key={e.id}>{e.text}</div>
+              ))}
             </div>
           )}
           {banner && (
@@ -345,7 +455,9 @@ export function Battle({ sel, kit, trial, settings, sessionMeta, onEnd, onExit, 
               <div className="b-paused-card" onClick={(e) => e.stopPropagation()}>
                 <div className="b-paused-title">Paused</div>
                 <p>{autoPaused ? 'The game paused itself when you switched away.' : 'Take your time. You can still pick targets and queue an ability.'}</p>
-                <button type="button" className="btn primary" onClick={() => togglePause('overlay')}>Resume</button>
+                <button type="button" className="btn primary" onClick={() => togglePause('overlay')}>
+                  Resume
+                </button>
               </div>
             </div>
           )}
@@ -392,25 +504,54 @@ export function Battle({ sel, kit, trial, settings, sessionMeta, onEnd, onExit, 
         <div className="bars">
           <div className="actionbar" role="toolbar" aria-label="Abilities">
             {slots.map((id, i) => (
-              <ActionButton key={id} state={state} u={P} id={id} hotkey={HOTKEYS[i]} onUse={(x) => useAbility(x)} onHover={(x) => setHover(x ? { id: x } : null)} queued={P && P.queued && P.queued.id === id} />
+              <ActionButton
+                key={id}
+                state={state}
+                u={P}
+                id={id}
+                hotkey={HOTKEYS[i]}
+                onUse={(x) => useAbility(x)}
+                onHover={(x) => setHover(x ? { id: x } : null)}
+                queued={P && P.queued && P.queued.id === id}
+              />
             ))}
           </div>
           <div className="actionbar consum" role="toolbar" aria-label="Consumables">
             {consumables.map((id, i) => (
-              <ActionButton key={id} small state={state} u={P} id={id} hotkey={HOTKEYS[slots.length + i]} onUse={(x) => useAbility(x)} onHover={(x) => setHover(x ? { id: x } : null)} />
+              <ActionButton
+                key={id}
+                small
+                state={state}
+                u={P}
+                id={id}
+                hotkey={HOTKEYS[slots.length + i]}
+                onUse={(x) => useAbility(x)}
+                onHover={(x) => setHover(x ? { id: x } : null)}
+              />
             ))}
           </div>
-          {pet && <PetBar state={state} pet={pet} bar={build.pet && build.pet.bar} onCommand={(c) => doPetCommand(c)} onPetAbility={doPetAbility} onToggleAuto={doToggleAuto} onHover={(x, isPet) => setHover(x ? { id: x, pet: isPet } : null)} />}
+          {pet && (
+            <PetBar
+              state={state}
+              pet={pet}
+              bar={build.pet && build.pet.bar}
+              onCommand={(c) => doPetCommand(c)}
+              onPetAbility={doPetAbility}
+              onToggleAuto={doToggleAuto}
+              onHover={(x, isPet) => setHover(x ? { id: x, pet: isPet } : null)}
+            />
+          )}
         </div>
         <div className="b-help">
           {/* The tooltip floats over the help text so the footer (and the battlefield) never resizes. */}
           {hover && <AbilityTooltip state={state} u={P} id={hover.id} petUnit={hover.pet ? pet : null} />}
-          {(
+          {
             <div className="controls-help" style={hover ? { visibility: 'hidden' } : undefined}>
-              <b>Move</b> WASD / arrows or click the ground · <b>Target</b> click a unit, Tab{showParty ? ', F1–F5 or a party frame' : ''} · <b>Cast</b> 1–0, -, = or click · <b>Pause</b> Space{pet ? ' · Pet: Shift+1–6, right-click an enemy to send it' : ''}
+              <b>Move</b> WASD / arrows or click the ground · <b>Target</b> click a unit, Tab{showParty ? ', F1–F5 or a party frame' : ''} · <b>Cast</b> 1–0, -,
+              = or click · <b>Pause</b> Space{pet ? ' · Pet: Shift+1–6, right-click an enemy to send it' : ''}
               {build.loopHint && <div className="loop-hint">{build.loopHint}</div>}
             </div>
-          )}
+          }
         </div>
       </footer>
 
@@ -420,8 +561,12 @@ export function Battle({ sel, kit, trial, settings, sessionMeta, onEnd, onExit, 
             <h3>Leave this trial?</h3>
             <p>The attempt is recorded as left early. That is useful information too — leaving a fight you’re not enjoying says something.</p>
             <div className="row gap">
-              <button type="button" className="btn" onClick={() => setConfirmLeave(false)}>Keep playing</button>
-              <button type="button" className="btn danger" onClick={leave}>Leave trial</button>
+              <button type="button" className="btn" onClick={() => setConfirmLeave(false)}>
+                Keep playing
+              </button>
+              <button type="button" className="btn danger" onClick={leave}>
+                Leave trial
+              </button>
             </div>
           </div>
         </div>
@@ -444,7 +589,16 @@ function meters(state) {
     const dmg = state.meters.dmg[u.id] || 0;
     const heal = state.meters.heal[u.id] || 0;
     if (!dmg && !heal) continue;
-    rows.push({ id: u.id, name: u.id === state.playerId ? 'You' : u.kind === 'pet' ? u.name + ' (pet)' : u.name, dmg, heal, dps: dmg / dur, hps: heal / dur, classId: u.classId, me: u.id === state.playerId || u.kind === 'pet' });
+    rows.push({
+      id: u.id,
+      name: u.id === state.playerId ? 'You' : u.kind === 'pet' ? u.name + ' (pet)' : u.name,
+      dmg,
+      heal,
+      dps: dmg / dur,
+      hps: heal / dur,
+      classId: u.classId,
+      me: u.id === state.playerId || u.kind === 'pet',
+    });
   }
   return rows;
 }
@@ -456,14 +610,20 @@ function Meters({ rows }) {
   return (
     <div className="meters">
       <div className="panel-title">
-        <button type="button" className={cx('linkish', mode === 'dmg' && 'on')} onClick={() => setMode('dmg')}>Damage</button>
-        <button type="button" className={cx('linkish', mode === 'heal' && 'on')} onClick={() => setMode('heal')}>Healing</button>
+        <button type="button" className={cx('linkish', mode === 'dmg' && 'on')} onClick={() => setMode('dmg')}>
+          Damage
+        </button>
+        <button type="button" className={cx('linkish', mode === 'heal' && 'on')} onClick={() => setMode('heal')}>
+          Healing
+        </button>
       </div>
       {list.slice(0, 8).map((r) => (
         <div key={r.id} className={cx('meter', r.me && 'me')}>
           <div className="meter-fill" style={{ width: `${(r[mode] / top) * 100}%` }} />
           <span className="meter-name">{r.name}</span>
-          <span className="meter-val">{fmtNum(r[mode])} ({fmtNum(mode === 'dmg' ? r.dps : r.hps)}/s)</span>
+          <span className="meter-val">
+            {fmtNum(r[mode])} ({fmtNum(mode === 'dmg' ? r.dps : r.hps)}/s)
+          </span>
         </div>
       ))}
       {!list.length && <div className="muted small">No numbers yet.</div>}

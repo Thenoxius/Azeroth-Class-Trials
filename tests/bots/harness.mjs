@@ -7,8 +7,25 @@
 // ctl wraps the same commands the UI uses, so bots exercise the real input path.
 import { KITS, TRIALS } from '../../src/content/index.js';
 import {
-  createBattle, step, drainEvents, player, playerCast, setMoveDir, moveTo, setTarget, petCommand, petCast,
-  canCast, enemiesOf, alliesOf, hpPct, resPct, U, togglePetAutocast, stopCasting, spawnUnit,
+  createBattle,
+  step,
+  drainEvents,
+  player,
+  playerCast,
+  setMoveDir,
+  moveTo,
+  setTarget,
+  petCommand,
+  petCast,
+  canCast,
+  enemiesOf,
+  alliesOf,
+  hpPct,
+  resPct,
+  U,
+  togglePetAutocast,
+  stopCasting,
+  spawnUnit,
 } from '../../src/engine/core.js';
 import { spawnPlayer } from '../../src/content/common.js';
 import * as G from '../../src/engine/geometry.js';
@@ -39,10 +56,14 @@ export function makeController(state) {
     dist: (a, b) => G.dist(a, b || me()),
     nearest(list) {
       const m = me();
-      let best = null, bd = Infinity;
+      let best = null,
+        bd = Infinity;
       for (const x of list) {
         const d = G.dist(m, x);
-        if (d < bd) { bd = d; best = x; }
+        if (d < bd) {
+          bd = d;
+          best = x;
+        }
       }
       return best;
     },
@@ -55,7 +76,13 @@ export function makeController(state) {
       const m = me();
       const z = state.zones.find((zz) => zz.side !== m.side && !zz.harmless && G.pointInZone(zz, m));
       if (!z) return false;
-      const p = G.escapeClear(z, state.zones.filter((zz) => zz.side !== m.side && !zz.harmless), m, 2.5, state.arena);
+      const p = G.escapeClear(
+        z,
+        state.zones.filter((zz) => zz.side !== m.side && !zz.harmless),
+        m,
+        2.5,
+        state.arena,
+      );
       moveTo(state, p.x, p.y);
       return true;
     },
@@ -70,7 +97,16 @@ export function runTrial({ classId, trialId, level, spec, role, race, seed = 1, 
   const lvl = level ?? trial.level;
   const specs = (kit.specs && kit.specs[lvl]) || [];
   const roles = trial.rolesFor ? trial.rolesFor(classId) : ['dps'];
-  const state = createBattle(trial, { classId, level: lvl, spec: spec ?? (specs[0] && specs[0].id) ?? null, role: role ?? roles[0], race, trialId: trial.id, kit, seed });
+  const state = createBattle(trial, {
+    classId,
+    level: lvl,
+    spec: spec ?? (specs[0] && specs[0].id) ?? null,
+    role: role ?? roles[0],
+    race,
+    trialId: trial.id,
+    kit,
+    seed,
+  });
   const ctl = makeController(state);
   const events = [];
   while (!state.outcome && state.t < maxSeconds) {

@@ -15,7 +15,9 @@ class Boundary extends React.Component {
         <div className="crash">
           <h2>Something broke in the trials.</h2>
           <pre>{String(this.state.err && (this.state.err.stack || this.state.err.message || this.state.err))}</pre>
-          <button type="button" className="btn" onClick={() => this.setState({ err: null })}>Try to continue</button>
+          <button type="button" className="btn" onClick={() => this.setState({ err: null })}>
+            Try to continue
+          </button>
         </div>
       );
     }

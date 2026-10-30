@@ -47,12 +47,21 @@ export function FeedbackPanel({ session, trial, kit, onSubmit, onSkip }) {
           <div className="fb-scale" role="radiogroup" aria-label={s.q}>
             <span className="fb-end">{s.lo}</span>
             {[1, 2, 3, 4, 5].map((v) => (
-              <button type="button" key={v} role="radio" aria-checked={vals[s.key] === v} className={cx('fb-dot', vals[s.key] === v && 'on')} onClick={() => set(s.key, v)}>
+              <button
+                type="button"
+                key={v}
+                role="radio"
+                aria-checked={vals[s.key] === v}
+                className={cx('fb-dot', vals[s.key] === v && 'on')}
+                onClick={() => set(s.key, v)}
+              >
                 {v}
               </button>
             ))}
             <span className="fb-end">{s.hi}</span>
-            <button type="button" className={cx('chip', 'fb-skip', vals[s.key] === 'skip' && 'on')} onClick={() => set(s.key, 'skip')}>Not sure</button>
+            <button type="button" className={cx('chip', 'fb-skip', vals[s.key] === 'skip' && 'on')} onClick={() => set(s.key, 'skip')}>
+              Not sure
+            </button>
           </div>
         </div>
       ))}
@@ -61,17 +70,58 @@ export function FeedbackPanel({ session, trial, kit, onSubmit, onSkip }) {
           <div className="fb-label">Which moment stood out, if any?</div>
           <div className="fb-moments">
             {moments.map((m, i) => (
-              <button type="button" key={i} className={cx('chip', 'fb-moment', moment === i && 'on')} onClick={() => setMoment(moment === i ? undefined : i)}>{m.text}</button>
+              <button type="button" key={i} className={cx('chip', 'fb-moment', moment === i && 'on')} onClick={() => setMoment(moment === i ? undefined : i)}>
+                {m.text}
+              </button>
             ))}
-            <button type="button" className={cx('chip', moment === 'none' && 'on')} onClick={() => setMoment(moment === 'none' ? undefined : 'none')}>None of these</button>
-            <button type="button" className={cx('chip', moment === 'custom' && 'on')} onClick={() => setMoment(moment === 'custom' ? undefined : 'custom')}>Something else…</button>
+            <button type="button" className={cx('chip', moment === 'none' && 'on')} onClick={() => setMoment(moment === 'none' ? undefined : 'none')}>
+              None of these
+            </button>
+            <button type="button" className={cx('chip', moment === 'custom' && 'on')} onClick={() => setMoment(moment === 'custom' ? undefined : 'custom')}>
+              Something else…
+            </button>
           </div>
-          {moment === 'custom' && <input className="fb-text" type="text" maxLength={280} placeholder="In your own words (optional)" value={custom} onChange={(e) => setCustom(e.target.value)} />}
+          {moment === 'custom' && (
+            <input
+              className="fb-text"
+              type="text"
+              maxLength={280}
+              placeholder="In your own words (optional)"
+              value={custom}
+              onChange={(e) => setCustom(e.target.value)}
+            />
+          )}
         </div>
       )}
       <div className="row gap">
-        <button type="button" className="btn primary small" disabled={!anything && !custom} onClick={submit}>Save</button>
-        <button type="button" className="btn small ghost" onClick={() => { onSkip && onSkip(); onSubmit && onSubmit({ sessionId: session.id, trialId: trial.id, classId: kit.id, level: session.level, spec: session.spec || null, role: session.role || 'dps', at: new Date().toISOString(), enjoyment: null, frustration: null, again: null, moment: null, custom: null, skipped: true }); }}>Skip</button>
+        <button type="button" className="btn primary small" disabled={!anything && !custom} onClick={submit}>
+          Save
+        </button>
+        <button
+          type="button"
+          className="btn small ghost"
+          onClick={() => {
+            onSkip && onSkip();
+            onSubmit &&
+              onSubmit({
+                sessionId: session.id,
+                trialId: trial.id,
+                classId: kit.id,
+                level: session.level,
+                spec: session.spec || null,
+                role: session.role || 'dps',
+                at: new Date().toISOString(),
+                enjoyment: null,
+                frustration: null,
+                again: null,
+                moment: null,
+                custom: null,
+                skipped: true,
+              });
+          }}
+        >
+          Skip
+        </button>
       </div>
     </div>
   );

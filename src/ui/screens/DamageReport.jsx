@@ -28,8 +28,14 @@ function Timeline({ report }) {
       <path d={`${line}L${W} ${H}L0 ${H}Z`} className="dr-area" />
       <path d={line} className="dr-line" />
       <line x1="0" y1={y(report.dps)} x2={W} y2={y(report.dps)} className="dr-avg" />
-      {[0, 60, 120, 180].map((s) => <text key={s} x={(s / report.seconds) * W} y={H + 11} textAnchor={s === 0 ? 'start' : s === 180 ? 'end' : 'middle'}>{clock(s)}</text>)}
-      <text x={exec + 3} y="10" className="dr-exec-label">execute</text>
+      {[0, 60, 120, 180].map((s) => (
+        <text key={s} x={(s / report.seconds) * W} y={H + 11} textAnchor={s === 0 ? 'start' : s === 180 ? 'end' : 'middle'}>
+          {clock(s)}
+        </text>
+      ))}
+      <text x={exec + 3} y="10" className="dr-exec-label">
+        execute
+      </text>
     </svg>
   );
 }
@@ -41,7 +47,8 @@ function details(report) {
   if (report.executeShare > 0) out.push(`${pct(report.executeShare)} of your damage came in the execute phase (the last 36 s).`);
   if (report.petShare > 0) out.push(`Your pet and guardians did ${pct(report.petShare)} of the damage.`);
   if (report.idle >= 1) out.push(`${Math.round(report.idle)} s without a cast or global cooldown running.`);
-  if (report.cap && report.cap.seconds >= 1) out.push(`${report.cap.resource === 'rage' ? 'Rage' : 'Energy'} sat at its maximum for ${Math.round(report.cap.seconds)} s.`);
+  if (report.cap && report.cap.seconds >= 1)
+    out.push(`${report.cap.resource === 'rage' ? 'Rage' : 'Energy'} sat at its maximum for ${Math.round(report.cap.seconds)} s.`);
   if (report.oomAt != null) out.push(`Out of mana at ${clock(report.oomAt)}.`);
   return out;
 }
@@ -52,35 +59,69 @@ export function DamageReport({ report, kit }) {
     <section className="panel dmg-report" style={{ '--cc': kit.color }}>
       <div className="panel-title">Damage report</div>
       <div className="dr-head">
-        <div className="dr-big"><b>{num(report.dps)}</b><span>DPS</span></div>
-        <div className="dr-big"><b>{num(report.total)}</b><span>damage in {clock(report.seconds)}</span></div>
-        <div className="dr-big"><b>{pct(report.critPct)}</b><span>crit rate</span></div>
+        <div className="dr-big">
+          <b>{num(report.dps)}</b>
+          <span>DPS</span>
+        </div>
+        <div className="dr-big">
+          <b>{num(report.total)}</b>
+          <span>damage in {clock(report.seconds)}</span>
+        </div>
+        <div className="dr-big">
+          <b>{pct(report.critPct)}</b>
+          <span>crit rate</span>
+        </div>
       </div>
       <Timeline report={report} />
       <table className="dr-table">
         <thead>
-          <tr><th>Ability</th><th className="dr-share" /><th>Damage</th><th>%</th><th>Hits</th><th>Crit</th><th>Average</th><th>Biggest</th></tr>
+          <tr>
+            <th>Ability</th>
+            <th className="dr-share" />
+            <th>Damage</th>
+            <th>%</th>
+            <th>Hits</th>
+            <th>Crit</th>
+            <th>Average</th>
+            <th>Biggest</th>
+          </tr>
         </thead>
         <tbody>
-          {report.rows.filter((r) => r.dmg > 0).map((r) => (
-            <tr key={r.key}>
-              <td className="dr-name">
-                <AbilityIcon icon={WHITE_GLYPH[r.ability] || 'generic'} ability={r.ability} school={r.school} size={22} />
-                <span>{r.name}{r.by && <em> · {r.by}</em>}</span>
-              </td>
-              <td className="dr-share"><span style={{ width: `${(r.dmg / top) * 100}%`, background: SCHOOL_HEX[r.school] || SCHOOL_HEX.physical }} /></td>
-              <td>{num(r.dmg)}</td>
-              <td>{pct(r.pct)}</td>
-              <td>{r.hits}{r.ticks ? <small> ({r.ticks} ticks)</small> : null}{r.misses ? <small> · {r.misses} missed</small> : null}</td>
-              <td>{r.hits - r.ticks > 0 ? pct(r.crits / (r.hits - r.ticks)) : '—'}</td>
-              <td>{num(r.avg)}</td>
-              <td>{num(r.biggest)}{r.biggestCrit ? '*' : ''}</td>
-            </tr>
-          ))}
+          {report.rows
+            .filter((r) => r.dmg > 0)
+            .map((r) => (
+              <tr key={r.key}>
+                <td className="dr-name">
+                  <AbilityIcon icon={WHITE_GLYPH[r.ability] || 'generic'} ability={r.ability} school={r.school} size={22} />
+                  <span>
+                    {r.name}
+                    {r.by && <em> · {r.by}</em>}
+                  </span>
+                </td>
+                <td className="dr-share">
+                  <span style={{ width: `${(r.dmg / top) * 100}%`, background: SCHOOL_HEX[r.school] || SCHOOL_HEX.physical }} />
+                </td>
+                <td>{num(r.dmg)}</td>
+                <td>{pct(r.pct)}</td>
+                <td>
+                  {r.hits}
+                  {r.ticks ? <small> ({r.ticks} ticks)</small> : null}
+                  {r.misses ? <small> · {r.misses} missed</small> : null}
+                </td>
+                <td>{r.hits - r.ticks > 0 ? pct(r.crits / (r.hits - r.ticks)) : '—'}</td>
+                <td>{num(r.avg)}</td>
+                <td>
+                  {num(r.biggest)}
+                  {r.biggestCrit ? '*' : ''}
+                </td>
+              </tr>
+            ))}
         </tbody>
       </table>
       <ul className="dr-details">
-        {details(report).map((d, i) => <li key={i}>{d}</li>)}
+        {details(report).map((d, i) => (
+          <li key={i}>{d}</li>
+        ))}
       </ul>
     </section>
   );
@@ -100,7 +141,8 @@ export function Leaderboard({ entries, currentId, kits, trial, characters }) {
     const s = dpsSpecs(kits[e.classId]).find((x) => x.id === e.spec);
     return s ? s.name : e.spec || '';
   };
-  const charName = (e) => (characters.find((c) => c.id === e.charId) || {}).name || e.name || `${e.race ? RACES[e.race].name + ' ' : ''}${kits[e.classId].name}`;
+  const charName = (e) =>
+    (characters.find((c) => c.id === e.charId) || {}).name || e.name || `${e.race ? RACES[e.race].name + ' ' : ''}${kits[e.classId].name}`;
   let note = null;
   if (current) {
     const same = entries.filter((e) => e.classId === current.classId && e.spec === current.spec && e.id !== current.id);
@@ -110,7 +152,9 @@ export function Leaderboard({ entries, currentId, kits, trial, characters }) {
     else note = `This run: ${num(current.dps)} DPS — the best ${specName(current)} ${kits[current.classId].name} run stays at ${num(prev)}.`;
   }
   const untested = PLAYABLE.filter((c) => trialSupports(trial.id, c) && kits[c]).flatMap((c) =>
-    dpsSpecs(kits[c]).filter((s) => !best.has(`${c}:${s.id}`)).map((s) => `${s.name} ${kits[c].name}`),
+    dpsSpecs(kits[c])
+      .filter((s) => !best.has(`${c}:${s.id}`))
+      .map((s) => `${s.name} ${kits[c].name}`),
   );
   return (
     <section className="panel leaderboard">
@@ -119,12 +163,28 @@ export function Leaderboard({ entries, currentId, kits, trial, characters }) {
       {rows.length ? (
         <ol className="lb-list">
           {rows.map((e, i) => (
-            <li key={e.id} className={cx('lb-row', current && best.get(`${current.classId}:${current.spec}`) === e && 'lb-mine')} style={{ '--cc': CLASS_COLORS[e.classId] }}>
+            <li
+              key={e.id}
+              className={cx('lb-row', current && best.get(`${current.classId}:${current.spec}`) === e && 'lb-mine')}
+              style={{ '--cc': CLASS_COLORS[e.classId] }}
+            >
               <span className="lb-rank">{i + 1}</span>
-              <span className="lb-portrait"><Portrait id={`${e.race || kits[e.classId].raceId}-${e.classId}`} size={30} /></span>
-              <span className="lb-who"><b>{specName(e)} {kits[e.classId].name}</b><small>{charName(e)}</small></span>
-              <span className="lb-bar"><span style={{ width: `${(e.dps / top) * 100}%` }} /></span>
-              <span className="lb-dps">{num(e.dps)}<small> DPS</small></span>
+              <span className="lb-portrait">
+                <Portrait id={`${e.race || kits[e.classId].raceId}-${e.classId}`} size={30} />
+              </span>
+              <span className="lb-who">
+                <b>
+                  {specName(e)} {kits[e.classId].name}
+                </b>
+                <small>{charName(e)}</small>
+              </span>
+              <span className="lb-bar">
+                <span style={{ width: `${(e.dps / top) * 100}%` }} />
+              </span>
+              <span className="lb-dps">
+                {num(e.dps)}
+                <small> DPS</small>
+              </span>
             </li>
           ))}
         </ol>

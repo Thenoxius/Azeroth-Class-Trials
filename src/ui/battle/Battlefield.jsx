@@ -59,7 +59,12 @@ function Obstacle({ o }) {
   return (
     <g transform={`translate(${o.x} ${o.y})`}>
       <ellipse cx="0.4" cy="0.6" rx={o.r * 1.1} ry={o.r * 0.8} fill="#000" opacity="0.35" />
-      <path d={`M${-o.r} ${o.r * 0.2}Q${-o.r * 0.9} ${-o.r * 0.8} ${-o.r * 0.1} ${-o.r}Q${o.r * 0.9} ${-o.r * 0.9} ${o.r} ${-o.r * 0.1}Q${o.r * 0.9} ${o.r * 0.9} 0 ${o.r * 0.95}Q${-o.r * 0.8} ${o.r} ${-o.r} ${o.r * 0.2}Z`} fill="#4d4a44" stroke="#24221f" strokeWidth="0.2" />
+      <path
+        d={`M${-o.r} ${o.r * 0.2}Q${-o.r * 0.9} ${-o.r * 0.8} ${-o.r * 0.1} ${-o.r}Q${o.r * 0.9} ${-o.r * 0.9} ${o.r} ${-o.r * 0.1}Q${o.r * 0.9} ${o.r * 0.9} 0 ${o.r * 0.95}Q${-o.r * 0.8} ${o.r} ${-o.r} ${o.r * 0.2}Z`}
+        fill="#4d4a44"
+        stroke="#24221f"
+        strokeWidth="0.2"
+      />
       <path d={`M${-o.r * 0.5} ${-o.r * 0.4}Q0 ${-o.r * 0.8} ${o.r * 0.5} ${-o.r * 0.35}`} fill="none" stroke="#7b766c" strokeWidth="0.25" />
     </g>
   );
@@ -68,11 +73,29 @@ function Obstacle({ o }) {
 function Decor({ d }) {
   if (d.kind === 'grass') return <path d={`M${d.x} ${d.y}l-0.3 -0.8M${d.x} ${d.y}l0 -1M${d.x} ${d.y}l0.35 -0.75`} stroke="#4f6b38" strokeWidth="0.12" />;
   if (d.kind === 'road') return <path d={d.path} stroke="#3a3426" strokeWidth={d.w || 4} fill="none" strokeLinecap="round" opacity="0.8" />;
-  if (d.kind === 'banner') return <g transform={`translate(${d.x} ${d.y})`}><rect x="-0.15" y="-2.4" width="0.3" height="2.6" fill="#3a2a1a" /><path d="M0.15 -2.4h1.6l-0.4 0.6 0.4 0.6h-1.6z" fill={d.color || '#8a1d1d'} /></g>;
-  if (d.kind === 'rune') return <circle cx={d.x} cy={d.y} r={d.r || 2} fill="none" stroke={d.color || '#6b4bd6'} strokeWidth="0.15" strokeDasharray="0.6 0.4" opacity="0.6" />;
+  if (d.kind === 'banner')
+    return (
+      <g transform={`translate(${d.x} ${d.y})`}>
+        <rect x="-0.15" y="-2.4" width="0.3" height="2.6" fill="#3a2a1a" />
+        <path d="M0.15 -2.4h1.6l-0.4 0.6 0.4 0.6h-1.6z" fill={d.color || '#8a1d1d'} />
+      </g>
+    );
+  if (d.kind === 'rune')
+    return <circle cx={d.x} cy={d.y} r={d.r || 2} fill="none" stroke={d.color || '#6b4bd6'} strokeWidth="0.15" strokeDasharray="0.6 0.4" opacity="0.6" />;
   if (d.kind === 'lavaCrack') return <path d={d.path} stroke="#ff6a1f" strokeWidth={d.w || 0.35} fill="none" opacity="0.55" />;
-  if (d.kind === 'node') return <g transform={`translate(${d.x} ${d.y})`}><circle r="2.6" fill="none" stroke="#c9a35a" strokeWidth="0.2" opacity="0.7" /><path d="M0 -1.6l0.5 1.6h-1z" fill="#c9a35a" opacity="0.7" /></g>;
-  if (d.kind === 'label') return <text x={d.x} y={d.y} className="bf-decor-label" fontSize={d.size || 0.9} textAnchor="middle">{d.text}</text>;
+  if (d.kind === 'node')
+    return (
+      <g transform={`translate(${d.x} ${d.y})`}>
+        <circle r="2.6" fill="none" stroke="#c9a35a" strokeWidth="0.2" opacity="0.7" />
+        <path d="M0 -1.6l0.5 1.6h-1z" fill="#c9a35a" opacity="0.7" />
+      </g>
+    );
+  if (d.kind === 'label')
+    return (
+      <text x={d.x} y={d.y} className="bf-decor-label" fontSize={d.size || 0.9} textAnchor="middle">
+        {d.text}
+      </text>
+    );
   return null;
 }
 
@@ -108,7 +131,14 @@ function Zone({ z, t }) {
     if (s.type === 'rect') return <rect x={z.x - s.w / 2} y={z.y - s.h / 2} width={s.w} height={s.h} {...f} />;
     return <circle cx={z.x} cy={z.y} r={s.r} {...f} />;
   }
-  const common = { fill: col, fillOpacity: tele ? 0.08 + prog * 0.14 : 0.28, stroke: col, strokeOpacity: tele ? 0.9 : 0.5, strokeWidth: tele ? 0.18 : 0.12, strokeDasharray: tele ? '0.7 0.4' : undefined };
+  const common = {
+    fill: col,
+    fillOpacity: tele ? 0.08 + prog * 0.14 : 0.28,
+    stroke: col,
+    strokeOpacity: tele ? 0.9 : 0.5,
+    strokeWidth: tele ? 0.18 : 0.12,
+    strokeDasharray: tele ? '0.7 0.4' : undefined,
+  };
   if (s.type === 'cone') return <path d={zonePath(z)} {...common} className={cx('bf-zone', tele && 'tele')} />;
   if (s.type === 'rect') return <rect x={z.x - s.w / 2} y={z.y - s.h / 2} width={s.w} height={s.h} {...common} className={cx('bf-zone', tele && 'tele')} />;
   return (
@@ -116,7 +146,11 @@ function Zone({ z, t }) {
       <circle cx={z.x} cy={z.y} r={s.r} {...common} />
       {tele && <circle cx={z.x} cy={z.y} r={s.r * prog} fill={col} fillOpacity="0.16" />}
       {s.type === 'ring' && <circle cx={z.x} cy={z.y} r={s.inner} fill="#000" fillOpacity="0.35" />}
-      {z.label && <text x={z.x} y={z.y + 0.35} textAnchor="middle" fontSize="0.9" className="bf-zone-label">{z.label}</text>}
+      {z.label && (
+        <text x={z.x} y={z.y + 0.35} textAnchor="middle" fontSize="0.9" className="bf-zone-label">
+          {z.label}
+        </text>
+      )}
     </g>
   );
 }
@@ -132,7 +166,11 @@ function ccVisual(u) {
   let v = null;
   for (const a of u.auras) {
     const d = a.def;
-    if (d.visual) { v = d.visual; if (d.visual === 'sheep' || d.visual === 'iceblock') return v; continue; }
+    if (d.visual) {
+      v = d.visual;
+      if (d.visual === 'sheep' || d.visual === 'iceblock') return v;
+      continue;
+    }
     if (d.immune && !v) v = 'iceblock';
     else if (d.cc) {
       const c = Array.isArray(d.cc) ? d.cc : [d.cc];
@@ -182,16 +220,38 @@ function Token({ u, state, kitColor, isTarget, isPlayer, onPick, fxBubble, lift 
   const barW = Math.max(3, r * 3.2);
   const c = u.casting;
   const castP = c ? (c.channel ? 1 - c.elapsed / Math.max(0.01, c.duration - c.cut) : 1 - c.remaining / c.total) : 0;
-  if(u.kind==='totem')return <g transform={`translate(${u.x} ${u.y})`} className="bf-unit" onPointerDown={e=>onPick(e,u)}>
-    <title>{u.name} · {Math.max(0,Math.ceil(u.meta.until-state.t))}s · {u.hp}/{u.maxHp} HP</title>
-    <MemoPortrait id={u.portrait} size={2.6} x={-1.3} y={-1.3} />
-    <text y={1.9} textAnchor="middle" fontSize=".55" fill="#ead298">{u.meta.element[0].toUpperCase()+u.meta.element.slice(1)} · {u.meta.until-state.t>60?Math.ceil((u.meta.until-state.t)/60)+'m':Math.max(0,Math.ceil(u.meta.until-state.t))+'s'}</text>
-  </g>;
+  if (u.kind === 'totem')
+    return (
+      <g transform={`translate(${u.x} ${u.y})`} className="bf-unit" onPointerDown={(e) => onPick(e, u)}>
+        <title>
+          {u.name} · {Math.max(0, Math.ceil(u.meta.until - state.t))}s · {u.hp}/{u.maxHp} HP
+        </title>
+        <MemoPortrait id={u.portrait} size={2.6} x={-1.3} y={-1.3} />
+        <text y={1.9} textAnchor="middle" fontSize=".55" fill="#ead298">
+          {u.meta.element[0].toUpperCase() + u.meta.element.slice(1)} ·{' '}
+          {u.meta.until - state.t > 60 ? Math.ceil((u.meta.until - state.t) / 60) + 'm' : Math.max(0, Math.ceil(u.meta.until - state.t)) + 's'}
+        </text>
+      </g>
+    );
   const clipKey = 'tc' + Math.round(r * 100);
   return (
-    <g transform={`translate(${u.x} ${u.y})`} className={cx('bf-unit', !u.alive && 'dead', feigned && 'feigned', u.evading && 'evading', isTarget && 'targeted')} onPointerDown={(e) => onPick(e, u)} style={{ cursor: 'pointer' }}>
+    <g
+      transform={`translate(${u.x} ${u.y})`}
+      className={cx('bf-unit', !u.alive && 'dead', feigned && 'feigned', u.evading && 'evading', isTarget && 'targeted')}
+      onPointerDown={(e) => onPick(e, u)}
+      style={{ cursor: 'pointer' }}
+    >
       <ellipse cx="0.25" cy={r * 0.75} rx={r * 1.05} ry={r * 0.45} fill="#000" opacity="0.45" />
-      {isTarget && <circle r={r + 0.55} fill="none" stroke={u.side === 'enemy' ? '#ffcf4a' : '#9fd0ff'} strokeWidth="0.2" strokeDasharray="0.8 0.45" className="bf-target-ring" />}
+      {isTarget && (
+        <circle
+          r={r + 0.55}
+          fill="none"
+          stroke={u.side === 'enemy' ? '#ffcf4a' : '#9fd0ff'}
+          strokeWidth="0.2"
+          strokeDasharray="0.8 0.45"
+          className="bf-target-ring"
+        />
+      )}
       {engaged && u.alive && <circle r={r + 0.25} fill="none" stroke="#ff4b2b" strokeOpacity="0.35" strokeWidth="0.5" />}
       <circle r={r + 0.12} fill="#0c0a0e" stroke={ring} strokeWidth={isPlayer ? 0.28 : 0.2} strokeDasharray={u.kind === 'pet' ? '0.5 0.25' : undefined} />
       <g clipPath={`url(#${clipKey})`} transform={feigned ? 'rotate(80)' : undefined} opacity={feigned ? 0.55 : 1}>
@@ -205,20 +265,74 @@ function Token({ u, state, kitColor, isTarget, isPlayer, onPick, fxBubble, lift 
           <MemoPortrait id={u.portrait} size={r * 2} x={-r} y={-r} dead={!u.alive} />
         )}
       </g>
-      {isPlayer && u.alive && <path d={`M${Math.cos(u.facing) * (r + 0.15)} ${Math.sin(u.facing) * (r + 0.15)}L${Math.cos(u.facing + 0.35) * (r - 0.25)} ${Math.sin(u.facing + 0.35) * (r - 0.25)}L${Math.cos(u.facing - 0.35) * (r - 0.25)} ${Math.sin(u.facing - 0.35) * (r - 0.25)}Z`} fill={ring} />}
-      {vis === 'ice' && <g className="bf-ice"><circle r={r + 0.3} fill="#9fe3ff" fillOpacity="0.22" stroke="#d9f6ff" strokeWidth="0.15" />{[0, 1, 2, 3, 4, 5].map((i) => <path key={i} d={`M${Math.cos(i) * r} ${Math.sin(i) * r}l${Math.cos(i) * 0.6} ${Math.sin(i) * 0.6}`} stroke="#e8fbff" strokeWidth="0.22" />)}</g>}
+      {isPlayer && u.alive && (
+        <path
+          d={`M${Math.cos(u.facing) * (r + 0.15)} ${Math.sin(u.facing) * (r + 0.15)}L${Math.cos(u.facing + 0.35) * (r - 0.25)} ${Math.sin(u.facing + 0.35) * (r - 0.25)}L${Math.cos(u.facing - 0.35) * (r - 0.25)} ${Math.sin(u.facing - 0.35) * (r - 0.25)}Z`}
+          fill={ring}
+        />
+      )}
+      {vis === 'ice' && (
+        <g className="bf-ice">
+          <circle r={r + 0.3} fill="#9fe3ff" fillOpacity="0.22" stroke="#d9f6ff" strokeWidth="0.15" />
+          {[0, 1, 2, 3, 4, 5].map((i) => (
+            <path key={i} d={`M${Math.cos(i) * r} ${Math.sin(i) * r}l${Math.cos(i) * 0.6} ${Math.sin(i) * 0.6}`} stroke="#e8fbff" strokeWidth="0.22" />
+          ))}
+        </g>
+      )}
       {vis === 'roots' && <circle r={r + 0.25} fill="none" stroke="#7ed957" strokeWidth="0.3" strokeDasharray="0.3 0.2" />}
-      {vis === 'iceblock' && <rect x={-r - 0.3} y={-r - 0.3} width={r * 2 + 0.6} height={r * 2 + 0.6} rx="0.3" fill="#bfefff" fillOpacity="0.45" stroke="#e8fbff" strokeWidth="0.15" />}
-      {vis === 'trap' && <g><rect x={-r - 0.2} y={-r - 0.2} width={r * 2 + 0.4} height={r * 2 + 0.4} rx="0.2" fill="#9fe3ff" fillOpacity="0.38" stroke="#d9f6ff" strokeWidth="0.12" /><path d={`M${-r} ${-r}l${r * 0.6} ${r * 0.5}M${r} ${-r * 0.4}l${-r * 0.5} ${r * 0.3}`} stroke="#fff" strokeWidth="0.1" opacity="0.7" /></g>}
-      {vis === 'fear' && <g className="bf-spin"><path d={`M0 ${-r - 0.6}a${r + 0.6} ${r + 0.6} 0 0 1 ${r + 0.6} ${r + 0.6}`} stroke="#b07bff" strokeWidth="0.22" fill="none" /><path d={`M0 ${r + 0.6}a${r + 0.6} ${r + 0.6} 0 0 1 ${-r - 0.6} ${-r - 0.6}`} stroke="#b07bff" strokeWidth="0.22" fill="none" /></g>}
-      {vis === 'stun' && <g className="bf-spin">{[0, 2.1, 4.2].map((a) => <circle key={a} cx={Math.cos(a) * (r * 0.8)} cy={-r - 0.5 + Math.sin(a) * 0.25} r="0.22" fill="#ffe36b" />)}</g>}
+      {vis === 'iceblock' && (
+        <rect
+          x={-r - 0.3}
+          y={-r - 0.3}
+          width={r * 2 + 0.6}
+          height={r * 2 + 0.6}
+          rx="0.3"
+          fill="#bfefff"
+          fillOpacity="0.45"
+          stroke="#e8fbff"
+          strokeWidth="0.15"
+        />
+      )}
+      {vis === 'trap' && (
+        <g>
+          <rect
+            x={-r - 0.2}
+            y={-r - 0.2}
+            width={r * 2 + 0.4}
+            height={r * 2 + 0.4}
+            rx="0.2"
+            fill="#9fe3ff"
+            fillOpacity="0.38"
+            stroke="#d9f6ff"
+            strokeWidth="0.12"
+          />
+          <path d={`M${-r} ${-r}l${r * 0.6} ${r * 0.5}M${r} ${-r * 0.4}l${-r * 0.5} ${r * 0.3}`} stroke="#fff" strokeWidth="0.1" opacity="0.7" />
+        </g>
+      )}
+      {vis === 'fear' && (
+        <g className="bf-spin">
+          <path d={`M0 ${-r - 0.6}a${r + 0.6} ${r + 0.6} 0 0 1 ${r + 0.6} ${r + 0.6}`} stroke="#b07bff" strokeWidth="0.22" fill="none" />
+          <path d={`M0 ${r + 0.6}a${r + 0.6} ${r + 0.6} 0 0 1 ${-r - 0.6} ${-r - 0.6}`} stroke="#b07bff" strokeWidth="0.22" fill="none" />
+        </g>
+      )}
+      {vis === 'stun' && (
+        <g className="bf-spin">
+          {[0, 2.1, 4.2].map((a) => (
+            <circle key={a} cx={Math.cos(a) * (r * 0.8)} cy={-r - 0.5 + Math.sin(a) * 0.25} r="0.22" fill="#ffe36b" />
+          ))}
+        </g>
+      )}
       {vis === 'silence' && <path d={`M${-0.5} ${-r - 0.5}h1`} stroke="#ff6b6b" strokeWidth="0.25" />}
-      {shield > 0 && u.alive && <circle r={r + 0.42} fill="#fff6c8" fillOpacity="0.1" stroke="#fff3b0" strokeOpacity="0.85" strokeWidth="0.14" className="bf-shield" />}
+      {shield > 0 && u.alive && (
+        <circle r={r + 0.42} fill="#fff6c8" fillOpacity="0.1" stroke="#fff3b0" strokeOpacity="0.85" strokeWidth="0.14" className="bf-shield" />
+      )}
       {u.alive && (
         <g transform={`translate(0 ${-r - 0.75})`}>
           <rect x={-barW / 2 - 0.06} y="-0.06" width={barW + 0.12} height="0.47" rx="0.1" fill="#000" opacity="0.8" />
           <rect x={-barW / 2} y="0" width={barW * hpP} height="0.35" rx="0.08" fill={hpCol} />
-          {shield > 0 && <rect x={-barW / 2 + barW * hpP} y="0" width={Math.min(barW * (1 - hpP), (barW * shield) / u.maxHp)} height="0.35" fill="#fff6c8" opacity="0.8" />}
+          {shield > 0 && (
+            <rect x={-barW / 2 + barW * hpP} y="0" width={Math.min(barW * (1 - hpP), (barW * shield) / u.maxHp)} height="0.35" fill="#fff6c8" opacity="0.8" />
+          )}
         </g>
       )}
       <text y={-r - 1.05 - lift} textAnchor="middle" fontSize={nameSize} className={cx('bf-name', u.side === 'enemy' ? 'foe' : 'friend', isPlayer && 'me')}>
@@ -228,10 +342,21 @@ function Token({ u, state, kitColor, isTarget, isPlayer, onPick, fxBubble, lift 
       {c && u.alive && (
         <g transform={`translate(0 ${r + 0.55})`}>
           <rect x={-barW / 2 - 0.06} y="-0.06" width={barW + 0.12} height="0.42" rx="0.1" fill="#000" opacity="0.85" />
-          <rect x={-barW / 2} y="0" width={barW * Math.max(0, Math.min(1, c.channel ? castP : castP))} height="0.3" rx="0.06" fill={c.ab.uninterruptible || c.ab.mechanic === 'physical' ? '#9a9a9a' : c.channel ? '#7fe07f' : '#f0b43a'} />
+          <rect
+            x={-barW / 2}
+            y="0"
+            width={barW * Math.max(0, Math.min(1, c.channel ? castP : castP))}
+            height="0.3"
+            rx="0.06"
+            fill={c.ab.uninterruptible || c.ab.mechanic === 'physical' ? '#9a9a9a' : c.channel ? '#7fe07f' : '#f0b43a'}
+          />
         </g>
       )}
-      {u.evading && <text y={r + 1.3} textAnchor="middle" fontSize="0.7" className="bf-evade">Evade</text>}
+      {u.evading && (
+        <text y={r + 1.3} textAnchor="middle" fontSize="0.7" className="bf-evade">
+          Evade
+        </text>
+      )}
     </g>
   );
 }
@@ -253,14 +378,29 @@ function Projectile({ p }) {
 function Effect({ f, t }) {
   const k = Math.max(0, Math.min(1, (t - f.t0) / f.dur));
   const col = schoolHex(f.school);
-  if (f.type === 'beam') return <line x1={f.x} y1={f.y} x2={f.x2} y2={f.y2} stroke={col} strokeWidth={0.35 * (1 - k) + 0.05} strokeLinecap="round" opacity={1 - k} />;
-  if (f.type === 'ring') return <circle cx={f.x} cy={f.y} r={Math.max(0.1, f.r * (0.25 + 0.75 * k))} fill={col} fillOpacity={0.18 * (1 - k)} stroke={col} strokeWidth={0.35 * (1 - k)} opacity={1 - k * 0.6} />;
+  if (f.type === 'beam')
+    return <line x1={f.x} y1={f.y} x2={f.x2} y2={f.y2} stroke={col} strokeWidth={0.35 * (1 - k) + 0.05} strokeLinecap="round" opacity={1 - k} />;
+  if (f.type === 'ring')
+    return (
+      <circle
+        cx={f.x}
+        cy={f.y}
+        r={Math.max(0.1, f.r * (0.25 + 0.75 * k))}
+        fill={col}
+        fillOpacity={0.18 * (1 - k)}
+        stroke={col}
+        strokeWidth={0.35 * (1 - k)}
+        opacity={1 - k * 0.6}
+      />
+    );
   if (f.type === 'puff') return <circle cx={f.x} cy={f.y} r={0.6 + k * 1.6} fill={col} opacity={0.5 * (1 - k)} />;
   if (f.type === 'flash') return <circle cx={f.x} cy={f.y} r={(f.r || 1) * (0.6 + k * 0.8)} fill={col} opacity={0.55 * (1 - k)} />;
   if (f.type === 'heal')
     return (
       <g opacity={1 - k}>
-        {[-0.6, 0, 0.6].map((dx, i) => <circle key={i} cx={f.x + dx} cy={f.y - 0.2 - k * 2 - i * 0.3} r="0.16" fill="#ffe9a0" />)}
+        {[-0.6, 0, 0.6].map((dx, i) => (
+          <circle key={i} cx={f.x + dx} cy={f.y - 0.2 - k * 2 - i * 0.3} r="0.16" fill="#ffe9a0" />
+        ))}
       </g>
     );
   return null;
@@ -304,13 +444,20 @@ export function Battlefield({ state, fx, kitColor, targeting, hoverRing, onGroun
     // A click just beside a unit (its name, bar or the edge of its token) picks it
     // instead of walking towards it — walking onto a mob would pull it.
     if (!targeting) {
-      let best = null, bestD = Infinity;
+      let best = null,
+        bestD = Infinity;
       for (const u of units) {
         if ((!u.alive && !u.lootable) || u.id === state.playerId || u.ownerId === state.playerId) continue;
         const d = Math.hypot(u.x - w.x, u.y - w.y) - tokenR(u);
-        if (d < PICK_SLACK && d < bestD) { best = u; bestD = d; }
+        if (d < PICK_SLACK && d < bestD) {
+          best = u;
+          bestD = d;
+        }
       }
-      if (best) { onUnit(best, e); return; }
+      if (best) {
+        onUnit(best, e);
+        return;
+      }
     }
     onGround(w, e);
   };
@@ -324,13 +471,32 @@ export function Battlefield({ state, fx, kitColor, targeting, hoverRing, onGroun
     if (u.side !== 'enemy' || !u.alive || !u.engaged || !u.target) continue;
     const tg = state.units[u.target];
     if (!tg || !tg.alive) continue;
-    lines.push(<line key={'l' + u.id} x1={u.x} y1={u.y} x2={tg.x} y2={tg.y} stroke={tg.id === state.playerId ? '#ff5a3c' : '#ff9a6b'} strokeOpacity={tg.id === state.playerId ? 0.55 : 0.22} strokeWidth="0.12" strokeDasharray="0.5 0.35" />);
+    lines.push(
+      <line
+        key={'l' + u.id}
+        x1={u.x}
+        y1={u.y}
+        x2={tg.x}
+        y2={tg.y}
+        stroke={tg.id === state.playerId ? '#ff5a3c' : '#ff9a6b'}
+        strokeOpacity={tg.id === state.playerId ? 0.55 : 0.22}
+        strokeWidth="0.12"
+        strokeDasharray="0.5 0.35"
+      />,
+    );
   }
   const floaters = fx.floaters;
   const lifts = labelLifts(units, state.playerId, tid);
   return (
     <div className={cx('bf', targeting && 'targeting')} style={{ aspectRatio: `${A.w} / ${A.h}`, '--ar': A.w / A.h }}>
-      <svg ref={svgRef} viewBox={`0 0 ${A.w} ${A.h}`} className="bf-svg" onPointerDown={handleDown} onPointerMove={handleMove} onContextMenu={(e) => e.preventDefault()}>
+      <svg
+        ref={svgRef}
+        viewBox={`0 0 ${A.w} ${A.h}`}
+        className="bf-svg"
+        onPointerDown={handleDown}
+        onPointerMove={handleMove}
+        onContextMenu={(e) => e.preventDefault()}
+      >
         <defs>
           <radialGradient id="bf-ground" cx="45%" cy="40%" r="80%">
             <stop offset="0" stopColor={theme.a} />
@@ -349,17 +515,61 @@ export function Battlefield({ state, fx, kitColor, targeting, hoverRing, onGroun
         </defs>
         <rect width={A.w} height={A.h} fill="url(#bf-ground)" />
         <rect width={A.w} height={A.h} fill={`url(#bf-speck-${A.theme || 'forest'})`} />
-        {(A.decor || []).map((d, i) => <Decor key={i} d={d} />)}
-        {state.zones.map((z) => <Zone key={z.id} z={z} t={t} />)}
-        {hoverRing && P && <circle cx={hoverRing.at === 'cursor' && hoverRing.x != null ? hoverRing.x : P.x} cy={hoverRing.at === 'cursor' && hoverRing.y != null ? hoverRing.y : P.y} r={hoverRing.r} fill={hoverRing.fill ? schoolHex(hoverRing.school) : 'none'} fillOpacity="0.08" stroke={schoolHex(hoverRing.school)} strokeOpacity="0.7" strokeWidth="0.12" strokeDasharray="0.6 0.4" pointerEvents="none" />}
-        {hoverRing && hoverRing.min && P && <circle cx={P.x} cy={P.y} r={hoverRing.min} fill="#ff4040" fillOpacity="0.06" stroke="#ff7a7a" strokeOpacity="0.6" strokeWidth="0.1" pointerEvents="none" />}
-        {lines}
-        {(A.obstacles || []).map((o) => <Obstacle key={o.id} o={o} />)}
-        {units.map((u) => (
-          <Token key={u.id} u={u} state={state} kitColor={kitColor} isTarget={u.id === tid} isPlayer={u.id === state.playerId} onPick={onPick} lift={lifts[u.id] || 0} />
+        {(A.decor || []).map((d, i) => (
+          <Decor key={i} d={d} />
         ))}
-        {state.projectiles.map((p) => <Projectile key={p.id} p={p} />)}
-        {fx.effects.map((f) => <Effect key={f.id} f={f} t={t} />)}
+        {state.zones.map((z) => (
+          <Zone key={z.id} z={z} t={t} />
+        ))}
+        {hoverRing && P && (
+          <circle
+            cx={hoverRing.at === 'cursor' && hoverRing.x != null ? hoverRing.x : P.x}
+            cy={hoverRing.at === 'cursor' && hoverRing.y != null ? hoverRing.y : P.y}
+            r={hoverRing.r}
+            fill={hoverRing.fill ? schoolHex(hoverRing.school) : 'none'}
+            fillOpacity="0.08"
+            stroke={schoolHex(hoverRing.school)}
+            strokeOpacity="0.7"
+            strokeWidth="0.12"
+            strokeDasharray="0.6 0.4"
+            pointerEvents="none"
+          />
+        )}
+        {hoverRing && hoverRing.min && P && (
+          <circle
+            cx={P.x}
+            cy={P.y}
+            r={hoverRing.min}
+            fill="#ff4040"
+            fillOpacity="0.06"
+            stroke="#ff7a7a"
+            strokeOpacity="0.6"
+            strokeWidth="0.1"
+            pointerEvents="none"
+          />
+        )}
+        {lines}
+        {(A.obstacles || []).map((o) => (
+          <Obstacle key={o.id} o={o} />
+        ))}
+        {units.map((u) => (
+          <Token
+            key={u.id}
+            u={u}
+            state={state}
+            kitColor={kitColor}
+            isTarget={u.id === tid}
+            isPlayer={u.id === state.playerId}
+            onPick={onPick}
+            lift={lifts[u.id] || 0}
+          />
+        ))}
+        {state.projectiles.map((p) => (
+          <Projectile key={p.id} p={p} />
+        ))}
+        {fx.effects.map((f) => (
+          <Effect key={f.id} f={f} t={t} />
+        ))}
       </svg>
       <div className="bf-overlay" aria-hidden="true">
         {floaters.map((f) => {
@@ -367,7 +577,11 @@ export function Battlefield({ state, fx, kitColor, targeting, hoverRing, onGroun
           const left = (f.x / A.w) * 100;
           const top = (f.y / A.h) * 100;
           return (
-            <div key={f.id} className={cx('float', 'f-' + f.kind, f.crit && 'crit')} style={{ left: `calc(${left}% + ${f.jitter * 10}px)`, top: `calc(${top}% - ${18 + k * 46}px)`, opacity: k > 0.7 ? (1 - k) / 0.3 : 1 }}>
+            <div
+              key={f.id}
+              className={cx('float', 'f-' + f.kind, f.crit && 'crit')}
+              style={{ left: `calc(${left}% + ${f.jitter * 10}px)`, top: `calc(${top}% - ${18 + k * 46}px)`, opacity: k > 0.7 ? (1 - k) / 0.3 : 1 }}
+            >
               {f.text}
             </div>
           );

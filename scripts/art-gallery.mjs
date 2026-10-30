@@ -40,21 +40,35 @@ let cells = [];
 if (kind === 'portraits') {
   const ids = Object.keys(mod.PORTRAITS).filter((id) => !filter || filter.includes(id));
   cells = ids.map((id) =>
-    h('div', { className: 'cell', key: id },
-      h('div', { className: 'row' },
+    h(
+      'div',
+      { className: 'cell', key: id },
+      h(
+        'div',
+        { className: 'row' },
         h('div', { className: 'round big' }, h(mod.Portrait, { id, size: 112 })),
         h('div', { className: 'round small' }, h(mod.Portrait, { id, size: 36 })),
-        h('div', { className: 'round small' }, h(mod.Portrait, { id, size: 36, dead: true }))),
-      h('div', { className: 'label' }, id)));
+        h('div', { className: 'round small' }, h(mod.Portrait, { id, size: 36, dead: true })),
+      ),
+      h('div', { className: 'label' }, id),
+    ),
+  );
 } else {
   const ids = Object.keys(mod.GLYPHS).filter((id) => !filter || filter.includes(id));
   const schools = ['fire', 'frost', 'arcane', 'shadow', 'holy', 'nature', 'physical'];
   cells = ids.map((id, i) =>
-    h('div', { className: 'cell icon', key: id },
-      h('div', { className: 'row' },
+    h(
+      'div',
+      { className: 'cell icon', key: id },
+      h(
+        'div',
+        { className: 'row' },
         h(mod.AbilityIcon, { icon: id, school: schools[i % schools.length], size: 72 }),
-        h(mod.AbilityIcon, { icon: id, school: schools[(i + 3) % schools.length], size: 34 })),
-      h('div', { className: 'label' }, id)));
+        h(mod.AbilityIcon, { icon: id, school: schools[(i + 3) % schools.length], size: 34 }),
+      ),
+      h('div', { className: 'label' }, id),
+    ),
+  );
 }
 const html = `<!doctype html><meta charset="utf-8"><style>
 body{margin:0;background:#15131a;color:#ddd;font:12px system-ui;padding:12px}
@@ -69,5 +83,9 @@ writeFileSync(htmlPath, html);
 const rows = Math.ceil(cells.length / (kind === 'portraits' ? 6 : 8));
 const height = Math.max(400, rows * (kind === 'portraits' ? 160 : 120) + 40);
 const edge = 'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe';
-execFileSync(edge, ['--headless=new', '--disable-gpu', '--hide-scrollbars', `--window-size=1320,${height}`, `--screenshot=${out}`, pathToFileURL(htmlPath).href], { stdio: 'ignore' });
+execFileSync(
+  edge,
+  ['--headless=new', '--disable-gpu', '--hide-scrollbars', `--window-size=1320,${height}`, `--screenshot=${out}`, pathToFileURL(htmlPath).href],
+  { stdio: 'ignore' },
+);
 console.log(`rendered ${cells.length} ${kind} → ${out}`);

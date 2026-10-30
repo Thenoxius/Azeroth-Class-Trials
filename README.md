@@ -1,8 +1,8 @@
 # Azeroth Class Trials
 
-A small real-time combat game that helps you pick a main for **World of Warcraft: Forever**: play Hunter, Mage and Priest through five short trials (questing, an ambush, a dungeon, a duel and a raid boss) and compare how each class felt.
+A small real-time combat game that helps you pick a main for **World of Warcraft: Forever**: play Hunter, Mage, Priest, Warrior, Rogue and Shaman through six short trials (questing, an ambush, a dungeon, a duel, a raid boss and a target dummy with a leaderboard) and compare how each class felt. Desktop only.
 
-**Play it:** https://thenoxius.github.io/Azeroth-Class-Trials/
+**Play it:** https://classtrials.com
 
 Progress is stored in your own browser only.
 
@@ -12,6 +12,7 @@ Progress is stored in your own browser only.
 npm install
 npm test          # bot-driven balance and kit tests
 npm run build     # dist/index.html (artifact) and dist/preview.html (standalone page)
+npm run format    # Prettier; CI fails on unformatted code
 ```
 
 Every push to `main` runs the tests, builds the game and publishes it to GitHub Pages (`.github/workflows/pages.yml`).

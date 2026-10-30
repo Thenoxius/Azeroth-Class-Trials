@@ -9,19 +9,37 @@ import { BASE, ATTR, PET } from './data/classic-tables.js';
 
 // Crit and dodge per point of agility / intellect, in percent, at levels 25/40/50/60.
 const CRIT_PER_AGI = {
-  warrior: [0.1111, 0.0758, 0.0610, 0.0500], paladin: [0.1075, 0.0741, 0.0606, 0.0506], hunter: [0.0515, 0.0303, 0.0234, 0.0189],
-  rogue: [0.0952, 0.0556, 0.0427, 0.0345], priest: [0.0769, 0.0645, 0.0571, 0.0500], shaman: [0.0971, 0.0717, 0.0600, 0.0508],
-  mage: [0.0720, 0.0621, 0.0563, 0.0514], warlock: [0.0909, 0.0698, 0.0588, 0.0500], druid: [0.1025, 0.0719, 0.0594, 0.0500],
+  warrior: [0.1111, 0.0758, 0.061, 0.05],
+  paladin: [0.1075, 0.0741, 0.0606, 0.0506],
+  hunter: [0.0515, 0.0303, 0.0234, 0.0189],
+  rogue: [0.0952, 0.0556, 0.0427, 0.0345],
+  priest: [0.0769, 0.0645, 0.0571, 0.05],
+  shaman: [0.0971, 0.0717, 0.06, 0.0508],
+  mage: [0.072, 0.0621, 0.0563, 0.0514],
+  warlock: [0.0909, 0.0698, 0.0588, 0.05],
+  druid: [0.1025, 0.0719, 0.0594, 0.05],
 };
 const CRIT_PER_INT = {
-  warrior: [0, 0, 0, 0], paladin: [0.0357, 0.0246, 0.0200, 0.0167], hunter: [0.0350, 0.0241, 0.0197, 0.0165], rogue: [0, 0, 0, 0],
-  priest: [0.0457, 0.0269, 0.0208, 0.0168], shaman: [0.0422, 0.0262, 0.0208, 0.0169], mage: [0.0475, 0.0276, 0.0211, 0.0168],
-  warlock: [0.0429, 0.0262, 0.0204, 0.0165], druid: [0.0427, 0.0260, 0.0205, 0.0167],
+  warrior: [0, 0, 0, 0],
+  paladin: [0.0357, 0.0246, 0.02, 0.0167],
+  hunter: [0.035, 0.0241, 0.0197, 0.0165],
+  rogue: [0, 0, 0, 0],
+  priest: [0.0457, 0.0269, 0.0208, 0.0168],
+  shaman: [0.0422, 0.0262, 0.0208, 0.0169],
+  mage: [0.0475, 0.0276, 0.0211, 0.0168],
+  warlock: [0.0429, 0.0262, 0.0204, 0.0165],
+  druid: [0.0427, 0.026, 0.0205, 0.0167],
 };
 const DODGE_PER_AGI = {
-  warrior: [0.1111, 0.0758, 0.0610, 0.0500], paladin: [0.1075, 0.0741, 0.0606, 0.0506], hunter: [0.1030, 0.0606, 0.0468, 0.0378],
-  rogue: [0.1904, 0.1112, 0.0854, 0.0690], priest: [0.0769, 0.0645, 0.0571, 0.0500], shaman: [0.0971, 0.0717, 0.0600, 0.0508],
-  mage: [0.0720, 0.0621, 0.0563, 0.0514], warlock: [0.0909, 0.0698, 0.0588, 0.0500], druid: [0.1025, 0.0719, 0.0594, 0.0500],
+  warrior: [0.1111, 0.0758, 0.061, 0.05],
+  paladin: [0.1075, 0.0741, 0.0606, 0.0506],
+  hunter: [0.103, 0.0606, 0.0468, 0.0378],
+  rogue: [0.1904, 0.1112, 0.0854, 0.069],
+  priest: [0.0769, 0.0645, 0.0571, 0.05],
+  shaman: [0.0971, 0.0717, 0.06, 0.0508],
+  mage: [0.072, 0.0621, 0.0563, 0.0514],
+  warlock: [0.0909, 0.0698, 0.0588, 0.05],
+  druid: [0.1025, 0.0719, 0.0594, 0.05],
 };
 // Base crit / dodge in percent (wowsims ClassBaseCrit).
 const BASE_SPELL_CRIT = { warrior: 0, paladin: 3.5, hunter: 3.6, rogue: 0, priest: 0.8, shaman: 2.3, mage: 0.2, warlock: 1.7, druid: 1.8 };
@@ -35,7 +53,13 @@ const CASTER_AP = { priest: true, mage: true, warlock: true };
 const SPIRIT_REGEN = { mage: (s) => 6.25 + s / 8, priest: (s) => 6.25 + s / 8, warlock: (s) => 4 + s / 10 };
 const spiritRegen = (classId, spi) => (SPIRIT_REGEN[classId] || ((s) => 7.5 + s / 10))(spi);
 // Health regen per second out of combat (Classic per-tick formulas / 2; approximate).
-const HP_REGEN = { warrior: (s) => (s * 0.8 + 6) / 2, rogue: (s) => (s * 0.5 + 2) / 2, hunter: (s) => (s * 0.25 + 6) / 2, mage: (s) => (s * 0.1 + 6) / 2, priest: (s) => (s * 0.1 + 6) / 2 };
+const HP_REGEN = {
+  warrior: (s) => (s * 0.8 + 6) / 2,
+  rogue: (s) => (s * 0.5 + 2) / 2,
+  hunter: (s) => (s * 0.25 + 6) / 2,
+  mage: (s) => (s * 0.1 + 6) / 2,
+  priest: (s) => (s * 0.1 + 6) / 2,
+};
 
 // Interpolate a 25/40/50/60 table. Below 25 the level-25 value is kept (we have no lower data).
 function atLevel(row, level) {
@@ -87,10 +111,18 @@ export const GEAR = {
     30: { int: 35, spi: 25, sta: 40, armor: 280, sp: 15 },
     60: { int: 130, spi: 60, sta: 150, armor: 800, sp: 230, spellHit: 0.02, critSpell: 0.01 },
   },
-  shamanCaster: {10:{int:8,spi:5,sta:6,armor:150},30:{int:40,spi:25,sta:40,armor:650,sp:15},60:{int:150,spi:60,sta:150,armor:3200,sp:230,spellHit:.02}},
-  shamanMelee: {10:{str:10,agi:5,sta:8,armor:180},30:{str:65,agi:30,int:25,sta:45,armor:850},60:{str:200,agi:100,int:70,sta:170,armor:3200,hit:.04,critPhys:.03}},
+  shamanCaster: {
+    10: { int: 8, spi: 5, sta: 6, armor: 150 },
+    30: { int: 40, spi: 25, sta: 40, armor: 650, sp: 15 },
+    60: { int: 150, spi: 60, sta: 150, armor: 3200, sp: 230, spellHit: 0.02 },
+  },
+  shamanMelee: {
+    10: { str: 10, agi: 5, sta: 8, armor: 180 },
+    30: { str: 65, agi: 30, int: 25, sta: 45, armor: 850 },
+    60: { str: 200, agi: 100, int: 70, sta: 170, armor: 3200, hit: 0.04, critPhys: 0.03 },
+  },
   shamanHealer: {
-    10:{int:8,spi:5,sta:6,armor:150},
+    10: { int: 8, spi: 5, sta: 6, armor: 150 },
     30: { int: 40, spi: 30, sta: 35, armor: 650, heal: 45, mp5: 5 },
     60: { int: 150, spi: 70, sta: 150, armor: 3200, heal: 450, mp5: 45, critSpell: 0.01 },
   },
@@ -100,7 +132,8 @@ export const GEAR = {
     60: { int: 150, spi: 130, sta: 110, armor: 800, sp: 0, heal: 450, mp5: 30, critSpell: 0.01 },
   },
 };
-export const GEAR_NOTE = 'Gear is our estimate of typical Classic gear at this level (WoW: Forever items are not public yet): quest greens at 10 and 30, fresh dungeon blues at 60.';
+export const GEAR_NOTE =
+  'Gear is our estimate of typical Classic gear at this level (WoW: Forever items are not public yet): quest greens at 10 and 30, fresh dungeon blues at 60.';
 
 // Weapons per class and level: [min, max, speed]. Approximations of typical items.
 export const WEAPONS = {
@@ -122,7 +155,7 @@ export const WEAPONS = {
   dagger: { 10: [7, 13, 1.8], 30: [26, 48, 1.8], 60: [70, 130, 1.8] },
   rogueSword: { 10: [9, 17, 2.5], 30: [33, 62, 2.6], 60: [84, 156, 2.7] },
   rogueDual: { 30: [40, 54, 1.9], 60: [118, 152, 1.9] },
-  casterMace: { 10:[7,13,2.5], 30: [25, 45, 2.6], 60: [60, 112, 2.5] },
+  casterMace: { 10: [7, 13, 2.5], 30: [25, 45, 2.6], 60: [60, 112, 2.5] },
 };
 // Hunters still use ammo and a quiver in Forever (Wowhead, Icy Veins). Arrow damage per second is
 // added to every ranged weapon hit; the quiver speeds up Auto Shot. Typical Classic items:
@@ -139,12 +172,18 @@ export const BUFFS = {
   battleShout: { 30: { ap: 36 }, 60: { ap: 140 } },
   trueshot: { 60: { rap: 50 } },
   manaSpring: { 30: { mp5: 10 }, 60: { mp5: 25 } },
-  strengthOfEarth: { 10:{str:7}, 30: { str: 14 }, 60: { str: 53 } },
+  strengthOfEarth: { 10: { str: 7 }, 30: { str: 14 }, 60: { str: 53 } },
   graceOfAir: { 60: { agi: 89 } },
   demonArmor: { 30: { armor: 300 }, 60: { armor: 570 } },
 };
 // Which buffs a group member of each class brings (Shaman totems as the buffs they give).
-export const CLASS_BUFFS = { warrior: ['battleShout'], priest: ['fortitude', 'divineSpirit'], mage: ['arcaneIntellect'], hunter: ['trueshot'], shaman: ['manaSpring', 'strengthOfEarth', 'graceOfAir'] };
+export const CLASS_BUFFS = {
+  warrior: ['battleShout'],
+  priest: ['fortitude', 'divineSpirit'],
+  mage: ['arcaneIntellect'],
+  hunter: ['trueshot'],
+  shaman: ['manaSpring', 'strengthOfEarth', 'graceOfAir'],
+};
 export const buffsFromClasses = (classIds) => [...new Set(classIds.flatMap((c) => CLASS_BUFFS[c] || []))];
 export function buffTotals(names, level) {
   const L = snapLevel(level);
@@ -169,7 +208,8 @@ export function baseAttrs(classId, race, L) {
   if (rows[race]) return rows[race][L];
   const known = Object.keys(rows).find((r) => ATTR[RACE_REF][r]);
   const base = rows[known][L];
-  const off = raceOffset(race, L), offKnown = raceOffset(known, L);
+  const off = raceOffset(race, L),
+    offKnown = raceOffset(known, L);
   return base.map((v, i) => v + off[i] - offKnown[i]);
 }
 
@@ -179,7 +219,11 @@ export function deriveStats({ classId, race, level, gear, buffs = {}, pct = {}, 
   const [baseHp, baseMana] = BASE[classId][L];
   const g = gear || {};
   const a = (k, base) => Math.round((base + (g[k] || 0) + (buffs[k] || 0)) * (1 + (pct[k] || 0)));
-  const str = a('str', str0), agi = a('agi', agi0), sta = a('sta', sta0), int = a('int', int0), spi = a('spi', spi0);
+  const str = a('str', str0),
+    agi = a('agi', agi0),
+    sta = a('sta', sta0),
+    int = a('int', int0),
+    spi = a('spi', spi0);
   const fromSta = Math.min(sta, 20) + Math.max(0, sta - 20) * 10;
   const fromInt = Math.min(int, 20) + Math.max(0, int - 20) * 15;
   const levelAp = CASTER_AP[classId] ? -10 : L * 2 - 20;

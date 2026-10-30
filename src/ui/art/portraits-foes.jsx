@@ -6,10 +6,14 @@
 const K = '#120b09';
 const stops = (cs) => cs.map((c, i) => <stop key={i} offset={i / (cs.length - 1)} stopColor={c} />);
 const lg = (id, cs, x2 = 0.8, y2 = 1) => (
-  <linearGradient id={id} x1="0.15" y1="0" x2={x2} y2={y2}>{stops(cs)}</linearGradient>
+  <linearGradient id={id} x1="0.15" y1="0" x2={x2} y2={y2}>
+    {stops(cs)}
+  </linearGradient>
 );
 const rg = (id, cs, cx = 0.5, cy = 0.5, r = 0.5) => (
-  <radialGradient id={id} cx={cx} cy={cy} r={r}>{stops(cs)}</radialGradient>
+  <radialGradient id={id} cx={cx} cy={cy} r={r}>
+    {stops(cs)}
+  </radialGradient>
 );
 const glow = (id, c, o = 0.85) => (
   <radialGradient id={id}>
@@ -30,7 +34,11 @@ const gnollHead = (id, eye) => (
     <path d="M21 66 L58 64 C58 72 51 79 41 79 C32 79 25 75 22 70Z" fill={`url(#${id}-fur)`} {...ol} strokeWidth="1.4" />
     <path d="M21.8 66.6 L36 65.2 C35.4 70 34.6 75 33.4 78.6 C28.4 78 24.6 75 22.6 70.6Z" fill={`url(#${id}-snout)`} opacity="0.9" />
     <path d="M24.5 66.4 L26.5 61.5 L28.6 66.2 L31 62 L33.3 66 L35.6 62.2 L38 65.8 L40.4 62.4 L42.8 65.6 L45 62.6 L47.4 65.4Z" fill="#f2e8d0" />
-    <path d="M50 21 C62 18 75 24 78 36 C80 46 76 55 69 59 L60 61 L44 59.5 L25 58 C19 57.5 15 54.5 15 50.5 C15 47 17.5 45 21 44 L33 39 C37 30 43 24 50 21Z" fill={`url(#${id}-fur)`} {...ol} />
+    <path
+      d="M50 21 C62 18 75 24 78 36 C80 46 76 55 69 59 L60 61 L44 59.5 L25 58 C19 57.5 15 54.5 15 50.5 C15 47 17.5 45 21 44 L33 39 C37 30 43 24 50 21Z"
+      fill={`url(#${id}-fur)`}
+      {...ol}
+    />
     <path d="M33 39 L21 44 C17.5 45 15 47 15 50.5 C15 54.5 19 57.5 25 58 L42 59.4 C40 52 37.5 45 33 39Z" fill={`url(#${id}-snout)`} />
     <path d="M23.5 57.9 L25.5 62 L27.5 58.2 L30 65 L32.4 58.5 L34.6 62.4 L36.8 58.8 L39 62.6 L41.2 59.1 L43.4 62.6 L45.6 59.4Z" fill="#f2e8d0" />
     <ellipse cx="18" cy="48" rx="3.8" ry="2.7" transform="rotate(-20 18 48)" fill="#050302" />
@@ -57,12 +65,19 @@ export const PORTRAITS_FOES = {
         <path d="M70 40 L86 10 L54 27Z" fill="url(#wolf-fur)" {...ol} />
         <path d="M30 34 L19 16 L40 28Z" fill="#4a1a17" />
         <path d="M70 34 L81 16 L60 28Z" fill="#3a1412" />
-        <path d="M50 19 C38 19 30 27 27 38 L13 45 L23 51 L16 60 L30 62 C34 74 42 84 50 87 C58 84 66 74 70 62 L84 60 L77 51 L87 45 L73 38 C70 27 62 19 50 19Z" fill="url(#wolf-fur)" {...ol} />
+        <path
+          d="M50 19 C38 19 30 27 27 38 L13 45 L23 51 L16 60 L30 62 C34 74 42 84 50 87 C58 84 66 74 70 62 L84 60 L77 51 L87 45 L73 38 C70 27 62 19 50 19Z"
+          fill="url(#wolf-fur)"
+          {...ol}
+        />
         <path d="M50 21 C46 29 44 37 46 46 L50 50 L54 46 C56 37 54 29 50 21Z" fill="#1e1816" opacity="0.6" />
         <path d="M50 44 C43 44 39 51 37 60 C36 70 42 80 50 82 C58 80 64 70 63 60 C61 51 57 44 50 44Z" fill="url(#wolf-muz)" />
         <path d="M36.5 63 C42 67 58 67 63.5 63 C62.5 74 57 81 50 81 C43 81 37.5 74 36.5 63Z" fill="#2e0709" stroke={K} strokeWidth="1" />
         <path d="M42 76 Q50 72 58 76 Q55 80 50 80 Q45 80 42 76Z" fill="#9a2e34" />
-        <path d="M38.5 64 L41.5 75 L44 65.5Z M61.5 64 L58.5 75 L56 65.5Z M42.5 80 L44.5 71 L46.5 80.5Z M57.5 80 L55.5 71 L53.5 80.5Z M45 66 L46.5 69 L48 66.5Z M52 66.5 L53.5 69 L55 66Z" fill="#f2ead8" />
+        <path
+          d="M38.5 64 L41.5 75 L44 65.5Z M61.5 64 L58.5 75 L56 65.5Z M42.5 80 L44.5 71 L46.5 80.5Z M57.5 80 L55.5 71 L53.5 80.5Z M45 66 L46.5 69 L48 66.5Z M52 66.5 L53.5 69 L55 66Z"
+          fill="#f2ead8"
+        />
         <path d="M43 50 Q50 47.5 57 50 M42 53.5 Q50 51 58 53.5" fill="none" stroke="#3a302c" strokeWidth="1.2" />
         <ellipse cx="50" cy="58" rx="5.5" ry="3.6" fill="#0c0808" />
         <ellipse cx="48.4" cy="56.9" rx="1.8" ry="0.9" fill="#fff" opacity="0.5" />
@@ -110,7 +125,11 @@ export const PORTRAITS_FOES = {
         <path d="M28 49 C28 34 38 26 50 26 C62 26 72 34 72 49Z" fill="url(#kobold-helm)" {...ol} />
         <path d="M22 48 Q50 54 78 48 L77 53 Q50 59 23 53Z" fill="#3e3a34" {...ol} strokeWidth="1.3" />
         <path d="M60 33 L64 38 L62 44" fill="none" stroke="#2a2622" strokeWidth="1" />
-        <g fill="#d8cfbe"><circle cx="34" cy="43" r="1.1" /><circle cx="66" cy="43" r="1.1" /><circle cx="50" cy="47" r="1.1" /></g>
+        <g fill="#d8cfbe">
+          <circle cx="34" cy="43" r="1.1" />
+          <circle cx="66" cy="43" r="1.1" />
+          <circle cx="50" cy="47" r="1.1" />
+        </g>
         <path d="M43 23 h14 v4.5 h-14Z" fill="#6a625a" stroke={K} strokeWidth="1" />
         <path d="M45 14 h10 v9.5 h-10Z" fill="#efe2b8" stroke={K} strokeWidth="1" />
         <path d="M45.5 14.5 h9 v1.5 c0 2 -2 2 -2 4 c0 1 -1.5 1 -1.5 0 v-3 h-5.5Z" fill="#fffbe8" />
@@ -139,7 +158,12 @@ export const PORTRAITS_FOES = {
         <ellipse cx="22" cy="41" rx="4.5" ry="7.5" transform="rotate(-42 22 41)" fill="#a8665a" />
         <ellipse cx="79" cy="40" rx="8" ry="12" transform="rotate(42 79 40)" fill="url(#kobold-geomancer-fur)" {...ol} strokeWidth="1.4" />
         <ellipse cx="78" cy="41" rx="4.5" ry="7.5" transform="rotate(42 78 41)" fill="#8a5248" />
-        <path d="M50 34 C40 34 34 42 35 52 C36 62 43 70 46 78 Q50 84 54 78 C57 70 64 62 65 52 C66 42 60 34 50 34Z" fill="url(#kobold-geomancer-fur)" stroke={K} strokeWidth="1.4" />
+        <path
+          d="M50 34 C40 34 34 42 35 52 C36 62 43 70 46 78 Q50 84 54 78 C57 70 64 62 65 52 C66 42 60 34 50 34Z"
+          fill="url(#kobold-geomancer-fur)"
+          stroke={K}
+          strokeWidth="1.4"
+        />
         <path d="M43 60 C43 66 46 73 50 77 C54 73 57 66 57 60 C55 57 45 57 43 60Z" fill="#ecd2a8" />
         <ellipse cx="50" cy="76" rx="3.6" ry="2.6" fill="#d88080" stroke={K} strokeWidth="0.7" />
         <path d="M47.5 79 h5 v5 h-5Z" fill="#f0e8cc" stroke={K} strokeWidth="0.7" />
@@ -169,16 +193,28 @@ export const PORTRAITS_FOES = {
         <path d="M6 100 C8 86 20 77 36 74 L52 70 L68 66 C82 69 92 82 94 100Z" fill="url(#gnoll-fur)" {...ol} />
         <path d="M72 70 L34 100 H46 L78 75Z" fill="#4a2e18" stroke={K} strokeWidth="1" />
         <path d="M24 84 L27 90 L30 85 L33 91 L36 86 L39 92 L42 87" fill="none" stroke="#efe4c8" strokeWidth="1.8" strokeLinejoin="round" />
-        <path d="M44 25 L45 11 L53 19 L57 5 L63 17 L71 8 L72 22 L82 17 L79 30 L90 30 L82 40 L92 46 L82 50 L90 60 L78 60 L82 72 L64 66Z" fill="#2e1c10" {...ol} strokeWidth="1" />
+        <path
+          d="M44 25 L45 11 L53 19 L57 5 L63 17 L71 8 L72 22 L82 17 L79 30 L90 30 L82 40 L92 46 L82 50 L90 60 L78 60 L82 72 L64 66Z"
+          fill="#2e1c10"
+          {...ol}
+          strokeWidth="1"
+        />
         <ellipse cx="44" cy="20" rx="7" ry="9" transform="rotate(-25 44 20)" fill="url(#gnoll-fur)" {...ol} />
         <ellipse cx="44.5" cy="21" rx="3.8" ry="5.5" transform="rotate(-25 44.5 21)" fill="#5a3a20" />
         <ellipse cx="70" cy="19" rx="8" ry="10.5" transform="rotate(22 70 19)" fill="url(#gnoll-fur)" {...ol} />
         <ellipse cx="69.5" cy="20" rx="4.5" ry="6.5" transform="rotate(22 69.5 20)" fill="#4a2e18" />
         {gnollHead('gnoll', '#ffc83a')}
         <g fill="#5a3a1a" opacity="0.85">
-          <circle cx="64" cy="27" r="2.2" /><circle cx="72" cy="38" r="2" /><circle cx="66" cy="47" r="1.9" />
-          <circle cx="57" cy="50" r="1.5" /><circle cx="73" cy="51" r="1.5" /><circle cx="51" cy="27" r="1.4" />
-          <circle cx="16" cy="90" r="2.4" /><circle cx="84" cy="86" r="2.4" /><circle cx="88" cy="94" r="1.8" /><circle cx="62" cy="86" r="1.8" />
+          <circle cx="64" cy="27" r="2.2" />
+          <circle cx="72" cy="38" r="2" />
+          <circle cx="66" cy="47" r="1.9" />
+          <circle cx="57" cy="50" r="1.5" />
+          <circle cx="73" cy="51" r="1.5" />
+          <circle cx="51" cy="27" r="1.4" />
+          <circle cx="16" cy="90" r="2.4" />
+          <circle cx="84" cy="86" r="2.4" />
+          <circle cx="88" cy="94" r="1.8" />
+          <circle cx="62" cy="86" r="1.8" />
         </g>
         {rim('M45 13 C42 14 39 17 38 20', '#ffe6b8', 1.3, 0.55)}
         {rim('M8 96 C10 86 20 78 34 75', '#ffe6b8', 1.3, 0.5)}
@@ -202,14 +238,28 @@ export const PORTRAITS_FOES = {
         <path d="M98 100 L97 78 C95 64 82 58 68 60 C60 62 58 70 58 80 L60 100Z" fill="url(#gnoll-brute-iron)" {...ol} />
         <path d="M10 64 L4 44 L19 60Z M90 64 L96 44 L81 60Z M76 61 L80 42 L68 60Z" fill="url(#gnoll-brute-iron)" {...ol} strokeWidth="1.2" />
         <path d="M4 86 C12 78 28 76 41 82 M96 86 C88 78 72 76 59 82" fill="none" stroke={K} strokeWidth="1.2" />
-        <g fill="#e2d8c4"><circle cx="12" cy="74" r="1.2" /><circle cx="30" cy="68" r="1.2" /><circle cx="88" cy="74" r="1.2" /><circle cx="70" cy="68" r="1.2" /></g>
+        <g fill="#e2d8c4">
+          <circle cx="12" cy="74" r="1.2" />
+          <circle cx="30" cy="68" r="1.2" />
+          <circle cx="88" cy="74" r="1.2" />
+          <circle cx="70" cy="68" r="1.2" />
+        </g>
         <g transform="translate(5 6) scale(0.9)">{gnollHead('gnoll-brute', '#ff6a2a')}</g>
         <path d="M34 33 C35 20 46 12 58 12 C70 12 78 19 80 32 Q58 25 34 33Z" fill="url(#gnoll-brute-iron)" {...ol} />
         <path d="M32 33 Q58 24 82 33 L81.5 37.5 Q58 29 33 37.5Z" fill="url(#gnoll-brute-iron)" {...ol} strokeWidth="1.2" />
         <path d="M44 17 L31 3 L50 13.5Z M70 15 L82 2 L77 21Z" fill="url(#gnoll-brute-iron)" {...ol} strokeWidth="1.2" />
-        <g fill="#e2d8c4"><circle cx="40" cy="33.4" r="1" /><circle cx="52" cy="30.4" r="1" /><circle cx="64" cy="29.8" r="1" /><circle cx="75" cy="31.6" r="1" /></g>
+        <g fill="#e2d8c4">
+          <circle cx="40" cy="33.4" r="1" />
+          <circle cx="52" cy="30.4" r="1" />
+          <circle cx="64" cy="29.8" r="1" />
+          <circle cx="75" cy="31.6" r="1" />
+        </g>
         <path d="M52 34 L60 51" stroke="#e0a890" strokeWidth="1.3" strokeLinecap="round" />
-        <g fill="#3e2610" opacity="0.85"><circle cx="66" cy="47" r="1.8" /><circle cx="70" cy="40" r="1.6" /><circle cx="56" cy="53" r="1.4" /></g>
+        <g fill="#3e2610" opacity="0.85">
+          <circle cx="66" cy="47" r="1.8" />
+          <circle cx="70" cy="40" r="1.6" />
+          <circle cx="56" cy="53" r="1.4" />
+        </g>
         {rim('M36 30 C37 21 46 14 57 13', '#fff0d0', 1.8, 0.75)}
         {rim('M4 78 C6 66 18 60 30 60', '#fff0d0', 1.6, 0.7)}
         {rim('M4 44 L10 64', '#fff0d0', 1.2, 0.6)}
@@ -281,7 +331,8 @@ export const PORTRAITS_FOES = {
   spider: {
     bg: ['#2e3c1e', '#070a05'],
     draw: () => {
-      const legs = 'M37 54 L22 25 L8 46 M35 58 L13 38 L6 62 M36 63 L13 58 L17 84 M40 68 L22 76 L27 96 M63 54 L78 25 L92 46 M65 58 L87 38 L94 62 M64 63 L87 58 L83 84 M60 68 L78 76 L73 96';
+      const legs =
+        'M37 54 L22 25 L8 46 M35 58 L13 38 L6 62 M36 63 L13 58 L17 84 M40 68 L22 76 L27 96 M63 54 L78 25 L92 46 M65 58 L87 38 L94 62 M64 63 L87 58 L83 84 M60 68 L78 76 L73 96';
       return (
         <g>
           <defs>
@@ -297,17 +348,28 @@ export const PORTRAITS_FOES = {
           <ellipse cx="50" cy="58" rx="19" ry="17" fill="url(#spider-body)" {...ol} />
           <ellipse cx="43.5" cy="73" rx="5.5" ry="7" fill="url(#spider-body)" stroke={K} strokeWidth="1.2" />
           <ellipse cx="56.5" cy="73" rx="5.5" ry="7" fill="url(#spider-body)" stroke={K} strokeWidth="1.2" />
-          <path d="M40.5 77 C37.5 85 39.5 91 46 94 C44 89 44 83 45.5 78Z M59.5 77 C62.5 85 60.5 91 54 94 C56 89 56 83 54.5 78Z" fill="#ece0c4" stroke={K} strokeWidth="0.9" />
+          <path
+            d="M40.5 77 C37.5 85 39.5 91 46 94 C44 89 44 83 45.5 78Z M59.5 77 C62.5 85 60.5 91 54 94 C56 89 56 83 54.5 78Z"
+            fill="#ece0c4"
+            stroke={K}
+            strokeWidth="0.9"
+          />
           <circle cx="50" cy="54" r="16" fill="url(#spider-glow)" />
           <g fill="#ff3a24" stroke={K} strokeWidth="0.8">
-            <circle cx="44.5" cy="58" r="4.3" /><circle cx="55.5" cy="58" r="4.3" />
-            <circle cx="38.5" cy="51" r="2.7" /><circle cx="61.5" cy="51" r="2.7" />
-            <circle cx="45" cy="48.5" r="2.1" /><circle cx="55" cy="48.5" r="2.1" />
-            <circle cx="34.5" cy="57.5" r="1.9" /><circle cx="65.5" cy="57.5" r="1.9" />
+            <circle cx="44.5" cy="58" r="4.3" />
+            <circle cx="55.5" cy="58" r="4.3" />
+            <circle cx="38.5" cy="51" r="2.7" />
+            <circle cx="61.5" cy="51" r="2.7" />
+            <circle cx="45" cy="48.5" r="2.1" />
+            <circle cx="55" cy="48.5" r="2.1" />
+            <circle cx="34.5" cy="57.5" r="1.9" />
+            <circle cx="65.5" cy="57.5" r="1.9" />
           </g>
           <g fill="#ffe0c0">
-            <circle cx="43.2" cy="56.6" r="1.3" /><circle cx="54.2" cy="56.6" r="1.3" />
-            <circle cx="37.8" cy="50.2" r="0.8" /><circle cx="60.8" cy="50.2" r="0.8" />
+            <circle cx="43.2" cy="56.6" r="1.3" />
+            <circle cx="54.2" cy="56.6" r="1.3" />
+            <circle cx="37.8" cy="50.2" r="0.8" />
+            <circle cx="60.8" cy="50.2" r="0.8" />
           </g>
           {rim('M30 24 C33 16 41 12 50 11')}
           {rim('M32 53 C34 46 40 42 46 41', '#ffe6b8', 1.3, 0.5)}
@@ -331,7 +393,13 @@ export const PORTRAITS_FOES = {
         <path d="M24 65.6 L26 60.6 L28.6 65.3 L31 60.2 L33.6 65 L36 59.8 L38.6 64.7 L41 59.5 L43.6 64.4 L46 59.5 L48.5 64Z" fill="#f6eedc" />
         <path d="M10 48 C12 40 24 32 40 28 C54 24 68 24 78 32 C86 40 88 52 82 60 L72 56 L44 54 L12 51Z" fill="url(#raptor-skin)" {...ol} />
         <path d="M14 51 L16.5 56 L19 51.4 L21.5 57 L24 51.8 L26.5 57.5 L29 52.2 L31.5 58 L34 52.6 L36.5 58 L39 53 L41.5 58.5 L44 54Z" fill="#f6eedc" />
-        <path d="M42 30 C44 36 44 42 42 47 M52 27 C55 34 55 42 52 49 M65 27 C68 35 67 44 64 51 M70 64 C75 72 75 81 71 90 M81 61 C86 72 86 84 82 96" fill="none" stroke="#2a0a04" strokeWidth="2.6" strokeLinecap="round" />
+        <path
+          d="M42 30 C44 36 44 42 42 47 M52 27 C55 34 55 42 52 49 M65 27 C68 35 67 44 64 51 M70 64 C75 72 75 81 71 90 M81 61 C86 72 86 84 82 96"
+          fill="none"
+          stroke="#2a0a04"
+          strokeWidth="2.6"
+          strokeLinecap="round"
+        />
         <path d="M52 37 L65 34 L63 41 L54 41Z" fill="#ffd23a" stroke={K} strokeWidth="1" />
         <path d="M59 34.6 L58.6 41" stroke={K} strokeWidth="1.5" />
         <path d="M47 34 L67 29.5" stroke={K} strokeWidth="2.8" strokeLinecap="round" />
@@ -354,9 +422,24 @@ export const PORTRAITS_FOES = {
         </defs>
         <path d="M6 100 C10 82 24 72 40 70 L60 70 C76 72 90 82 94 100Z" fill="url(#zealot-red)" {...ol} />
         <path d="M33 74 L67 74 L64 100 L36 100Z" fill="url(#zealot-white)" stroke="#8e161c" strokeWidth="2.2" strokeLinejoin="round" />
-        <path d="M50 78 C44 85 44 92 50 98 C56 92 56 85 50 78Z M42 86 C40 90 41 94 44 96 M58 86 C60 90 59 94 56 96" fill="url(#zealot-red)" stroke="#8e161c" strokeWidth="1.4" />
-        <path d="M50 19 C35 19 28 32 28 48 C28 62 33 72 41 78 L59 78 C67 72 72 62 72 48 C72 32 65 19 50 19Z" fill="url(#zealot-red)" {...ol} strokeWidth="1.5" />
-        <path d="M50 33 C42 33 37.5 41 37.5 51 C37.5 62 43 70 50 72 C57 70 62.5 62 62.5 51 C62.5 41 58 33 50 33Z" fill="url(#zealot-skin)" stroke={K} strokeWidth="1.2" />
+        <path
+          d="M50 78 C44 85 44 92 50 98 C56 92 56 85 50 78Z M42 86 C40 90 41 94 44 96 M58 86 C60 90 59 94 56 96"
+          fill="url(#zealot-red)"
+          stroke="#8e161c"
+          strokeWidth="1.4"
+        />
+        <path
+          d="M50 19 C35 19 28 32 28 48 C28 62 33 72 41 78 L59 78 C67 72 72 62 72 48 C72 32 65 19 50 19Z"
+          fill="url(#zealot-red)"
+          {...ol}
+          strokeWidth="1.5"
+        />
+        <path
+          d="M50 33 C42 33 37.5 41 37.5 51 C37.5 62 43 70 50 72 C57 70 62.5 62 62.5 51 C62.5 41 58 33 50 33Z"
+          fill="url(#zealot-skin)"
+          stroke={K}
+          strokeWidth="1.2"
+        />
         <path d="M40 60 C42 67 46 71 50 71 C54 71 58 67 60 60 C57 65 53 66 50 66 C47 66 43 65 40 60Z" fill="#5a3424" opacity="0.45" />
         <path d="M29 37 C29 23 39 15 50 15 C61 15 71 23 71 37 Q50 31 29 37Z" fill="url(#zealot-steel)" {...ol} strokeWidth="1.5" />
         <path d="M26 38 Q50 30 74 38 L74 42.5 Q50 35 26 42.5Z" fill="url(#zealot-steel)" {...ol} strokeWidth="1.3" />
@@ -392,7 +475,12 @@ export const PORTRAITS_FOES = {
         <path d="M37 69 Q50 77 63 69 L61 65 Q50 71 39 65Z" fill="url(#zealot-priest-gold)" stroke={K} strokeWidth="0.8" />
         <circle cx="75" cy="86" r="14" fill="url(#zealot-priest-glow)" />
         <path d="M75 78 L76.8 84.2 L83 86 L76.8 87.8 L75 94 L73.2 87.8 L67 86 L73.2 84.2Z" fill="#fffbe6" />
-        <path d="M50 32 C40 32 35 40 35 50 C35 62 42 71 50 73 C58 71 65 62 65 50 C65 40 60 32 50 32Z" fill="url(#zealot-priest-skin)" {...ol} strokeWidth="1.5" />
+        <path
+          d="M50 32 C40 32 35 40 35 50 C35 62 42 71 50 73 C58 71 65 62 65 50 C65 40 60 32 50 32Z"
+          fill="url(#zealot-priest-skin)"
+          {...ol}
+          strokeWidth="1.5"
+        />
         <path d="M37 54 C38 49 41 47 44 47 M63 54 C62 49 59 47 56 47" fill="none" stroke="#7a4a34" strokeWidth="0.8" opacity="0.7" />
         <path d="M44.5 64.5 Q50 68 55.5 64.5 L52.5 77 L50 80 L47.5 77Z" fill="#d6d0c4" stroke={K} strokeWidth="0.8" />
         <path d="M40 50.5 Q43.5 48.4 47 51 Q43.5 52.6 40 50.5Z M60 50.5 Q56.5 48.4 53 51 Q56.5 52.6 60 50.5Z" fill="#fff6d8" />
@@ -425,11 +513,26 @@ export const PORTRAITS_FOES = {
         <path d="M50 79 C45 85 45 92 50 98 C55 92 55 85 50 79Z" fill="#f2ead8" stroke={K} strokeWidth="0.8" />
         <path d="M2 100 L3 82 C4 68 16 60 30 61 C40 62 43 70 43 80 L40 100Z" fill="url(#zealot-guard-steel)" {...ol} />
         <path d="M98 100 L97 82 C96 68 84 60 70 61 C60 62 57 70 57 80 L60 100Z" fill="url(#zealot-guard-steel)" {...ol} />
-        <path d="M4 84 C10 75 26 71 42 76 M3 93 C12 85 28 83 41 87 M96 84 C90 75 74 71 58 76 M97 93 C88 85 72 83 59 87" fill="none" stroke={K} strokeWidth="1.3" />
+        <path
+          d="M4 84 C10 75 26 71 42 76 M3 93 C12 85 28 83 41 87 M96 84 C90 75 74 71 58 76 M97 93 C88 85 72 83 59 87"
+          fill="none"
+          stroke={K}
+          strokeWidth="1.3"
+        />
         <path d="M4 84 C10 75 26 71 42 76 L42 79 C26 74 12 78 4 87Z M96 84 C90 75 74 71 58 76 L58 79 C74 74 88 78 96 87Z" fill="#a81c22" />
-        <g fill="#f0ece4"><circle cx="14" cy="69" r="1.2" /><circle cx="30" cy="65" r="1.2" /><circle cx="86" cy="69" r="1.2" /><circle cx="70" cy="65" r="1.2" /></g>
+        <g fill="#f0ece4">
+          <circle cx="14" cy="69" r="1.2" />
+          <circle cx="30" cy="65" r="1.2" />
+          <circle cx="86" cy="69" r="1.2" />
+          <circle cx="70" cy="65" r="1.2" />
+        </g>
         <path d="M40 16 C39 6 46 3 52 4 C59 5 63 9 61 16Z" fill="url(#zealot-guard-red)" {...ol} strokeWidth="1.2" />
-        <path d="M32 32 C32 19 40 12 50 12 C60 12 68 19 68 32 L68 64 C68 71 60 76 50 76 C40 76 32 71 32 64Z" fill="url(#zealot-guard-steel)" {...ol} strokeWidth="1.8" />
+        <path
+          d="M32 32 C32 19 40 12 50 12 C60 12 68 19 68 32 L68 64 C68 71 60 76 50 76 C40 76 32 71 32 64Z"
+          fill="url(#zealot-guard-steel)"
+          {...ol}
+          strokeWidth="1.8"
+        />
         <path d="M32 29 Q50 24 68 29 L68 35.5 Q50 30.5 32 35.5Z" fill="url(#zealot-guard-red)" stroke={K} strokeWidth="1" />
         <path d="M35 43 Q50 40 65 43 L64 49 Q50 46.5 36 49Z" fill="#080404" stroke={K} strokeWidth="1" />
         <circle cx="43" cy="45.5" r="4.5" fill="url(#zealot-guard-glow)" />
@@ -438,8 +541,14 @@ export const PORTRAITS_FOES = {
         <ellipse cx="57" cy="45.4" rx="2.4" ry="0.9" fill="#ff8a5a" />
         <path d="M48.6 48.5 h2.8 v27 h-2.8Z" fill="#c8ccd4" stroke={K} strokeWidth="0.8" />
         <g fill="#0a0606">
-          <circle cx="40" cy="58" r="1" /><circle cx="44" cy="60" r="1" /><circle cx="40" cy="63" r="1" /><circle cx="44" cy="65" r="1" />
-          <circle cx="60" cy="58" r="1" /><circle cx="56" cy="60" r="1" /><circle cx="60" cy="63" r="1" /><circle cx="56" cy="65" r="1" />
+          <circle cx="40" cy="58" r="1" />
+          <circle cx="44" cy="60" r="1" />
+          <circle cx="40" cy="63" r="1" />
+          <circle cx="44" cy="65" r="1" />
+          <circle cx="60" cy="58" r="1" />
+          <circle cx="56" cy="60" r="1" />
+          <circle cx="60" cy="63" r="1" />
+          <circle cx="56" cy="65" r="1" />
         </g>
         {rim('M34 40 V31 C34 21 41 14 50 13.5', '#ffffff', 1.8, 0.85)}
         {rim('M4 82 C5 70 16 62 29 62', '#ffffff', 1.6, 0.75)}
@@ -463,7 +572,12 @@ export const PORTRAITS_FOES = {
         <path d="M30 67 L40 100 H48 L42 69Z M70 67 L60 100 H52 L58 69Z" fill="#f0e6d0" stroke="#d8a03a" strokeWidth="1.8" />
         <path d="M40 84 L46 84 M42 92 L48 92 M60 84 L54 84 M58 92 L52 92" stroke="#c88a24" strokeWidth="1.6" />
         <path d="M50 7 C30 9 18 27 19 50 C20 62 26 70 32 74 L68 74 C74 70 80 62 81 50 C82 27 70 9 50 7Z" fill="url(#abbot-red)" {...ol} />
-        <path d="M50 21 C38 21 31 33 31 48 C31 60 39 70 50 74 C61 70 69 60 69 48 C69 33 62 21 50 21Z" fill="#1a0505" stroke="url(#abbot-gold)" strokeWidth="2.6" />
+        <path
+          d="M50 21 C38 21 31 33 31 48 C31 60 39 70 50 74 C61 70 69 60 69 48 C69 33 62 21 50 21Z"
+          fill="#1a0505"
+          stroke="url(#abbot-gold)"
+          strokeWidth="2.6"
+        />
         <path d="M50 29 C42 29 37 37 37 47 C37 57 43 64 50 66 C57 64 63 57 63 47 C63 37 58 29 50 29Z" fill="#6a3a2a" opacity="0.75" />
         <path d="M38 41 L50 45 L62 41 L62 44 L50 48.5 L38 44Z" fill="#1a0505" opacity="0.7" />
         <path d="M37 55 C37 70 43 84 50 95 C57 84 63 70 63 55 C59 61 55 62 50 59 C45 62 41 61 37 55Z" fill="url(#abbot-beard)" stroke={K} strokeWidth="1" />
@@ -476,7 +590,12 @@ export const PORTRAITS_FOES = {
         <path d="M24 15 C30 10 28 5 33 2" fill="none" stroke="#d8d0c8" strokeWidth="2" opacity="0.4" strokeLinecap="round" />
         <circle cx="20" cy="27" r="11" fill="url(#abbot-fire)" />
         <circle cx="20" cy="27" r="8" fill="none" stroke="url(#abbot-gold)" strokeWidth="3" />
-        <path d="M20 16 L21.5 19 L18.5 19Z M20 38 L21.5 35 L18.5 35Z M9 27 L12 25.5 L12 28.5Z M31 27 L28 25.5 L28 28.5Z" fill="#f0c050" stroke={K} strokeWidth="0.6" />
+        <path
+          d="M20 16 L21.5 19 L18.5 19Z M20 38 L21.5 35 L18.5 35Z M9 27 L12 25.5 L12 28.5Z M31 27 L28 25.5 L28 28.5Z"
+          fill="#f0c050"
+          stroke={K}
+          strokeWidth="0.6"
+        />
         <circle cx="20" cy="27" r="4.6" fill="#ffd060" stroke="#7a4a10" strokeWidth="1" />
         <circle cx="19" cy="26" r="2" fill="#fffbe0" />
         {rim('M21 46 C22 28 33 11 50 8', '#ffe0b0', 1.8, 0.75)}
@@ -497,11 +616,25 @@ export const PORTRAITS_FOES = {
         </defs>
         <path d="M30 100 L33 72 L67 72 L70 100Z" fill="url(#human-warrior-steel)" {...ol} strokeWidth="1.4" />
         <path d="M38 76 L62 76 L60 100 L40 100Z" fill="url(#human-warrior-blue)" stroke="#d8a840" strokeWidth="1.6" />
-        <path d="M50 80 L52.6 86.6 L59.5 86.8 L54.2 91 L56 97.5 L50 93.7 L44 97.5 L45.8 91 L40.5 86.8 L47.4 86.6Z" fill="url(#human-warrior-gold)" stroke={K} strokeWidth="0.6" />
+        <path
+          d="M50 80 L52.6 86.6 L59.5 86.8 L54.2 91 L56 97.5 L50 93.7 L44 97.5 L45.8 91 L40.5 86.8 L47.4 86.6Z"
+          fill="url(#human-warrior-gold)"
+          stroke={K}
+          strokeWidth="0.6"
+        />
         <path d="M2 100 L3 80 C4 66 16 58 30 59 C40 60 44 68 44 78 L41 100Z" fill="url(#human-warrior-blue)" {...ol} />
         <path d="M98 100 L97 80 C96 66 84 58 70 59 C60 60 56 68 56 78 L59 100Z" fill="url(#human-warrior-blue)" {...ol} />
-        <path d="M4 80 C5 67 16 60.5 30 61 C39 62 42 69 42 78 M96 80 C95 67 84 60.5 70 61 C61 62 58 69 58 78" fill="none" stroke="url(#human-warrior-gold)" strokeWidth="2.6" />
-        <path d="M30 40 C30 22 39 13 50 13 C61 13 70 22 70 40 L70 63 C70 70 64 74 59 75 L59 42 L41 42 L41 75 C36 74 30 70 30 63Z" fill="url(#human-warrior-steel)" {...ol} />
+        <path
+          d="M4 80 C5 67 16 60.5 30 61 C39 62 42 69 42 78 M96 80 C95 67 84 60.5 70 61 C61 62 58 69 58 78"
+          fill="none"
+          stroke="url(#human-warrior-gold)"
+          strokeWidth="2.6"
+        />
+        <path
+          d="M30 40 C30 22 39 13 50 13 C61 13 70 22 70 40 L70 63 C70 70 64 74 59 75 L59 42 L41 42 L41 75 C36 74 30 70 30 63Z"
+          fill="url(#human-warrior-steel)"
+          {...ol}
+        />
         <path d="M41 40 L59 40 L59 69 C57 74 53.5 76 50 76 C46.5 76 43 74 41 69Z" fill="url(#human-warrior-skin)" stroke={K} strokeWidth="1" />
         <path d="M41 61 C42.5 71 46 76 50 76 C54 76 57.5 71 59 61 L57 65.5 Q50 70.5 43 65.5Z" fill="#5a3a20" />
         <ellipse cx="45.8" cy="51" rx="2.4" ry="1.4" fill="#f6f2ea" />
@@ -540,7 +673,10 @@ export const PORTRAITS_FOES = {
         <path d="M67 45 L92 30 L82 42 L68 56Z" fill="url(#nelf-rogue-skin)" {...ol} strokeWidth="1.4" />
         <path d="M50 10 C34 10 25 24 25 42 C25 58 30 70 36 78 L64 78 C70 70 75 58 75 42 C75 24 66 10 50 10Z" fill="url(#nelf-rogue-hood)" {...ol} />
         <path d="M50 23 C40 23 34 32 34 45 C34 58 41 68 50 72 C59 68 66 58 66 45 C66 32 60 23 50 23Z" fill="url(#nelf-rogue-skin)" />
-        <path d="M34 47 C33 32 40 23 50 23 C60 23 67 32 66 47 C63 39 60 34 57 32 C56 38 53 41 50 44 C47 41 44 38 43 32 C40 34 37 39 34 47Z" fill="url(#nelf-rogue-hair)" />
+        <path
+          d="M34 47 C33 32 40 23 50 23 C60 23 67 32 66 47 C63 39 60 34 57 32 C56 38 53 41 50 44 C47 41 44 38 43 32 C40 34 37 39 34 47Z"
+          fill="url(#nelf-rogue-hair)"
+        />
         <path d="M34.5 44 C33.5 55 34.5 63 38 71 L40 58Z M65.5 44 C66.5 55 65.5 63 62 71 L60 58Z" fill="url(#nelf-rogue-hair)" />
         <path d="M35.5 54 Q50 60 64.5 54 L62 64 Q56 72 50 74 Q44 72 38 64Z" fill="#14141e" stroke={K} strokeWidth="1" />
         <circle cx="43" cy="49.5" r="7" fill="url(#nelf-rogue-glow)" />
@@ -566,14 +702,29 @@ export const PORTRAITS_FOES = {
           {rg('ember-tyrant-maw', ['#fffbe0', '#ffd040', '#ff6a10', '#7a1404'], 0.5, 0.35, 0.65)}
           {glow('ember-tyrant-glow', '#ffcf40', 0.95)}
         </defs>
-        <path d="M12 74 C4 54 10 34 20 22 C20 30 24 35 29 35 C27 22 33 10 43 4 C42 13 46 19 50 21 C54 19 58 13 57 4 C67 10 73 22 71 35 C76 35 80 30 80 22 C90 34 96 54 88 74Z" fill="url(#ember-tyrant-fire)" />
+        <path
+          d="M12 74 C4 54 10 34 20 22 C20 30 24 35 29 35 C27 22 33 10 43 4 C42 13 46 19 50 21 C54 19 58 13 57 4 C67 10 73 22 71 35 C76 35 80 30 80 22 C90 34 96 54 88 74Z"
+          fill="url(#ember-tyrant-fire)"
+        />
         <path d="M0 100 L3 80 C12 68 28 63 50 63 C72 63 88 68 97 80 L100 100Z" fill="url(#ember-tyrant-rock)" {...ol} />
-        <path d="M14 80 L22 86 L20 95 M86 80 L78 87 L80 96 M40 70 L44 78 L40 87 M60 70 L57 80 L61 90" fill="none" stroke="#ffa030" strokeWidth="1.8" strokeLinejoin="round" />
+        <path
+          d="M14 80 L22 86 L20 95 M86 80 L78 87 L80 96 M40 70 L44 78 L40 87 M60 70 L57 80 L61 90"
+          fill="none"
+          stroke="#ffa030"
+          strokeWidth="1.8"
+          strokeLinejoin="round"
+        />
         <path d="M35 36 C24 32 12 22 9 6 C18 15 27 19 39 25Z" fill="url(#ember-tyrant-horn)" {...ol} strokeWidth="1.4" />
         <path d="M65 36 C76 32 88 22 91 6 C82 15 73 19 61 25Z" fill="url(#ember-tyrant-horn)" {...ol} strokeWidth="1.4" />
         <path d="M50 22 C38 22 31 30 31 40 L28 54 C30 68 40 80 50 83 C60 80 70 68 72 54 L69 40 C69 30 62 22 50 22Z" fill="url(#ember-tyrant-rock)" {...ol} />
         <path d="M31 42 L50 49 L69 42 L68 38 L50 44.5 L32 38Z" fill="#160e0c" />
-        <path d="M38 27 L42 33 L39 39 M62 27 L58 33 L61 39 M50 23 L48 29 L52 35 L50 41 M31 55 L37 58.5 L35 64 M69 55 L63 58.5 L65 64" fill="none" stroke="#ffa830" strokeWidth="1.5" strokeLinejoin="round" />
+        <path
+          d="M38 27 L42 33 L39 39 M62 27 L58 33 L61 39 M50 23 L48 29 L52 35 L50 41 M31 55 L37 58.5 L35 64 M69 55 L63 58.5 L65 64"
+          fill="none"
+          stroke="#ffa830"
+          strokeWidth="1.5"
+          strokeLinejoin="round"
+        />
         <circle cx="40" cy="47" r="10" fill="url(#ember-tyrant-glow)" />
         <circle cx="60" cy="47" r="10" fill="url(#ember-tyrant-glow)" />
         <path d="M33 44 L47 49 L36 51Z M67 44 L53 49 L64 51Z" fill="#fffbe0" />
@@ -597,7 +748,12 @@ export const PORTRAITS_FOES = {
           {rg('ember-imp-fire', ['#fff6c0', '#ffc030', '#ff6a14', '#a01e04'], 0.5, 0.85, 0.75)}
           {glow('ember-imp-glow', '#ffe060', 0.9)}
         </defs>
-        <g fill="#ffd060"><circle cx="18" cy="24" r="1.5" /><circle cx="82" cy="20" r="1.2" /><circle cx="86" cy="34" r="1.6" /><circle cx="14" cy="66" r="1.1" /></g>
+        <g fill="#ffd060">
+          <circle cx="18" cy="24" r="1.5" />
+          <circle cx="82" cy="20" r="1.2" />
+          <circle cx="86" cy="34" r="1.6" />
+          <circle cx="14" cy="66" r="1.1" />
+        </g>
         <path d="M22 100 C24 86 36 79 50 79 C64 79 76 86 78 100Z" fill="url(#ember-imp-skin)" {...ol} strokeWidth="1.5" />
         <path d="M36 38 C31 26 38 18 42 7 C44 15 48 15 49 4 C54 13 58 17 58 9 C65 19 69 28 64 38Z" fill="url(#ember-imp-fire)" />
         <path d="M31 50 L6 34 L13 46 L7 51 L15 55 L31 62Z" fill="url(#ember-imp-skin)" {...ol} strokeWidth="1.4" />
@@ -611,7 +767,10 @@ export const PORTRAITS_FOES = {
         <path d="M31.5 45 L46.5 50.5 M68.5 45 L53.5 50.5" stroke="#3a0a04" strokeWidth="2.6" strokeLinecap="round" />
         <path d="M48 60.5 L49 62.5 M52 60.5 L51 62.5" stroke="#4a0e06" strokeWidth="1.3" strokeLinecap="round" />
         <path d="M35 64 Q50 80 65 64 Q50 70 35 64Z" fill="#2a0604" stroke={K} strokeWidth="1" />
-        <path d="M38 65.4 L40 69 L42 66.3 L44 70.3 L46 67 L48 70.8 L50 67.3 L52 70.8 L54 67 L56 70.3 L58 66.3 L60 69 L62 65.4 Q50 69.4 38 65.4Z" fill="#fff3d0" />
+        <path
+          d="M38 65.4 L40 69 L42 66.3 L44 70.3 L46 67 L48 70.8 L50 67.3 L52 70.8 L54 67 L56 70.3 L58 66.3 L60 69 L62 65.4 Q50 69.4 38 65.4Z"
+          fill="#fff3d0"
+        />
         {rim('M30 50 C30 39 38 31 49 30.5', '#fff0b0', 1.7, 0.75)}
         {rim('M7 34 L31 50', '#fff0b0', 1.2, 0.55)}
       </g>
@@ -629,7 +788,11 @@ export const PORTRAITS_FOES = {
           <path d="M7 52 L44 56 L40 71 L11 69Z" fill="url(#core-hound-maw)" />
           <path d="M10 68 L39 67 C39 75 33 81 24 81 C17 81 12 76 10 71Z" fill={`url(#core-hound-rock${s})`} {...ol} strokeWidth="1.3" />
           <path d="M13 68.3 L15 63.5 L17.2 68.2 L19.6 63.7 L21.8 68.1 L24.2 63.9 L26.4 68 L28.8 64.1 L31 67.9Z" fill="#2a1c16" />
-          <path d="M30 24 C44 21 54 30 54 43 C54 53 48 59 41 60 L14 57 C8 56.5 5 53.5 5 50 C5 47 7.5 45 11 44 L22 39 C24 31 26 26 30 24Z" fill={`url(#core-hound-rock${s})`} {...ol} />
+          <path
+            d="M30 24 C44 21 54 30 54 43 C54 53 48 59 41 60 L14 57 C8 56.5 5 53.5 5 50 C5 47 7.5 45 11 44 L22 39 C24 31 26 26 30 24Z"
+            fill={`url(#core-hound-rock${s})`}
+            {...ol}
+          />
           <path d="M22 39 L26 28 L40 24 L51 31 L47 39 L34 41Z" fill={`url(#core-hound-plate${s})`} {...ol} strokeWidth="1" />
           <path d="M12 56.6 L14 61.4 L16.2 57 L18.8 63.6 L21.2 57.4 L23.4 61.8 L25.6 57.7 L28 62 L30.4 58 L32.6 62 L35 58.3Z" fill="#2a1c16" />
           <ellipse cx="8.6" cy="48" rx="2.8" ry="2" fill="#050302" />
@@ -644,8 +807,12 @@ export const PORTRAITS_FOES = {
           <defs>
             {lg('core-hound-rock', ['#6e5a4e', '#34281f', '#0e0907'])}
             {lg('core-hound-plate', ['#a49488', '#5a4c46', '#2a201c'])}
-            <linearGradient id="core-hound-rock-r" x1="0.85" y1="0" x2="0.2" y2="1">{stops(['#6e5a4e', '#34281f', '#0e0907'])}</linearGradient>
-            <linearGradient id="core-hound-plate-r" x1="0.85" y1="0" x2="0.2" y2="1">{stops(['#a49488', '#5a4c46', '#2a201c'])}</linearGradient>
+            <linearGradient id="core-hound-rock-r" x1="0.85" y1="0" x2="0.2" y2="1">
+              {stops(['#6e5a4e', '#34281f', '#0e0907'])}
+            </linearGradient>
+            <linearGradient id="core-hound-plate-r" x1="0.85" y1="0" x2="0.2" y2="1">
+              {stops(['#a49488', '#5a4c46', '#2a201c'])}
+            </linearGradient>
             {rg('core-hound-maw', ['#fffbe0', '#ffc030', '#e04a0c'], 0.5, 0.3, 0.7)}
             {glow('core-hound-glow', '#ffc040', 0.95)}
           </defs>

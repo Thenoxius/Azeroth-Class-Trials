@@ -5,11 +5,25 @@ import { runKitSuite } from './bots/kit-suite.mjs';
 import { buildsOf, healerRun, table } from './bots/calibrate.mjs';
 import { KITS } from '../src/content/index.js';
 
-runKitSuite('priest', bots, { 'race.wotf': 1, 'race.cannibalize': 1, 'item.rest': 'out of combat only', 'priest.cure': 'needs a disease', 'priest.abolish': 'needs a disease', 'priest.dispel': 'needs a magic effect', 'priest.flash': 'blocked in Shadowform (by design)' });
+runKitSuite('priest', bots, {
+  'race.wotf': 1,
+  'race.cannibalize': 1,
+  'item.rest': 'out of combat only',
+  'priest.cure': 'needs a disease',
+  'priest.abolish': 'needs a disease',
+  'priest.dispel': 'needs a magic effect',
+  'priest.flash': 'blocked in Shadowform (by design)',
+});
 
 // Role wiring: damage plays Shadow, the healer role gets Discipline or Holy.
-assert.deepEqual(KITS.priest.specsFor(30, 'dps').map((s) => s.id), ['shadow']);
-assert.deepEqual(KITS.priest.specsFor(60, 'healer').map((s) => s.id), ['disc', 'holy']);
+assert.deepEqual(
+  KITS.priest.specsFor(30, 'dps').map((s) => s.id),
+  ['shadow'],
+);
+assert.deepEqual(
+  KITS.priest.specsFor(60, 'healer').map((s) => s.id),
+  ['disc', 'holy'],
+);
 assert.equal(KITS.priest.build({ level: 30, spec: 'holy', role: 'healer' }).template.role, 'healer');
 
 // Healer capacity: competent bots keep a tank alive under steady damage. With the datamined

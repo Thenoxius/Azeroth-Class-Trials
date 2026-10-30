@@ -8,21 +8,49 @@ import { scaled } from '../enemies.js';
 registerTemplates({
   't2.captain': {
     // A named (non-elite) level-30 mob, tougher than an ordinary one.
-    name: 'Captain Varek', portrait: 'bandit', side: 'enemy', kind: 'enemy', tags: ['humanoid'],
-    mob: { hp: 1.6, dmg: 1.0 }, aggroRadius: 10, leash: 80,
+    name: 'Captain Varek',
+    portrait: 'bandit',
+    side: 'enemy',
+    kind: 'enemy',
+    tags: ['humanoid'],
+    mob: { hp: 1.6, dmg: 1.0 },
+    aggroRadius: 10,
+    leash: 80,
     abilities: ['npc.cripple'],
-    ai: { type: 'melee', fleeAt: 0.2, fleeTo: { x: 53, y: 3 }, fleeSay: 'Captain Varek bolts for the boathouse, shouting for his hexer!', rotation: [{ id: 'npc.cripple', when: (s, u, t) => Math.hypot(u.x - t.x, u.y - t.y) > 9 }] },
+    ai: {
+      type: 'melee',
+      fleeAt: 0.2,
+      fleeTo: { x: 53, y: 3 },
+      fleeSay: 'Captain Varek bolts for the boathouse, shouting for his hexer!',
+      rotation: [{ id: 'npc.cripple', when: (s, u, t) => Math.hypot(u.x - t.x, u.y - t.y) > 9 }],
+    },
   },
   't2.ambusher': {
-    name: 'Bloodfen Ambusher', portrait: 'raptor', side: 'enemy', kind: 'enemy', tags: ['beast'],
-    mob: { hp: 0.9, dmg: 0.8, speed: 1.7 }, speed: 8.5, leash: 80,
-    abilities: ['npc.rend'], ai: { type: 'melee', rotation: [{ id: 'npc.rend' }] },
+    name: 'Bloodfen Ambusher',
+    portrait: 'raptor',
+    side: 'enemy',
+    kind: 'enemy',
+    tags: ['beast'],
+    mob: { hp: 0.9, dmg: 0.8, speed: 1.7 },
+    speed: 8.5,
+    leash: 80,
+    abilities: ['npc.rend'],
+    ai: { type: 'melee', rotation: [{ id: 'npc.rend' }] },
   },
   't2.hexer': {
-    name: 'Smuggler Hexer', portrait: 'bandit-mage', side: 'enemy', kind: 'enemy', tags: ['humanoid', 'caster'],
-    mob: { hp: 0.85, dmg: 0.5, caster: true }, leash: 80,
+    name: 'Smuggler Hexer',
+    portrait: 'bandit-mage',
+    side: 'enemy',
+    kind: 'enemy',
+    tags: ['humanoid', 'caster'],
+    mob: { hp: 0.85, dmg: 0.5, caster: true },
+    leash: 80,
     abilities: ['npc.shadowbolt', 'npc.hex.frailty'],
-    ai: { type: 'caster', range: 26, rotation: [{ id: 'npc.hex.frailty', when: (s, u, t) => !t.auras.some((a) => a.id === 'npc.frailty') }, { id: 'npc.shadowbolt' }] },
+    ai: {
+      type: 'caster',
+      range: 26,
+      rotation: [{ id: 'npc.hex.frailty', when: (s, u, t) => !t.auras.some((a) => a.id === 'npc.frailty') }, { id: 'npc.shadowbolt' }],
+    },
   },
 });
 
@@ -46,11 +74,18 @@ export const TRIAL = {
     };
   },
   arena: {
-    w: 56, h: 34, theme: 'ruins',
+    w: 56,
+    h: 34,
+    theme: 'ruins',
     obstacles: [
-      { x: 31, y: 11, r: 1.6, kind: 'pillar' }, { x: 37, y: 13, r: 1.4, kind: 'pillar' }, { x: 36, y: 23, r: 1.6, kind: 'pillar' },
-      { x: 24, y: 26, r: 1.3, kind: 'crate' }, { x: 21, y: 8, r: 1.2, kind: 'crate' }, { x: 46, y: 18, r: 2.2, kind: 'rock' },
-      { x: 14, y: 29, r: 2.0, kind: 'tree' }, { x: 12, y: 5, r: 2.2, kind: 'tree' },
+      { x: 31, y: 11, r: 1.6, kind: 'pillar' },
+      { x: 37, y: 13, r: 1.4, kind: 'pillar' },
+      { x: 36, y: 23, r: 1.6, kind: 'pillar' },
+      { x: 24, y: 26, r: 1.3, kind: 'crate' },
+      { x: 21, y: 8, r: 1.2, kind: 'crate' },
+      { x: 46, y: 18, r: 2.2, kind: 'rock' },
+      { x: 14, y: 29, r: 2.0, kind: 'tree' },
+      { x: 12, y: 5, r: 2.2, kind: 'tree' },
     ],
     decor: [
       { kind: 'road', path: 'M0 17 Q 10 18 20 17', w: 3.4 },
@@ -67,7 +102,19 @@ export const TRIAL = {
     c.meta.boss = true;
     state.script.phase = 'calm';
     // The exit: standing in it during the fight ends the trial as an escape.
-    api.spawnZone(state, { shape: { type: 'rect', w: EXIT.w, h: EXIT.h }, x: EXIT.x + EXIT.w / 2, y: EXIT.y, side: 'enemy', affects: 'hostile', harmless: true, exit: true, duration: 9999, interval: 0, visual: 'nature', label: 'Road out' });
+    api.spawnZone(state, {
+      shape: { type: 'rect', w: EXIT.w, h: EXIT.h },
+      x: EXIT.x + EXIT.w / 2,
+      y: EXIT.y,
+      side: 'enemy',
+      affects: 'hostile',
+      harmless: true,
+      exit: true,
+      duration: 9999,
+      interval: 0,
+      visual: 'nature',
+      label: 'Road out',
+    });
   },
   onEngage(state, api, enemy) {
     if (enemy.templateId === 't2.captain' && state.script.phase === 'calm') {
@@ -105,7 +152,10 @@ export const TRIAL = {
     state.script.hexer = true;
     const h = api.spawnUnit(state, scaled(30, getTemplate('t2.hexer')), { x: u.x + 2, y: u.y + 1, templateId: 't2.hexer' });
     const p = api.player(state);
-    if (p) { api.engage(state, h, p); api.engage(state, u, p); }
+    if (p) {
+      api.engage(state, h, p);
+      api.engage(state, u, p);
+    }
     u.hp = Math.min(u.maxHp, u.hp + u.maxHp * 0.15);
     api.banner(state, 'Reinforcements!', 'Varek reached the boathouse — and his hexer.', 2.6, 'warn');
     api.say(state, h, 'You should have stayed on the road.', 'yell');
@@ -125,7 +175,8 @@ export const TRIAL = {
     const p = api.player(state);
     if (!p || !p.alive) return { result: 'defeat', reason: 'You died at Greywater Watch.' };
     if (state.script.escaped) return { result: 'escaped', reason: 'You got away along the road. The bounty can wait.' };
-    if (state.script.phase === 'fight' && state.list.filter((u) => u.side === 'enemy' && !u.hidden).every((u) => !u.alive)) return { result: 'victory', reason: 'Captain Varek and his crew are dead.' };
+    if (state.script.phase === 'fight' && state.list.filter((u) => u.side === 'enemy' && !u.hidden).every((u) => !u.alive))
+      return { result: 'victory', reason: 'Captain Varek and his crew are dead.' };
     return null;
   },
   summary(state) {

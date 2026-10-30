@@ -21,7 +21,15 @@ for (const race of CLASS_RACES.rogue) {
 }
 assert.ok(KIT.build({ level: 30, npc: true }).template.melee.mh, 'NPC Rogue build unchanged');
 
-const cases = [['t1', 10, null], ['t1', 30, 'assassination'], ['t1', 30, 'combat'], ['t1', 30, 'subtlety'], ['t2', 30, 'assassination'], ['t2', 30, 'combat'], ['t2', 30, 'subtlety']];
+const cases = [
+  ['t1', 10, null],
+  ['t1', 30, 'assassination'],
+  ['t1', 30, 'combat'],
+  ['t1', 30, 'subtlety'],
+  ['t2', 30, 'assassination'],
+  ['t2', 30, 'combat'],
+  ['t2', 30, 'subtlety'],
+];
 for (const [trialId, level, spec] of cases) {
   const res = { competent: 0, careless: 0 };
   for (const mode of ['competent', 'careless']) {
@@ -32,7 +40,9 @@ for (const [trialId, level, spec] of cases) {
     }
   }
   const trait = trialId === 't2' && spec === 'subtlety';
-  console.log(`rogue ${trialId} L${level} ${spec || ''}: competent ${res.competent}/3, careless ${res.careless}/3${trait ? ' (spec trait, not asserted)' : ''}`);
+  console.log(
+    `rogue ${trialId} L${level} ${spec || ''}: competent ${res.competent}/3, careless ${res.careless}/3${trait ? ' (spec trait, not asserted)' : ''}`,
+  );
   if (trait) continue;
   assert.ok(res.competent >= 2, `${trialId} ${spec} competent wins`);
   assert.ok(res.careless < res.competent, `${trialId} ${spec} careless clearly worse`);

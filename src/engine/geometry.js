@@ -14,7 +14,8 @@ export function norm(x, y) {
 export const edgeDist = (a, b) => Math.max(0, dist(a, b) - (b.radius || 0));
 
 export function segHitsCircle(ax, ay, bx, by, cx, cy, r) {
-  const dx = bx - ax, dy = by - ay;
+  const dx = bx - ax,
+    dy = by - ay;
   const l2 = dx * dx + dy * dy;
   let t = l2 ? ((cx - ax) * dx + (cy - ay) * dy) / l2 : 0;
   t = clamp(t, 0, 1);
@@ -48,7 +49,8 @@ export function collide(arena, u) {
 
 export function pointInZone(z, p) {
   const s = z.shape || { type: 'circle', r: 5 };
-  const dx = p.x - z.x, dy = p.y - z.y;
+  const dx = p.x - z.x,
+    dy = p.y - z.y;
   const d = Math.hypot(dx, dy);
   const pr = p.radius || 0;
   if (s.type === 'circle') return d <= s.r + pr * 0.5;
@@ -77,8 +79,10 @@ export function escapePoint(z, p, margin = 1.5) {
     return { x: p.x + Math.cos(side) * off * sgn, y: p.y + Math.sin(side) * off * sgn };
   }
   if (s.type === 'rect') {
-    const ox = p.x - z.x, oy = p.y - z.y;
-    const ex = s.w / 2 - Math.abs(ox), ey = s.h / 2 - Math.abs(oy);
+    const ox = p.x - z.x,
+      oy = p.y - z.y;
+    const ex = s.w / 2 - Math.abs(ox),
+      ey = s.h / 2 - Math.abs(oy);
     if (ex < ey) return { x: z.x + Math.sign(ox || 1) * (s.w / 2 + margin), y: p.y };
     return { x: p.x, y: z.y + Math.sign(oy || 1) * (s.h / 2 + margin) };
   }
@@ -92,15 +96,21 @@ export function escapePoint(z, p, margin = 1.5) {
 // clear, else the nearest clear point on rings around p (overlapping pools otherwise bounce
 // a unit between them).
 export function escapeClear(z, zones, p, margin = 1.5, bounds = null) {
-  const clear = (q) => (!bounds || (q.x >= 1 && q.y >= 1 && q.x <= bounds.w - 1 && q.y <= bounds.h - 1)) && !zones.some((o) => pointInZone(o, { x: q.x, y: q.y, radius: (p.radius || 0) + margin }));
+  const clear = (q) =>
+    (!bounds || (q.x >= 1 && q.y >= 1 && q.x <= bounds.w - 1 && q.y <= bounds.h - 1)) &&
+    !zones.some((o) => pointInZone(o, { x: q.x, y: q.y, radius: (p.radius || 0) + margin }));
   const own = escapePoint(z, p, margin);
   if (zones.length < 2 || clear(own)) return own;
-  let best = null, bd = Infinity;
+  let best = null,
+    bd = Infinity;
   for (let d = 2; d <= 16; d += 2) {
     for (let i = 0; i < 12; i++) {
       const a = (i / 12) * Math.PI * 2;
       const q = { x: p.x + Math.cos(a) * d, y: p.y + Math.sin(a) * d };
-      if (clear(q) && d < bd) { bd = d; best = q; }
+      if (clear(q) && d < bd) {
+        bd = d;
+        best = q;
+      }
     }
     if (best) break;
   }
