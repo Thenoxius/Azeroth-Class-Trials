@@ -15,6 +15,8 @@ import { Roster } from './screens/Roster.jsx';
 import { ClassicShell, ClassicBattleFrame } from './chrome/ClassicShell.jsx';
 
 const { useState, useEffect, useCallback, useRef, useMemo } = React;
+// The Proving Grounds ranks damage; it is not evidence for the class analysis.
+const ANALYSIS_TRIALS = TRIALS.filter((t) => !t.leaderboard);
 
 // Developer shortcut: #play-t1-mage-10-frost-dps jumps straight into a fight
 // (#brief-… opens the briefing; #screen-hall / #screen-analysis open a screen).
@@ -49,6 +51,10 @@ export function App({ initial }) {
   const [battleKey, setBattleKey] = useState(0);
   const [backTo, setBackTo] = useState('hall');
   const seedRef = useRef(1);
+  // onEnd is stable for the Battle; it reads the current selection through refs.
+  const selRef = useRef(sel);
+  selRef.current = sel;
+  const charsRef = useRef([]);
 
   useEffect(() => { saveProgress(progress); }, [progress]);
   useEffect(() => { saveEvidence(evidence); }, [evidence]);
@@ -70,6 +76,7 @@ export function App({ initial }) {
     if (!evidence.sessions.length && !progress.seenIntro) return [];
     return ['hunter', 'mage', 'priest'].map((c) => { const r = validRace(c, (progress.last.race || {})[c]); return { id: 'legacy-' + c, name: `${RACES[r].name} ${KITS[c].name}`, race: r, classId: c }; });
   }, [progress.characters, progress.last.race, evidence.sessions.length, progress.seenIntro]);
+  charsRef.current = characters;
   const setCharacters = (list) => setProgress((p) => ({ ...p, characters: list }));
   // Race shown for a class outside a character context (analysis, codex): its first character's.
   const raceOf = (classId) => validRace(classId, ((characters.find((c) => c.classId === classId) || {}).race) || (progress.last.race || {})[classId]);
@@ -102,15 +109,20 @@ export function App({ initial }) {
       }
     : null;
 
-  const onEnd = useCallback(({ session, outcome, summary, abandoned }) => {
+  const onEnd = useCallback(({ session, outcome, summary, report, abandoned }) => {
     setEvidence((e) => ({ ...e, sessions: [...e.sessions, session] }));
+    const s = selRef.current || {};
+    const ch = charsRef.current.find((c) => c.id === s.charId);
+    const entry = report ? { id: session.id, at: new Date().toISOString(), charId: s.charId || null, name: ch ? ch.name : null, race: s.race || null, classId: session.classId, spec: s.spec || null, dps: Math.round(report.dps * 10) / 10, total: report.total } : null;
     setProgress((p) => {
       const k = runKey(session.trialId, session.classId, session.level);
       const r = p.runs[k] || { attempts: 0, wins: 0 };
       const won = outcome && outcome.result === 'victory';
-      return { ...p, runs: { ...p.runs, [k]: { ...r, attempts: r.attempts + 1, wins: r.wins + (won ? 1 : 0), lastResult: abandoned ? 'abandoned' : outcome ? outcome.result : null, lastAt: new Date().toISOString(), bestTime: won ? Math.min(r.bestTime || 1e9, session.simSeconds) : r.bestTime } } };
+      const bestDps = entry ? Math.max(r.bestDps || 0, entry.dps) : r.bestDps;
+      const leaderboard = entry ? [...(p.leaderboard || []), entry].slice(-500) : p.leaderboard || [];
+      return { ...p, leaderboard, runs: { ...p.runs, [k]: { ...r, attempts: r.attempts + 1, wins: r.wins + (won ? 1 : 0), lastResult: abandoned ? 'abandoned' : outcome ? outcome.result : null, lastAt: new Date().toISOString(), bestTime: won ? Math.min(r.bestTime || 1e9, session.simSeconds) : r.bestTime, bestDps } } };
     });
-    setResult({ session, outcome, summary, abandoned });
+    setResult({ session, outcome, summary, report, entryId: entry ? entry.id : null, abandoned });
     setScreen('result');
   }, []);
 
@@ -133,6 +145,8 @@ export function App({ initial }) {
         trial={trial}
         kit={kit}
         sel={sel}
+        leaderboard={progress.leaderboard || []}
+        characters={characters}
         classOrder={PLAYABLE}
         kits={VIEW_KITS}
         feedbackGiven={evidence.feedback.some((f) => f.sessionId === result.session.id)}
@@ -144,7 +158,7 @@ export function App({ initial }) {
       />
     );
   } else if (screen === 'analysis') {
-    body = <Analysis evidence={evidence} kits={VIEW_KITS} trials={TRIALS} classOrder={CLASS_ORDER} weights={progress.settings.weights} onWeights={(w) => updateSettings({ weights: w })} onBack={() => setScreen('hall')} onMethod={() => { setBackTo('analysis'); setScreen('method'); }} onPlay={pick} />;
+    body = <Analysis evidence={evidence} kits={VIEW_KITS} trials={ANALYSIS_TRIALS} classOrder={CLASS_ORDER} weights={progress.settings.weights} onWeights={(w) => updateSettings({ weights: w })} onBack={() => setScreen('hall')} onMethod={() => { setBackTo('analysis'); setScreen('method'); }} onPlay={pick} />;
   } else if (screen === 'roster') {
     body = <Roster characters={characters} kits={KITS} playable={PLAYABLE} onChange={setCharacters} onDone={() => setScreen('hall')} onBack={characters.length ? () => setScreen('hall') : () => setScreen('title')} trialCount={(c) => TRIALS.filter((t) => trialSupports(t.id, c)).length} />;
   } else if (screen === 'codex') {

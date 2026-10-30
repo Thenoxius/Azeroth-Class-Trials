@@ -2,10 +2,11 @@
 import { Portrait } from '../art/Portrait.jsx';
 import { FeedbackPanel } from '../../telemetry/FeedbackPanel.jsx';
 import { fmtTime, cx, CLASS_COLORS } from '../util.js';
+import { DamageReport, Leaderboard } from './DamageReport.jsx';
 
 const { useState } = React;
 
-export function Result({ result, trial, kit, sel, classOrder, kits, feedbackGiven, onFeedback, onRetry, onOtherClass, onHall, onAnalysis }) {
+export function Result({ result, trial, kit, sel, classOrder, kits, leaderboard = [], characters = [], feedbackGiven, onFeedback, onRetry, onOtherClass, onHall, onAnalysis }) {
   const { session, outcome, summary, abandoned } = result;
   const res = abandoned ? 'abandoned' : outcome ? outcome.result : 'abandoned';
   const title = res === 'victory' ? 'Victory' : res === 'escaped' ? 'Escaped' : res === 'defeat' ? 'Defeat' : 'Left early';
@@ -30,6 +31,8 @@ export function Result({ result, trial, kit, sel, classOrder, kits, feedbackGive
         </div>
         {res === 'defeat' && <p className="muted small">A loss is information about the fight, not about whether you enjoyed the class. The analysis keeps those apart.</p>}
       </div>
+      {result.report && <DamageReport report={result.report} kit={kit} />}
+      {trial.leaderboard && <Leaderboard entries={leaderboard} currentId={result.entryId} kits={kits} trial={trial} characters={characters} />}
       <div className="result-feedback">
         {!fbDone ? (
           <FeedbackPanel session={session} trial={trial} kit={kit} onSubmit={(fb) => { onFeedback(fb); setFbDone(true); }} onSkip={() => setFbDone(true)} />
