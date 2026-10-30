@@ -148,8 +148,8 @@ export function Hall({ trials, kits, characters, progress, evidence, onPick, onC
               </p>
             )}
             <p className="muted small">
-              The class order changes from trial to trial, so no class always gets your freshest attention. Replaying anything is fine — what you choose to
-              replay counts as evidence.
+              The class order changes from trial to trial, so no class always gets your freshest attention. Replay anything you like: repeats of a trial count
+              as one opinion.
             </p>
           </div>
           {next ? (

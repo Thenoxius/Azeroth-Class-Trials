@@ -1,86 +1,110 @@
-// Optional post-trial feedback. Three 5-step scales, each with "not sure / skip"
-// (stored as null — never as a midpoint), and a "moment" pick built from this
-// fight's own highlights, with "none of these" and a free-text answer.
-// No transparent preference questions ("do you like healing?").
+// Optional questions after a trial: two fixed ones, one follow-up on high effort, one comparison
+// when a comparable run with another class exists, and an optional moment. "Don't know" and
+// skipping stay missing information.
 import { cx } from '../ui/util.js';
+import {
+  FUN_QUESTION,
+  FUN_OPTIONS,
+  FUN_UNKNOWN,
+  EFFORT_QUESTION,
+  EFFORT_OPTIONS,
+  EFFORT_UNKNOWN,
+  HIGH_EFFORT,
+  OBSTACLE_QUESTION,
+  OBSTACLES,
+  COMPARE_QUESTION,
+  COMPARE_OPTIONS,
+  MOMENT_KINDS,
+} from '../analysis/questions.js';
 
 const { useState } = React;
 
-const SCALES = [
-  { key: 'enjoyment', q: 'How did that fight feel to play?', lo: 'Flat', hi: 'Great' },
-  { key: 'frustration', q: 'How much did the class itself get in your way?', lo: 'Not at all', hi: 'A lot' },
-  { key: 'again', q: 'Would you queue this up again with this class?', lo: 'No', hi: 'Right now' },
-];
+function Choice({ question, options, value, onChange }) {
+  return (
+    <div className="fb-q">
+      <div className="fb-label">{question}</div>
+      <div className="fb-options" role="radiogroup" aria-label={question}>
+        {options.map((o) => (
+          <button
+            type="button"
+            key={o.value}
+            role="radio"
+            aria-checked={value === o.value}
+            className={cx('chip', value === o.value && 'on')}
+            onClick={() => onChange(value === o.value ? undefined : o.value)}
+          >
+            {o.label}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
 
-export function FeedbackPanel({ session, trial, kit, onSubmit, onSkip }) {
-  const [vals, setVals] = useState({ enjoyment: undefined, frustration: undefined, again: undefined });
+export function FeedbackPanel({ session, trial, kit, compare, kits, onSubmit, onSkip }) {
+  const [fun, setFun] = useState(undefined);
+  const [effort, setEffort] = useState(undefined);
+  const [obstacle, setObstacle] = useState(undefined);
+  const [answer, setAnswer] = useState(undefined);
   const [moment, setMoment] = useState(undefined);
+  const [momentKind, setMomentKind] = useState(undefined);
   const [custom, setCustom] = useState('');
   const moments = (session.moments || []).slice(0, 4);
-  const set = (k, v) => setVals((o) => ({ ...o, [k]: o[k] === v ? undefined : v }));
-  const submit = () => {
-    const norm = (v) => (v === undefined || v === 'skip' ? null : v);
-    const m = moment === undefined || moment === 'skip' ? null : moment === 'none' ? 'none' : moment === 'custom' ? null : moments[moment] || null;
-    onSubmit({
-      sessionId: session.id,
-      trialId: trial.id,
-      classId: kit.id,
-      level: session.level,
-      spec: session.spec || null,
-      role: session.role || 'dps',
-      at: new Date().toISOString(),
-      enjoyment: norm(vals.enjoyment),
-      frustration: norm(vals.frustration),
-      again: norm(vals.again),
-      moment: m,
-      custom: moment === 'custom' && custom.trim() ? custom.trim().slice(0, 280) : null,
-      skipped: false,
-    });
+  const high = typeof effort === 'number' && effort >= HIGH_EFFORT;
+  const base = {
+    v: 2,
+    sessionId: session.id,
+    trialId: trial.id,
+    classId: kit.id,
+    level: session.level,
+    spec: session.spec || null,
+    role: session.role || 'dps',
+    at: new Date().toISOString(),
   };
-  const anything = Object.values(vals).some((v) => v !== undefined) || moment !== undefined;
+  const submit = () => {
+    const picked = typeof moment === 'number' ? moments[moment] : null;
+    onSubmit(
+      {
+        ...base,
+        fun: fun ?? null,
+        effort: effort ?? null,
+        obstacle: high ? (obstacle ?? null) : null,
+        moment: picked ? { ...picked, kind: momentKind ?? null } : null,
+        custom: moment === 'custom' && custom.trim() ? custom.trim().slice(0, 280) : null,
+        skipped: false,
+      },
+      answer && compare ? { ...compare, id: 'c' + session.id, at: base.at, sessionId: session.id, answer } : null,
+    );
+  };
+  const anything = [fun, effort, answer, moment].some((v) => v !== undefined);
   return (
     <div className="panel feedback">
-      <div className="panel-title">A quick word on that fight — all optional</div>
-      {SCALES.map((s) => (
-        <div className="fb-q" key={s.key}>
-          <div className="fb-label">{s.q}</div>
-          <div className="fb-scale" role="radiogroup" aria-label={s.q}>
-            <span className="fb-end">{s.lo}</span>
-            {[1, 2, 3, 4, 5].map((v) => (
-              <button
-                type="button"
-                key={v}
-                role="radio"
-                aria-checked={vals[s.key] === v}
-                className={cx('fb-dot', vals[s.key] === v && 'on')}
-                onClick={() => set(s.key, v)}
-              >
-                {v}
-              </button>
-            ))}
-            <span className="fb-end">{s.hi}</span>
-            <button type="button" className={cx('chip', 'fb-skip', vals[s.key] === 'skip' && 'on')} onClick={() => set(s.key, 'skip')}>
-              Not sure
-            </button>
-          </div>
-        </div>
-      ))}
+      <div className="panel-title">A quick word, before the numbers. All optional.</div>
+      <Choice question={FUN_QUESTION} options={[...FUN_OPTIONS, { value: 'unknown', label: FUN_UNKNOWN }]} value={fun} onChange={setFun} />
+      <Choice question={EFFORT_QUESTION} options={[...EFFORT_OPTIONS, { value: 'unknown', label: EFFORT_UNKNOWN }]} value={effort} onChange={setEffort} />
+      {high && <Choice question={OBSTACLE_QUESTION} options={OBSTACLES} value={obstacle} onChange={setObstacle} />}
+      {compare && (
+        <Choice
+          question={COMPARE_QUESTION}
+          options={COMPARE_OPTIONS.map((o) => ({ value: o.value, label: o.label || kits[compare[o.value]].name }))}
+          value={answer}
+          onChange={setAnswer}
+        />
+      )}
       {moments.length > 0 && (
-        <div className="fb-q">
-          <div className="fb-label">Which moment stood out, if any?</div>
+        <details className="fb-more">
+          <summary>Did a moment stand out? (optional)</summary>
           <div className="fb-moments">
             {moments.map((m, i) => (
               <button type="button" key={i} className={cx('chip', 'fb-moment', moment === i && 'on')} onClick={() => setMoment(moment === i ? undefined : i)}>
                 {m.text}
               </button>
             ))}
-            <button type="button" className={cx('chip', moment === 'none' && 'on')} onClick={() => setMoment(moment === 'none' ? undefined : 'none')}>
-              None of these
-            </button>
             <button type="button" className={cx('chip', moment === 'custom' && 'on')} onClick={() => setMoment(moment === 'custom' ? undefined : 'custom')}>
               Something else…
             </button>
           </div>
+          {typeof moment === 'number' && <Choice question="How was that moment?" options={MOMENT_KINDS} value={momentKind} onChange={setMomentKind} />}
           {moment === 'custom' && (
             <input
               className="fb-text"
@@ -91,33 +115,18 @@ export function FeedbackPanel({ session, trial, kit, onSubmit, onSkip }) {
               onChange={(e) => setCustom(e.target.value)}
             />
           )}
-        </div>
+        </details>
       )}
       <div className="row gap">
-        <button type="button" className="btn primary small" disabled={!anything && !custom} onClick={submit}>
-          Save
+        <button type="button" className="btn primary small" disabled={!anything} onClick={submit}>
+          Save and see the results
         </button>
         <button
           type="button"
           className="btn small ghost"
           onClick={() => {
+            onSubmit({ ...base, fun: null, effort: null, obstacle: null, moment: null, custom: null, skipped: true }, null);
             onSkip && onSkip();
-            onSubmit &&
-              onSubmit({
-                sessionId: session.id,
-                trialId: trial.id,
-                classId: kit.id,
-                level: session.level,
-                spec: session.spec || null,
-                role: session.role || 'dps',
-                at: new Date().toISOString(),
-                enjoyment: null,
-                frustration: null,
-                again: null,
-                moment: null,
-                custom: null,
-                skipped: true,
-              });
           }}
         >
           Skip

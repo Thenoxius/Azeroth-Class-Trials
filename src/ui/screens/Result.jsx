@@ -1,4 +1,5 @@
-// After a trial: outcome, numbers, optional feedback, next steps.
+// After a trial: what happened, then the optional questions, and only then the numbers, so
+// a damage ranking does not steer your answers.
 import { Portrait } from '../art/Portrait.jsx';
 import { FeedbackPanel } from '../../telemetry/FeedbackPanel.jsx';
 import { fmtTime, cx, CLASS_COLORS } from '../util.js';
@@ -16,6 +17,9 @@ export function Result({
   leaderboard = [],
   characters = [],
   feedbackGiven,
+  compare,
+  nextLabel,
+  onNext,
   onFeedback,
   onRetry,
   onOtherClass,
@@ -34,67 +38,79 @@ export function Result({
           <div>
             <div className="result-eyebrow">
               {trial.title} · Level {sel.level} {kit.name}
+              {sel.role === 'healer' ? ' · Healer' : sel.role === 'tank' ? ' · Tank' : ''}
             </div>
             <h2 className="result-title">{title}</h2>
             <div className="muted">{outcome ? outcome.reason : 'You left before the fight was decided.'}</div>
           </div>
         </div>
-        <div className="result-stats">
-          <div className="stat">
-            <span>Fight time</span>
-            <b>{fmtTime(session.simSeconds || 0)}</b>
-          </div>
-          <div className="stat">
-            <span>Real time</span>
-            <b>{fmtTime((session.realMs || 0) / 1000)}</b>
-          </div>
-          {(summary || []).map((l, i) => (
-            <div className="stat" key={i}>
-              <span>{l.label}</span>
-              <b>{l.value}</b>
+        {fbDone && (
+          <div className="result-stats">
+            <div className="stat">
+              <span>Fight time</span>
+              <b>{fmtTime(session.simSeconds || 0)}</b>
             </div>
-          ))}
-        </div>
+            <div className="stat">
+              <span>Real time</span>
+              <b>{fmtTime((session.realMs || 0) / 1000)}</b>
+            </div>
+            {(summary || []).map((l, i) => (
+              <div className="stat" key={i}>
+                <span>{l.label}</span>
+                <b>{l.value}</b>
+              </div>
+            ))}
+          </div>
+        )}
         {res === 'defeat' && (
           <p className="muted small">A loss is information about the fight, not about whether you enjoyed the class. The analysis keeps those apart.</p>
         )}
       </div>
-      {result.report && <DamageReport report={result.report} kit={kit} />}
-      {trial.leaderboard && <Leaderboard entries={leaderboard} currentId={result.entryId} kits={kits} trial={trial} characters={characters} />}
-      <div className="result-feedback">
-        {!fbDone ? (
+      {!fbDone && (
+        <div className="result-feedback">
           <FeedbackPanel
             session={session}
             trial={trial}
             kit={kit}
-            onSubmit={(fb) => {
-              onFeedback(fb);
+            kits={kits}
+            compare={compare}
+            onSubmit={(fb, comparison) => {
+              onFeedback(fb, comparison);
               setFbDone(true);
             }}
-            onSkip={() => setFbDone(true)}
           />
-        ) : (
-          <div className="panel muted">{feedbackGiven || fbDone ? 'Thanks — noted.' : ''}</div>
-        )}
-      </div>
+        </div>
+      )}
+      {fbDone && result.report && <DamageReport report={result.report} kit={kit} />}
+      {fbDone && trial.leaderboard && <Leaderboard entries={leaderboard} currentId={result.entryId} kits={kits} trial={trial} characters={characters} />}
       <div className="result-actions">
-        <button type="button" className="btn primary" onClick={onRetry}>
+        {onNext && (
+          <button type="button" className="btn primary" onClick={onNext}>
+            {nextLabel}
+          </button>
+        )}
+        <button type="button" className={cx('btn', !onNext && 'primary')} onClick={onRetry}>
           Play it again as {kit.name}
         </button>
-        {classOrder
-          .filter((c) => c !== kit.id)
-          .map((c) => (
-            <button type="button" key={c} className="btn" style={{ '--cc': CLASS_COLORS[c] }} onClick={() => onOtherClass(c)}>
-              Try it as {kits[c].name}
-            </button>
-          ))}
         <button type="button" className="btn ghost" onClick={onHall}>
           Back to the Hall
         </button>
         <button type="button" className="btn ghost" onClick={onAnalysis}>
-          See the analysis
+          See your comparison
         </button>
       </div>
+      <details className="result-more">
+        <summary>Try this trial with another class</summary>
+        <div className="result-actions">
+          {classOrder
+            .filter((c) => c !== kit.id)
+            .map((c) => (
+              <button type="button" key={c} className="btn" style={{ '--cc': CLASS_COLORS[c] }} onClick={() => onOtherClass(c)}>
+                {kits[c].name}
+              </button>
+            ))}
+        </div>
+      </details>
     </div>
   );
 }

@@ -32,13 +32,16 @@ export const emptyProgress = () => ({
   last: { classId: null, spec: {}, role: {} },
   settings: { speed: 1, tips: true, wandMacro: true, reduceMotion: false },
   seenIntro: false,
+  guide: null, // guided comparison: { classes, experience, practice, skipped, startedAt }
   leaderboard: [], // finished T6 runs: { id, at, charId, name, race, classId, spec, dps, total, seconds }
 });
 
 export const emptyEvidence = () => ({
   version: 1,
   sessions: [], // SessionRecord[]
-  feedback: [], // FeedbackRecord[]
+  feedback: [], // FeedbackRecord[]; old records keep their old fields (enjoyment, frustration, again)
+  comparisons: [], // { id, at, situation, a, b, answer, sessionId }
+  confirmations: {}, // interpretation id -> 'yes' | 'no' | 'unsure'
   ui: [], // light-weight screen visits: { t, screen, data }
 });
 
@@ -55,9 +58,12 @@ export function migrateProgress(p) {
   return { ...p, version: 2, runs, legacyRuns };
 }
 
+// New stores are added beside what is there. Old answers are never rewritten.
+export const migrateEvidence = (e) => ({ ...e, comparisons: e.comparisons || [], confirmations: e.confirmations || {} });
+
 export const loadProgress = () => migrateProgress(read(KEYS.progress, emptyProgress()));
 export const saveProgress = (p) => write(KEYS.progress, p);
-export const loadEvidence = () => read(KEYS.evidence, emptyEvidence());
+export const loadEvidence = () => migrateEvidence(read(KEYS.evidence, emptyEvidence()));
 export const saveEvidence = (e) => write(KEYS.evidence, e);
 
 export function resetAll() {
@@ -76,7 +82,10 @@ export function exportJSON(progress, evidence) {
 export function importJSON(text) {
   const v = JSON.parse(text);
   if (!v || v.app !== 'azeroth-class-trials') throw new Error('This is not an Azeroth Class Trials export.');
-  return { progress: migrateProgress({ ...emptyProgress(), version: 1, ...(v.progress || {}) }), evidence: { ...emptyEvidence(), ...(v.evidence || {}) } };
+  return {
+    progress: migrateProgress({ ...emptyProgress(), version: 1, ...(v.progress || {}) }),
+    evidence: migrateEvidence({ ...emptyEvidence(), ...(v.evidence || {}) }),
+  };
 }
 
 // Progress belongs to a character. A run started without one (developer links) is kept apart.

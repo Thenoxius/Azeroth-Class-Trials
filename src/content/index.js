@@ -11,6 +11,7 @@ import { TRIAL as T3 } from './encounters/t3-dungeon.js';
 import { TRIAL as T4 } from './encounters/t4-pvp.js';
 import { TRIAL as T5 } from './encounters/t5-raid.js';
 import { TRIAL as T6 } from './encounters/t6-dummy.js';
+import { TRIAL as PRACTICE } from './encounters/t0-practice.js';
 
 export const KITS = { hunter: HUNTER, mage: MAGE, priest: PRIEST, warrior: WARRIOR, rogue: ROGUE, shaman: SHAMAN };
 // The classes every trial, the analysis and the shared trial tests cover.
@@ -21,4 +22,6 @@ export const PLAYABLE = ['hunter', 'mage', 'priest', 'warrior', 'rogue', 'shaman
 const TRIAL_SUPPORT = {};
 export const trialSupports = (trialId, classId) => !TRIAL_SUPPORT[classId] || TRIAL_SUPPORT[classId].includes(trialId);
 export const TRIALS = [T1, T2, T3, T4, T5, T6].sort((a, b) => a.order - b.order);
-export const trialById = (id) => TRIALS.find((t) => t.id === id);
+export { PRACTICE };
+// The practice yard is playable but is not one of the trials: the Hall and the analysis never list it.
+export const trialById = (id) => (id === PRACTICE.id ? PRACTICE : TRIALS.find((t) => t.id === id));

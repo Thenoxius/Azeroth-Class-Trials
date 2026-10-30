@@ -3,7 +3,7 @@ import { playerTalents, TALENT_TEXT } from './shaman-builds.js';
 import SOURCE_RANKS from '../data/shaman-ranks.js';
 import { getAbility, registerAbilities } from '../../engine/registry.js';
 import { roll, val } from './shared.js';
-import { applyRace, validRace } from '../races.js';
+import { applyRace, racesFor, validRace } from '../races.js';
 import { BASE } from '../data/classic-tables.js';
 import { activeTotems, summonTotem, recallTotems, projectTotems } from './shaman-totems.js';
 import * as G from '../../engine/geometry.js';
@@ -220,7 +220,7 @@ export const KIT = {
   risksSummary: 'Mana, totem range and positioning constrain every role. Numeric tuning includes documented estimates.',
   supportedLevels: [10, 30, 60],
   rolesFor: () => ['dps', 'healer'],
-  races: () => ['orc'],
+  races: () => racesFor('shaman'),
   specsFor: (level, role) => (level < 20 ? [] : SPECS.filter((s) => !role || (role === 'healer' ? s.id === 'resto' : s.id !== 'resto'))),
   specs: { 30: SPECS, 60: SPECS },
   build(opts) {

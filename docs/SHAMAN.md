@@ -8,7 +8,7 @@ Vaste projectmap: C:\Users\thoma\OneDrive\Documents\projects\azeroth-class-trial
 
 - Level 10: basiskit, inclusief Lightning Bolt, Shocks, Healing Wave, Lightning Shield, Rockbiter en Earth/Fire-totems.
 - Level 30 en 60: Elemental en Enhancement als DPS; Restoration als healer in dungeon en raid.
-- Alle vijf trials ondersteunen bestaande Shaman-characters. Roster, Hall en saves blijven gebruikt worden. Orc blijft de beschikbare player-race; uitbreiding van races valt buiten deze stap.
+- Alle vijf trials ondersteunen bestaande Shaman-characters. Roster, Hall en saves blijven gebruikt worden. Spelers kiezen uit Orc, Troll, Tauren en Skyborne.
 - Goedgekeurde Earth/Fire/Water/Air-art wordt lokaal gebundeld. Eén eigen totem per element, vaste positie, bereik, vervanging, levensduur, overlijden/vernietiging, Recall en Projection.
 - Mana Spring/Healing Stream/Mana Tide werken binnen een gesimuleerde subgroep van maximaal vijf; Strength/Grace hebben raidbereik. De bestaande NPC-buffabstractie blijft behouden; gelijke buffs stapelen niet.
 - Shields zijn wederzijds exclusief. Weapon imbues vervangen elkaar. Stormstrike, Maelstrom, Clearcasting, Elemental Mastery en Rage of the Farseer zijn aangesloten op de werkelijke cast-/damagepaden.

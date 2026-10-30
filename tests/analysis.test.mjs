@@ -5,7 +5,6 @@ import { KITS, TRIALS, trialById } from '../src/content/index.js';
 import { createBattle, step, drainEvents } from '../src/engine/core.js';
 import { createTracker } from '../src/telemetry/tracker.js';
 import { analyze } from '../src/analysis/analyze.js';
-import { DIM_IDS } from '../src/analysis/model.js';
 import { makeController } from './bots/harness.mjs';
 import { BOTS } from './bots/trial-suite.mjs';
 
@@ -88,32 +87,16 @@ const feedback = [
     skipped: true,
   },
 ];
-const a = analyze({ sessions, feedback, trials: TRIALS });
-assert.equal(a.ranking.length, 6);
-for (const r of a.ranking) assert.ok(Number.isFinite(r.total), `${r.cls}: played, so it has a total`);
 for (const s of sessions) assert.ok(s.barSize > 0, 'kit size recorded');
-for (const cls of ['hunter', 'mage', 'priest', 'warrior', 'rogue', 'shaman']) {
-  for (const dim of DIM_IDS) {
-    const c = a.classes[cls].dims[dim];
-    assert.ok(c.score === null || (c.score >= 0 && c.score <= 100), `${cls}.${dim} score in range`);
-    for (const e of c.evidence) assert.ok(['fact', 'observed', 'self', 'prediction'].includes(e.kind));
-  }
-}
-// What you said moves the needle: Mage questing rated 5/5 beats Priest rated 2/5 on leveling.
-assert.ok(a.classes.mage.dims.leveling.score > a.classes.priest.dims.leveling.score, 'self-reports move leveling');
-// A careless/lost run only touches capability (R12), never self-reported enjoyment.
-const r12 = a.classes.priest.dims.soloIndependence.evidence.filter((e) => e.rule === 'R12');
-assert.ok(r12.length <= 1);
+const a = analyze({ sessions, feedback, trials: TRIALS.filter((t) => !t.leaderboard) });
+assert.equal(a.played.length, 6);
+// Mage answered 5 and Priest 2 in the same trial, level and role.
+assert.equal(a.lean.cls, 'mage');
+assert.ok(a.lean.reasons[0].text.includes('How did that fight feel?'), 'older answers are quoted as asked');
+// A careless, lost run tells nothing about liking: only its description and record change.
+assert.ok(a.performance.priest.runs >= 1);
 // Skipped answers add nothing.
-assert.ok(!a.classes.hunter.dims.leveling.evidence.some((e) => e.kind === 'self'), 'skipped feedback is not evidence');
-assert.equal(a.recommendation.status, 'early', 'one trial per class is an early read');
-assert.ok(a.gaps.length > 0, 'unplayed trials are listed as gaps');
-// Weights are visible and move the totals.
-const b = analyze({ sessions, feedback, trials: TRIALS, weights: { raids: 3, pvp: 0, questing: 0.25, dungeons: 0.25 } });
-assert.notDeepEqual(
-  a.ranking.map((r) => r.total),
-  b.ranking.map((r) => r.total),
-  'weights change the totals',
-);
-console.log(a.ranking.map((r) => `${r.name} ${r.total}`).join(' · '), '| status', a.recommendation.status, '| conflicts', a.conflicts.length);
+assert.equal(a.evidence.self.hunter.length, 0, 'skipped feedback is not evidence');
+assert.ok(a.evidence.observed.mage.length > 0, 'behaviour is described');
+assert.ok(a.uncertainties.length > 0, 'gaps are named');
 console.log('analysis ok');

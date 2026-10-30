@@ -5,6 +5,7 @@ import { CLASSIC_ASSETS as A } from './classic-assets.gen.js';
 const h = React.createElement;
 
 export const CLASSIC_NAV = [
+  { id: 'guide', label: 'Compare' },
   { id: 'roster', label: 'Characters' },
   { id: 'hall', label: 'Trials' },
   { id: 'analysis', label: 'Analysis' },
@@ -30,7 +31,7 @@ export function classicAssetVariables() {
 export function ClassicShell({ screen, children, onNavigate, hasCharacters = true }) {
   // Never wrap the battle HUD in the menu shell. See ClassicBattleFrame below.
   if (screen === 'battle') throw new Error('Use ClassicBattleFrame for battle; the menu theme must not inherit into combat.');
-  const active = ['briefing', 'result'].includes(screen) ? 'hall' : screen;
+  const active = ['briefing', 'result'].includes(screen) ? 'hall' : screen === 'picker' ? 'guide' : screen;
   const nav = CLASSIC_NAV.map((item) =>
     h(
       'button',

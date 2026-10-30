@@ -18,6 +18,7 @@ import { Battlefield } from './Battlefield.jsx';
 import { UnitFrame, PartyFrames, RaidFrames, PlayerCastBar } from './Frames.jsx';
 import { ActionButton, AbilityTooltip, PetBar } from './ActionBar.jsx';
 import { createFx, ingestFx, pruneFx } from './fx.js';
+import { createHints, updateHints, currentGoal } from '../../guide/hints.js';
 import { HOTKEYS, fmtTime, fmtNum, cx } from '../util.js';
 
 const { useEffect, useRef, useState, useCallback, useMemo } = React;
@@ -29,6 +30,7 @@ const MOVE_KEYS = { w: [0, -1], arrowup: [0, -1], s: [0, 1], arrowdown: [0, 1], 
 export function Battle({ sel, kit, trial, settings, sessionMeta, onEnd, onExit, onSettings }) {
   const stateRef = useRef(null);
   const fxRef = useRef(null);
+  const hintsRef = useRef(null);
   const trackerRef = useRef(null);
   const keysRef = useRef(new Set());
   const [, setFrame] = useState(0);
@@ -58,6 +60,7 @@ export function Battle({ sel, kit, trial, settings, sessionMeta, onEnd, onExit, 
       seed: sessionMeta.seed,
     });
     fxRef.current = createFx();
+    hintsRef.current = createHints();
     trackerRef.current = createTracker({
       ...sessionMeta,
       trialId: trial.id,
@@ -115,18 +118,32 @@ export function Battle({ sel, kit, trial, settings, sessionMeta, onEnd, onExit, 
       const real = Math.min(0.1, (now - last) / 1000);
       last = now;
       const s = stateRef.current;
+      let n = 0;
       if (!pausedRef.current && !endedRef.current) {
         acc += real * speedRef.current;
-        let n = 0;
         while (acc >= DT && n < 6) {
           step(s, DT);
           acc -= DT;
           n++;
         }
       }
-      const evs = drainEvents(s);
+      // A key press emits its events between steps. Trial scripts read them during the next step,
+      // so a frame without a step must leave them in place.
+      const evs = n > 0 || pausedRef.current || endedRef.current ? drainEvents(s) : [];
       tracker.ingest(evs, s);
       ingestFx(fx, evs, s);
+      const me = s.units[s.playerId];
+      if (me)
+        updateHints(hintsRef.current, evs, {
+          playerId: me.id,
+          t: s.t,
+          enabled: settings.tips !== false,
+          hasTarget: !!me.target,
+          anyAction: hintsRef.current.lastAction > 0,
+          inCombat: s.list.some((u) => u.side === 'enemy' && u.alive && u.target === me.id),
+          casting: !!me.casting,
+          hpPct: me.hp / me.maxHp,
+        });
       pruneFx(fx, s.t);
       if (s.outcome && outcomeAt === null) outcomeAt = now;
       if (outcomeAt !== null && now - outcomeAt > 1800) finish();
@@ -324,6 +341,8 @@ export function Battle({ sel, kit, trial, settings, sessionMeta, onEnd, onExit, 
 
   const tgt = P && P.target ? state.units[P.target] : null;
   const objectives = trial.objectives ? trial.objectives(state) : [];
+  const goal = currentGoal(objectives);
+  const hint = hintsRef.current && hintsRef.current.current;
   const hoverAb = hover && (hover.pet ? pet && pet.ab[hover.id] : P && P.ab[hover.id]);
   let hoverRing = null;
   const ringAb = targeting ? P && P.ab[targeting] : hoverAb;
@@ -359,7 +378,7 @@ export function Battle({ sel, kit, trial, settings, sessionMeta, onEnd, onExit, 
           <span className="b-place">
             {trial.place} · Level {sel.level} {kit.name}
             {sel.spec ? ` · ${specName(kit, sel)}` : ''}
-            {sel.role === 'healer' ? ' · Healer' : ''}
+            {sel.role === 'healer' ? ' · Healer' : sel.role === 'tank' ? ' · Tank' : ''}
           </span>
         </div>
         <div className="b-controls">
@@ -449,6 +468,13 @@ export function Battle({ sel, kit, trial, settings, sessionMeta, onEnd, onExit, 
               {banner.sub && <div className="b-banner-sub">{banner.sub}</div>}
             </div>
           )}
+          {goal && !state.outcome && (
+            <div className="b-goal">
+              Goal: {goal.text}
+              {goal.progress ? ` (${goal.progress})` : ''}
+            </div>
+          )}
+          {hint && !state.outcome && !targeting && <div className="b-hint">{hint.text}</div>}
           {targeting && <div className="b-hint">Click the ground to place {P && P.ab[targeting] ? P.ab[targeting].name : ''} · Esc to cancel</div>}
           {paused && !ended && (
             <div className="b-paused" onClick={() => togglePause('overlay')}>

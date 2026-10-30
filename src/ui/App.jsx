@@ -1,5 +1,6 @@
 // App shell: navigation between screens, the two stores, and session bookkeeping.
-import { KITS, CLASS_ORDER, PLAYABLE, TRIALS, trialById, trialSupports } from '../content/index.js';
+import { KITS, CLASS_ORDER, PLAYABLE, TRIALS, PRACTICE, trialById, trialSupports } from '../content/index.js';
+import { nextStep, skipCell, pendingComparison, countsAsEvidence } from '../guide/route.js';
 import { RACES, validRace } from '../content/races.js';
 import { loadProgress, saveProgress, loadEvidence, saveEvidence, runKey, emptyProgress, emptyEvidence, resetAll } from '../telemetry/store.js';
 import { Title } from './screens/Title.jsx';
@@ -11,12 +12,15 @@ import { Analysis } from './screens/Analysis.jsx';
 import { Codex } from './screens/Codex.jsx';
 import { Method } from './screens/Method.jsx';
 import { Battle } from './battle/Battle.jsx';
-import { Roster } from './screens/Roster.jsx';
+import { Roster, newCharacterId } from './screens/Roster.jsx';
+import { ClassPicker } from './screens/ClassPicker.jsx';
+import { Guide } from './screens/Guide.jsx';
 import { ClassicShell, ClassicBattleFrame } from './chrome/ClassicShell.jsx';
 
 const { useState, useEffect, useCallback, useRef, useMemo } = React;
 // The Proving Grounds ranks damage; it is not evidence for the class analysis.
 const ANALYSIS_TRIALS = TRIALS.filter((t) => !t.leaderboard);
+const dpsSpec = (kit, level) => ((kit.specsFor ? kit.specsFor(level, 'dps') : kit.specs && kit.specs[level]) || [])[0]?.id ?? null;
 
 // Developer shortcut: #play-t1-mage-10-frost-dps jumps straight into a fight
 // (#brief-… opens the briefing; #screen-hall / #screen-analysis open a screen).
@@ -151,9 +155,7 @@ export function App({ initial }) {
         role: { ...(p.last.role || {}), [`${sel.classId}:${sel.trialId}`]: role },
       },
     }));
-    seedRef.current = (Date.now() % 100000) + 1;
-    setBattleKey((k) => k + 1);
-    setScreen('battle');
+    startBattle();
   };
 
   const priorSessions = sel
@@ -173,7 +175,64 @@ export function App({ initial }) {
       }
     : null;
 
+  const startBattle = () => {
+    seedRef.current = (Date.now() % 100000) + 1;
+    setBattleKey((k) => k + 1);
+    setScreen('battle');
+  };
+  const guide = progress.guide || null;
+  const setGuide = (g) => setProgress((p) => ({ ...p, guide: g }));
+  const step = guide ? nextStep(guide, evidence.sessions, characters) : null;
+  const startPractice = (s) => {
+    setSel({
+      trialId: PRACTICE.id,
+      classId: s.classId,
+      level: PRACTICE.level,
+      race: s.race,
+      charId: s.charId,
+      spec: dpsSpec(KITS[s.classId], PRACTICE.level),
+      role: 'dps',
+    });
+    startBattle();
+  };
+  const markPractice = (classId) => setProgress((p) => ({ ...p, guide: { ...p.guide, practice: { ...(p.guide.practice || {}), [classId]: true } } }));
+  // Choosing classes gives each a character if it has none yet; race and name can change later.
+  const startGuide = ({ classes, races, experience }) => {
+    const add = classes
+      .filter((c) => !characters.some((x) => x.classId === c))
+      .map((c) => ({ id: newCharacterId(), name: `${RACES[races[c]].name} ${KITS[c].name}`, race: races[c], classId: c, createdAt: new Date().toISOString() }));
+    setProgress((p) => ({
+      ...p,
+      seenIntro: true,
+      characters: [...characters, ...add],
+      guide: { practice: {}, skipped: [], startedAt: new Date().toISOString(), ...(p.guide || {}), classes, experience },
+    }));
+    setScreen('guide');
+  };
+  const onConfirm = (id, answer) =>
+    setEvidence((e) => {
+      const confirmations = { ...(e.confirmations || {}) };
+      if (answer) confirmations[id] = answer;
+      else delete confirmations[id];
+      return { ...e, confirmations };
+    });
+  // Without a route, the useful next trial is the first gap among the classes you have characters for.
+  const looseStep = guide
+    ? step
+    : nextStep(
+        { classes: [...new Set(characters.map((c) => c.classId))], practice: Object.fromEntries(PLAYABLE.map((c) => [c, true])) },
+        evidence.sessions,
+        characters,
+      );
+  const stepLabel = (s) => (s.type === 'practice' ? `Practice ${KITS[s.classId].name}` : `${trialById(s.trialId).title} as ${KITS[s.classId].name}`);
+
   const onEnd = useCallback(({ session, outcome, summary, report, abandoned }) => {
+    // Practice is never evidence: no session, no progress, no result screen.
+    if (!countsAsEvidence(trialById(session.trialId))) {
+      setProgress((p) => ({ ...p, guide: p.guide ? { ...p.guide, practice: { ...(p.guide.practice || {}), [session.classId]: true } } : p.guide }));
+      setScreen('guide');
+      return;
+    }
     setEvidence((e) => ({ ...e, sessions: [...e.sessions, session] }));
     const s = selRef.current || {};
     const ch = charsRef.current.find((c) => c.id === s.charId);
@@ -218,7 +277,8 @@ export function App({ initial }) {
     setScreen('result');
   }, []);
 
-  const onFeedback = (fb) => setEvidence((e) => ({ ...e, feedback: [...e.feedback, fb] }));
+  const onFeedback = (fb, comparison) =>
+    setEvidence((e) => ({ ...e, feedback: [...e.feedback, fb], comparisons: comparison ? [...(e.comparisons || []), comparison] : e.comparisons || [] }));
   const updateSettings = (patch) => setProgress((p) => ({ ...p, settings: { ...p.settings, ...patch } }));
 
   let body = null;
@@ -227,14 +287,15 @@ export function App({ initial }) {
       <Title
         onStart={() => {
           setProgress((p) => ({ ...p, seenIntro: true, characters }));
-          setScreen(characters.length ? 'hall' : 'roster');
+          setScreen(guide ? 'guide' : 'picker');
         }}
+        onHall={() => setScreen('hall')}
+        guideActive={!!guide}
+        hasCharacters={characters.length > 0}
         onMethod={() => {
           setBackTo('title');
           setScreen('method');
         }}
-        hasProgress={evidence.sessions.length > 0}
-        sessions={evidence.sessions.length}
       />
     );
   } else if (screen === 'hall') {
@@ -263,7 +324,7 @@ export function App({ initial }) {
         initialRace={sel.race}
         raceLocked={!!sel.charId}
         onStart={start}
-        onBack={() => setScreen('hall')}
+        onBack={() => setScreen(guide ? 'guide' : 'hall')}
         onSwitchCharacter={(c) => pick({ ...sel, classId: c.classId, charId: c.id, race: c.race, spec: undefined, role: undefined })}
         characters={characters.filter((c) => trialSupports(trial.id, c.classId))}
         characterId={sel.charId}
@@ -295,6 +356,9 @@ export function App({ initial }) {
         classOrder={PLAYABLE}
         kits={VIEW_KITS}
         feedbackGiven={evidence.feedback.some((f) => f.sessionId === result.session.id)}
+        compare={trial.leaderboard ? null : pendingComparison(result.session, evidence.sessions, evidence.comparisons)}
+        nextLabel={step ? `Next: ${stepLabel(step)}` : 'See your comparison'}
+        onNext={guide ? () => setScreen(step ? 'guide' : 'analysis') : null}
         onFeedback={onFeedback}
         onRetry={() => setScreen('briefing')}
         onOtherClass={(c) => pick({ trialId: sel.trialId, classId: c, level: sel.level })}
@@ -310,16 +374,40 @@ export function App({ initial }) {
         trials={ANALYSIS_TRIALS}
         characters={characters}
         classOrder={CLASS_ORDER}
-        weights={progress.settings.weights}
-        onWeights={(w) => updateSettings({ weights: w })}
-        onBack={() => setScreen('hall')}
+        guide={guide}
+        leaderboard={progress.leaderboard || []}
+        nextUp={looseStep ? { text: looseStep.type === 'trial' ? looseStep.why : 'Try the controls first.', label: stepLabel(looseStep) } : null}
+        onPlayNext={() => (guide ? setScreen('guide') : pick(looseStep))}
+        onConfirm={onConfirm}
+        onBack={() => setScreen(guide ? 'guide' : 'hall')}
         onMethod={() => {
           setBackTo('analysis');
           setScreen('method');
         }}
-        onPlay={pick}
       />
     );
+  } else if (screen === 'picker') {
+    body = (
+      <ClassPicker kits={VIEW_KITS} playable={PLAYABLE} characters={characters} guide={guide} onDone={startGuide} onFreePlay={() => setScreen('roster')} />
+    );
+  } else if (screen === 'guide' && guide) {
+    body = (
+      <Guide
+        guide={guide}
+        sessions={evidence.sessions}
+        characters={characters}
+        kits={VIEW_KITS}
+        onPlay={pick}
+        onPractice={startPractice}
+        onSkipPractice={markPractice}
+        onSkip={(s) => setGuide(skipCell(guide, s))}
+        onChange={() => setScreen('picker')}
+        onHall={() => setScreen('hall')}
+        onAnalysis={() => setScreen('analysis')}
+      />
+    );
+  } else if (screen === 'guide') {
+    body = <ClassPicker kits={VIEW_KITS} playable={PLAYABLE} characters={characters} guide={null} onDone={startGuide} onFreePlay={() => setScreen('roster')} />;
   } else if (screen === 'roster') {
     body = (
       <Roster

@@ -26,6 +26,8 @@ export function Roster({ characters, kits, playable, onChange, onDone, onBack, t
     setName('');
   };
   const remove = (id) => onChange(characters.filter((c) => c.id !== id));
+  const [editing, setEditing] = useState(null);
+  const update = (id, patch) => onChange(characters.map((c) => (c.id === id ? { ...c, ...patch } : c)));
   return (
     <div className="roster">
       <h2 className="act-classic-titlebar">Your Characters</h2>
@@ -115,7 +117,7 @@ export function Roster({ characters, kits, playable, onChange, onDone, onBack, t
           <button type="button" className="btn primary" onClick={create} disabled={!ready}>
             Create character
           </button>
-          <p className="roster-note">Add or remove characters at any time. Progress remains shared between characters of the same class.</p>
+          <p className="roster-note">Add, change or remove characters at any time. Each character keeps its own trial progress.</p>
         </section>
         <section className="panel roster-list" aria-label="Your characters">
           <div className="panel-title">In the Hall ({characters.length})</div>
@@ -133,6 +135,32 @@ export function Roster({ characters, kits, playable, onChange, onDone, onBack, t
                     {n < 5 ? ` · ${n} of 5 trials so far` : ''}
                   </span>
                 </span>
+                {editing === ch.id ? (
+                  <span className="roster-edit">
+                    <input type="text" maxLength={24} aria-label="Name" value={ch.name} onChange={(e) => update(ch.id, { name: e.target.value })} />
+                    <select aria-label="Race" value={ch.race} onChange={(e) => update(ch.id, { race: e.target.value })}>
+                      {racesFor(ch.classId).map((r) => (
+                        <option key={r} value={r}>
+                          {RACES[r].name}
+                        </option>
+                      ))}
+                    </select>
+                    <button
+                      type="button"
+                      className="btn small"
+                      onClick={() => {
+                        if (!ch.name.trim()) update(ch.id, { name: `${RACES[ch.race].name} ${k.name}` });
+                        setEditing(null);
+                      }}
+                    >
+                      Done
+                    </button>
+                  </span>
+                ) : (
+                  <button type="button" className="btn small ghost" onClick={() => setEditing(ch.id)} aria-label={`Change ${ch.name}`}>
+                    Change
+                  </button>
+                )}
                 <button type="button" className="btn small ghost" onClick={() => remove(ch.id)} aria-label={`Remove ${ch.name}`}>
                   Remove
                 </button>

@@ -26,33 +26,34 @@ git. `design/phase4.md` holds the original plan and its design decisions.
 - **Old saves:** `migrateProgress` (store.js) moves class-level results to `progress.legacyRuns`.
   They are kept and counted per class, never assigned to a character. Old sessions without a
   `charId` count at class level as "not linked".
+- **Shaman races:** Orc, Troll, Tauren and Skyborne. Skyborne has no published attribute offset, so it has none here.
 - **Priest racial spells follow the race:** Undead Touch of Weakness and Dark Sacrifice, Troll Hex
   of Weakness and Shadowguard (`RACE_SPELLS` in `classes/priest.js`).
 - **Class analysis for six classes** (`analysis/`, see below).
 - **Art:** original Class Trials branding and procedural menu chrome; no crops of the WoW site.
 - **Forever audit:** `npm run audit`, results in `docs/ability-audit/`.
 
-## How the analysis stays fair
+## First route and guided comparison
 
-- Four kinds of evidence stay apart: fact, observed, self, prediction.
-- **Facts never rank a class alone.** A class without own runs or answers has no total.
-- **Facts only score on rows where all six classes have a sourced fact**
-  (`factRowsComparable()`: now combat depth, dungeon, raid, role flexibility, fantasy). Other facts
-  are listed as "not scored". Missing research is therefore no penalty.
-- **Status:** `empty` (nothing played), `single` (one class, nothing to compare), `early`,
-  `ready`. `ready` needs every class in at least 2 trials and half of all trial × class cells.
-- **Observed rules were checked for class bias.** Activity (R1, R17, predictions) only compares the
-  same pace of play (`paceOf`); rage, energy, weapon-swing and Auto Shot kits have no fair
-  counterpart and get no evidence there. Breadth (R4) is a share of the kit. Removed from scoring:
-  wand reliance (R2), time to first action (R16), questing utility tags (R21), duty windows (R20,
-  shown only), and the class-specific Priest and Hunter forecasts. R18 no longer penalises
-  unplayed classes. R19 covers every class with more than one role.
-- The Undead Priest attachment is opt-in: the slider defaults to 0.
+- **Start page** (`Title.jsx`): what you can try, what you get, how to begin. One main action.
+- **Class choice** (`ClassPicker.jsx`, `content/class-intro.js`): two or three classes, with a description and roles. It creates a character with a default race if the class has none. Race and name change later under Characters.
+- **Route** (`guide/route.js`, `Guide.jsx`, saved as `progress.guide`): one next step at a time, the same trial, level and role per class, starting at level 30 because level 10 has a thin kit. Other roles are their own steps. Roster and Hall stay as free play.
+- **Practice yard** (`encounters/t0-practice.js`): skippable, per class, not in `TRIALS`, and never written to the evidence or progress.
+- **During a fight** (`guide/hints.js`): one goal line, at most three hints, and an explanation after a repeated failed press. The Tips setting turns hints off.
+
+## How the analysis works
+
+- **Questions** (`analysis/questions.js`): fun and effort, a follow-up on high effort, a direct comparison after comparable runs (`evidence.comparisons`), and optional moments labelled fun, annoying or notable. "Don't know" and skipping are missing information.
+- **Only what you said can make a class your preference.** Behaviour, Forever facts and "still unknown" are listed apart and never move it. Effort, winning and damage do not count. There are no scores, percentages or weights any more; `settings.weights` in old saves is ignored.
+- **Comparison** (`analysis/analyze.js`): only the same trial, level and role. A direct answer decides, otherwise fun answers that differ by a whole category. Repeats are one opinion, your latest. An answer with a technical problem is set aside.
+- **Outcomes:** `empty`, `single`, `uncompared`, `tie`, `conflict`, `lean` (slight or clearer), `corrected` when the player rejects it (`evidence.confirmations`).
+- **Old feedback** keeps its fields and meaning, is quoted as asked, and is only compared with other old feedback.
+- **The damage report and result numbers appear after the questions.**
+- See `docs/GEBRUIKERSTEST.md` for the test plan with real visitors. No automated test shows the advice is right.
 
 ## What is missing
 
 - **Classes:** Warlock (NPC kit only), Paladin and Druid. Alliance racials are not built.
-- **Shaman races:** Orc only in the game, though Forever also has Troll, Tauren and Skyborne.
 - **Facts:** no sourced Forever statement stored yet for Warrior PvP, world utility, session length
   and long-term play; Rogue leveling, PvP, world utility, solo play, session length and long-term
   play; Shaman leveling, world utility and long-term play. Those rows score no facts for anyone.
@@ -60,7 +61,7 @@ git. `design/phase4.md` holds the original plan and its design decisions.
   coefficients (see `docs/ability-audit/RESULTATEN.md` and `docs/SHAMAN.md`). Hex of Weakness and
   Touch of Weakness simulate their attack power loss as −10 % melee damage.
 - **After launch (2026-11-04):** the data is beta build 1.60.1.70630. Re-read it and rerun the audit.
-- **The analysis was tested with bots and constructed saves,** not with long real play.
+- **The analysis and route were tested with constructed saves and forced fight endings,** not with long real play or new visitors.
 
 ## Building
 
