@@ -1027,6 +1027,79 @@ registerAbilities({
   },
 });
 
+// Troll Priest spells. Values: Wowhead Forever tooltips (spells 9035-19285, 18137-19312).
+registerAbilities({
+  'priest.hex': {
+    name: 'Hex of Weakness',
+    icon: 'touch-weakness',
+    school: 'shadow',
+    category: 'control',
+    tags: ['racial', 'optional-utility'],
+    learn: 10,
+    range: 30,
+    desc: 'Troll Priest spell. Curses an enemy for 2 min: less melee damage, and healing on it is 20 % less effective.',
+    forever: OFF(
+      'Kept for Trolls (“unchanged”). Datamine: −43 to −204 melee attack power; −20 % healing. Attack power loss is simulated as −10 % melee damage.',
+    ),
+    cost: { mana: 'mana' },
+    effects: [
+      {
+        type: 'aura',
+        aura: {
+          id: 'priest.hex',
+          name: 'Hex of Weakness',
+          icon: 'touch-weakness',
+          school: 'shadow',
+          debuff: true,
+          duration: 120,
+          mods: { dmgDone: { melee: 0.9 }, healTaken: 0.8 },
+          dispel: 'curse',
+        },
+      },
+    ],
+    byLevel: { 10: { mana: 35 }, 30: { mana: 90 }, 60: { mana: 240 } },
+  },
+  'priest.shadowguard': {
+    name: 'Shadowguard',
+    icon: 'shield',
+    school: 'shadow',
+    category: 'buff',
+    tags: ['racial', 'optional-utility'],
+    learn: 20,
+    target: 'self',
+    desc: 'Troll Priest spell. For 10 min, up to 3 attackers that hit you with a spell, melee or ranged attack take Shadow damage (at most once per 3.5 s). No threat.',
+    forever: OFF('Kept for Trolls (“unchanged”). Datamine: 3 charges, 10 min, 3.5 s between charges, 13 to 96 Shadow damage.'),
+    cost: { mana: 'mana' },
+    effects: [
+      {
+        type: 'custom',
+        fn: ({ state, u, ab, api }) =>
+          api.applyAura(state, u, u, {
+            id: 'priest.shadowguard',
+            name: 'Shadowguard',
+            icon: 'shield',
+            school: 'shadow',
+            duration: 600,
+            maxStacks: 3,
+            stacks: 3,
+            onHolderDamaged: ({ state: st, u: me, aura, api: a2, src, pk }) => {
+              if (!src || !src.alive || pk.isTick || src.side === me.side) return;
+              if (st.t < (aura.readyAt || 0)) return;
+              aura.readyAt = st.t + 3.5;
+              a2.dealDamage(st, me, src, { amount: val(ab, 'td'), school: 'shadow', kind: 'spell', ability: 'priest.shadowguard', noMiss: true, threat: 0 });
+              aura.left = (aura.left ?? 3) - 1;
+              aura.stacks = aura.left;
+              if (aura.left <= 0) a2.removeAura(st, me, aura, 'consumed');
+            },
+          }),
+      },
+    ],
+    byLevel: { 30: { td: 22, mana: 85 }, 60: { td: 96, mana: 250 } },
+  },
+});
+// Each race trains its own two spells; the bars list the Undead ones.
+const RACE_SPELLS = { troll: { 'priest.touch': 'priest.hex', 'priest.darksac': 'priest.shadowguard' } };
+
 // Prayer of Mending: heals on the holder's next damage, then jumps.
 function placeMending(state, api, u, t, ab, charges) {
   if (!t || !t.alive || charges <= 0) return;
@@ -1463,9 +1536,10 @@ export const KIT = {
         permanent: true,
         mods: { dmgDone: { shadow: 1.1 }, costMult: { shadow: 0.5 }, dmgTaken: { physical: 0.85 } },
       });
-    const bar = BARS[key];
+    const swap = (ids) => ids.map((id) => (RACE_SPELLS[race] || {})[id] || id);
+    const bar = swap(BARS[key]);
     const prevKey = L === 60 ? sp + '30' : L === 30 ? 10 : null;
-    const prev = prevKey ? BARS[prevKey] : null;
+    const prev = prevKey ? swap(BARS[prevKey]) : null;
     return {
       template: {
         name: 'You',

@@ -10,7 +10,7 @@ Progress is stored in your own browser only.
 
 ```bash
 npm install
-npm test          # bot-driven balance and kit tests
+npm test          # kit, trial, analysis and save tests with bots
 npm run build     # dist/index.html (artifact) and dist/preview.html (standalone page)
 npm run format    # Prettier; CI fails on unformatted code
 ```
@@ -21,5 +21,5 @@ Art: `src/ui/art/img/` holds the resized portraits and spell icons as content-ha
 
 ## Local working copy
 
-Use this project directory as the active checkout. The implementation is on branch codex/azeroth-local; phase4 is preserved. Run npm start (or npm run dev) to build and serve at http://127.0.0.1:4174. Stop with Ctrl+C and restart after source edits. Validation reports and screenshots are in docs/local-validation/.
+Use this project directory as the active checkout, on branch `codex/azeroth-local`. Run `npm start` to build and serve at http://127.0.0.1:4174; restart after source edits. Status, what is missing and how to regenerate art: `design/phase4-progress.md`.
 

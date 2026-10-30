@@ -1,7 +1,9 @@
 # Phase 4 — every class playable (Warrior and Rogue first)
 
 Prepared 2026-10-27, after phase 3 (NPC party/raid as real classes), race choice
-(v10) and the targeting fixes (v12). Nothing in this file is built yet.
+(v10) and the targeting fixes (v12). This is the original plan, kept for its design decisions.
+Warrior, Rogue and Shaman are built; for the current state see `design/phase4-progress.md`,
+which wins where the two differ.
 
 ## Goal
 

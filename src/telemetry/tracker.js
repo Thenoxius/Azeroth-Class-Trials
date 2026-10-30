@@ -293,6 +293,7 @@ export function createTracker(meta) {
       rec.healing.overhealPct =
         rec.healing.done + rec.healing.overheal > 0 ? +(rec.healing.overheal / (rec.healing.done + rec.healing.overheal)).toFixed(3) : 0;
       const p = state.units[state.playerId];
+      if (p && p.ab) rec.barSize = Object.keys(p.ab).filter((id) => !id.startsWith('item.') && !id.startsWith('race.')).length;
       if (p && p.res.mana) rec.resource.endResPct = +(p.res.mana.cur / p.res.mana.max).toFixed(3);
       rec.outcome = extra.abandoned ? 'abandoned' : state.outcome ? state.outcome.result : 'abandoned';
       rec.abandoned = !!extra.abandoned;

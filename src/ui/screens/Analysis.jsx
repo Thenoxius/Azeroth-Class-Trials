@@ -29,7 +29,10 @@ function Evidence({ list }) {
       {list.slice(0, 14).map((e, i) => (
         <li key={i} className={cx('an-ev-item', e.value > 0.1 ? 'pos' : e.value < -0.1 ? 'neg' : 'neu')}>
           <span className={cx('badge', 'kind-' + e.kind)}>{KIND_LABEL[e.kind]}</span>
-          <span className="an-ev-text">{e.text}</span>
+          <span className="an-ev-text">
+            {e.text}
+            {e.scored === false && <em className="muted small"> Not scored: not every class has a sourced fact on this row yet.</em>}
+          </span>
           <span className="an-ev-w" title="Weight after caps">
             {e.value > 0.1 ? '▲' : e.value < -0.1 ? '▼' : '•'} {e.weight.toFixed(2)}
           </span>
@@ -40,7 +43,7 @@ function Evidence({ list }) {
   );
 }
 
-export function Analysis({ evidence, kits, trials, classOrder, weights, onWeights, onBack, onMethod, onPlay }) {
+export function Analysis({ evidence, kits, trials, classOrder, characters = [], weights, onWeights, onBack, onMethod, onPlay }) {
   const [w, setW] = useState(() => ({ ...DEFAULT_WEIGHTS, ...(weights || {}) }));
   const [open, setOpen] = useState(null); // `${cls}:${dim}`
   const a = useMemo(() => {
@@ -58,10 +61,17 @@ export function Analysis({ evidence, kits, trials, classOrder, weights, onWeight
     setW(next);
     onWeights && onWeights(next);
   };
-  const main = kits[rec.main];
-  const alt = kits[rec.alt];
-  const maxTotal = Math.max(...a.ranking.map((r) => r.total), 60);
-  const minTotal = Math.min(...a.ranking.map((r) => r.total), 40);
+  const main = rec.main ? kits[rec.main] : null;
+  const alt = rec.alt ? kits[rec.alt] : null;
+  const totals = a.ranking.filter((r) => r.total != null).map((r) => r.total);
+  const maxTotal = Math.max(...totals, 60);
+  const minTotal = Math.min(...totals, 40);
+  const provenance = (cls) => {
+    const c = a.classes[cls];
+    const named = Object.entries(c.byCharacter).map(([id, n]) => `${(characters.find((x) => x.id === id) || {}).name || 'removed character'} ${n}`);
+    if (c.unlinkedRuns) named.push(`${c.unlinkedRuns} not linked to a character`);
+    return named.length ? ` (${named.join(', ')})` : '';
+  };
   const nextGap = a.gaps.find((g) => g.kind === 'trial');
   return (
     <div className="analysis">
@@ -78,8 +88,8 @@ export function Analysis({ evidence, kits, trials, classOrder, weights, onWeight
       {rec.status === 'empty' ? (
         <section className="panel an-empty">
           <p>
-            No trials played yet. The analysis only uses what you actually do in the trials and what you tell it afterwards — plus a small, clearly labelled
-            dose of WoW: Forever research.
+            No trials played yet, so there is no recommendation and no ranking. The analysis uses what you actually do in the trials and what you tell it
+            afterwards. Sourced WoW: Forever facts are shown below, but they never rank a class on their own.
           </p>
           {nextGap && (
             <button
@@ -93,12 +103,18 @@ export function Analysis({ evidence, kits, trials, classOrder, weights, onWeight
             </button>
           )}
         </section>
+      ) : rec.status === 'single' ? (
+        <section className="panel an-empty">
+          <p>So far you only played {kits[rec.played[0]].name}, so there is nothing to compare yet. Play another class to get a first read.</p>
+        </section>
       ) : (
         <section className="an-verdict" style={{ '--cc': main.color }}>
           <div className="an-main">
             <Portrait id={main.portrait} size={84} />
             <div>
-              <div className="an-eyebrow">{rec.status === 'early' ? 'Early read — keep playing' : rec.confident ? 'Recommendation' : 'Leaning'}</div>
+              <div className="an-eyebrow">
+                {rec.status === 'early' ? 'Early read among the classes you played' : rec.confident ? 'Recommendation' : 'Leaning'}
+              </div>
               <h3 className="an-main-name">{main.name}</h3>
               <div className="muted">
                 {rec.margin.toFixed(1)} points ahead of {alt.name} · {a.sessions} trial runs · {Math.round(a.coverage * 100)} % of trial × class cells played
@@ -139,11 +155,13 @@ export function Analysis({ evidence, kits, trials, classOrder, weights, onWeight
           <div key={r.cls} className="an-rank-row" style={{ '--cc': CLASS_COLORS[r.cls] }}>
             <span className="an-rank-name">{kits[r.cls].name}</span>
             <span className="an-rank-bar">
-              <span style={{ width: `${((r.total - minTotal + 5) / (maxTotal - minTotal + 10)) * 100}%` }} />
+              {r.total != null && <span style={{ width: `${((r.total - minTotal + 5) / (maxTotal - minTotal + 10)) * 100}%` }} />}
             </span>
-            <span className="an-rank-total">{r.total.toFixed(1)}</span>
+            <span className="an-rank-total">{r.total == null ? '—' : r.total.toFixed(1)}</span>
             <span className="muted small">
-              {a.classes[r.cls].sessions} runs · {a.classes[r.cls].feedback} answers
+              {r.total == null
+                ? 'Not played'
+                : `${a.classes[r.cls].sessions} ${a.classes[r.cls].sessions === 1 ? 'run' : 'runs'}${provenance(r.cls)} · ${a.classes[r.cls].feedback} answers`}
             </span>
           </div>
         ))}

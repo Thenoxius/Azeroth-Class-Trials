@@ -841,5 +841,27 @@
     "sourceVersion": "forever",
     "dataUrl": "https://nether.wowhead.com/forever/tooltip/spell/8232",
     "mappingStatus": "verified-forever-spell-name-and-icon"
+  },
+  {
+    "abilityId": "priest.hex",
+    "name": "Hex of Weakness",
+    "spellId": 9035,
+    "iconName": "spell_shadow_fingerofdeath",
+    "file": "assets/spell-icons-extra/spell_shadow_fingerofdeath.jpg",
+    "projectAsset": true,
+    "sourceVersion": "forever",
+    "dataUrl": "https://nether.wowhead.com/forever/tooltip/spell/9035",
+    "mappingStatus": "verified-forever-spell-name-and-icon"
+  },
+  {
+    "abilityId": "priest.shadowguard",
+    "name": "Shadowguard",
+    "spellId": 18137,
+    "iconName": "spell_nature_lightningshield",
+    "file": "assets/spell-icons-extra/spell_nature_lightningshield.jpg",
+    "projectAsset": true,
+    "sourceVersion": "forever",
+    "dataUrl": "https://nether.wowhead.com/forever/tooltip/spell/18137",
+    "mappingStatus": "verified-forever-spell-name-and-icon"
   }
 ]

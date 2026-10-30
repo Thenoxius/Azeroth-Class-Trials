@@ -17,14 +17,19 @@ export const KIND_BLURB = {
   prediction: 'An extrapolation from what exists to what does not (e.g. level 30 → 60). Always uncertain.',
 };
 
+// A firm recommendation needs every class played in at least this many trials, and this
+// share of all trial × class cells. Below that the verdict stays an early read.
+export const MIN_TRIALS_PER_CLASS = 2;
+export const MIN_COVERAGE = 0.5;
+
 // The five trials the analysis expects. The real TRIALS list from the content
 // registry overrides these entries when it is passed in; missing ones are gaps.
 export const DEFAULT_TRIALS = [
   { id: 't1', order: 1, kind: 'questing', level: 10, levels: [10, 30], title: 'Questing' },
   { id: 't2', order: 2, kind: 'danger', level: 30, levels: [30], title: 'Unexpected danger' },
-  { id: 't3', order: 3, kind: 'dungeon', level: 30, levels: [30], title: 'Dungeon', healerFor: ['priest'] },
+  { id: 't3', order: 3, kind: 'dungeon', level: 30, levels: [30], title: 'Dungeon', healerFor: ['priest', 'shaman'], tankFor: ['warrior'] },
   { id: 't4', order: 4, kind: 'pvp', level: 60, levels: [60], title: 'PvP' },
-  { id: 't5', order: 5, kind: 'raid', level: 60, levels: [60], title: 'Raid', healerFor: ['priest'] },
+  { id: 't5', order: 5, kind: 'raid', level: 60, levels: [60], title: 'Raid', healerFor: ['priest', 'shaman'], tankFor: ['warrior'] },
 ];
 export const KIND_NAMES = { questing: 'Questing', danger: 'Unexpected danger', dungeon: 'Dungeon', pvp: 'PvP', raid: 'Raid' };
 export const GROUP_KINDS = ['dungeon', 'raid'];
@@ -96,14 +101,14 @@ export const OBSERVED_VS_SELF = 0.8;
 export const NEUTRAL_PRIOR = 2;
 
 // Visible, adjustable weights.
-export const DEFAULT_WEIGHTS = { questing: 1, dungeons: 1, raids: 1, pvp: 1, convenience: 0.5, attachment: 0.25 };
+export const DEFAULT_WEIGHTS = { questing: 1, dungeons: 1, raids: 1, pvp: 1, convenience: 0.5, attachment: 0 };
 export const WEIGHT_INFO = [
   { id: 'questing', label: 'Questing & exploration', min: 0, max: 3, step: 0.25 },
   { id: 'dungeons', label: 'Dungeons', min: 0, max: 3, step: 0.25 },
   { id: 'raids', label: 'Raids', min: 0, max: 3, step: 0.25 },
   { id: 'pvp', label: 'PvP & battlegrounds', min: 0, max: 3, step: 0.25 },
   { id: 'convenience', label: 'Gameplay depth ↔ convenience', min: 0, max: 1, step: 0.05, left: 'Depth', right: 'Convenience' },
-  { id: 'attachment', label: 'Existing character attachment', min: 0, max: 1, step: 0.05, left: 'Ignore', right: 'Strong' },
+  { id: 'attachment', label: 'Attachment to a beta Undead Priest (only if you have one)', min: 0, max: 1, step: 0.05, left: 'Ignore', right: 'Strong' },
 ];
 export const ACTIVITY_KEYS = ['questing', 'dungeons', 'raids', 'pvp'];
 export const ATTACHMENT = { cls: 'priest', label: 'your Undead Priest from the Forever beta (level cap 30)', itemWeight: 6, rowBonus: 1 };
@@ -165,19 +170,23 @@ export const CLASS_TRAITS = {
   priest: { autoRepeatIsCore: false, pet: false, healer: true },
 };
 
+// How a run spends its time. Casters fill the global cooldown with cast times. Rage, energy,
+// weapon swings and Auto Shot each leave their own gaps by design, so those kits have no
+// fair counterpart: activity only compares like with like.
+export function paceOf(s) {
+  if (s.role === 'healer') return 'healer';
+  if (s.classId === 'shaman' && s.spec === 'enhancement') return 'enhancement';
+  if (['warrior', 'rogue', 'hunter'].includes(s.classId)) return s.classId;
+  return 'caster';
+}
+
 // The observed-behaviour rules, in plain language, for the Method screen.
 export const OBSERVED_RULES = [
   {
     id: 'R1',
     name: 'Activity',
     dims: 'leveling (questing, danger), dungeon, pvp, raid',
-    text: 'Share of combat time you were casting or on the global cooldown, compared with your own average on the same trial and level across classes (healer runs only against healer runs). With no other class to compare against, a fixed 60 % midpoint is used at half weight.',
-  },
-  {
-    id: 'R2',
-    name: 'Auto-attack reliance',
-    dims: 'leveling',
-    text: 'Share of the fight carried by wand/auto-attacks, if recorded. Not applied to Hunter, whose Auto Shot is the core of the class.',
+    text: 'Share of combat time you were casting or on the global cooldown, compared with your own runs on the same trial and level with the same pace of play: casters with casters, healers with healers. Rage, energy, weapon-swing and Auto Shot kits leave gaps by design and have no fair counterpart, so they get no evidence from this rule.',
   },
   {
     id: 'R3',
@@ -189,13 +198,13 @@ export const OBSERVED_RULES = [
     id: 'R4',
     name: 'Breadth',
     dims: 'combat depth',
-    text: 'Number of different abilities you actually pressed, compared with your other classes on the same trial.',
+    text: 'Share of your action bar you actually pressed, compared with your other classes on the same trial. A share, so a larger kit is not an advantage.',
   },
   {
     id: 'R5',
     name: 'Tactical buttons',
     dims: 'combat depth (+ pvp, dungeon, solo independence)',
-    text: 'Control, defensive, utility, movement, interrupt and dispel uses per combat minute, compared across classes.',
+    text: 'Control, defensive, utility, movement, interrupt and dispel uses per combat minute, compared across classes. Pet commands do not count here.',
   },
   {
     id: 'R6',
@@ -206,8 +215,8 @@ export const OBSERVED_RULES = [
   {
     id: 'R7',
     name: 'Pet handling',
-    dims: 'combat depth, fantasy, dungeon/raid',
-    text: 'Pet commands and manually used pet abilities per combat minute (Hunter only).',
+    dims: 'combat depth',
+    text: 'Pet commands and manually used pet abilities per combat minute, at low weight. Hunter only, because only Hunters have a pet here.',
   },
   {
     id: 'R8',
@@ -247,25 +256,23 @@ export const OBSERVED_RULES = [
     dims: 'short sessions',
     text: 'Runs that were paused (by you or because the tab was hidden) and still finished count slightly positive; runs abandoned after a pause slightly negative.',
   },
-  { id: 'R16', name: 'Getting going', dims: 'short sessions', text: 'Seconds until your first action in a fight, if recorded, compared across classes.' },
   {
     id: 'R17',
     name: 'Level trend',
     dims: 'long-term, leveling',
-    text: 'Your activity relative to the other classes at level 10, 30 and 60. Rising engagement as the kit grows counts positive.',
+    text: 'Your activity relative to classes with the same pace of play at level 10, 30 and 60. Rising engagement as the kit grows counts positive.',
   },
-  { id: 'R18', name: 'Extra time', dims: 'long-term', text: 'Share of all your voluntary replay minutes that went to this class.' },
-  { id: 'R19', name: 'Both roles', dims: 'role flexibility', text: 'Actually playing both healer and damage in group trials (Priest).' },
+  { id: 'R18', name: 'Extra time', dims: 'long-term', text: 'Share of your voluntary replay minutes that went to this class, among the classes you played.' },
+  {
+    id: 'R19',
+    name: 'Both roles',
+    dims: 'role flexibility',
+    text: 'Actually playing more than one role in group trials (Priest and Shaman heal, Warrior tanks).',
+  },
   {
     id: 'R20',
     name: 'Responsibilities',
-    dims: 'dungeon / raid / pvp, combat depth',
-    text: 'Share of interrupt, dispel and similar responsibility windows you personally handled. Whether it succeeded is shown as performance, not scored.',
-  },
-  {
-    id: 'R21',
-    name: 'Utility while questing',
-    dims: 'world exploration & utility',
-    text: 'Optional-utility abilities used per minute while questing, compared across classes.',
+    dims: 'dungeon / raid / pvp (shown, not scored)',
+    text: 'How many interrupt, dispel and similar windows you handled. Shown only: which windows a class can answer at all differs per kit.',
   },
 ];

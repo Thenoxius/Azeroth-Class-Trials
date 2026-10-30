@@ -120,7 +120,7 @@ for (const ab of Object.values(abilities)) {
 const inventory = json('spell-icons/inventory-mapped.json');
 const auraIcons = {};
 for (const f of contentFiles()) {
-  for (const m of readFileSync(resolve(root, f), 'utf8').matchAll(/id: '([^']+)', name: '([^']+)'/g)) {
+  for (const m of readFileSync(resolve(root, f), 'utf8').matchAll(/id: '([^']+)',\s*name: '([^']+)'/g)) {
     const [, id, name] = m;
     if (auraIcons[id] !== undefined) continue;
     const linked = inventory.find((e) => e.file && ICON_OK.has(e.mappingStatus) && e.name === name && f.endsWith(e.source.split('/').pop()));

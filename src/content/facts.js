@@ -61,6 +61,27 @@ export const SOURCES = [
     date: '2026-10-07',
   },
   {
+    id: 'bz-dd-warrior',
+    title: 'Blizzard — Forever Class Deep Dives: Priest and Warrior',
+    url: 'https://worldofwarcraft.blizzard.com/en-us/news/24301514/world-of-warcraft-forever-class-deep-dives-priest-and-warrior',
+    kind: 'official',
+    date: '2026-10-02',
+  },
+  {
+    id: 'bz-dd-rogue',
+    title: 'Blizzard — Forever Class Deep Dives: Rogue and Warlock',
+    url: 'https://worldofwarcraft.blizzard.com/news/24310968',
+    kind: 'official',
+    date: '2026-10',
+  },
+  {
+    id: 'bz-dd-shaman',
+    title: 'Blizzard — Forever Class Deep Dives: Mage and Shaman',
+    url: 'https://worldofwarcraft.blizzard.com/en-us/news/24302097/world-of-warcraft-forever-class-deep-dives-mage-and-shaman',
+    kind: 'official',
+    date: '2026-10-07',
+  },
+  {
     id: 'bz-devnotes',
     title: 'Blizzard forums — Beta Development Notes (Sep 24 – Oct 15 builds)',
     url: 'https://us.forums.blizzard.com/en/wow/t/wow-forever-beta-development-notes-%E2%80%93-updated-october-15/2360696',
@@ -732,7 +753,12 @@ export const CLASS_FACTS = {
       ],
       longTerm: [
         F('Three reworked specs, two roles; dual spec at 40 lets you quest as Shadow and heal groups.', 'confirmed-official', 'bz-dd-priest', +1),
-        F('Race-specific Priest spells add variety (Undead: Touch of Weakness, Dark Sacrifice).', 'confirmed-official', 'bz-dd-priest', +1),
+        F(
+          'Race-specific Priest spells add variety (Undead: Touch of Weakness, Dark Sacrifice; Troll: Hex of Weakness, Shadowguard).',
+          'confirmed-official',
+          'bz-dd-priest',
+          +1,
+        ),
       ],
       roleFlexibility: [F('Healer or ranged DPS, switchable with dual spec at 40.', 'confirmed-official', 'bz-dd-priest', +1)],
       fantasy: [
@@ -818,6 +844,43 @@ for (const [id, summary, names, toolkit] of [
     openQuestions: ['Level-60 gear and final Forever tuning remain estimates. No preference prior is assigned from simulation DPS.'],
   };
 
+// Sourced rows for the classes added in phase 4. A row stays empty where no source says
+// anything: the analysis then leaves facts on that row out of the score for every class.
+CLASS_FACTS.warrior.dims = {
+  leveling: [
+    F('Victory Rush activates for 20 s after killing a non-trivial enemy and heals 10 % of maximum health.', 'confirmed-official', 'bz-dd-warrior', +1),
+    F('Very little natural healing, so leveling alone can be less forgiving than on a Hunter or Warlock.', 'reported-guide', 'iv-main', -1),
+  ],
+  combatDepth: [F('Built around weapons, rage, stances and momentum; a talent lets Rend trigger Overpower.', 'confirmed-official', 'bz-dd-warrior', 0)],
+  dungeon: [F('“Any party or raid is happy to add a Warrior as either a tank or damage dealer.”', 'confirmed-official', 'bz-dd-warrior', +1)],
+  raid: [
+    F(
+      'Unique buffs and debuffs, and a strength in sustained damage to multiple melee targets. Battle Shout is raid-wide.',
+      'confirmed-official',
+      'bz-dd-warrior',
+      +1,
+    ),
+  ],
+  soloIndependence: [F('“They lack the tools to easily recover from taking too much damage.”', 'confirmed-official', 'bz-dd-warrior', -1)],
+  roleFlexibility: [F('Tank or melee damage. Bloodthirst no longer heals.', 'confirmed-official', 'bz-dd-warrior', +1)],
+  fantasy: [F('Described as “a durable, hard-hitting combatant”.', 'confirmed-official', 'bz-dd-warrior', 0)],
+};
+CLASS_FACTS.rogue.dims = {
+  combatDepth: [
+    F('Combat tricks, bleeds, cleave with Blade Flurry and poisons, depending on spec. Sap no longer breaks Stealth.', 'confirmed-official', 'bz-dd-rogue', 0),
+  ],
+  dungeon: [F('“Welcome in any party or raid for their Stealth and control abilities.”', 'confirmed-official', 'bz-dd-rogue', +1)],
+  raid: [F('“The highest potential single-target melee damage in the game.” Potential, not a measured live ranking.', 'confirmed-official', 'bz-dd-rogue', +1)],
+  roleFlexibility: [F('Melee damage is the only role.', 'reported-guide', 'iv-main', -1)],
+  fantasy: [F('“The masters of Stealth”, and the only class with poisons.', 'confirmed-official', 'bz-dd-rogue', 0)],
+};
+CLASS_FACTS.warrior.openQuestions.push(
+  'No sourced Forever statement yet on Warrior PvP, world utility, session length or long-term play: those rows have no facts.',
+);
+CLASS_FACTS.rogue.openQuestions.push(
+  'No sourced Forever statement yet on Rogue leveling, PvP, world utility, solo play, session length or long-term play: those rows have no facts.',
+);
+
 CLASS_FACTS.shaman = {
   summary: 'Elemental ranged damage, Enhancement melee and Restoration healing, with manually placed elemental totems.',
   identity: 'One totem of each element. Level 10 baseline; three builds at 30 and 60. Orc portrait currently available.',
@@ -847,7 +910,30 @@ CLASS_FACTS.shaman = {
       loopStatus: 'datamined healing ranks; simulation approximation',
     },
   ],
-  dims: {},
+  dims: {
+    combatDepth: [F('A diverse toolkit; four totems with placement, Totemic Projection and Recall.', 'confirmed-official', 'bz-dd-shaman', 0)],
+    dungeon: [F('Totems “buff, heal, and solve problems for any party or raid they join”.', 'confirmed-official', 'bz-dd-shaman', +1)],
+    raid: [
+      F(
+        'Resistance, Windfury and other totems reach the raid or party; Grace of Air and Strength of Earth are raid-wide.',
+        'confirmed-official',
+        'bz-dd-shaman',
+        +1,
+      ),
+    ],
+    pvp: [F('“Lack an effective crowd control.”', 'confirmed-official', 'bz-dd-shaman', -1)],
+    soloIndependence: [
+      F(
+        '“Among the sturdiest of classes” with Mail and a Shield, yet they “need allies” for weaknesses in control and survivability.',
+        'confirmed-official',
+        'bz-dd-shaman',
+        0,
+      ),
+    ],
+    shortSessions: [F('Weapon imbues now last 60 minutes and totems have a 1 s global cooldown, so less upkeep.', 'confirmed-official', 'bz-dd-shaman', +1)],
+    roleFlexibility: [F('“Effective melee or spell damage dealers and healers.” No tank spec.', 'confirmed-official', 'bz-dd-shaman', +1)],
+    fantasy: [F('“Masters of totems.”', 'confirmed-official', 'bz-dd-shaman', 0)],
+  },
   toolkit: {
     10: ['Lightning Bolt', 'Earth Shock', 'Flame Shock', 'Healing Wave', 'Earthbind', 'Searing Totem'],
     30: ['Lava Burst / Stormstrike / Mana Tide', 'Totemic Recall', 'Totemic Projection'],
@@ -859,6 +945,7 @@ CLASS_FACTS.shaman = {
   ],
   openQuestions: [
     'Final beta tuning; unexported ranks and coefficients.',
+    'No sourced Forever statement yet on Shaman leveling, world utility or long-term play: those rows have no facts.',
     'Call of the Elements uses a fixed support preset. Additional utility totems and other weapon imbues are outside this trial kit.',
   ],
 };

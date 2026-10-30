@@ -1,112 +1,89 @@
-# Phase 4 — progress log (resume here)
+# Phase 4 — status and handoff
 
-Branch: `phase4` (local only). Thomas: **push only when phase 4 is finished**;
-until then commit on this branch and do not publish the artifact.
-`main` on GitHub = v12 (published artifact) + the phase 4 plan.
+Last checked against the code on 2026-10-30. This replaces the old day-by-day log; history is in
+git. `design/phase4.md` holds the original plan and its design decisions.
 
-Plan and decisions: `design/phase4.md`. Data: `research/forever-warrior-rogue.json`.
+## Working agreements
 
-## Done
+- **Forever data only.** Abilities, talents, racials and mechanics come from Forever sources
+  (Wowhead Forever datamine, Blizzard deep dives and dev notes). Classic only where Forever has no
+  value, and it is labelled. **We do not tune class values to reach a DPS ratio.** Enemy health and
+  damage are trial design and may be set by us.
+- **Desktop only.** Phone layouts are out of scope.
+- **Several agents work on this repo.** Check `git status` and `git worktree list` first, keep
+  commits small, run `npm run format` before committing (CI fails on unformatted code).
+- A push to `main` goes live on classtrials.com straight away. Push only when Thomas asks.
 
-- 2026-10-27 — Engine cast gates in `src/engine/core.js` `canCast`:
-  `ab.requiresStance` (array of stance ids, checked against `u.stance`),
-  `ab.requiresStealth` (`u.flags.stealthed`), `ab.requiresBehind` (uses the new
-  exported `isBehind(u, t)`: outside the 180° cone the target faces). Failure
-  texts `stance` / `stealth` / `behind` in `REASONS`. Test:
-  `tests/phase4-engine.test.mjs`. Suite 14/14.
-- 2026-10-29 — Engine step 1 finished (all in `tests/phase4-engine.test.mjs`, suite 14/14):
-  - **Stances** (`classes/warrior.js` `STANCES`, abilities `warrior.stance.*`):
-    a permanent aura with `def.stance` sets `u.stance` in `computeCC`; a swap removes the
-    old stance and keeps rage up to `rageKept(u)` (Tactical Mastery 10 from level 14,
-    +15 with `impTacticalMastery`). The NPC tank's Defensive Stance aura carries
-    `stance: 'defensive'`.
-  - **Stealth** (`classes/rogue.js` `STEALTH`, ability `rogue.stealth`): `def.stealth`
-    sets `u.flags.stealthed`; −30 % speed (slow); breaks on action (`cancelOnAction`;
-    Sap-like abilities use `keepsAura: 'rogue.stealth'`), on damage taken and dealt; no
-    white swings while stealthed; mobs notice a stealthed unit at 35 % of their aggro
-    radius (`ai.js` `STEALTH_DETECT`, approximation).
-  - **Poisons**: engine hook `onWeaponHit({ dst, pk, hand })` after every landed melee
-    hit; `classes/rogue.js` `POISONS` + `poisonOnHit` (Instant, Deadly ×5, Crippling,
-    Mind-numbing; Forever ranks at 30/60); poison per hand in `u.meta.poisons = { mh, oh }`.
-  - **Warrior hooks**: `onAttackAvoided({ dst, avoid })` for the attacker on a
-    dodge/parry (Overpower readiness); `ab.resetsSwing` restarts the swing timer when the
-    cast lands (Slam). Charge/Intercept need no engine work: the `teleport` effect, a
-    stun aura and `outOfCombat` / `noRoot` already exist (see `t4.charge`).
-  - **Dual wield**: `melee.oh = { min, max, speed, coef?, mult? }` swings on its own
-    timer (`u.ohSwingT`) for 50 %, with the `melee.dualWield` miss penalty, hand 'oh'.
+## What is finished
 
-- 2026-10-29 — **Playable Warrior** (plan step 2), `classes/warrior.js`:
-  - `KIT.build(opts)`: `opts.npc` → the old Protection NPC build (`npcBuild`, party.js now
-    passes `npc: true`); otherwise `playerBuild` + `applyRace`. Specs Arms / Fury /
-    Protection at 30 and 60 (`specsFor`: tank role = Protection), level 10 without spec.
-    `rolesFor`: T3/T5 offer dps or tank. Races: orc, troll, tauren, undead, skyborne.
-  - New abilities (Forever ranks at 10/30/60): Attack (melee toggle), Charge, Rend,
-    Hamstring, Overpower, Execute, Slam (18 s cd in Forever), Mortal Strike / Bloodthirst
-    (trained at 48), Whirlwind, Victory Rush, Intercept, Pummel, Berserker Rage, Battle
-    Shout, Intimidating Shout, Retaliation, Recklessness, Death Wish. Revenge, Shield
-    Block and Taunt now need Defensive Stance. Level-10 ranks for Sunder, Heroic Strike,
-    Thunder Clap.
-  - Talents: `PLAYER_TALENTS` (Arms/Fury 21 and 51 points; Protection reuses `TALENTS`);
-    hooks for Overpower ready, Victory Rush ready, Deep Wounds, Flurry, Unbridled Wrath,
-    Enrage, Anger Management.
-  - Gear/weapons in `stats.js`: `GEAR.warriorDps`, `warriorTank[10]`, `WEAPONS.twoHand`,
-    `fury1h`, `tank1h[10]` (our estimates, raised once after the dummy check).
-  - **Forever rage rules** in `core.js` (Blizzard dev notes): player Warriors gain 100 %
-    more rage from critical white hits; rage is computed from damage before armor (the
-    "rebalanced for 20–40 % armor" note, details unpublished — approximation).
-  - Bot `tests/bots/warrior.mjs`; test `tests/warrior-kit.test.mjs` (builds × races,
-    stance starts, T1 L10/L30 and T2 L30 for Arms/Fury: competent 3/3, careless 0–1/3).
-  - `races.test.mjs` checks classes outside CLASS_ORDER via `NPC_KITS`. Art rebuilt
-    (`npm run art`): all Warrior race portraits bundled. Suite 15/15.
-  - **Open balance item:** dummy DPS at 60 is Arms ≈160, Fury ≈225 (Hunter 329, Mage 429;
-    band 230–520). On a dummy nobody hits the Warrior, so rage starves; trials are fine.
-    Revisit in the balance pass (talent values, gear, maybe Forever's rage numbers).
-  - Warrior is **not yet in `CLASS_ORDER`**: T3/T4/T5 and the UI need it first.
+- **Six playable classes:** Hunter, Mage, Priest, Warrior, Rogue, Shaman, in all trials
+  (`TRIAL_SUPPORT` in `content/index.js` is empty). Specs at 30 and 60, one baseline at 10.
+  Warrior tanks and Priest and Shaman heal in T3 and T5.
+- **Six trials:** T1 questing, T2 danger, T3 dungeon, T4 duel, T5 raid, T6 Proving Grounds
+  (one minute on a fixed level-63 dummy, damage report, local leaderboard).
+- **Characters:** `progress.characters`, with a stable id. Trial progress belongs to the character:
+  `runKey(trial, class, level, charId)`. Sessions carry `charId` and `race`.
+- **Old saves:** `migrateProgress` (store.js) moves class-level results to `progress.legacyRuns`.
+  They are kept and counted per class, never assigned to a character. Old sessions without a
+  `charId` count at class level as "not linked".
+- **Priest racial spells follow the race:** Undead Touch of Weakness and Dark Sacrifice, Troll Hex
+  of Weakness and Shadowguard (`RACE_SPELLS` in `classes/priest.js`).
+- **Class analysis for six classes** (`analysis/`, see below).
+- **Art:** original Class Trials branding and procedural menu chrome; no crops of the WoW site.
+- **Forever audit:** `npm run audit`, results in `docs/ability-audit/`.
 
-- 2026-10-28 — **Character roster** (Thomas asked for it early; plan UI step pulled forward):
-  - `progress.characters = [{ id, name, race, classId, createdAt }]`. A fresh start
-    goes Title → Roster (`ui/screens/Roster.jsx`: pick class, then race, optional name;
-    remove characters). Old saves get three legacy characters (Orc Hunter / Undead Mage /
-    Undead Priest, or the race last picked per class).
-  - Hall columns are characters (rotated per trial); runs stay keyed per **class**
-    (`runKey`), so two characters of one class share progress — revisit if Thomas wants
-    per-character progress. "Characters" button in the Hall header.
-  - Briefing: a character fixes the race (`raceLocked`), racial traits stay listed.
-  - `content/index.js`: `KITS` now includes warrior; `PLAYABLE` (roster classes) and
-    `trialSupports(trialId, classId)` — Warrior plays T1/T2; T3–T5 show "Not available
-    yet". `CLASS_ORDER` (analysis, shared trial tests) is still Hunter/Mage/Priest.
-  - Checked in the local preview: fresh roster → Tauren Warrior + Troll Mage → Hall →
-    Fury briefing (race locked) → fight starts in Berserker Stance.
+## How the analysis stays fair
 
-- 2026-10-28 — **Playable Rogue** (plan step 3), `classes/rogue.js`:
-  - `KIT.build(opts)`: `opts.npc` → the old Combat NPC build (`npcBuild`); otherwise
-    `playerBuild` + `applyRace`. Assassination / Combat / Subtlety at 30 and 60, level 10
-    without spec; races orc, troll, undead, skyborne. Roster + `TRIAL_SUPPORT` (T1/T2).
-  - Player melee is a real main hand + off hand (`melee.oh`); daggers for Assassination
-    and Subtlety (`melee.dagger`, needed by Backstab/Ambush/Mutilate), swords for Combat.
-    Poisons from 20: Instant main hand, Deadly (30+) / Crippling off hand.
-  - New abilities (Forever ranks): Attack, Stealth (player version: −50/−40/−30 % by
-    rank), Backstab, Gouge (10 s cd in Forever), Sap, Ambush, Cheap Shot, Garrote,
-    Rupture, Kidney Shot, Expose Armor, Vanish, Sprint, Blind, Mutilate (40), Hemorrhage
-    (46; empty datamine tooltip → Classic values), Cold Blood. Level-10 ranks for Sinister
-    Strike, Eviscerate, Slice and Dice. Seal Fate via `u.meta.lastCrit`.
-  - Bot `tests/bots/rogue.mjs` (stealth approach, sneak behind ≤6 s, rest to 90 % before
-    a big pull); test `tests/rogue-kit.test.mjs`. T1 all specs 3/3 (L10 2/3), T2
-    Assassination/Combat 3/3, careless 0/3. **Spec trait:** Subtlety at 30 wins T2 1/3
-    (Backstab rarely lines up in an open fight) — reported, not asserted.
-  - Dummy DPS: 30 → 59–65 (band 45–110 ✓); 60 → 205–246 (band 230–520, low end, like the
-    Warrior — part of the balance pass). Suite 16/16.
-  - Not yet in the UI: combo-point pips on the target frame; more bar slots than hotkeys
-    (21 buttons for Subtlety 30) — part of the UI step.
+- Four kinds of evidence stay apart: fact, observed, self, prediction.
+- **Facts never rank a class alone.** A class without own runs or answers has no total.
+- **Facts only score on rows where all six classes have a sourced fact**
+  (`factRowsComparable()`: now combat depth, dungeon, raid, role flexibility, fantasy). Other facts
+  are listed as "not scored". Missing research is therefore no penalty.
+- **Status:** `empty` (nothing played), `single` (one class, nothing to compare), `early`,
+  `ready`. `ready` needs every class in at least 2 trials and half of all trial × class cells.
+- **Observed rules were checked for class bias.** Activity (R1, R17, predictions) only compares the
+  same pace of play (`paceOf`); rage, energy, weapon-swing and Auto Shot kits have no fair
+  counterpart and get no evidence there. Breadth (R4) is a share of the kit. Removed from scoring:
+  wand reliance (R2), time to first action (R16), questing utility tags (R21), duty windows (R20,
+  shown only), and the class-specific Priest and Hunter forecasts. R18 no longer penalises
+  unplayed classes. R19 covers every class with more than one role.
+- The Undead Priest attachment is opt-in: the slider defaults to 0.
 
-## Next
+## What is missing
 
-1. T3 / T5: Warrior tank role (Gorrak steps aside / becomes off-tank), Rogue duties;
-   T4 duel intros and opponent per class.
-3. Add warrior and rogue to `CLASS_ORDER`; trial tests then cover them automatically.
-4. Roster UI (characters in the Hall), stance bar, combo points; Codex/analysis.
+- **Classes:** Warlock (NPC kit only), Paladin and Druid. Alliance racials are not built.
+- **Shaman races:** Orc only in the game, though Forever also has Troll, Tauren and Skyborne.
+- **Facts:** no sourced Forever statement stored yet for Warrior PvP, world utility, session length
+  and long-term play; Rogue leveling, PvP, world utility, solo play, session length and long-term
+  play; Shaman leveling, world utility and long-term play. Those rows score no facts for anyone.
+- **Simulation estimates:** level-60 gear, stat conversions, hit, crit and armor models, some
+  coefficients (see `docs/ability-audit/RESULTATEN.md` and `docs/SHAMAN.md`). Hex of Weakness and
+  Touch of Weakness simulate their attack power loss as −10 % melee damage.
+- **After launch (2026-11-04):** the data is beta build 1.60.1.70630. Re-read it and rerun the audit.
+- **The analysis was tested with bots and constructed saves,** not with long real play.
 
-## How to resume
+## Building
 
-- `git checkout phase4`, `node tests/run-all.mjs` (expect 15/15), then the
-  next item above. Commit per item on `phase4`; do not push.
+```bash
+npm ci
+npm test                       # all test files
+npm run audit                  # regenerates docs/ability-audit; fails on a source mismatch
+node scripts/verify-classic.mjs
+npm run build                  # dist/preview.html + dist/art (site), dist/index.html (single file)
+npm start                      # build and serve locally
+npm run format                 # Prettier
+```
+
+## Regenerating art
+
+The game needs none of this to build: the results are committed. Masters are gitignored and only
+exist locally, in the main checkout (OneDrive):
+
+| Command | Needs | Writes |
+| --- | --- | --- |
+| `npm run art` | `art-source/horde-handoff-v15/` (local), `assets/spell-icons-extra/`, `assets/shaman-totems-v1/` (tracked) | `src/ui/art/img/`, `art-images.gen.js` |
+| `node scripts/build-chrome.mjs` | nothing: drawn by code. The logo and forest in `assets/ui-classic/` are already resized; their masters are in `assets/original-branding-v1/` (local) | `assets/ui-classic/`, `classic-assets.gen.js` |
+
+Rerun `npm run art` after adding abilities or units. Without `art-source/` it cannot run; do not
+delete `src/ui/art/img/` in that case. `assets/alliance-portraits-v1`, `druid-forms-v2` and
+`shapeshift-portraits-v1` are local packs for later classes.

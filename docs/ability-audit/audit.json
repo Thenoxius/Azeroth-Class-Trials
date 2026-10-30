@@ -3,15 +3,15 @@
     "date": "2026-10-29",
     "build": "1.60.1.70630 (live client data)",
     "liveVerification": "Official class deep-dive and stored spellbook snapshots; Shaman spellbook and talent tree retrieved on 2026-10-29. A datamine is not an official runtime guarantee.",
-    "abilities": 207,
-    "checkedFields": 752,
+    "abilities": 209,
+    "checkedFields": 759,
     "mismatches": [],
     "classes": {
       "race": 9,
       "pet": 4,
       "hunter": 32,
       "mage": 31,
-      "priest": 32,
+      "priest": 34,
       "warrior": 35,
       "shaman": 31,
       "rogue": 26,
@@ -56,7 +56,7 @@
           {
             "type": "custom",
             "to": "self",
-            "fn": "({ state, u, api }) => {\n        breakCC(state, api, u, ['fear']);\n        for (const a of u.auras.filter((x) => x.def.sleep)) api.removeAura(state, u, a, 'broken');\n      }"
+            "fn": "({ state, u, api }) => {\r\n          breakCC(state, api, u, ['fear']);\r\n          for (const a of u.auras.filter((x) => x.def.sleep)) api.removeAura(state, u, a, 'broken');\r\n        }"
           }
         ]
       },
@@ -104,8 +104,8 @@
           "src": "iv-main"
         },
         "canUse": "({ state, u }) => (corpseNear(state, u) ? true : 'custom:No humanoid or undead corpse nearby')",
-        "onChannelStart": "({ state, u }) => {\n      const c = corpseNear(state, u);\n      if (c) c.flags.eaten = true;\n      u.casting.startHp = u.hp;\n    }",
-        "onTick": "({ state, u, api }) => {\n      if (u.casting && u.lastHostileT > u.casting.startedAt + 0.05 && u.hp < u.casting.startHp) { api.cancelCast(state, u, 'damaged'); return; }\n      u.hp = Math.min(u.maxHp, u.hp + u.maxHp * 0.07);\n      if (u.res.mana) u.res.mana.cur = Math.min(u.res.mana.max, u.res.mana.cur + u.res.mana.max * 0.07);\n      if (u.casting) u.casting.startHp = u.hp;\n    }"
+        "onChannelStart": "({ state, u }) => {\r\n      const c = corpseNear(state, u);\r\n      if (c) c.flags.eaten = true;\r\n      u.casting.startHp = u.hp;\r\n    }",
+        "onTick": "({ state, u, api }) => {\r\n      if (u.casting && u.lastHostileT > u.casting.startedAt + 0.05 && u.hp < u.casting.startHp) {\r\n        api.cancelCast(state, u, 'damaged');\r\n        return;\r\n      }\r\n      u.hp = Math.min(u.maxHp, u.hp + u.maxHp * 0.07);\r\n      if (u.res.mana) u.res.mana.cur = Math.min(u.res.mana.max, u.res.mana.cur + u.res.mana.max * 0.07);\r\n      if (u.casting) u.casting.startHp = u.hp;\r\n    }"
       },
       "reviewedFindings": [],
       "estimates": [
@@ -148,7 +148,7 @@
         "effects": [
           {
             "type": "custom",
-            "fn": "({ state, u, api }) => {\n        const add = { ap: Math.round(u.stats.ap * 0.1), rap: Math.round(u.stats.rap * 0.1), sp: Math.round(u.stats.sp * 0.1) };\n        api.applyAura(state, u, u, { id: 'race.bloodfury', name: 'Blood Fury', icon: 'axe', school: 'physical', duration: 15, mods: { statAdd: add } });\n      }"
+            "fn": "({ state, u, api }) => {\r\n          const add = { ap: Math.round(u.stats.ap * 0.1), rap: Math.round(u.stats.rap * 0.1), sp: Math.round(u.stats.sp * 0.1) };\r\n          api.applyAura(state, u, u, { id: 'race.bloodfury', name: 'Blood Fury', icon: 'axe', school: 'physical', duration: 15, mods: { statAdd: add } });\r\n        }"
           }
         ]
       },
@@ -298,8 +298,8 @@
           "src": "wh-forever",
           "note": "Wowhead Forever racial tooltip."
         },
-        "onChannelStart": "({ u }) => { u.casting.startHp = u.hp; }",
-        "onTick": "({ state, u, api }) => {\n      if (u.casting && u.lastHostileT > u.casting.startedAt + 0.05 && u.hp < u.casting.startHp) { api.cancelCast(state, u, 'damaged'); return; }\n      u.hp = Math.min(u.maxHp, u.hp + (u.maxHp * 0.5) / 6);\n      if (u.casting) u.casting.startHp = u.hp;\n    }"
+        "onChannelStart": "({ u }) => {\r\n      u.casting.startHp = u.hp;\r\n    }",
+        "onTick": "({ state, u, api }) => {\r\n      if (u.casting && u.lastHostileT > u.casting.startedAt + 0.05 && u.hp < u.casting.startHp) {\r\n        api.cancelCast(state, u, 'damaged');\r\n        return;\r\n      }\r\n      u.hp = Math.min(u.maxHp, u.hp + (u.maxHp * 0.5) / 6);\r\n      if (u.casting) u.casting.startHp = u.hp;\r\n    }"
       },
       "reviewedFindings": [],
       "estimates": [
@@ -949,7 +949,7 @@
         "effects": [
           {
             "type": "custom",
-            "fn": "({ state, u, t, ab, api }) => {\r\n        const tal = T(u);\r\n        const per = (val(ab, 'tick') + 0.02 * api.statOf(u, 'rap')) * (tal.improvedStings ? 1.2 : 1);\r\n        api.applyAura(state, u, t, { id: 'hunter.serpent', name: 'Serpent Sting', icon: 'serpent', school: 'nature', debuff: true, duration: 15, dispel: 'poison', tick: { interval: 3, amount: per, school: 'nature' } });\r\n        if (tal.rapidRecuperation) api.applyAura(state, u, u, { id: 'hunter.rr', name: 'Rapid Recuperation', icon: 'rapid-fire', duration: 15, mods: { castRegen: 0.5 } });\r\n      }"
+            "fn": "({ state, u, t, ab, api }) => {\r\n          const tal = T(u);\r\n          const per = (val(ab, 'tick') + 0.02 * api.statOf(u, 'rap')) * (tal.improvedStings ? 1.2 : 1);\r\n          api.applyAura(state, u, t, {\r\n            id: 'hunter.serpent',\r\n            name: 'Serpent Sting',\r\n            icon: 'serpent',\r\n            school: 'nature',\r\n            debuff: true,\r\n            duration: 15,\r\n            dispel: 'poison',\r\n            tick: { interval: 3, amount: per, school: 'nature' },\r\n          });\r\n          if (tal.rapidRecuperation)\r\n            api.applyAura(state, u, u, { id: 'hunter.rr', name: 'Rapid Recuperation', icon: 'rapid-fire', duration: 15, mods: { castRegen: 0.5 } });\r\n        }"
           }
         ],
         "byLevel": {
@@ -1211,7 +1211,7 @@
         "effects": [
           {
             "type": "custom",
-            "fn": "({ state, u, t, ab, api }) => api.applyAura(state, u, t, { id: 'hunter.mark', name: \"Hunter's Mark\", icon: 'mark', school: 'arcane', debuff: true, duration: 120, dispel: 'magic', mods: { attackerPower: { rap: val(ab, 'markRap', 0) } } })"
+            "fn": "({ state, u, t, ab, api }) =>\r\n          api.applyAura(state, u, t, {\r\n            id: 'hunter.mark',\r\n            name: \"Hunter's Mark\",\r\n            icon: 'mark',\r\n            school: 'arcane',\r\n            debuff: true,\r\n            duration: 120,\r\n            dispel: 'magic',\r\n            mods: { attackerPower: { rap: val(ab, 'markRap', 0) } },\r\n          })"
           }
         ],
         "byLevel": {
@@ -1554,11 +1554,11 @@
           },
           {
             "type": "custom",
-            "fn": "({ state, u, t, ab, api }) => api.applyAura(state, u, t, { id: 'hunter.wingclip', name: 'Wing Clip', icon: 'wing-clip', debuff: true, duration: 10, mods: { slow: val(ab, 'slow', 0.5) } })"
+            "fn": "({ state, u, t, ab, api }) =>\r\n          api.applyAura(state, u, t, {\r\n            id: 'hunter.wingclip',\r\n            name: 'Wing Clip',\r\n            icon: 'wing-clip',\r\n            debuff: true,\r\n            duration: 10,\r\n            mods: { slow: val(ab, 'slow', 0.5) },\r\n          })"
           },
           {
             "type": "custom",
-            "fn": "({ state, u, t, api }) => { if (T(u).impWingClip && t.alive && state.rng() < T(u).impWingClip) api.applyAura(state, u, t, { id: 'hunter.iwc', name: 'Improved Wing Clip', icon: 'wing-clip', debuff: true, duration: 5, cc: 'root', dr: 'root' }); }"
+            "fn": "({ state, u, t, api }) => {\r\n          if (T(u).impWingClip && t.alive && state.rng() < T(u).impWingClip)\r\n            api.applyAura(state, u, t, { id: 'hunter.iwc', name: 'Improved Wing Clip', icon: 'wing-clip', debuff: true, duration: 5, cc: 'root', dr: 'root' });\r\n        }"
           }
         ],
         "byLevel": {
@@ -1669,7 +1669,7 @@
         "effects": [
           {
             "type": "custom",
-            "fn": "(ctx) => {\r\n        const { state, u, t, api } = ctx;\r\n        api.removeAuraById(state, u, MONGOOSE_READY.id);\r\n        const d = shot(ctx, { weapon: true, melee: true });\r\n        if (T(u).laceratingStrikes && d > 0 && t.alive) api.applyAura(state, u, t, { id: 'hunter.lacerate', name: 'Lacerating Strikes', icon: 'claw', debuff: true, duration: 21, tick: { interval: 3, amount: (d * 0.4) / 7, school: 'physical', canCrit: true } });\r\n      }"
+            "fn": "(ctx) => {\r\n          const { state, u, t, api } = ctx;\r\n          api.removeAuraById(state, u, MONGOOSE_READY.id);\r\n          const d = shot(ctx, { weapon: true, melee: true });\r\n          if (T(u).laceratingStrikes && d > 0 && t.alive)\r\n            api.applyAura(state, u, t, {\r\n              id: 'hunter.lacerate',\r\n              name: 'Lacerating Strikes',\r\n              icon: 'claw',\r\n              debuff: true,\r\n              duration: 21,\r\n              tick: { interval: 3, amount: (d * 0.4) / 7, school: 'physical', canCrit: true },\r\n            });\r\n        }"
           }
         ],
         "byLevel": {
@@ -1980,7 +1980,7 @@
         "effects": [
           {
             "type": "custom",
-            "fn": "({ u, t }) => { if (t.threat && t.threat[u.id] !== undefined) t.threat[u.id] = Math.max(0, t.threat[u.id] - (u.level >= 60 ? 1100 : u.level >= 30 ? 560 : 280)); }"
+            "fn": "({ u, t }) => {\r\n          if (t.threat && t.threat[u.id] !== undefined) t.threat[u.id] = Math.max(0, t.threat[u.id] - (u.level >= 60 ? 1100 : u.level >= 30 ? 560 : 280));\r\n        }"
           }
         ],
         "byLevel": {
@@ -2045,8 +2045,8 @@
               "duration": 360,
               "cancelOnMove": true,
               "cancelOnAction": true,
-              "onApply": "({ state, u, api }) => {\r\n          u.flags.feigned = true;\r\n          api.dropThreat(state, u, 1);\r\n          u.autoRanged = false;\r\n          u.autoMelee = false;\r\n          if (u.casting) api.cancelCast(state, u, 'feign');\r\n          for (const e of state.list) if (e.side !== u.side && e.target === u.id) e.target = null;\r\n        }",
-              "onRemove": "({ u }) => { u.flags.feigned = false; }"
+              "onApply": "({ state, u, api }) => {\r\n            u.flags.feigned = true;\r\n            api.dropThreat(state, u, 1);\r\n            u.autoRanged = false;\r\n            u.autoMelee = false;\r\n            if (u.casting) api.cancelCast(state, u, 'feign');\r\n            for (const e of state.list) if (e.side !== u.side && e.target === u.id) e.target = null;\r\n          }",
+              "onRemove": "({ u }) => {\r\n            u.flags.feigned = false;\r\n          }"
             }
           }
         ],
@@ -2106,7 +2106,7 @@
         "effects": [
           {
             "type": "custom",
-            "fn": "({ state, u, ab, api }) => trapZone(state, api, u, ab, {\r\n        onTrigger: (st, z, v, api2, tal) => api2.applyAura(st, u, v[0], { id: 'hunter.frozen', name: 'Freezing Trap', icon: 'trap-freeze', school: 'frost', debuff: true, duration: val(ab, 'dur') * (tal.cleverTraps ? 1.3 : 1), cc: 'incap', breakOnDamage: true, dr: 'incap', dispel: 'magic' }),\r\n      })"
+            "fn": "({ state, u, ab, api }) =>\r\n          trapZone(state, api, u, ab, {\r\n            onTrigger: (st, z, v, api2, tal) =>\r\n              api2.applyAura(st, u, v[0], {\r\n                id: 'hunter.frozen',\r\n                name: 'Freezing Trap',\r\n                icon: 'trap-freeze',\r\n                school: 'frost',\r\n                debuff: true,\r\n                duration: val(ab, 'dur') * (tal.cleverTraps ? 1.3 : 1),\r\n                cc: 'incap',\r\n                breakOnDamage: true,\r\n                dr: 'incap',\r\n                dispel: 'magic',\r\n              }),\r\n          })"
           }
         ],
         "byLevel": {
@@ -2200,7 +2200,7 @@
         "effects": [
           {
             "type": "custom",
-            "fn": "({ state, u, ab, api }) => trapZone(state, api, u, ab, {\r\n        onTrigger: (st, z, v, api2, tal) => api2.applyAura(st, u, v[0], { id: 'hunter.immolation', name: 'Immolation Trap', icon: 'trap-fire', school: 'fire', debuff: true, duration: 15, tick: { interval: 3, amount: (val(ab, 'tick') + 0.03 * api2.statOf(u, 'rap')) * (tal.cleverTraps ? 1.3 : 1), school: 'fire' } }),\r\n      })"
+            "fn": "({ state, u, ab, api }) =>\r\n          trapZone(state, api, u, ab, {\r\n            onTrigger: (st, z, v, api2, tal) =>\r\n              api2.applyAura(st, u, v[0], {\r\n                id: 'hunter.immolation',\r\n                name: 'Immolation Trap',\r\n                icon: 'trap-fire',\r\n                school: 'fire',\r\n                debuff: true,\r\n                duration: 15,\r\n                tick: { interval: 3, amount: (val(ab, 'tick') + 0.03 * api2.statOf(u, 'rap')) * (tal.cleverTraps ? 1.3 : 1), school: 'fire' },\r\n              }),\r\n          })"
           }
         ],
         "byLevel": {
@@ -2292,7 +2292,7 @@
         "effects": [
           {
             "type": "custom",
-            "fn": "({ state, u, ab, api }) => trapZone(state, api, u, ab, {\r\n        onTrigger: (st, z, v, api2, tal) => {\r\n          const mult = tal.cleverTraps ? 1.3 : 1;\r\n          for (const x of api2.unitsInRadius(st, z, 10, (e) => e.side !== u.side)) {\r\n            api2.dealDamage(st, u, x, { amount: roll(st, val(ab, 'dmg')) * mult + 0.05 * api2.statOf(u, 'rap'), school: 'fire', kind: 'spell', ability: ab.id });\r\n            if (x.alive) api2.applyAura(st, u, x, { id: 'hunter.explosive', name: 'Explosive Trap', icon: 'trap-fire', school: 'fire', debuff: true, duration: 20, tick: { interval: 2, amount: (val(ab, 'tick') * mult), school: 'fire' } });\r\n          }\r\n        },\r\n      })"
+            "fn": "({ state, u, ab, api }) =>\r\n          trapZone(state, api, u, ab, {\r\n            onTrigger: (st, z, v, api2, tal) => {\r\n              const mult = tal.cleverTraps ? 1.3 : 1;\r\n              for (const x of api2.unitsInRadius(st, z, 10, (e) => e.side !== u.side)) {\r\n                api2.dealDamage(st, u, x, {\r\n                  amount: roll(st, val(ab, 'dmg')) * mult + 0.05 * api2.statOf(u, 'rap'),\r\n                  school: 'fire',\r\n                  kind: 'spell',\r\n                  ability: ab.id,\r\n                });\r\n                if (x.alive)\r\n                  api2.applyAura(st, u, x, {\r\n                    id: 'hunter.explosive',\r\n                    name: 'Explosive Trap',\r\n                    icon: 'trap-fire',\r\n                    school: 'fire',\r\n                    debuff: true,\r\n                    duration: 20,\r\n                    tick: { interval: 2, amount: val(ab, 'tick') * mult, school: 'fire' },\r\n                  });\r\n              }\r\n            },\r\n          })"
           }
         ],
         "byLevel": {
@@ -2354,7 +2354,7 @@
         "effects": [
           {
             "type": "custom",
-            "fn": "({ state, u, ab, api }) => trapZone(state, api, u, ab, {\r\n        onTrigger: (st, z, v, api2, tal) => {\r\n          if (tal.entrapment) for (const x of api2.unitsInRadius(st, z, 10, (e) => e.side !== u.side)) api2.applyAura(st, u, x, { id: 'hunter.entrap', name: 'Entrapment', icon: 'trap-frost', debuff: true, duration: 4, cc: 'root', dr: 'root' });\r\n          api2.spawnZone(st, { shape: { type: 'circle', r: 10 }, x: z.x, y: z.y, owner: u.id, side: u.side, duration: 30, interval: 1, visual: 'frost', label: 'Frost Trap', ab, effects: [{ type: 'aura', aura: { id: 'hunter.frosttrap.slow', name: 'Frost Trap', icon: 'trap-frost', debuff: true, duration: 1.5, mods: { slow: 0.6 } } }] });\r\n        },\r\n      })"
+            "fn": "({ state, u, ab, api }) =>\r\n          trapZone(state, api, u, ab, {\r\n            onTrigger: (st, z, v, api2, tal) => {\r\n              if (tal.entrapment)\r\n                for (const x of api2.unitsInRadius(st, z, 10, (e) => e.side !== u.side))\r\n                  api2.applyAura(st, u, x, { id: 'hunter.entrap', name: 'Entrapment', icon: 'trap-frost', debuff: true, duration: 4, cc: 'root', dr: 'root' });\r\n              api2.spawnZone(st, {\r\n                shape: { type: 'circle', r: 10 },\r\n                x: z.x,\r\n                y: z.y,\r\n                owner: u.id,\r\n                side: u.side,\r\n                duration: 30,\r\n                interval: 1,\r\n                visual: 'frost',\r\n                label: 'Frost Trap',\r\n                ab,\r\n                effects: [\r\n                  {\r\n                    type: 'aura',\r\n                    aura: { id: 'hunter.frosttrap.slow', name: 'Frost Trap', icon: 'trap-frost', debuff: true, duration: 1.5, mods: { slow: 0.6 } },\r\n                  },\r\n                ],\r\n              });\r\n            },\r\n          })"
           }
         ],
         "byLevel": {
@@ -2512,7 +2512,7 @@
           "effects": [
             {
               "type": "custom",
-              "fn": "({ state, u, t, ab, api }) => {\r\n          if (!t || !t.alive) return;\r\n          api.healUnit(state, u, t, { amount: val(ab, 'heal'), ability: ab.id, isTick: true });\r\n          if (T(u).impMendPet && state.rng() < 0.5) api.dispelUnit(state, u, t, ['magic', 'curse', 'poison', 'disease'], 1, 'debuff', ab.id);\r\n        }"
+              "fn": "({ state, u, t, ab, api }) => {\r\n            if (!t || !t.alive) return;\r\n            api.healUnit(state, u, t, { amount: val(ab, 'heal'), ability: ab.id, isTick: true });\r\n            if (T(u).impMendPet && state.rng() < 0.5) api.dispelUnit(state, u, t, ['magic', 'curse', 'poison', 'disease'], 1, 'debuff', ab.id);\r\n          }"
             }
           ]
         },
@@ -2571,7 +2571,7 @@
         "effects": [
           {
             "type": "custom",
-            "fn": "({ state, u, t, api }) => { if (t && !t.alive) { api.reviveUnit(state, t, T(u).impRevive ? 0.45 : 0.15); t.petCmd = 'follow'; } }"
+            "fn": "({ state, u, t, api }) => {\r\n          if (t && !t.alive) {\r\n            api.reviveUnit(state, t, T(u).impRevive ? 0.45 : 0.15);\r\n            t.petCmd = 'follow';\r\n          }\r\n        }"
           }
         ],
         "byLevel": {
@@ -2853,7 +2853,7 @@
           },
           {
             "type": "custom",
-            "fn": "({ state, u, t, ab, api }) => {\r\n          const mine = state.list.filter((x) => x.alive && x.templateId === 'hunter.hawk' && x.ownerId === u.id).sort((a, b) => a.spawnedAt - b.spawnedAt);\r\n          while (mine.length >= 2) { const old = mine.shift(); old.alive = false; old.hidden = true; }\r\n          const tal = T(u);\r\n          const L = u.level >= 60 ? 60 : 30;\r\n          const h = api.spawnUnit(state, 'hunter.hawk', {\r\n            x: t.x + 1, y: t.y - 1, ownerId: u.id, level: u.level, target: t.id,\r\n            maxHp: L === 60 ? 450 : 150,\r\n            melee: L === 60 ? { min: 36, max: 46, speed: 1.6 } : { min: 11, max: 15, speed: 1.6 },\r\n            stats: { critPhys: 0.05 + (tal.ferocity || 0) },\r\n            auras: [\r\n              { id: 'hunter.hawk.life', name: 'Hawk', hidden: true, duration: 18, onRemove: ({ u: hk }) => { hk.alive = false; hk.hidden = true; } },\r\n              ...(tal.unleashedFury ? [{ id: 'pet.t.fury', hidden: true, permanent: true, mods: { dmgDone: { all: 1 + tal.unleashedFury } } }] : []),\r\n            ],\r\n          });\r\n          h.autoMelee = true;\r\n        }"
+            "fn": "({ state, u, t, ab, api }) => {\r\n          const mine = state.list.filter((x) => x.alive && x.templateId === 'hunter.hawk' && x.ownerId === u.id).sort((a, b) => a.spawnedAt - b.spawnedAt);\r\n          while (mine.length >= 2) {\r\n            const old = mine.shift();\r\n            old.alive = false;\r\n            old.hidden = true;\r\n          }\r\n          const tal = T(u);\r\n          const L = u.level >= 60 ? 60 : 30;\r\n          const h = api.spawnUnit(state, 'hunter.hawk', {\r\n            x: t.x + 1,\r\n            y: t.y - 1,\r\n            ownerId: u.id,\r\n            level: u.level,\r\n            target: t.id,\r\n            maxHp: L === 60 ? 450 : 150,\r\n            melee: L === 60 ? { min: 36, max: 46, speed: 1.6 } : { min: 11, max: 15, speed: 1.6 },\r\n            stats: { critPhys: 0.05 + (tal.ferocity || 0) },\r\n            auras: [\r\n              {\r\n                id: 'hunter.hawk.life',\r\n                name: 'Hawk',\r\n                hidden: true,\r\n                duration: 18,\r\n                onRemove: ({ u: hk }) => {\r\n                  hk.alive = false;\r\n                  hk.hidden = true;\r\n                },\r\n              },\r\n              ...(tal.unleashedFury ? [{ id: 'pet.t.fury', hidden: true, permanent: true, mods: { dmgDone: { all: 1 + tal.unleashedFury } } }] : []),\r\n            ],\r\n          });\r\n          h.autoMelee = true;\r\n        }"
           }
         ],
         "byLevel": {
@@ -2991,8 +2991,8 @@
                   "all": 1.5
                 }
               },
-              "onApply": "({ u }) => { u.immune.cc = true; }",
-              "onRemove": "({ u }) => { u.immune.cc = false; }"
+              "onApply": "({ u }) => {\r\n            u.immune.cc = true;\r\n          }",
+              "onRemove": "({ u }) => {\r\n            u.immune.cc = false;\r\n          }"
             }
           }
         ],
@@ -3052,7 +3052,7 @@
           },
           {
             "type": "custom",
-            "fn": "({ u, t }) => { if (t && t.casting && t.casting.ab.mechanic !== 'physical') t.casting = null; }"
+            "fn": "({ u, t }) => {\r\n          if (t && t.casting && t.casting.ab.mechanic !== 'physical') t.casting = null;\r\n        }"
           },
           {
             "type": "aura",
@@ -3477,7 +3477,7 @@
         "effects": [
           {
             "type": "custom",
-            "fn": "(ctx) => { ctx.api.removeAuraById(ctx.state, ctx.u, COUNTER_READY.id); shot(ctx, { weapon: true, weaponMult: 0.5, melee: true, noAvoid: true }); }"
+            "fn": "(ctx) => {\r\n          ctx.api.removeAuraById(ctx.state, ctx.u, COUNTER_READY.id);\r\n          shot(ctx, { weapon: true, weaponMult: 0.5, melee: true, noAvoid: true });\r\n        }"
           },
           {
             "type": "aura",
@@ -3769,7 +3769,7 @@
           },
           {
             "type": "custom",
-            "fn": "function chillProcs(ctx) {\n  const { state, u, t, api } = ctx;\n  if (!t || !t.alive) return;\n  const tal = T(u);\n  if (tal.frostbite && state.rng() < tal.frostbite) api.applyAura(state, u, t, FROSTBITE);\n  if (tal.fof && state.rng() < tal.fof) addStacks(state, api, u, u, FOF, tal.fofCharges || 1);\n}"
+            "fn": "function chillProcs(ctx) {\r\n  const { state, u, t, api } = ctx;\r\n  if (!t || !t.alive) return;\r\n  const tal = T(u);\r\n  if (tal.frostbite && state.rng() < tal.frostbite) api.applyAura(state, u, t, FROSTBITE);\r\n  if (tal.fof && state.rng() < tal.fof) addStacks(state, api, u, u, FOF, tal.fofCharges || 1);\r\n}"
           }
         ],
         "byLevel": {
@@ -3915,7 +3915,7 @@
           },
           {
             "type": "custom",
-            "fn": "function chillProcs(ctx) {\n  const { state, u, t, api } = ctx;\n  if (!t || !t.alive) return;\n  const tal = T(u);\n  if (tal.frostbite && state.rng() < tal.frostbite) api.applyAura(state, u, t, FROSTBITE);\n  if (tal.fof && state.rng() < tal.fof) addStacks(state, api, u, u, FOF, tal.fofCharges || 1);\n}"
+            "fn": "function chillProcs(ctx) {\r\n  const { state, u, t, api } = ctx;\r\n  if (!t || !t.alive) return;\r\n  const tal = T(u);\r\n  if (tal.frostbite && state.rng() < tal.frostbite) api.applyAura(state, u, t, FROSTBITE);\r\n  if (tal.fof && state.rng() < tal.fof) addStacks(state, api, u, u, FOF, tal.fofCharges || 1);\r\n}"
           }
         ],
         "byLevel": {
@@ -4384,7 +4384,7 @@
             }
           ]
         },
-        "onChannelStart": "({ state, u, ab, api }) => {\n      const mb = api.findAura(u, MB.id);\n      if (!mb || !u.casting) return;\n      api.removeAura(state, u, mb, 'consumed');\n      u.casting.duration /= 2;\n      u.casting.interval /= 2;\n      u.casting.nextTick = u.casting.interval;\n      if (u.res.mana) u.res.mana.cur = Math.min(u.res.mana.max, u.res.mana.cur + val(ab, ab.cost.mana));\n    }",
+        "onChannelStart": "({ state, u, ab, api }) => {\r\n      const mb = api.findAura(u, MB.id);\r\n      if (!mb || !u.casting) return;\r\n      api.removeAura(state, u, mb, 'consumed');\r\n      u.casting.duration /= 2;\r\n      u.casting.interval /= 2;\r\n      u.casting.nextTick = u.casting.interval;\r\n      if (u.res.mana) u.res.mana.cur = Math.min(u.res.mana.max, u.res.mana.cur + val(ab, ab.cost.mana));\r\n    }",
         "byLevel": {
           "10": {
             "per": [
@@ -4676,7 +4676,7 @@
           "mana": "mana"
         },
         "canUse": "({ t }) => (t && (t.tags || []).some((x) => x === 'beast' || x === 'humanoid') ? true : 'custom:Only beasts and humanoids can be polymorphed')",
-        "onCast": "({ state, u, t, api }) => {\n      for (const x of state.list) if (x !== t) api.removeAuraById(state, x, 'mage.poly', u.id);\n    }",
+        "onCast": "({ state, u, t, api }) => {\r\n      for (const x of state.list) if (x !== t) api.removeAuraById(state, x, 'mage.poly', u.id);\r\n    }",
         "effects": [
           {
             "type": "aura",
@@ -4907,7 +4907,7 @@
         "cost": {
           "mana": "mana"
         },
-        "onCast": "({ state, u, api }) => {\n      const tt = api.U(state, u.target);\n      if (tt && tt.alive && api.hostile(u, tt)) u.facing = api.G.angleTo(u, tt);\n    }",
+        "onCast": "({ state, u, api }) => {\r\n      const tt = api.U(state, u.target);\r\n      if (tt && tt.alive && api.hostile(u, tt)) u.facing = api.G.angleTo(u, tt);\r\n    }",
         "effects": [
           {
             "type": "custom",
@@ -4916,7 +4916,7 @@
               "radius": 10,
               "cone": 1.8849555921538759
             },
-            "fn": "(ctx) => {\n          const { state, u, t, api } = ctx;\n          const wc = api.findAura(t, WINTERS_CHILL.id, u.id);\n          const st = wc ? wc.stacks : 0;\n          const tal = T(u);\n          mageHit(ctx, { mult: (1 + 0.05 * st) * (tal.impCone || 1), extraDmg: st * 0.07 * api.statOf(u, 'sp') });\n          if (wc) api.removeAura(state, t, wc, 'consumed');\n        }"
+            "fn": "(ctx) => {\r\n          const { state, u, t, api } = ctx;\r\n          const wc = api.findAura(t, WINTERS_CHILL.id, u.id);\r\n          const st = wc ? wc.stacks : 0;\r\n          const tal = T(u);\r\n          mageHit(ctx, { mult: (1 + 0.05 * st) * (tal.impCone || 1), extraDmg: st * 0.07 * api.statOf(u, 'sp') });\r\n          if (wc) api.removeAura(state, t, wc, 'consumed');\r\n        }"
           },
           {
             "type": "aura",
@@ -4969,7 +4969,7 @@
               "cone": 1.8849555921538759,
               "maxTargets": 4
             },
-            "fn": "function chillProcs(ctx) {\n  const { state, u, t, api } = ctx;\n  if (!t || !t.alive) return;\n  const tal = T(u);\n  if (tal.frostbite && state.rng() < tal.frostbite) api.applyAura(state, u, t, FROSTBITE);\n  if (tal.fof && state.rng() < tal.fof) addStacks(state, api, u, u, FOF, tal.fofCharges || 1);\n}"
+            "fn": "function chillProcs(ctx) {\r\n  const { state, u, t, api } = ctx;\r\n  if (!t || !t.alive) return;\r\n  const tal = T(u);\r\n  if (tal.frostbite && state.rng() < tal.frostbite) api.applyAura(state, u, t, FROSTBITE);\r\n  if (tal.fof && state.rng() < tal.fof) addStacks(state, api, u, u, FOF, tal.fofCharges || 1);\r\n}"
           }
         ],
         "byLevel": {
@@ -5232,7 +5232,7 @@
           },
           {
             "type": "custom",
-            "fn": "({ state, u, ab, api, point }) => {\n          state.zones = state.zones.filter((z) => !(z.owner === u.id && z.label === 'Flamestrike'));\n          api.spawnZone(state, { shape: { type: 'circle', r: 8 }, x: point.x, y: point.y, owner: u.id, side: u.side, duration: 8, interval: 2, visual: 'fire', label: 'Flamestrike', ab, effects: [{ type: 'damage', amount: 'burn', school: 'fire' }] });\n        }"
+            "fn": "({ state, u, ab, api, point }) => {\r\n          state.zones = state.zones.filter((z) => !(z.owner === u.id && z.label === 'Flamestrike'));\r\n          api.spawnZone(state, {\r\n            shape: { type: 'circle', r: 8 },\r\n            x: point.x,\r\n            y: point.y,\r\n            owner: u.id,\r\n            side: u.side,\r\n            duration: 8,\r\n            interval: 2,\r\n            visual: 'fire',\r\n            label: 'Flamestrike',\r\n            ab,\r\n            effects: [{ type: 'damage', amount: 'burn', school: 'fire' }],\r\n          });\r\n        }"
           }
         ],
         "byLevel": {
@@ -5474,7 +5474,7 @@
         "projectile": {
           "speed": 24
         },
-        "castTimeMultFn": "(u) => {\n      const a = u.auras.find((x) => x.id === HU.id);\n      return 1 - 0.25 * (a ? a.stacks : 0);\n    }",
+        "castTimeMultFn": "(u) => {\r\n      const a = u.auras.find((x) => x.id === HU.id);\r\n      return 1 - 0.25 * (a ? a.stacks : 0);\r\n    }",
         "effects": [
           {
             "type": "custom",
@@ -5800,7 +5800,7 @@
           },
           {
             "type": "custom",
-            "fn": "function chillProcs(ctx) {\n  const { state, u, t, api } = ctx;\n  if (!t || !t.alive) return;\n  const tal = T(u);\n  if (tal.frostbite && state.rng() < tal.frostbite) api.applyAura(state, u, t, FROSTBITE);\n  if (tal.fof && state.rng() < tal.fof) addStacks(state, api, u, u, FOF, tal.fofCharges || 1);\n}"
+            "fn": "function chillProcs(ctx) {\r\n  const { state, u, t, api } = ctx;\r\n  if (!t || !t.alive) return;\r\n  const tal = T(u);\r\n  if (tal.frostbite && state.rng() < tal.frostbite) api.applyAura(state, u, t, FROSTBITE);\r\n  if (tal.fof && state.rng() < tal.fof) addStacks(state, api, u, u, FOF, tal.fofCharges || 1);\r\n}"
           }
         ],
         "byLevel": {
@@ -5966,7 +5966,7 @@
         "effects": [
           {
             "type": "custom",
-            "fn": "({ state, u, api }) => { breakCC(state, api, u, ['stun', 'root', 'fear', 'incap']); for (const a of [...u.auras]) if (a.def.debuff) api.removeAura(state, u, a, 'removed'); }"
+            "fn": "({ state, u, api }) => {\r\n          breakCC(state, api, u, ['stun', 'root', 'fear', 'incap']);\r\n          for (const a of [...u.auras]) if (a.def.debuff) api.removeAura(state, u, a, 'removed');\r\n        }"
           },
           {
             "type": "aura",
@@ -5983,7 +5983,7 @@
                 "silence",
                 "disarm"
               ],
-              "onApply": "({ u }) => { u.autoRanged = false; u.wandResume = false; }"
+              "onApply": "({ u }) => {\r\n            u.autoRanged = false;\r\n            u.wandResume = false;\r\n          }"
             }
           }
         ]
@@ -6028,7 +6028,7 @@
         "effects": [
           {
             "type": "custom",
-            "fn": "({ u }) => { for (const id of ['mage.nova', 'mage.cone', 'mage.iceblock', 'mage.icebarrier', 'mage.frostblast']) delete u.cds[id]; }"
+            "fn": "({ u }) => {\r\n          for (const id of ['mage.nova', 'mage.cone', 'mage.iceblock', 'mage.icebarrier', 'mage.frostblast']) delete u.cds[id];\r\n        }"
           }
         ]
       },
@@ -6091,7 +6091,7 @@
         "effects": [
           {
             "type": "custom",
-            "fn": "({ state, u, ab, api }) => api.applyAura(state, u, u, { id: 'mage.icebarrier', name: 'Ice Barrier', icon: 'ice-barrier', school: 'frost', duration: 60, absorb: Math.round(val(ab, 'absorb') + 0.1 * api.statOf(u, 'sp')), mods: { dmgDone: { frost: 1.03 } } })"
+            "fn": "({ state, u, ab, api }) =>\r\n          api.applyAura(state, u, u, {\r\n            id: 'mage.icebarrier',\r\n            name: 'Ice Barrier',\r\n            icon: 'ice-barrier',\r\n            school: 'frost',\r\n            duration: 60,\r\n            absorb: Math.round(val(ab, 'absorb') + 0.1 * api.statOf(u, 'sp')),\r\n            mods: { dmgDone: { frost: 1.03 } },\r\n          })"
           }
         ],
         "byLevel": {
@@ -6189,7 +6189,7 @@
         "projectile": {
           "speed": 36
         },
-        "costMultFn": "(u) => {\n      const a = u.auras.find((x) => x.id === 'mage.abstack');\n      return 1 + 1.75 * (a ? a.stacks : 0);\n    }",
+        "costMultFn": "(u) => {\r\n      const a = u.auras.find((x) => x.id === 'mage.abstack');\r\n      return 1 + 1.75 * (a ? a.stacks : 0);\r\n    }",
         "effects": [
           {
             "type": "custom",
@@ -6583,7 +6583,7 @@
           },
           {
             "type": "custom",
-            "fn": "({ state, u, t, api }) => { const s = T(u).impCounterspell; if (s && t && t.alive) api.applyAura(state, u, t, { id: 'mage.ics', name: 'Silenced', icon: 'counterspell', school: 'arcane', debuff: true, duration: s, cc: 'silence', dr: 'silence' }); }"
+            "fn": "({ state, u, t, api }) => {\r\n          const s = T(u).impCounterspell;\r\n          if (s && t && t.alive)\r\n            api.applyAura(state, u, t, {\r\n              id: 'mage.ics',\r\n              name: 'Silenced',\r\n              icon: 'counterspell',\r\n              school: 'arcane',\r\n              debuff: true,\r\n              duration: s,\r\n              cc: 'silence',\r\n              dr: 'silence',\r\n            });\r\n        }"
           }
         ],
         "byLevel": {
@@ -6737,7 +6737,7 @@
           "ticks": 8,
           "effects": []
         },
-        "onChannelStart": "({ state, u, api }) => api.applyAura(state, u, u, { id: 'mage.evo', name: 'Evocation', icon: 'evocation', school: 'arcane', duration: 8.5, mods: { manaRegen: 16, castRegen: 1 } })",
+        "onChannelStart": "({ state, u, api }) =>\r\n      api.applyAura(state, u, u, {\r\n        id: 'mage.evo',\r\n        name: 'Evocation',\r\n        icon: 'evocation',\r\n        school: 'arcane',\r\n        duration: 8.5,\r\n        mods: { manaRegen: 16, castRegen: 1 },\r\n      })",
         "onChannelEnd": "({ state, u, api }) => api.removeAuraById(state, u, 'mage.evo')"
       },
       "reviewedFindings": [],
@@ -6890,7 +6890,7 @@
           },
           {
             "type": "custom",
-            "fn": "({ u }) => { u.meta.gems = (u.meta.gems ?? 3) - 1; }"
+            "fn": "({ u }) => {\r\n          u.meta.gems = (u.meta.gems ?? 3) - 1;\r\n        }"
           }
         ],
         "byLevel": {
@@ -7177,7 +7177,7 @@
         "effects": [
           {
             "type": "custom",
-            "fn": "({ state, u, t, ab, api }) => {\n        const tal = T(u);\n        const dur = 18 + (tal.impSwp || 0);\n        const per = val(ab, 'tick') + 0.16 * api.statOf(u, 'sp');\n        api.applyAura(state, u, t, { id: 'priest.swp', name: 'Shadow Word: Pain', icon: 'swp', school: 'shadow', debuff: true, duration: dur, dispel: 'magic', tick: { interval: 3, amount: per, school: 'shadow' } });\n        api.addThreat(state, t, u, 10);\n      }"
+            "fn": "({ state, u, t, ab, api }) => {\r\n          const tal = T(u);\r\n          const dur = 18 + (tal.impSwp || 0);\r\n          const per = val(ab, 'tick') + 0.16 * api.statOf(u, 'sp');\r\n          api.applyAura(state, u, t, {\r\n            id: 'priest.swp',\r\n            name: 'Shadow Word: Pain',\r\n            icon: 'swp',\r\n            school: 'shadow',\r\n            debuff: true,\r\n            duration: dur,\r\n            dispel: 'magic',\r\n            tick: { interval: 3, amount: per, school: 'shadow' },\r\n          });\r\n          api.addThreat(state, t, u, 10);\r\n        }"
           }
         ],
         "byLevel": {
@@ -7448,7 +7448,7 @@
             }
           ]
         },
-        "onChannelEnd": "({ state, u, api, reason }) => { if (reason === 'complete' && T(u).darkInspiration) api.applyAura(state, u, u, { id: 'priest.di', name: 'Dark Inspiration', icon: 'spirit', duration: 10, mods: { manaRegen: 1.15 } }); }",
+        "onChannelEnd": "({ state, u, api, reason }) => {\r\n      if (reason === 'complete' && T(u).darkInspiration)\r\n        api.applyAura(state, u, u, { id: 'priest.di', name: 'Dark Inspiration', icon: 'spirit', duration: 10, mods: { manaRegen: 1.15 } });\r\n    }",
         "byLevel": {
           "30": {
             "per": [
@@ -7545,7 +7545,7 @@
         "effects": [
           {
             "type": "custom",
-            "fn": "({ state, u, t, ab, api }) => {\n        const per = val(ab, 'tick') + 0.1 * api.statOf(u, 'sp');\n        api.applyAura(state, u, t, {\n          id: 'priest.dp', name: 'Devouring Plague', icon: 'devour', school: 'shadow', debuff: true, duration: 24, dispel: 'disease', persistDeath: true,\n          tick: {\n            interval: 3, type: 'custom',\n            fn: ({ state: st, u: holder, src, api: a2 }) => {\n              if (!src || !src.alive) return;\n              const d = a2.dealDamage(st, src, holder, { amount: per, school: 'shadow', kind: 'dot', ability: 'priest.dp', isTick: true, canCrit: true });\n              if (d > 0) a2.healUnit(st, src, src, { amount: d, ability: 'priest.dp', isTick: true });\n            },\n          },\n        });\n        api.addThreat(state, t, u, 10);\n      }"
+            "fn": "({ state, u, t, ab, api }) => {\r\n          const per = val(ab, 'tick') + 0.1 * api.statOf(u, 'sp');\r\n          api.applyAura(state, u, t, {\r\n            id: 'priest.dp',\r\n            name: 'Devouring Plague',\r\n            icon: 'devour',\r\n            school: 'shadow',\r\n            debuff: true,\r\n            duration: 24,\r\n            dispel: 'disease',\r\n            persistDeath: true,\r\n            tick: {\r\n              interval: 3,\r\n              type: 'custom',\r\n              fn: ({ state: st, u: holder, src, api: a2 }) => {\r\n                if (!src || !src.alive) return;\r\n                const d = a2.dealDamage(st, src, holder, { amount: per, school: 'shadow', kind: 'dot', ability: 'priest.dp', isTick: true, canCrit: true });\r\n                if (d > 0) a2.healUnit(st, src, src, { amount: d, ability: 'priest.dp', isTick: true });\r\n              },\r\n            },\r\n          });\r\n          api.addThreat(state, t, u, 10);\r\n        }"
           }
         ],
         "byLevel": {
@@ -7704,7 +7704,7 @@
         "effects": [
           {
             "type": "custom",
-            "fn": "(ctx) => {\n        shadowHit(ctx);\n        if (ctx.t.alive) ctx.api.dealDamage(ctx.state, null, ctx.u, { amount: ctx.u.maxHp * 0.1, school: 'shadow', kind: 'spell', ability: 'priest.swd.backlash', noMiss: true, canCrit: false });\n      }"
+            "fn": "(ctx) => {\r\n          shadowHit(ctx);\r\n          if (ctx.t.alive)\r\n            ctx.api.dealDamage(ctx.state, null, ctx.u, {\r\n              amount: ctx.u.maxHp * 0.1,\r\n              school: 'shadow',\r\n              kind: 'spell',\r\n              ability: 'priest.swd.backlash',\r\n              noMiss: true,\r\n              canCrit: false,\r\n            });\r\n        }"
           }
         ],
         "byLevel": {
@@ -7759,7 +7759,7 @@
         "effects": [
           {
             "type": "custom",
-            "fn": "({ state, u, api }) => {\n        if (inForm(u)) { api.removeAuraById(state, u, 'priest.sf'); return; }\n        api.applyAura(state, u, u, { id: 'priest.sf', name: 'Shadowform', icon: 'shadowform', school: 'shadow', permanent: true, mods: { dmgDone: { shadow: 1.1 }, costMult: { shadow: 0.5 }, dmgTaken: { physical: 0.85 } } });\n      }"
+            "fn": "({ state, u, api }) => {\r\n          if (inForm(u)) {\r\n            api.removeAuraById(state, u, 'priest.sf');\r\n            return;\r\n          }\r\n          api.applyAura(state, u, u, {\r\n            id: 'priest.sf',\r\n            name: 'Shadowform',\r\n            icon: 'shadowform',\r\n            school: 'shadow',\r\n            permanent: true,\r\n            mods: { dmgDone: { shadow: 1.1 }, costMult: { shadow: 0.5 }, dmgTaken: { physical: 0.85 } },\r\n          });\r\n        }"
           }
         ],
         "byLevel": {
@@ -7861,7 +7861,7 @@
         "effects": [
           {
             "type": "custom",
-            "fn": "({ state, u, t, ab, api }) => {\n        const tal = T(u);\n        const amt = (val(ab, 'absorb') + 0.1 * (api.statOf(u, 'heal'))) * (1 + (tal.impPws || 0)) * (api.findAura(u, 'priest.pi') ? 1.2 : 1);\n        api.applyAura(state, u, t, { id: 'priest.pws', name: 'Power Word: Shield', icon: 'shield', school: 'holy', unique: 'target', duration: 30, absorb: Math.round(amt) });\n        api.applyAura(state, u, t, { id: 'priest.ws', name: 'Weakened Soul', icon: 'shield', school: 'holy', debuff: true, unique: 'target', duration: 15 });\n        // Shield threat: like healing, split over enemies fighting the target.\n        for (const e of api.enemiesOf(state, u, (x) => x.engaged && x.threat && x.threat[t.id] !== undefined)) api.addThreat(state, e, u, amt * 0.25);\n      }"
+            "fn": "({ state, u, t, ab, api }) => {\r\n          const tal = T(u);\r\n          const amt = (val(ab, 'absorb') + 0.1 * api.statOf(u, 'heal')) * (1 + (tal.impPws || 0)) * (api.findAura(u, 'priest.pi') ? 1.2 : 1);\r\n          api.applyAura(state, u, t, {\r\n            id: 'priest.pws',\r\n            name: 'Power Word: Shield',\r\n            icon: 'shield',\r\n            school: 'holy',\r\n            unique: 'target',\r\n            duration: 30,\r\n            absorb: Math.round(amt),\r\n          });\r\n          api.applyAura(state, u, t, { id: 'priest.ws', name: 'Weakened Soul', icon: 'shield', school: 'holy', debuff: true, unique: 'target', duration: 15 });\r\n          // Shield threat: like healing, split over enemies fighting the target.\r\n          for (const e of api.enemiesOf(state, u, (x) => x.engaged && x.threat && x.threat[t.id] !== undefined)) api.addThreat(state, e, u, amt * 0.25);\r\n        }"
           }
         ],
         "byLevel": {
@@ -7973,7 +7973,7 @@
         "effects": [
           {
             "type": "custom",
-            "fn": "({ state, u, t, ab, api }) => {\n        const tal = T(u);\n        const per = (val(ab, 'tick') + 0.2 * api.statOf(u, 'heal')) * (tal.impRenew ? 1.15 : 1) * (tal.spiritualHealing ? 1.1 : 1);\n        api.applyAura(state, u, t, { id: 'priest.renew', name: 'Renew', icon: 'renew', school: 'holy', duration: 15, dispel: 'magic', tick: { interval: 3, type: 'heal', amount: per, canCrit: true } });\n      }"
+            "fn": "({ state, u, t, ab, api }) => {\r\n          const tal = T(u);\r\n          const per = (val(ab, 'tick') + 0.2 * api.statOf(u, 'heal')) * (tal.impRenew ? 1.15 : 1) * (tal.spiritualHealing ? 1.1 : 1);\r\n          api.applyAura(state, u, t, {\r\n            id: 'priest.renew',\r\n            name: 'Renew',\r\n            icon: 'renew',\r\n            school: 'holy',\r\n            duration: 15,\r\n            dispel: 'magic',\r\n            tick: { interval: 3, type: 'heal', amount: per, canCrit: true },\r\n          });\r\n        }"
           }
         ],
         "byLevel": {
@@ -8479,7 +8479,7 @@
           },
           {
             "type": "custom",
-            "fn": "(ctx) => { if (ctx.t !== ctx.u) priestHeal({ ...ctx, t: ctx.u }); }"
+            "fn": "(ctx) => {\r\n          if (ctx.t !== ctx.u) priestHeal({ ...ctx, t: ctx.u });\r\n        }"
           }
         ],
         "byLevel": {
@@ -8590,7 +8590,7 @@
         "effects": [
           {
             "type": "custom",
-            "fn": "(ctx) => { for (const m of partyOf(ctx.state, ctx.api, ctx.u, ctx.t, 30)) priestHeal({ ...ctx, t: m }); }"
+            "fn": "(ctx) => {\r\n          for (const m of partyOf(ctx.state, ctx.api, ctx.u, ctx.t, 30)) priestHeal({ ...ctx, t: m });\r\n        }"
           }
         ],
         "byLevel": {
@@ -9460,7 +9460,7 @@
               "tick": {
                 "interval": 5,
                 "type": "custom",
-                "fn": "({ state, u, src, api }) => { if (u.auras.some((a) => a.def.debuff && a.def.dispel === 'disease')) api.dispelUnit(state, src, u, ['disease'], 1, 'debuff', 'priest.abolish'); }"
+                "fn": "({ state, u, src, api }) => {\r\n              if (u.auras.some((a) => a.def.debuff && a.def.dispel === 'disease')) api.dispelUnit(state, src, u, ['disease'], 1, 'debuff', 'priest.abolish');\r\n            }"
               }
             }
           }
@@ -9539,7 +9539,7 @@
         "effects": [
           {
             "type": "custom",
-            "fn": "({ state, u, ab, api }) => {\n        const amount = val(ab, 'thr');\n        const taken = {};\n        for (const e of state.list) {\n          if (!e.threat || e.threat[u.id] === undefined) continue;\n          const d = Math.min(e.threat[u.id], amount);\n          e.threat[u.id] -= d;\n          taken[e.id] = d;\n        }\n        api.applyAura(state, u, u, {\n          id: 'priest.fade', name: 'Fade', icon: 'fade', school: 'shadow', duration: 10,\n          onRemove: ({ state: st }) => { for (const [id, d] of Object.entries(taken)) { const e = st.units[id]; if (e && e.alive && e.threat && e.threat[u.id] !== undefined) e.threat[u.id] += d; } },\n        });\n      }"
+            "fn": "({ state, u, ab, api }) => {\r\n          const amount = val(ab, 'thr');\r\n          const taken = {};\r\n          for (const e of state.list) {\r\n            if (!e.threat || e.threat[u.id] === undefined) continue;\r\n            const d = Math.min(e.threat[u.id], amount);\r\n            e.threat[u.id] -= d;\r\n            taken[e.id] = d;\r\n          }\r\n          api.applyAura(state, u, u, {\r\n            id: 'priest.fade',\r\n            name: 'Fade',\r\n            icon: 'fade',\r\n            school: 'shadow',\r\n            duration: 10,\r\n            onRemove: ({ state: st }) => {\r\n              for (const [id, d] of Object.entries(taken)) {\r\n                const e = st.units[id];\r\n                if (e && e.alive && e.threat && e.threat[u.id] !== undefined) e.threat[u.id] += d;\r\n              }\r\n            },\r\n          });\r\n        }"
           }
         ],
         "byLevel": {
@@ -9853,7 +9853,7 @@
         "effects": [
           {
             "type": "custom",
-            "fn": "({ state, u, ab, api }) => api.applyAura(state, u, u, {\n        id: 'priest.tow', name: 'Touch of Weakness', icon: 'touch-weakness', school: 'shadow', duration: 600,\n        onHolderDamaged: ({ state: st, u: me, aura, api: a2, src, pk }) => {\n          if (!src || !src.alive || pk.kind !== 'melee' || src.side === me.side) return;\n          a2.removeAura(st, me, aura, 'consumed');\n          a2.dealDamage(st, me, src, { amount: val(ab, 'td'), school: 'shadow', kind: 'spell', ability: 'priest.touch', noMiss: true });\n          if (src.alive) a2.applyAura(st, me, src, { id: 'priest.tow.debuff', name: 'Touch of Weakness', icon: 'touch-weakness', school: 'shadow', debuff: true, duration: 120, mods: { dmgDone: { melee: 0.9 } }, dispel: 'magic' });\n        },\n      })"
+            "fn": "({ state, u, ab, api }) =>\r\n          api.applyAura(state, u, u, {\r\n            id: 'priest.tow',\r\n            name: 'Touch of Weakness',\r\n            icon: 'touch-weakness',\r\n            school: 'shadow',\r\n            duration: 600,\r\n            onHolderDamaged: ({ state: st, u: me, aura, api: a2, src, pk }) => {\r\n              if (!src || !src.alive || pk.kind !== 'melee' || src.side === me.side) return;\r\n              a2.removeAura(st, me, aura, 'consumed');\r\n              a2.dealDamage(st, me, src, { amount: val(ab, 'td'), school: 'shadow', kind: 'spell', ability: 'priest.touch', noMiss: true });\r\n              if (src.alive)\r\n                a2.applyAura(st, me, src, {\r\n                  id: 'priest.tow.debuff',\r\n                  name: 'Touch of Weakness',\r\n                  icon: 'touch-weakness',\r\n                  school: 'shadow',\r\n                  debuff: true,\r\n                  duration: 120,\r\n                  mods: { dmgDone: { melee: 0.9 } },\r\n                  dispel: 'magic',\r\n                });\r\n            },\r\n          })"
           }
         ],
         "byLevel": {
@@ -9927,7 +9927,7 @@
         "effects": [
           {
             "type": "custom",
-            "fn": "({ state, u, ab, api }) => {\n        const hp = val(ab, 'hp');\n        const mana = hp + (u.stats.spi || 0);\n        api.applyAura(state, u, u, {\n          id: 'priest.darksac', name: 'Dark Sacrifice', icon: 'devour', school: 'shadow', duration: 15,\n          tick: { interval: 3, type: 'custom', fn: ({ u: me }) => { me.hp = Math.max(1, me.hp - hp / 5); if (me.res.mana) me.res.mana.cur = Math.min(me.res.mana.max, me.res.mana.cur + mana / 5); } },\n        });\n      }"
+            "fn": "({ state, u, ab, api }) => {\r\n          const hp = val(ab, 'hp');\r\n          const mana = hp + (u.stats.spi || 0);\r\n          api.applyAura(state, u, u, {\r\n            id: 'priest.darksac',\r\n            name: 'Dark Sacrifice',\r\n            icon: 'devour',\r\n            school: 'shadow',\r\n            duration: 15,\r\n            tick: {\r\n              interval: 3,\r\n              type: 'custom',\r\n              fn: ({ u: me }) => {\r\n                me.hp = Math.max(1, me.hp - hp / 5);\r\n                if (me.res.mana) me.res.mana.cur = Math.min(me.res.mana.max, me.res.mana.cur + mana / 5);\r\n              },\r\n            },\r\n          });\r\n        }"
           }
         ],
         "byLevel": {
@@ -9936,6 +9936,188 @@
           },
           "60": {
             "hp": 1640
+          }
+        }
+      },
+      "reviewedFindings": [],
+      "estimates": [
+        "Gear, weapon profiles, encounter tuning and Classic-derived stats are simulation assumptions."
+      ],
+      "status": "base-fields-match-snapshot"
+    },
+    {
+      "id": "priest.hex",
+      "name": "Hex of Weakness",
+      "classId": "priest",
+      "declaredStatus": "confirmed-official",
+      "source": "rank snapshot",
+      "sourceNote": "Kept for Trolls (“unchanged”). Datamine: −43 to −204 melee attack power; −20 % healing. Attack power loss is simulated as −10 % melee damage.",
+      "checks": [
+        {
+          "level": 10,
+          "field": "mana",
+          "expected": 35,
+          "actual": 35,
+          "match": true,
+          "source": "research/forever-ranks.json"
+        },
+        {
+          "level": 30,
+          "field": "mana",
+          "expected": 90,
+          "actual": 90,
+          "match": true,
+          "source": "research/forever-ranks.json"
+        },
+        {
+          "level": 60,
+          "field": "mana",
+          "expected": 240,
+          "actual": 240,
+          "match": true,
+          "source": "research/forever-ranks.json"
+        }
+      ],
+      "mismatches": [],
+      "rawReference": null,
+      "implementationDefinition": {
+        "id": "priest.hex",
+        "name": "Hex of Weakness",
+        "icon": "touch-weakness",
+        "school": "shadow",
+        "category": "control",
+        "tags": [
+          "racial",
+          "optional-utility"
+        ],
+        "learn": 10,
+        "range": 30,
+        "desc": "Troll Priest spell. Curses an enemy for 2 min: less melee damage, and healing on it is 20 % less effective.",
+        "forever": {
+          "status": "confirmed-official",
+          "src": "bz-dd-priest",
+          "note": "Kept for Trolls (“unchanged”). Datamine: −43 to −204 melee attack power; −20 % healing. Attack power loss is simulated as −10 % melee damage."
+        },
+        "cost": {
+          "mana": "mana"
+        },
+        "effects": [
+          {
+            "type": "aura",
+            "aura": {
+              "id": "priest.hex",
+              "name": "Hex of Weakness",
+              "icon": "touch-weakness",
+              "school": "shadow",
+              "debuff": true,
+              "duration": 120,
+              "mods": {
+                "dmgDone": {
+                  "melee": 0.9
+                },
+                "healTaken": 0.8
+              },
+              "dispel": "curse"
+            }
+          }
+        ],
+        "byLevel": {
+          "10": {
+            "mana": 35
+          },
+          "30": {
+            "mana": 90
+          },
+          "60": {
+            "mana": 240
+          }
+        }
+      },
+      "reviewedFindings": [],
+      "estimates": [
+        "Gear, weapon profiles, encounter tuning and Classic-derived stats are simulation assumptions.",
+        "Power coefficients, normalization and talent/proc calculations require separate evidence; matching base ranks does not verify final damage."
+      ],
+      "status": "base-fields-match-snapshot"
+    },
+    {
+      "id": "priest.shadowguard",
+      "name": "Shadowguard",
+      "classId": "priest",
+      "declaredStatus": "confirmed-official",
+      "source": "rank snapshot",
+      "sourceNote": "Kept for Trolls (“unchanged”). Datamine: 3 charges, 10 min, 3.5 s between charges, 13 to 96 Shadow damage.",
+      "checks": [
+        {
+          "level": 30,
+          "field": "td",
+          "expected": 22,
+          "actual": 22,
+          "match": true,
+          "source": "research/forever-ranks.json"
+        },
+        {
+          "level": 30,
+          "field": "mana",
+          "expected": 85,
+          "actual": 85,
+          "match": true,
+          "source": "research/forever-ranks.json"
+        },
+        {
+          "level": 60,
+          "field": "td",
+          "expected": 96,
+          "actual": 96,
+          "match": true,
+          "source": "research/forever-ranks.json"
+        },
+        {
+          "level": 60,
+          "field": "mana",
+          "expected": 250,
+          "actual": 250,
+          "match": true,
+          "source": "research/forever-ranks.json"
+        }
+      ],
+      "mismatches": [],
+      "rawReference": null,
+      "implementationDefinition": {
+        "id": "priest.shadowguard",
+        "name": "Shadowguard",
+        "icon": "shield",
+        "school": "shadow",
+        "category": "buff",
+        "tags": [
+          "racial",
+          "optional-utility"
+        ],
+        "learn": 20,
+        "target": "self",
+        "desc": "Troll Priest spell. For 10 min, up to 3 attackers that hit you with a spell, melee or ranged attack take Shadow damage (at most once per 3.5 s). No threat.",
+        "forever": {
+          "status": "confirmed-official",
+          "src": "bz-dd-priest",
+          "note": "Kept for Trolls (“unchanged”). Datamine: 3 charges, 10 min, 3.5 s between charges, 13 to 96 Shadow damage."
+        },
+        "cost": {
+          "mana": "mana"
+        },
+        "effects": [
+          {
+            "type": "custom",
+            "fn": "({ state, u, ab, api }) =>\r\n          api.applyAura(state, u, u, {\r\n            id: 'priest.shadowguard',\r\n            name: 'Shadowguard',\r\n            icon: 'shield',\r\n            school: 'shadow',\r\n            duration: 600,\r\n            maxStacks: 3,\r\n            stacks: 3,\r\n            onHolderDamaged: ({ state: st, u: me, aura, api: a2, src, pk }) => {\r\n              if (!src || !src.alive || pk.isTick || src.side === me.side) return;\r\n              if (st.t < (aura.readyAt || 0)) return;\r\n              aura.readyAt = st.t + 3.5;\r\n              a2.dealDamage(st, me, src, { amount: val(ab, 'td'), school: 'shadow', kind: 'spell', ability: 'priest.shadowguard', noMiss: true, threat: 0 });\r\n              aura.left = (aura.left ?? 3) - 1;\r\n              aura.stacks = aura.left;\r\n              if (aura.left <= 0) a2.removeAura(st, me, aura, 'consumed');\r\n            },\r\n          })"
+          }
+        ],
+        "byLevel": {
+          "30": {
+            "td": 22,
+            "mana": 85
+          },
+          "60": {
+            "td": 96,
+            "mana": 250
           }
         }
       },
@@ -10399,7 +10581,7 @@
         "effects": [
           {
             "type": "custom",
-            "fn": "({ state, u, t, ab, api }) => {\r\n        if (!t || !t.alive) return;\r\n        addStacks(state, api, u, t, { id: 'warrior.sunder', name: 'Sunder Armor', icon: 'axe', debuff: true, unique: 'target', duration: 30, maxStacks: 5, refresh: true, stackMods: true, mods: { statAdd: { armor: -val(ab, 'armorPer') } } }, 1);\r\n        api.addThreat(state, t, u, val(ab, 'thr'));\r\n      }"
+            "fn": "({ state, u, t, ab, api }) => {\r\n          if (!t || !t.alive) return;\r\n          addStacks(\r\n            state,\r\n            api,\r\n            u,\r\n            t,\r\n            {\r\n              id: 'warrior.sunder',\r\n              name: 'Sunder Armor',\r\n              icon: 'axe',\r\n              debuff: true,\r\n              unique: 'target',\r\n              duration: 30,\r\n              maxStacks: 5,\r\n              refresh: true,\r\n              stackMods: true,\r\n              mods: { statAdd: { armor: -val(ab, 'armorPer') } },\r\n            },\r\n            1,\r\n          );\r\n          api.addThreat(state, t, u, val(ab, 'thr'));\r\n        }"
           }
         ],
         "byLevel": {
@@ -10647,7 +10829,7 @@
         "effects": [
           {
             "type": "custom",
-            "fn": "(ctx) => { ctx.api.removeAuraById(ctx.state, ctx.u, REVENGE_READY.id); strike(ctx, { mult: 1 + (T(ctx.u).impRevenge || 0) }); }"
+            "fn": "(ctx) => {\r\n          ctx.api.removeAuraById(ctx.state, ctx.u, REVENGE_READY.id);\r\n          strike(ctx, { mult: 1 + (T(ctx.u).impRevenge || 0) });\r\n        }"
           }
         ],
         "byLevel": {
@@ -10766,7 +10948,7 @@
         "effects": [
           {
             "type": "custom",
-            "fn": "({ state, u, api }) => { const imp = T(u).impShieldBlock; const a = api.applyAura(state, u, u, { id: 'warrior.shieldblock', name: 'Shield Block', icon: 'shield-wall', duration: 7 + (imp ? 2 : 0), mods: { block: 0.75 } }); if (a) a.data.charges = imp ? 3 : 2; }"
+            "fn": "({ state, u, api }) => {\r\n          const imp = T(u).impShieldBlock;\r\n          const a = api.applyAura(state, u, u, {\r\n            id: 'warrior.shieldblock',\r\n            name: 'Shield Block',\r\n            icon: 'shield-wall',\r\n            duration: 7 + (imp ? 2 : 0),\r\n            mods: { block: 0.75 },\r\n          });\r\n          if (a) a.data.charges = imp ? 3 : 2;\r\n        }"
           }
         ],
         "byLevel": {
@@ -11784,7 +11966,7 @@
               "radius": 10,
               "affects": "enemies"
             },
-            "fn": "({ state, u, t, ab, api }) => {\r\n        if (!t || !t.melee) return;\r\n        const per = (val(ab, 'ap') / 14) * t.melee.speed;\r\n        const avg = (t.melee.min + t.melee.max) / 2 || 1;\r\n        api.applyAura(state, u, t, { id: 'warrior.demo', name: 'Demoralizing Shout', icon: 'scream', debuff: true, duration: 45, mods: { dmgDone: { melee: Math.max(0.5, 1 - per / avg) } } });\r\n        api.addThreat(state, t, u, 40);\r\n      }"
+            "fn": "({ state, u, t, ab, api }) => {\r\n          if (!t || !t.melee) return;\r\n          const per = (val(ab, 'ap') / 14) * t.melee.speed;\r\n          const avg = (t.melee.min + t.melee.max) / 2 || 1;\r\n          api.applyAura(state, u, t, {\r\n            id: 'warrior.demo',\r\n            name: 'Demoralizing Shout',\r\n            icon: 'scream',\r\n            debuff: true,\r\n            duration: 45,\r\n            mods: { dmgDone: { melee: Math.max(0.5, 1 - per / avg) } },\r\n          });\r\n          api.addThreat(state, t, u, 40);\r\n        }"
           }
         ],
         "byLevel": {
@@ -12355,7 +12537,7 @@
         "effects": [
           {
             "type": "custom",
-            "fn": "({ state, u, api }) => {\r\n        api.gainRage(u, 10);\r\n        u.hp = Math.max(1, u.hp - Math.round(u.maxHp * 0.03));\r\n        api.applyAura(state, u, u, { id: 'warrior.bloodrage', name: 'Bloodrage', icon: 'beast-wrath', duration: 10, tick: { interval: 1, type: 'custom', fn: ({ u: me, api: a2 }) => a2.gainRage(me, 1) } });\r\n      }"
+            "fn": "({ state, u, api }) => {\r\n          api.gainRage(u, 10);\r\n          u.hp = Math.max(1, u.hp - Math.round(u.maxHp * 0.03));\r\n          api.applyAura(state, u, u, {\r\n            id: 'warrior.bloodrage',\r\n            name: 'Bloodrage',\r\n            icon: 'beast-wrath',\r\n            duration: 10,\r\n            tick: { interval: 1, type: 'custom', fn: ({ u: me, api: a2 }) => a2.gainRage(me, 1) },\r\n          });\r\n        }"
           }
         ]
       },
@@ -12507,7 +12689,7 @@
         "effects": [
           {
             "type": "custom",
-            "fn": "({ state, u, api }) => {\r\n        const extra = Math.round(u.maxHp * 0.3);\r\n        u.maxHp += extra; u.hp += extra;\r\n        api.applyAura(state, u, u, { id: 'warrior.laststand', name: 'Last Stand', icon: 'shield-wall', duration: 20, onRemove: ({ u: me }) => { me.maxHp -= extra; me.hp = Math.min(me.hp, me.maxHp); } });\r\n      }"
+            "fn": "({ state, u, api }) => {\r\n          const extra = Math.round(u.maxHp * 0.3);\r\n          u.maxHp += extra;\r\n          u.hp += extra;\r\n          api.applyAura(state, u, u, {\r\n            id: 'warrior.laststand',\r\n            name: 'Last Stand',\r\n            icon: 'shield-wall',\r\n            duration: 20,\r\n            onRemove: ({ u: me }) => {\r\n              me.maxHp -= extra;\r\n              me.hp = Math.min(me.hp, me.maxHp);\r\n            },\r\n          });\r\n        }"
           }
         ]
       },
@@ -12908,7 +13090,7 @@
         "effects": [
           {
             "type": "custom",
-            "fn": "({ state, u, t, ab, api }) => {\r\n      const total = val(ab, 'total') * (1 + (T(u).impRend || 0));\r\n      const dur = val(ab, 'dur');\r\n      api.applyAura(state, u, t, { id: 'warrior.rend', name: 'Rend', icon: 'claw', school: 'physical', debuff: true, duration: dur, bleed: true, tick: { interval: 3, amount: total / (dur / 3), school: 'physical', kind: 'bleed' } });\r\n    }"
+            "fn": "({ state, u, t, ab, api }) => {\r\n          const total = val(ab, 'total') * (1 + (T(u).impRend || 0));\r\n          const dur = val(ab, 'dur');\r\n          api.applyAura(state, u, t, {\r\n            id: 'warrior.rend',\r\n            name: 'Rend',\r\n            icon: 'claw',\r\n            school: 'physical',\r\n            debuff: true,\r\n            duration: dur,\r\n            bleed: true,\r\n            tick: { interval: 3, amount: total / (dur / 3), school: 'physical', kind: 'bleed' },\r\n          });\r\n        }"
           }
         ],
         "byLevel": {
@@ -13069,7 +13251,7 @@
           },
           {
             "type": "custom",
-            "fn": "({ state, u, t, ab, api }) => { if (t && t.alive) api.applyAura(state, u, t, { id: 'warrior.hamstring', name: 'Hamstring', icon: 'wing-clip', debuff: true, duration: 15, mods: { slow: val(ab, 'slow') } }); }"
+            "fn": "({ state, u, t, ab, api }) => {\r\n          if (t && t.alive)\r\n            api.applyAura(state, u, t, {\r\n              id: 'warrior.hamstring',\r\n              name: 'Hamstring',\r\n              icon: 'wing-clip',\r\n              debuff: true,\r\n              duration: 15,\r\n              mods: { slow: val(ab, 'slow') },\r\n            });\r\n        }"
           }
         ],
         "byLevel": {
@@ -13252,7 +13434,7 @@
         "effects": [
           {
             "type": "custom",
-            "fn": "(ctx) => { ctx.api.removeAuraById(ctx.state, ctx.u, OVERPOWER_READY.id); strike(ctx, { weapon: true, noAvoid: true }); }"
+            "fn": "(ctx) => {\r\n          ctx.api.removeAuraById(ctx.state, ctx.u, OVERPOWER_READY.id);\r\n          strike(ctx, { weapon: true, noAvoid: true });\r\n        }"
           }
         ],
         "byLevel": {
@@ -13421,7 +13603,7 @@
         "effects": [
           {
             "type": "custom",
-            "fn": "(ctx) => {\r\n      const extra = ctx.u.res.rage ? ctx.u.res.rage.cur : 0;\r\n      if (ctx.u.res.rage) ctx.u.res.rage.cur = 0;\r\n      strike(ctx, { extra: extra * val(ctx.ab, 'perRage') });\r\n    }"
+            "fn": "(ctx) => {\r\n          const extra = ctx.u.res.rage ? ctx.u.res.rage.cur : 0;\r\n          if (ctx.u.res.rage) ctx.u.res.rage.cur = 0;\r\n          strike(ctx, { extra: extra * val(ctx.ab, 'perRage') });\r\n        }"
           }
         ],
         "byLevel": {
@@ -14067,7 +14249,7 @@
               "maxTargets": 4,
               "affects": "enemies"
             },
-            "fn": "(ctx) => {\r\n      const oh = ctx.u.melee && ctx.u.melee.oh;\r\n      strike(ctx, { weapon: true, amount: [0, 0] });\r\n      if (oh) ctx.api.dealDamage(ctx.state, ctx.u, ctx.t, { amount: (oh.min + (oh.max - oh.min) * ctx.state.rng()) * (oh.mult ?? 0.5), school: 'physical', kind: 'melee', ability: ctx.ab.id, hand: 'oh', coef: (oh.coef ?? oh.speed / 14) * (oh.mult ?? 0.5) });\r\n    }"
+            "fn": "(ctx) => {\r\n          const oh = ctx.u.melee && ctx.u.melee.oh;\r\n          strike(ctx, { weapon: true, amount: [0, 0] });\r\n          if (oh)\r\n            ctx.api.dealDamage(ctx.state, ctx.u, ctx.t, {\r\n              amount: (oh.min + (oh.max - oh.min) * ctx.state.rng()) * (oh.mult ?? 0.5),\r\n              school: 'physical',\r\n              kind: 'melee',\r\n              ability: ctx.ab.id,\r\n              hand: 'oh',\r\n              coef: (oh.coef ?? oh.speed / 14) * (oh.mult ?? 0.5),\r\n            });\r\n        }"
           }
         ],
         "byLevel": {
@@ -14188,7 +14370,7 @@
         "effects": [
           {
             "type": "custom",
-            "fn": "(ctx) => {\r\n      ctx.api.removeAuraById(ctx.state, ctx.u, VR_READY.id);\r\n      strike(ctx, { amount: [1, 1], extra: 0.15 * ctx.api.statOf(ctx.u, 'ap') });\r\n      ctx.api.healUnit(ctx.state, ctx.u, ctx.u, { amount: ctx.u.maxHp * 0.1, ability: ctx.ab.id, canCrit: false });\r\n    }"
+            "fn": "(ctx) => {\r\n          ctx.api.removeAuraById(ctx.state, ctx.u, VR_READY.id);\r\n          strike(ctx, { amount: [1, 1], extra: 0.15 * ctx.api.statOf(ctx.u, 'ap') });\r\n          ctx.api.healUnit(ctx.state, ctx.u, ctx.u, { amount: ctx.u.maxHp * 0.1, ability: ctx.ab.id, canCrit: false });\r\n        }"
           }
         ]
       },
@@ -14568,7 +14750,7 @@
         "effects": [
           {
             "type": "custom",
-            "fn": "({ state, u, api }) => {\r\n      for (const a of [...u.auras]) if (a.def.cc && ['fear', 'incap'].some((c) => [].concat(a.def.cc).includes(c))) api.removeAura(state, u, a, 'broken');\r\n      if (T(u).impBerserkerRage) api.gainRage(u, 10);\r\n      api.applyAura(state, u, u, { id: 'warrior.berserkerrage', name: 'Berserker Rage', icon: 'beast-wrath', duration: 10,\r\n        onApply: ({ u: me }) => { me.immune.fear = true; me.immune.incap = true; },\r\n        onRemove: ({ u: me }) => { me.immune.fear = false; me.immune.incap = false; } });\r\n    }"
+            "fn": "({ state, u, api }) => {\r\n          for (const a of [...u.auras]) if (a.def.cc && ['fear', 'incap'].some((c) => [].concat(a.def.cc).includes(c))) api.removeAura(state, u, a, 'broken');\r\n          if (T(u).impBerserkerRage) api.gainRage(u, 10);\r\n          api.applyAura(state, u, u, {\r\n            id: 'warrior.berserkerrage',\r\n            name: 'Berserker Rage',\r\n            icon: 'beast-wrath',\r\n            duration: 10,\r\n            onApply: ({ u: me }) => {\r\n              me.immune.fear = true;\r\n              me.immune.incap = true;\r\n            },\r\n            onRemove: ({ u: me }) => {\r\n              me.immune.fear = false;\r\n              me.immune.incap = false;\r\n            },\r\n          });\r\n        }"
           }
         ]
       },
@@ -14763,7 +14945,7 @@
               "radius": 20,
               "affects": "allies"
             },
-            "fn": "({ state, u, t, ab, api }) => { if (t) api.applyAura(state, u, t, { id: 'warrior.battleshout', name: 'Battle Shout', icon: 'scream', unique: 'target', duration: 180, mods: { statAdd: { ap: val(ab, 'ap') } } }); }"
+            "fn": "({ state, u, t, ab, api }) => {\r\n          if (t)\r\n            api.applyAura(state, u, t, {\r\n              id: 'warrior.battleshout',\r\n              name: 'Battle Shout',\r\n              icon: 'scream',\r\n              unique: 'target',\r\n              duration: 180,\r\n              mods: { statAdd: { ap: val(ab, 'ap') } },\r\n            });\r\n        }"
           }
         ],
         "byLevel": {
@@ -14992,7 +15174,7 @@
               "name": "Retaliation",
               "icon": "shield-wall",
               "duration": 15,
-              "onHolderDamaged": "({ state, u, aura, api, src, pk }) => {\r\n        if (!src || !src.alive || !pk || pk.kind !== 'melee' || (aura.data.n || 0) >= 30) return;\r\n        aura.data.n = (aura.data.n || 0) + 1;\r\n        api.dealDamage(state, u, src, { amount: weaponHit(state, api, u), school: 'physical', kind: 'melee', ability: 'warrior.retaliation' });\r\n      }"
+              "onHolderDamaged": "({ state, u, aura, api, src, pk }) => {\r\n            if (!src || !src.alive || !pk || pk.kind !== 'melee' || (aura.data.n || 0) >= 30) return;\r\n            aura.data.n = (aura.data.n || 0) + 1;\r\n            api.dealDamage(state, u, src, { amount: weaponHit(state, api, u), school: 'physical', kind: 'melee', ability: 'warrior.retaliation' });\r\n          }"
             }
           }
         ]
@@ -16441,7 +16623,7 @@
         "effects": [
           {
             "type": "custom",
-            "fn": "(ctx) => {\n        const { state, u, t, api } = ctx;\n        const riptideBonus = t.auras.some(a => a.id === 'shaman.riptide' && a.srcId === u.id) ? 1.25 : 1;\n        shamanHeal(ctx, { mult: riptideBonus });\n        const done = new Set([t.id]);\n        let from = t, mult = 0.5;\n        for (let i = 0; i < 2; i++) {\n          const next = api.alliesOf(state, u, (a) => !done.has(a.id) && a.hp < a.maxHp && Math.hypot(a.x - from.x, a.y - from.y) <= 12).sort((a, b) => a.hp / a.maxHp - b.hp / b.maxHp)[0];\n          if (!next) break;\n          shamanHeal({ ...ctx, t: next }, { mult: mult * riptideBonus });\n          done.add(next.id); from = next; mult /= 2;\n        }\n      }"
+            "fn": "(ctx) => {\r\n          const { state, u, t, api } = ctx;\r\n          const riptideBonus = t.auras.some((a) => a.id === 'shaman.riptide' && a.srcId === u.id) ? 1.25 : 1;\r\n          shamanHeal(ctx, { mult: riptideBonus });\r\n          const done = new Set([t.id]);\r\n          let from = t,\r\n            mult = 0.5;\r\n          for (let i = 0; i < 2; i++) {\r\n            const next = api\r\n              .alliesOf(state, u, (a) => !done.has(a.id) && a.hp < a.maxHp && Math.hypot(a.x - from.x, a.y - from.y) <= 12)\r\n              .sort((a, b) => a.hp / a.maxHp - b.hp / b.maxHp)[0];\r\n            if (!next) break;\r\n            shamanHeal({ ...ctx, t: next }, { mult: mult * riptideBonus });\r\n            done.add(next.id);\r\n            from = next;\r\n            mult /= 2;\r\n          }\r\n        }"
           }
         ],
         "byLevel": {
@@ -16681,7 +16863,7 @@
         "effects": [
           {
             "type": "custom",
-            "fn": "(ctx) => { shamanHeal(ctx); if (ctx.t.alive) ctx.api.applyAura(ctx.state, ctx.u, ctx.t, { id: 'shaman.riptide', name: 'Riptide', icon: 'renew', school: 'nature', duration: 15, tick: { interval: 3, type: 'heal', amount: val(ctx.ab, 'hot') / 5 * (T(ctx.u).purification || 1), coef: 0.1 * (T(ctx.u).purification || 1) } }); }"
+            "fn": "(ctx) => {\r\n          shamanHeal(ctx);\r\n          if (ctx.t.alive)\r\n            ctx.api.applyAura(ctx.state, ctx.u, ctx.t, {\r\n              id: 'shaman.riptide',\r\n              name: 'Riptide',\r\n              icon: 'renew',\r\n              school: 'nature',\r\n              duration: 15,\r\n              tick: { interval: 3, type: 'heal', amount: (val(ctx.ab, 'hot') / 5) * (T(ctx.u).purification || 1), coef: 0.1 * (T(ctx.u).purification || 1) },\r\n            });\r\n        }"
           }
         ],
         "byLevel": {
@@ -18313,7 +18495,7 @@
         "effects": [
           {
             "type": "custom",
-            "fn": "c=>{spellDamage(c);if(T(c.u).overload&&c.state.rng()<T(c.u).overload)spellDamage({...c,overload:true},.5);}"
+            "fn": "(c) => {\r\n          spellDamage(c);\r\n          if (T(c.u).overload && c.state.rng() < T(c.u).overload) spellDamage({ ...c, overload: true }, 0.5);\r\n        }"
           }
         ]
       },
@@ -18630,7 +18812,7 @@
         "effects": [
           {
             "type": "custom",
-            "fn": "function chainLightning(ctx) {\n const {state,u,api}=ctx;\n const jump=(overload=false)=>{\n  const done=new Set();let t=ctx.t;\n  for(let i=0;i<3&&t;i++){\n   spellDamage({...ctx,t,overload},(.7**i)*(overload?.5:1));done.add(t.id);\n   t=api.nearest(api.enemiesOf(state,u,e=>!done.has(e.id)&&G.dist(e,t)<=10),t);\n  }\n };\n jump();if(T(u).overload&&state.rng()<T(u).overload)jump(true);\n}"
+            "fn": "function chainLightning(ctx) {\r\n  const { state, u, api } = ctx;\r\n  const jump = (overload = false) => {\r\n    const done = new Set();\r\n    let t = ctx.t;\r\n    for (let i = 0; i < 3 && t; i++) {\r\n      spellDamage({ ...ctx, t, overload }, 0.7 ** i * (overload ? 0.5 : 1));\r\n      done.add(t.id);\r\n      t = api.nearest(\r\n        api.enemiesOf(state, u, (e) => !done.has(e.id) && G.dist(e, t) <= 10),\r\n        t,\r\n      );\r\n    }\r\n  };\r\n  jump();\r\n  if (T(u).overload && state.rng() < T(u).overload) jump(true);\r\n}"
           }
         ]
       },
@@ -19128,7 +19310,7 @@
         "effects": [
           {
             "type": "custom",
-            "fn": "c=>{if(!spellDamage(c))return;c.api.applyAura(c.state,c.u,c.t,{id:'shaman.fs',name:'Flame Shock',icon:'flame',school:'fire',debuff:true,duration:12+(T(c.u).flameDuration||0),tick:{interval:3,type:'damage',amount:c.ab.dot/4*(T(c.u).callFlame||1),coef:.1*(T(c.u).callFlame||1)},dispel:'magic'});}"
+            "fn": "(c) => {\r\n          if (!spellDamage(c)) return;\r\n          c.api.applyAura(c.state, c.u, c.t, {\r\n            id: 'shaman.fs',\r\n            name: 'Flame Shock',\r\n            icon: 'flame',\r\n            school: 'fire',\r\n            debuff: true,\r\n            duration: 12 + (T(c.u).flameDuration || 0),\r\n            tick: { interval: 3, type: 'damage', amount: (c.ab.dot / 4) * (T(c.u).callFlame || 1), coef: 0.1 * (T(c.u).callFlame || 1) },\r\n            dispel: 'magic',\r\n          });\r\n        }"
           }
         ]
       },
@@ -19464,7 +19646,7 @@
         "effects": [
           {
             "type": "custom",
-            "fn": "c=>{if(spellDamage(c))c.api.applyAura(c.state,c.u,c.t,{id:'shaman.fr',name:'Frost Shock',icon:'frost',school:'frost',debuff:true,duration:8,mods:{slow:.5},dispel:'magic'});}"
+            "fn": "(c) => {\r\n          if (spellDamage(c))\r\n            c.api.applyAura(c.state, c.u, c.t, {\r\n              id: 'shaman.fr',\r\n              name: 'Frost Shock',\r\n              icon: 'frost',\r\n              school: 'frost',\r\n              debuff: true,\r\n              duration: 8,\r\n              mods: { slow: 0.5 },\r\n              dispel: 'magic',\r\n            });\r\n        }"
           }
         ]
       },
@@ -19792,7 +19974,7 @@
         "effects": [
           {
             "type": "custom",
-            "fn": "c=>spellDamage(c,c.api.findAura(c.t,'shaman.fs',c.u.id)?1.2:1)"
+            "fn": "(c) => spellDamage(c, c.api.findAura(c.t, 'shaman.fs', c.u.id) ? 1.2 : 1)"
           }
         ]
       },
@@ -19954,7 +20136,7 @@
         "effects": [
           {
             "type": "custom",
-            "fn": "c=>{const w=c.u.melee;if(T(c.u).improvedStormstrike)c.api.applyAura(c.state,c.u,c.u,{id:'shaman.storm.regen',name:'Improved Stormstrike',icon:'mana-gem',duration:15,mods:{castRegen:.5}});const n=c.api.dealDamage(c.state,c.u,c.t,{amount:roll(c.state,[w.min,w.max]),coef:w.speed/14,kind:'melee',school:'physical',ability:c.ab.id});if(n>0)c.api.applyAura(c.state,c.u,c.t,{id:'shaman.stormstrike',name:'Stormstrike',icon:'axe',duration:12,debuff:true});}"
+            "fn": "(c) => {\r\n          const w = c.u.melee;\r\n          if (T(c.u).improvedStormstrike)\r\n            c.api.applyAura(c.state, c.u, c.u, {\r\n              id: 'shaman.storm.regen',\r\n              name: 'Improved Stormstrike',\r\n              icon: 'mana-gem',\r\n              duration: 15,\r\n              mods: { castRegen: 0.5 },\r\n            });\r\n          const n = c.api.dealDamage(c.state, c.u, c.t, {\r\n            amount: roll(c.state, [w.min, w.max]),\r\n            coef: w.speed / 14,\r\n            kind: 'melee',\r\n            school: 'physical',\r\n            ability: c.ab.id,\r\n          });\r\n          if (n > 0) c.api.applyAura(c.state, c.u, c.t, { id: 'shaman.stormstrike', name: 'Stormstrike', icon: 'axe', duration: 12, debuff: true });\r\n        }"
           }
         ],
         "byLevel": {
@@ -20604,7 +20786,7 @@
         "effects": [
           {
             "type": "custom",
-            "fn": "ctx=>summonTotem(ctx,{element,...def,root:def.slow&&T(ctx.u).earthbound})"
+            "fn": "(ctx) => summonTotem(ctx, { element, ...def, root: def.slow && T(ctx.u).earthbound })"
           }
         ]
       },
@@ -20724,7 +20906,7 @@
         "effects": [
           {
             "type": "custom",
-            "fn": "ctx=>summonTotem(ctx,{element,...def,root:def.slow&&T(ctx.u).earthbound})"
+            "fn": "(ctx) => summonTotem(ctx, { element, ...def, root: def.slow && T(ctx.u).earthbound })"
           }
         ],
         "cooldown": 15
@@ -21019,7 +21201,7 @@
         "effects": [
           {
             "type": "custom",
-            "fn": "ctx=>summonTotem(ctx,{element,...def,root:def.slow&&T(ctx.u).earthbound})"
+            "fn": "(ctx) => summonTotem(ctx, { element, ...def, root: def.slow && T(ctx.u).earthbound })"
           }
         ]
       },
@@ -21293,7 +21475,7 @@
         "effects": [
           {
             "type": "custom",
-            "fn": "ctx=>summonTotem(ctx,{element,...def,root:def.slow&&T(ctx.u).earthbound})"
+            "fn": "(ctx) => summonTotem(ctx, { element, ...def, root: def.slow && T(ctx.u).earthbound })"
           }
         ]
       },
@@ -21611,7 +21793,7 @@
         "effects": [
           {
             "type": "custom",
-            "fn": "ctx=>summonTotem(ctx,{element,...def,root:def.slow&&T(ctx.u).earthbound})"
+            "fn": "(ctx) => summonTotem(ctx, { element, ...def, root: def.slow && T(ctx.u).earthbound })"
           }
         ]
       },
@@ -21829,7 +22011,7 @@
         "effects": [
           {
             "type": "custom",
-            "fn": "ctx=>summonTotem(ctx,{element,...def,root:def.slow&&T(ctx.u).earthbound})"
+            "fn": "(ctx) => summonTotem(ctx, { element, ...def, root: def.slow && T(ctx.u).earthbound })"
           }
         ]
       },
@@ -22207,11 +22389,11 @@
             "mana": 375
           }
         },
-        "canUse": "({state,u})=>activeTotems(state,u).some(t=>t.meta.element==='fire'&&G.dist(t,u)<=30)||'custom:Place a Fire totem first'",
+        "canUse": "({ state, u }) => activeTotems(state, u).some((t) => t.meta.element === 'fire' && G.dist(t, u) <= 30) || 'custom:Place a Fire totem first'",
         "effects": [
           {
             "type": "custom",
-            "fn": "c=>{const f=activeTotems(c.state,c.u).find(t=>t.meta.element==='fire');if(f)for(const t of c.api.enemiesOf(c.state,c.u,e=>G.dist(e,f)<=10))c.api.dealDamage(c.state,c.u,t,{amount:roll(c.state,c.ab.dmg),coef:.143,school:'fire',ability:c.ab.id});}"
+            "fn": "(c) => {\r\n          const f = activeTotems(c.state, c.u).find((t) => t.meta.element === 'fire');\r\n          if (f)\r\n            for (const t of c.api.enemiesOf(c.state, c.u, (e) => G.dist(e, f) <= 10))\r\n              c.api.dealDamage(c.state, c.u, t, { amount: roll(c.state, c.ab.dmg), coef: 0.143, school: 'fire', ability: c.ab.id });\r\n        }"
           }
         ]
       },
@@ -22293,7 +22475,7 @@
         "effects": [
           {
             "type": "custom",
-            "fn": "function recallTotems({state,u,api}){\n let refund=0;for(const t of activeTotems(state,u)){refund+=t.meta.manaPaid*.25;dismissTotem(state,api,t);}\n u.res.mana.cur=Math.min(u.res.mana.max,u.res.mana.cur+refund);\n}"
+            "fn": "function recallTotems({ state, u, api }) {\r\n  let refund = 0;\r\n  for (const t of activeTotems(state, u)) {\r\n    refund += t.meta.manaPaid * 0.25;\r\n    dismissTotem(state, api, t);\r\n  }\r\n  u.res.mana.cur = Math.min(u.res.mana.max, u.res.mana.cur + refund);\r\n}"
           }
         ],
         "byLevel": {
@@ -22441,7 +22623,7 @@
         "effects": [
           {
             "type": "custom",
-            "fn": "function projectTotems({state,u,api,point}){\n for(const t of activeTotems(state,u)){const [dx,dy]=offsets[t.meta.element];t.x=point.x+dx;t.y=point.y+dy;G.collide(state.arena,t);}\n}"
+            "fn": "function projectTotems({ state, u, api, point }) {\r\n  for (const t of activeTotems(state, u)) {\r\n    const [dx, dy] = offsets[t.meta.element];\r\n    t.x = point.x + dx;\r\n    t.y = point.y + dy;\r\n    G.collide(state.arena, t);\r\n  }\r\n}"
           }
         ],
         "byLevel": {
@@ -22934,7 +23116,7 @@
         "effects": [
           {
             "type": "custom",
-            "fn": "c=>shield(c,'shaman.lightshield')"
+            "fn": "(c) => shield(c, 'shaman.lightshield')"
           }
         ]
       },
@@ -23034,7 +23216,7 @@
         "effects": [
           {
             "type": "custom",
-            "fn": "c=>shield(c,'shaman.watershield')"
+            "fn": "(c) => shield(c, 'shaman.watershield')"
           }
         ]
       },
@@ -23445,7 +23627,7 @@
         "effects": [
           {
             "type": "custom",
-            "fn": "({state,u,api,ab})=>{api.removeAuraById(state,u,'shaman.windfury');api.applyAura(state,u,u,{id:'shaman.rockbiter',name:'Rockbiter Weapon',icon:'axe',duration:3600,mods:{statAdd:{ap:ab.ap},threat:1.3}});}"
+            "fn": "({ state, u, api, ab }) => {\r\n          api.removeAuraById(state, u, 'shaman.windfury');\r\n          api.applyAura(state, u, u, {\r\n            id: 'shaman.rockbiter',\r\n            name: 'Rockbiter Weapon',\r\n            icon: 'axe',\r\n            duration: 3600,\r\n            mods: { statAdd: { ap: ab.ap }, threat: 1.3 },\r\n          });\r\n        }"
           }
         ]
       },
@@ -23721,7 +23903,7 @@
         "effects": [
           {
             "type": "custom",
-            "fn": "({state,u,api})=>{api.removeAuraById(state,u,'shaman.rockbiter');api.applyAura(state,u,u,{id:'shaman.windfury',name:'Windfury Weapon',icon:'axe',duration:3600});}"
+            "fn": "({ state, u, api }) => {\r\n          api.removeAuraById(state, u, 'shaman.rockbiter');\r\n          api.applyAura(state, u, u, { id: 'shaman.windfury', name: 'Windfury Weapon', icon: 'axe', duration: 3600 });\r\n        }"
           }
         ]
       },
@@ -23823,7 +24005,7 @@
         "effects": [
           {
             "type": "custom",
-            "fn": "c=>{for(const id of c.u.meta.totemPreset){const ab=c.u.ab[id];for(const e of ab.effects)e.fn({...c,ab});}}"
+            "fn": "(c) => {\r\n          for (const id of c.u.meta.totemPreset) {\r\n            const ab = c.u.ab[id];\r\n            for (const e of ab.effects) e.fn({ ...c, ab });\r\n          }\r\n        }"
           }
         ]
       },
@@ -24201,7 +24383,7 @@
         "effects": [
           {
             "type": "custom",
-            "fn": "({ state, u, t, ab, api }) => {\r\n        if (!t || !t.alive) return;\r\n        const tal = T(u);\r\n        const d = api.dealDamage(state, u, t, { amount: (mainHand(state, api, u) + roll(state, val(ab, 'dmg'))) * (tal.aggression || 1), school: 'physical', kind: 'melee', ability: ab.id, critMult: 2 * (1 + (tal.lethality || 0) / 2) });\r\n        if (d > 0) addCombo(u, t, 1);\r\n      }"
+            "fn": "({ state, u, t, ab, api }) => {\r\n          if (!t || !t.alive) return;\r\n          const tal = T(u);\r\n          const d = api.dealDamage(state, u, t, {\r\n            amount: (mainHand(state, api, u) + roll(state, val(ab, 'dmg'))) * (tal.aggression || 1),\r\n            school: 'physical',\r\n            kind: 'melee',\r\n            ability: ab.id,\r\n            critMult: 2 * (1 + (tal.lethality || 0) / 2),\r\n          });\r\n          if (d > 0) addCombo(u, t, 1);\r\n        }"
           }
         ],
         "byLevel": {
@@ -24464,7 +24646,7 @@
         "effects": [
           {
             "type": "custom",
-            "fn": "({ state, u, t, ab, api }) => {\r\n        if (!t || !t.alive) return;\r\n        const tal = T(u);\r\n        const cp = comboOn(u, t);\r\n        const range = val(ab, 'pts')[cp - 1];\r\n        const amount = (roll(state, range) + 0.03 * cp * api.statOf(u, 'ap')) * (tal.impEvis || 1) * (tal.aggression || 1);\r\n        spendCombo(state, api, u);\r\n        api.dealDamage(state, u, t, { amount, school: 'physical', kind: 'melee', ability: ab.id });\r\n      }"
+            "fn": "({ state, u, t, ab, api }) => {\r\n          if (!t || !t.alive) return;\r\n          const tal = T(u);\r\n          const cp = comboOn(u, t);\r\n          const range = val(ab, 'pts')[cp - 1];\r\n          const amount = (roll(state, range) + 0.03 * cp * api.statOf(u, 'ap')) * (tal.impEvis || 1) * (tal.aggression || 1);\r\n          spendCombo(state, api, u);\r\n          api.dealDamage(state, u, t, { amount, school: 'physical', kind: 'melee', ability: ab.id });\r\n        }"
           }
         ],
         "byLevel": {
@@ -24698,7 +24880,7 @@
         "effects": [
           {
             "type": "custom",
-            "fn": "({ state, u, t, ab, api }) => {\r\n        const cp = spendCombo(state, api, u);\r\n        api.applyAura(state, u, u, { id: 'rogue.snd', name: 'Slice and Dice', icon: 'dash', duration: (6 + 3 * cp) * (1 + (T(u).impSnd || 0)), mods: { meleeHaste: val(ab, 'haste') } });\r\n      }"
+            "fn": "({ state, u, t, ab, api }) => {\r\n          const cp = spendCombo(state, api, u);\r\n          api.applyAura(state, u, u, {\r\n            id: 'rogue.snd',\r\n            name: 'Slice and Dice',\r\n            icon: 'dash',\r\n            duration: (6 + 3 * cp) * (1 + (T(u).impSnd || 0)),\r\n            mods: { meleeHaste: val(ab, 'haste') },\r\n          });\r\n        }"
           }
         ],
         "byLevel": {
@@ -25340,7 +25522,7 @@
         "effects": [
           {
             "type": "custom",
-            "fn": "({ u, t, ab }) => { if (t && t.threat && t.threat[u.id] !== undefined) t.threat[u.id] = Math.max(0, t.threat[u.id] - val(ab, 'thr')); }"
+            "fn": "({ u, t, ab }) => {\r\n          if (t && t.threat && t.threat[u.id] !== undefined) t.threat[u.id] = Math.max(0, t.threat[u.id] - val(ab, 'thr'));\r\n        }"
           }
         ],
         "byLevel": {
@@ -25853,7 +26035,7 @@
           },
           {
             "type": "custom",
-            "fn": "({ state, u, t, api }) => {\r\n        if (!t || !t.alive) return;\r\n        u.autoMelee = false;\r\n        api.applyAura(state, u, t, { id: 'rogue.gouge', name: 'Gouge', icon: 'raptor-strike', debuff: true, duration: 4 + (T(u).impGouge || 0), cc: 'incap', breakOnDamage: true, dr: 'incap' });\r\n      }"
+            "fn": "({ state, u, t, api }) => {\r\n          if (!t || !t.alive) return;\r\n          u.autoMelee = false;\r\n          api.applyAura(state, u, t, {\r\n            id: 'rogue.gouge',\r\n            name: 'Gouge',\r\n            icon: 'raptor-strike',\r\n            debuff: true,\r\n            duration: 4 + (T(u).impGouge || 0),\r\n            cc: 'incap',\r\n            breakOnDamage: true,\r\n            dr: 'incap',\r\n          });\r\n        }"
           }
         ],
         "byLevel": {
@@ -26022,7 +26204,7 @@
         "effects": [
           {
             "type": "custom",
-            "fn": "({ state, u, t, ab, api }) => {\r\n      for (const o of state.list) for (const a of [...o.auras]) if (a.id === 'rogue.sap' && a.srcId === u.id) api.removeAura(state, o, a, 'removed');\r\n      api.applyAura(state, u, t, { id: 'rogue.sap', name: 'Sap', icon: 'raptor-strike', debuff: true, duration: val(ab, 'dur'), cc: 'incap', breakOnDamage: true });\r\n    }"
+            "fn": "({ state, u, t, ab, api }) => {\r\n          for (const o of state.list) for (const a of [...o.auras]) if (a.id === 'rogue.sap' && a.srcId === u.id) api.removeAura(state, o, a, 'removed');\r\n          api.applyAura(state, u, t, {\r\n            id: 'rogue.sap',\r\n            name: 'Sap',\r\n            icon: 'raptor-strike',\r\n            debuff: true,\r\n            duration: val(ab, 'dur'),\r\n            cc: 'incap',\r\n            breakOnDamage: true,\r\n          });\r\n        }"
           }
         ],
         "byLevel": {
@@ -26324,7 +26506,7 @@
         "effects": [
           {
             "type": "custom",
-            "fn": "({ state, u, t, api }) => {\r\n      if (!t || !t.alive) return;\r\n      api.applyAura(state, u, t, { id: 'rogue.cheapshot', name: 'Cheap Shot', icon: 'raptor-strike', debuff: true, duration: 4, cc: 'stun', dr: 'stun' });\r\n      api.engage(state, t, u);\r\n      build(u, t, 2, false);\r\n    }"
+            "fn": "({ state, u, t, api }) => {\r\n          if (!t || !t.alive) return;\r\n          api.applyAura(state, u, t, { id: 'rogue.cheapshot', name: 'Cheap Shot', icon: 'raptor-strike', debuff: true, duration: 4, cc: 'stun', dr: 'stun' });\r\n          api.engage(state, t, u);\r\n          build(u, t, 2, false);\r\n        }"
           }
         ],
         "byLevel": {
@@ -26492,7 +26674,7 @@
         "effects": [
           {
             "type": "custom",
-            "fn": "({ state, u, t, ab, api }) => {\r\n      if (!t || !t.alive) return;\r\n      const per = (val(ab, 'total') + 0.18 * api.statOf(u, 'ap')) / 6;\r\n      api.applyAura(state, u, t, { id: 'rogue.garrote', name: 'Garrote', icon: 'claw', debuff: true, duration: 18, bleed: true, tick: { interval: 3, amount: per, school: 'physical', kind: 'bleed' } });\r\n      api.engage(state, t, u);\r\n      build(u, t, 1, false);\r\n    }"
+            "fn": "({ state, u, t, ab, api }) => {\r\n          if (!t || !t.alive) return;\r\n          const per = (val(ab, 'total') + 0.18 * api.statOf(u, 'ap')) / 6;\r\n          api.applyAura(state, u, t, {\r\n            id: 'rogue.garrote',\r\n            name: 'Garrote',\r\n            icon: 'claw',\r\n            debuff: true,\r\n            duration: 18,\r\n            bleed: true,\r\n            tick: { interval: 3, amount: per, school: 'physical', kind: 'bleed' },\r\n          });\r\n          api.engage(state, t, u);\r\n          build(u, t, 1, false);\r\n        }"
           }
         ],
         "byLevel": {
@@ -26677,7 +26859,7 @@
         "effects": [
           {
             "type": "custom",
-            "fn": "({ state, u, t, ab, api }) => {\r\n      if (!t || !t.alive) return;\r\n      const cp = comboOn(u, t);\r\n      const total = val(ab, 'pts')[cp - 1] + 0.04 * cp * api.statOf(u, 'ap');\r\n      const dur = 6 + 2 * cp;\r\n      spendCombo(state, api, u);\r\n      api.applyAura(state, u, t, { id: 'rogue.rupture', name: 'Rupture', icon: 'claw', debuff: true, duration: dur, bleed: true, tick: { interval: 2, amount: total / (dur / 2), school: 'physical', kind: 'bleed' } });\r\n    }"
+            "fn": "({ state, u, t, ab, api }) => {\r\n          if (!t || !t.alive) return;\r\n          const cp = comboOn(u, t);\r\n          const total = val(ab, 'pts')[cp - 1] + 0.04 * cp * api.statOf(u, 'ap');\r\n          const dur = 6 + 2 * cp;\r\n          spendCombo(state, api, u);\r\n          api.applyAura(state, u, t, {\r\n            id: 'rogue.rupture',\r\n            name: 'Rupture',\r\n            icon: 'claw',\r\n            debuff: true,\r\n            duration: dur,\r\n            bleed: true,\r\n            tick: { interval: 2, amount: total / (dur / 2), school: 'physical', kind: 'bleed' },\r\n          });\r\n        }"
           }
         ],
         "byLevel": {
@@ -26827,7 +27009,7 @@
         "effects": [
           {
             "type": "custom",
-            "fn": "({ state, u, t, ab, api }) => {\r\n      if (!t || !t.alive) return;\r\n      const cp = comboOn(u, t);\r\n      spendCombo(state, api, u);\r\n      api.applyAura(state, u, t, { id: 'rogue.kidney', name: 'Kidney Shot', icon: 'raptor-strike', debuff: true, duration: cp + val(ab, 'base'), cc: 'stun', dr: 'stun' });\r\n    }"
+            "fn": "({ state, u, t, ab, api }) => {\r\n          if (!t || !t.alive) return;\r\n          const cp = comboOn(u, t);\r\n          spendCombo(state, api, u);\r\n          api.applyAura(state, u, t, {\r\n            id: 'rogue.kidney',\r\n            name: 'Kidney Shot',\r\n            icon: 'raptor-strike',\r\n            debuff: true,\r\n            duration: cp + val(ab, 'base'),\r\n            cc: 'stun',\r\n            dr: 'stun',\r\n          });\r\n        }"
           }
         ],
         "byLevel": {
@@ -26992,7 +27174,7 @@
         "effects": [
           {
             "type": "custom",
-            "fn": "({ state, u, t, ab, api }) => {\r\n      if (!t || !t.alive) return;\r\n      const cp = comboOn(u, t);\r\n      spendCombo(state, api, u);\r\n      api.applyAura(state, u, t, { id: 'rogue.expose', name: 'Expose Armor', icon: 'axe', debuff: true, unique: 'target', duration: 30, mods: { statAdd: { armor: -cp * val(ab, 'per') } } });\r\n    }"
+            "fn": "({ state, u, t, ab, api }) => {\r\n          if (!t || !t.alive) return;\r\n          const cp = comboOn(u, t);\r\n          spendCombo(state, api, u);\r\n          api.applyAura(state, u, t, {\r\n            id: 'rogue.expose',\r\n            name: 'Expose Armor',\r\n            icon: 'axe',\r\n            debuff: true,\r\n            unique: 'target',\r\n            duration: 30,\r\n            mods: { statAdd: { armor: -cp * val(ab, 'per') } },\r\n          });\r\n        }"
           }
         ],
         "byLevel": {
@@ -27096,7 +27278,7 @@
         "effects": [
           {
             "type": "custom",
-            "fn": "({ state, u, api }) => {\r\n      for (const a of [...u.auras]) if (a.def.debuff && (a.def.mods && a.def.mods.slow || [].concat(a.def.cc || []).includes('root'))) api.removeAura(state, u, a, 'broken');\r\n      api.dropThreat(state, u);\r\n      for (const e of state.list) if (e.target === u.id) e.target = null;\r\n      u.autoMelee = false;\r\n      api.applyAura(state, u, u, { ...STEALTH, mods: { slow: stealthSlow(u) } });\r\n    }"
+            "fn": "({ state, u, api }) => {\r\n          for (const a of [...u.auras])\r\n            if (a.def.debuff && ((a.def.mods && a.def.mods.slow) || [].concat(a.def.cc || []).includes('root'))) api.removeAura(state, u, a, 'broken');\r\n          api.dropThreat(state, u);\r\n          for (const e of state.list) if (e.target === u.id) e.target = null;\r\n          u.autoMelee = false;\r\n          api.applyAura(state, u, u, { ...STEALTH, mods: { slow: stealthSlow(u) } });\r\n        }"
           }
         ]
       },
@@ -27208,7 +27390,7 @@
         "effects": [
           {
             "type": "custom",
-            "fn": "({ state, u, api }) => api.applyAura(state, u, u, { id: 'rogue.sprint', name: 'Sprint', icon: 'dash', duration: 15, mods: { speed: u.level >= 58 ? 0.7 : 0.5 } })"
+            "fn": "({ state, u, api }) =>\r\n          api.applyAura(state, u, u, { id: 'rogue.sprint', name: 'Sprint', icon: 'dash', duration: 15, mods: { speed: u.level >= 58 ? 0.7 : 0.5 } })"
           }
         ]
       },
@@ -27522,7 +27704,7 @@
           },
           {
             "type": "custom",
-            "fn": "({ state, u, t, api }) => { if (t && t.alive) api.applyAura(state, u, t, { id: 'rogue.hemo', name: 'Hemorrhage', icon: 'claw', debuff: true, duration: 15, mods: { dmgTaken: { physical: 1.03 } } }); }"
+            "fn": "({ state, u, t, api }) => {\r\n          if (t && t.alive)\r\n            api.applyAura(state, u, t, {\r\n              id: 'rogue.hemo',\r\n              name: 'Hemorrhage',\r\n              icon: 'claw',\r\n              debuff: true,\r\n              duration: 15,\r\n              mods: { dmgTaken: { physical: 1.03 } },\r\n            });\r\n        }"
           }
         ],
         "byLevel": {
@@ -27930,7 +28112,7 @@
         "effects": [
           {
             "type": "custom",
-            "fn": "({ state, u, t, ab, api }) => api.applyAura(state, u, t, { id: 'warlock.corruption', name: 'Corruption', icon: 'skull', school: 'shadow', debuff: true, duration: 18, dispel: 'magic', tick: { interval: 3, amount: val(ab, 'tick') * (T(u).impCorruption ? 1.1 : 1), coef: 1 / 6, school: 'shadow' } })"
+            "fn": "({ state, u, t, ab, api }) =>\r\n          api.applyAura(state, u, t, {\r\n            id: 'warlock.corruption',\r\n            name: 'Corruption',\r\n            icon: 'skull',\r\n            school: 'shadow',\r\n            debuff: true,\r\n            duration: 18,\r\n            dispel: 'magic',\r\n            tick: { interval: 3, amount: val(ab, 'tick') * (T(u).impCorruption ? 1.1 : 1), coef: 1 / 6, school: 'shadow' },\r\n          })"
           }
         ],
         "byLevel": {
@@ -28019,7 +28201,7 @@
         "effects": [
           {
             "type": "custom",
-            "fn": "({ state, u, t, ab, api }) => {\n        const total = val(ab, 'total');\n        const a = setSlot(state, api, u, t, 'bane', { id: 'warlock.agony', name: 'Bane of Agony', icon: 'skull', school: 'shadow', debuff: true, duration: 24, tick: { interval: 2, type: 'custom', fn: ({ state: st, u: holder, aura, src, api: a2 }) => {\n          // Classic ramp: the first four ticks at half, the middle four average, the last four at 1.5×.\n          aura.data.n = (aura.data.n || 0) + 1;\n          const w = aura.data.n <= 4 ? 0.5 : aura.data.n <= 8 ? 1 : 1.5;\n          if (src && src.alive) a2.dealDamage(st, src, holder, { amount: (total / 12) * w, coef: (1 / 12) * w, school: 'shadow', kind: 'dot', ability: 'warlock.agony', isTick: true });\n        } } });\n        if (a) a.data.n = 0;\n      }"
+            "fn": "({ state, u, t, ab, api }) => {\r\n          const total = val(ab, 'total');\r\n          const a = setSlot(state, api, u, t, 'bane', {\r\n            id: 'warlock.agony',\r\n            name: 'Bane of Agony',\r\n            icon: 'skull',\r\n            school: 'shadow',\r\n            debuff: true,\r\n            duration: 24,\r\n            tick: {\r\n              interval: 2,\r\n              type: 'custom',\r\n              fn: ({ state: st, u: holder, aura, src, api: a2 }) => {\r\n                // Classic ramp: the first four ticks at half, the middle four average, the last four at 1.5×.\r\n                aura.data.n = (aura.data.n || 0) + 1;\r\n                const w = aura.data.n <= 4 ? 0.5 : aura.data.n <= 8 ? 1 : 1.5;\r\n                if (src && src.alive)\r\n                  a2.dealDamage(st, src, holder, {\r\n                    amount: (total / 12) * w,\r\n                    coef: (1 / 12) * w,\r\n                    school: 'shadow',\r\n                    kind: 'dot',\r\n                    ability: 'warlock.agony',\r\n                    isTick: true,\r\n                  });\r\n              },\r\n            },\r\n          });\r\n          if (a) a.data.n = 0;\r\n        }"
           }
         ],
         "byLevel": {
@@ -28105,7 +28287,7 @@
         "effects": [
           {
             "type": "custom",
-            "fn": "({ state, u, t, ab, api }) => setSlot(state, api, u, t, 'curse', { id: 'warlock.cor', name: 'Curse of Recklessness', icon: 'skull', school: 'shadow', debuff: true, duration: 120, dispel: 'curse', mods: { statAdd: { armor: -val(ab, 'armor') } } })"
+            "fn": "({ state, u, t, ab, api }) =>\r\n          setSlot(state, api, u, t, 'curse', {\r\n            id: 'warlock.cor',\r\n            name: 'Curse of Recklessness',\r\n            icon: 'skull',\r\n            school: 'shadow',\r\n            debuff: true,\r\n            duration: 120,\r\n            dispel: 'curse',\r\n            mods: { statAdd: { armor: -val(ab, 'armor') } },\r\n          })"
           }
         ],
         "byLevel": {
@@ -28206,7 +28388,7 @@
         "effects": [
           {
             "type": "custom",
-            "fn": "({ state, u, t, ab, api }) => { const m = val(ab, 'mult'); setSlot(state, api, u, t, 'curse', { id: 'warlock.coe', name: 'Curse of the Elements', icon: 'skull', school: 'shadow', debuff: true, duration: 300, dispel: 'curse', mods: { dmgTaken: { fire: m, frost: m, arcane: m, nature: m, shadow: m, holy: m }, statAdd: { resist: -val(ab, 'res') } } }); }"
+            "fn": "({ state, u, t, ab, api }) => {\r\n          const m = val(ab, 'mult');\r\n          setSlot(state, api, u, t, 'curse', {\r\n            id: 'warlock.coe',\r\n            name: 'Curse of the Elements',\r\n            icon: 'skull',\r\n            school: 'shadow',\r\n            debuff: true,\r\n            duration: 300,\r\n            dispel: 'curse',\r\n            mods: { dmgTaken: { fire: m, frost: m, arcane: m, nature: m, shadow: m, holy: m }, statAdd: { resist: -val(ab, 'res') } },\r\n          });\r\n        }"
           }
         ],
         "byLevel": {
@@ -28307,7 +28489,7 @@
         "effects": [
           {
             "type": "custom",
-            "fn": "(ctx) => { lockHit(ctx); if (ctx.t.alive) ctx.api.applyAura(ctx.state, ctx.u, ctx.t, { id: 'warlock.immolate', name: 'Immolate', icon: 'flame', school: 'fire', debuff: true, duration: 15, dispel: 'magic', tick: { interval: 3, amount: val(ctx.ab, 'tick'), coef: 0.13, school: 'fire' } }); }"
+            "fn": "(ctx) => {\r\n          lockHit(ctx);\r\n          if (ctx.t.alive)\r\n            ctx.api.applyAura(ctx.state, ctx.u, ctx.t, {\r\n              id: 'warlock.immolate',\r\n              name: 'Immolate',\r\n              icon: 'flame',\r\n              school: 'fire',\r\n              debuff: true,\r\n              duration: 15,\r\n              dispel: 'magic',\r\n              tick: { interval: 3, amount: val(ctx.ab, 'tick'), coef: 0.13, school: 'fire' },\r\n            });\r\n        }"
           }
         ],
         "byLevel": {
@@ -28386,7 +28568,7 @@
         "effects": [
           {
             "type": "custom",
-            "fn": "({ u, ab }) => {\n        const amt = val(ab, 'base') + (u.stats.spi || 0);\n        u.hp = Math.max(1, u.hp - amt);\n        if (u.res.mana) u.res.mana.cur = Math.min(u.res.mana.max, u.res.mana.cur + amt * (T(u).impLifeTap ? 1.2 : 1));\n      }"
+            "fn": "({ u, ab }) => {\r\n          const amt = val(ab, 'base') + (u.stats.spi || 0);\r\n          u.hp = Math.max(1, u.hp - amt);\r\n          if (u.res.mana) u.res.mana.cur = Math.min(u.res.mana.max, u.res.mana.cur + amt * (T(u).impLifeTap ? 1.2 : 1));\r\n        }"
           }
         ],
         "byLevel": {

@@ -27,6 +27,9 @@ import {
   normalizeWeights,
   dimWeights,
   CLASS_TRAITS,
+  paceOf,
+  MIN_TRIALS_PER_CLASS,
+  MIN_COVERAGE,
   ATTACHMENT,
   SOLO_KINDS,
   GROUP_KINDS,
@@ -37,12 +40,13 @@ const clamp = (v, a = -1, b = 1) => Math.max(a, Math.min(b, v));
 const mean = (xs) => (xs.length ? xs.reduce((a, b) => a + b, 0) / xs.length : null);
 const pct = (v) => `${Math.round(v * 100)} %`;
 
-function ev(list, cls, dim, kind, value, weight, text, rule) {
+function ev(list, cls, dim, kind, value, weight, text, rule, extra) {
   if (!weight || !isFinite(value) || !isFinite(weight)) return;
-  list.push({ cls, dim, kind, value: clamp(value), weight, text, rule: rule || null });
+  list.push({ cls, dim, kind, value: clamp(value), weight, text, rule: rule || null, ...extra });
 }
 
-const TACTICAL = ['control', 'defensive', 'utility', 'movement', 'interrupt', 'dispel', 'pet'];
+// Pet commands are not here: only Hunters have them, so they would inflate R5 (see R7).
+const TACTICAL = ['control', 'defensive', 'utility', 'movement', 'interrupt', 'dispel'];
 const usable = (s) => s && !s.abandoned && (s.combatSeconds || 0) > 5;
 const keyOf = (s) => `${s.trialId}:${s.level}:${s.role === 'healer' ? 'heal' : s.role === 'tank' ? 'tank' : 'dps'}`;
 
@@ -67,36 +71,20 @@ function observed(sessions, items, trialList) {
     const dim = dimOf(s);
     const label = `${trialName(trialList, s.trialId)} (L${s.level}${s.role === 'healer' ? ', healing' : ''})`;
     // R1 Activity.
-    const r1 = relative(s, (x) => (x.gcd ? x.gcd.utilization : null));
-    if (r1.mine != null) {
-      if (r1.others != null)
-        ev(
-          items,
-          cls,
-          dim,
-          'observed',
-          ((r1.mine - r1.others) / 0.15) * 0.6,
-          1,
-          `${label}: active ${pct(r1.mine)} of combat vs ${pct(r1.others)} on your other classes`,
-          'R1',
-        );
-      else
-        ev(
-          items,
-          cls,
-          dim,
-          'observed',
-          ((r1.mine - 0.6) / 0.15) * 0.4,
-          0.5,
-          `${label}: active ${pct(r1.mine)} of combat (no other class to compare yet)`,
-          'R1',
-        );
-    }
-    // R2 Auto-attack reliance (not for Hunter, whose Auto Shot is core).
-    if (!CLASS_TRAITS[cls].autoRepeatIsCore && s.damage && s.damage.done > 0 && SOLO_KINDS.includes(kind)) {
-      const share = (s.damage.autoRepeat || 0) / s.damage.done;
-      if (share > 0.25) ev(items, cls, 'leveling', 'observed', -(share - 0.25) * 2, 0.6, `${label}: ${pct(share)} of your damage came from the wand`, 'R2');
-    }
+    // Rage, energy and swing timers keep a kit off the global cooldown by design, so activity
+    // only compares runs with the same pace of play. No such run yet means no evidence.
+    const r1 = relative(s, (x) => (x.gcd && paceOf(x) === paceOf(s) ? x.gcd.utilization : null));
+    if (r1.mine != null && r1.others != null)
+      ev(
+        items,
+        cls,
+        dim,
+        'observed',
+        ((r1.mine - r1.others) / 0.15) * 0.6,
+        1,
+        `${label}: active ${pct(r1.mine)} of combat vs ${pct(r1.others)} on your other classes with the same pace of play`,
+        'R1',
+      );
     // R3 Downtime.
     if (SOLO_KINDS.includes(kind)) {
       const r3 = relative(s, (x) => (x.resource ? x.resource.restSeconds / Math.max(1, x.simSeconds) : null));
@@ -117,17 +105,19 @@ function observed(sessions, items, trialList) {
       }
     }
     // R4 Breadth.
-    const breadth = (x) => Object.keys(x.abilities || {}).filter((id) => !id.startsWith('item.') && !id.startsWith('race.')).length;
+    // Share of the kit, not a count: a bigger action bar is not more engagement.
+    const breadth = (x) =>
+      x.barSize ? Object.keys(x.abilities || {}).filter((id) => !id.startsWith('item.') && !id.startsWith('race.')).length / x.barSize : null;
     const r4 = relative(s, breadth);
-    if (r4.others != null)
+    if (r4.mine != null && r4.others != null)
       ev(
         items,
         cls,
         'combatDepth',
         'observed',
-        (r4.mine - r4.others) / 4,
+        (r4.mine - r4.others) / 0.25,
         0.6,
-        `${label}: you pressed ${r4.mine} different abilities vs ${r4.others.toFixed(1)} on your other classes`,
+        `${label}: you used ${pct(r4.mine)} of your abilities vs ${pct(r4.others)} on your other classes`,
         'R4',
       );
     // R5 Tactical buttons.
@@ -163,9 +153,7 @@ function observed(sessions, items, trialList) {
         ((c.attack || 0) + (c.follow || 0) + (c.stay || 0) + (c.passive || 0) + (c.defensive || 0) + (c.aggressive || 0) + (s.pet.manualAbilities || 0)) /
         minutes(s);
       const v = clamp((per - 1) / 2, -0.5, 0.8);
-      ev(items, cls, 'combatDepth', 'observed', v, 0.5, `${label}: ${per.toFixed(1)} pet commands per minute`, 'R7');
-      ev(items, cls, 'fantasy', 'observed', v, 0.4, `${label}: pet involvement`, 'R7');
-      if (GROUP_KINDS.includes(kind)) ev(items, cls, dim, 'observed', v * 0.5, 0.3, `${label}: pet handled in a group`, 'R7');
+      ev(items, cls, 'combatDepth', 'observed', v, 0.3, `${label}: ${per.toFixed(1)} pet commands per minute`, 'R7');
     }
     // R10 Raid attention / R11 Autopilot.
     if (kind === 'raid') {
@@ -183,7 +171,7 @@ function observed(sessions, items, trialList) {
         for (const dd of ['raid', 'longTerm', 'combatDepth'])
           ev(items, cls, dd, 'observed', -ap * 1.5, 0.6, `Raid: autopilot cast your filler for ${pct(ap)} of the fight`, 'R11');
     }
-    // R14 Session length / R15 Interruptions / R16 Getting going.
+    // R14 Session length / R15 Interruptions.
     const r14 = relative(s, (x) => (x.realMs || 0) / 1000);
     if (r14.others != null && r14.others > 0)
       ev(
@@ -197,41 +185,12 @@ function observed(sessions, items, trialList) {
         'R14',
       );
     if (s.ui && s.ui.pauses > 0) ev(items, cls, 'shortSessions', 'observed', 0.15, 0.2, `${label}: paused and picked up again`, 'R15');
-    const r16 = relative(s, (x) => (x.firstActionAt != null ? x.firstActionAt : null));
-    if (r16.mine != null && r16.others != null)
-      ev(
-        items,
-        cls,
-        'shortSessions',
-        'observed',
-        -(r16.mine - r16.others) / 6,
-        0.2,
-        `${label}: first action after ${r16.mine.toFixed(1)} s vs ${r16.others.toFixed(1)} s`,
-        'R16',
-      );
     // R20 Responsibilities.
     const mech = (s.mechanics || []).filter((m) => m.kind !== 'move');
     if (mech.length) {
       const mineN = mech.filter((m) => m.by === 'you').length;
-      const share = mineN / mech.length;
-      const v = (share - 0.3) * 1.5;
-      ev(items, cls, dim, 'observed', v, 0.5, `${label}: you handled ${mineN} of ${mech.length} duty windows (interrupts, dispels, peels…)`, 'R20');
-      ev(items, cls, 'combatDepth', 'observed', v * 0.7, 0.3, `${label}: duties taken on`, 'R20');
-    }
-    // R21 Utility while questing.
-    if (kind === 'questing') {
-      const r21 = relative(s, (x) => ((x.tags || {})['optional-utility'] || 0) / minutes(x));
-      if (r21.others != null)
-        ev(
-          items,
-          cls,
-          'worldUtility',
-          'observed',
-          (r21.mine - r21.others) / Math.max(0.5, r21.others),
-          0.4,
-          `${label}: ${r21.mine.toFixed(1)} optional-utility uses per minute vs ${r21.others.toFixed(1)}`,
-          'R21',
-        );
+      // Shown, not scored: which windows a class can answer at all differs per kit.
+      ev(items, cls, dim, 'observed', 0, 0.1, `${label}: you handled ${mineN} of ${mech.length} duty windows (interrupts, dispels, peels…)`, 'R20');
     }
   }
   // R8 Voluntary replays and R9 leaving early (over all sessions).
@@ -293,8 +252,10 @@ function observed(sessions, items, trialList) {
   for (const cls of CLASSES) {
     const lv = {};
     for (const L of [10, 30, 60]) {
-      const mineU = used.filter((s) => s.classId === cls && s.level === L && s.role !== 'healer').map((s) => s.gcd.utilization);
-      const othersU = used.filter((s) => s.classId !== cls && s.level === L && s.role !== 'healer').map((s) => s.gcd.utilization);
+      const mine = used.filter((s) => s.classId === cls && s.level === L && s.role !== 'healer');
+      const mineU = mine.map((s) => s.gcd.utilization);
+      const paces = new Set(mine.map(paceOf));
+      const othersU = used.filter((s) => s.classId !== cls && s.level === L && s.role !== 'healer' && paces.has(paceOf(s))).map((s) => s.gcd.utilization);
       if (mineU.length && othersU.length) lv[L] = mean(mineU) - mean(othersU);
     }
     const ls = Object.keys(lv)
@@ -319,21 +280,25 @@ function observed(sessions, items, trialList) {
   const replayMin = {};
   for (const s of sessions.filter((x) => x.afterWin && !x.abandoned)) replayMin[s.classId] = (replayMin[s.classId] || 0) + (s.realMs || 0) / 60000;
   const totalReplay = Object.values(replayMin).reduce((a, b) => a + b, 0);
-  if (totalReplay > 2)
-    for (const cls of CLASSES)
+  // Only among classes you played: an unplayed class has no replay minutes to compare.
+  const replayClasses = CLASSES.filter((c) => sessions.some((s) => s.classId === c && !s.abandoned));
+  if (totalReplay > 2 && replayClasses.length > 1)
+    for (const cls of replayClasses)
       ev(
         items,
         cls,
         'longTerm',
         'observed',
-        ((replayMin[cls] || 0) / totalReplay - 1 / 3) * 2,
+        ((replayMin[cls] || 0) / totalReplay - 1 / replayClasses.length) * 2,
         0.6,
         `${Math.round(replayMin[cls] || 0)} of your ${Math.round(totalReplay)} voluntary replay minutes went to ${CLASS_NAMES[cls]}`,
         'R18',
       );
-  const pr = sessions.filter((s) => s.classId === 'priest' && GROUP_KINDS.includes(kindOf(s)) && !s.abandoned);
-  if (pr.some((s) => s.role === 'healer') && pr.some((s) => s.role !== 'healer'))
-    ev(items, 'priest', 'roleFlexibility', 'observed', 0.6, 0.6, 'You played group trials both as healer and as damage', 'R19');
+  for (const cls of CLASSES) {
+    const roles = new Set(sessions.filter((s) => s.classId === cls && GROUP_KINDS.includes(kindOf(s)) && !s.abandoned).map((s) => s.role || 'dps'));
+    if (roles.size > 1)
+      ev(items, cls, 'roleFlexibility', 'observed', 0.6, 0.6, `You played group trials in ${roles.size} roles: ${[...roles].join(', ')}`, 'R19');
+  }
 }
 
 const signed = (v) => `${v >= 0 ? '+' : ''}${Math.round(v * 100)} pts`;
@@ -388,13 +353,21 @@ function selfReports(feedback, sessions, items, trialList) {
 
 // ---------------------------------------------------------------- facts & predictions
 
+// A row with no sourced fact for some class would turn missing research into a disadvantage
+// for that class. So facts only score on rows where all classes have one; the others are
+// still listed, marked as not scored.
+export function factRowsComparable() {
+  return DIM_IDS.filter((dim) => CLASSES.every((cls) => ((CLASS_FACTS[cls] && CLASS_FACTS[cls].dims) || {})[dim]?.length));
+}
+
 function factEvidence(items) {
+  const comparable = new Set(factRowsComparable());
   for (const cls of CLASSES) {
     const dims = (CLASS_FACTS[cls] && CLASS_FACTS[cls].dims) || {};
     for (const [dim, list] of Object.entries(dims)) {
       for (const f of list) {
         const w = FACT_BASE_WEIGHT * (STATUS_FACTOR[f.status] ?? 0.3) * (f.sign === 0 ? 0.3 : 1);
-        ev(items, cls, dim, 'fact', 0.6 * (f.sign || 0), w, `${f.text} (${STATUS_NAMES[f.status] || f.status})`);
+        ev(items, cls, dim, 'fact', 0.6 * (f.sign || 0), w, `${f.text} (${STATUS_NAMES[f.status] || f.status})`, null, { scored: comparable.has(dim) });
       }
     }
   }
@@ -406,7 +379,8 @@ function predictions(sessions, items) {
     const has60 = mine.some((s) => s.level >= 60);
     const low = mine.filter((s) => s.level <= 30 && s.gcd);
     if (!has60 && low.length) {
-      const others = sessions.filter((s) => s.classId !== cls && !s.abandoned && s.level <= 30 && s.gcd);
+      const paces = new Set(low.map(paceOf));
+      const others = sessions.filter((s) => s.classId !== cls && !s.abandoned && s.level <= 30 && s.gcd && paces.has(paceOf(s)));
       if (others.length) {
         const d = mean(low.map((s) => s.gcd.utilization)) - mean(others.map((s) => s.gcd.utilization));
         for (const dim of ['raid', 'pvp', 'longTerm'])
@@ -422,38 +396,13 @@ function predictions(sessions, items) {
       }
     }
   }
-  // Research-based forecasts that only apply when your early play points that way.
-  const shadowLow = sessions.filter(
-    (s) => s.classId === 'priest' && s.level <= 30 && s.role !== 'healer' && s.damage && s.damage.done > 0 && (s.damage.autoRepeat || 0) / s.damage.done > 0.3,
-  );
-  if (shadowLow.length)
-    ev(
-      items,
-      'priest',
-      'longTerm',
-      'prediction',
-      0.35,
-      0.35,
-      'Your early Priest leaned on the wand; research says Shadow’s identity arrives late (Mind Flay ~24, Vampiric Embrace 25, Shadowform 40) — later levels should feel better',
-    );
-  const hunterSimple = sessions.filter(
-    (s) => s.classId === 'hunter' && s.kind === 'raid' && s.ui && s.ui.autopilotSeconds / Math.max(1, s.combatSeconds) > 0.2,
-  );
-  if (hunterSimple.length)
-    ev(
-      items,
-      'hunter',
-      'longTerm',
-      'prediction',
-      -0.3,
-      0.3,
-      'You handed much of the Hunter raid loop to the autopilot; guides already call Beast Mastery’s 60 loop simple',
-    );
 }
 
 // ---------------------------------------------------------------- scoring
 
-function scoreCell(list) {
+function scoreCell(all) {
+  const list = all.filter((it) => it.scored !== false);
+  for (const it of all) if (it.scored === false) it.effWeight = 0;
   // Cap each kind's total weight, then keep behaviour from outweighing what you said.
   const byKind = {};
   for (const it of list) (byKind[it.kind] = byKind[it.kind] || []).push(it);
@@ -522,7 +471,14 @@ export function analyze({ sessions = [], feedback = [], weights, trials } = {}) 
         ...sc,
         evidence: list
           .sort((a, b) => b.effWeight - a.effWeight)
-          .map(({ kind, text, value, effWeight, rule }) => ({ kind, text, value: +value.toFixed(2), weight: effWeight, rule })),
+          .map(({ kind, text, value, effWeight, rule, scored }) => ({
+            kind,
+            text,
+            value: +value.toFixed(2),
+            weight: effWeight,
+            rule,
+            scored: scored !== false,
+          })),
       };
     }
     let num = 0;
@@ -533,16 +489,25 @@ export function analyze({ sessions = [], feedback = [], weights, trials } = {}) 
       num += dw[dim] * s;
       den += dw[dim];
     }
-    const sessionsN = sessions.filter((s) => s.classId === cls).length;
+    const mine = sessions.filter((s) => s.classId === cls);
+    const answers = feedback.filter((f) => f.classId === cls && !f.skipped).length;
+    const played = mine.filter((s) => !s.abandoned);
+    const byCharacter = {};
+    for (const s of mine) if (s.charId) byCharacter[s.charId] = (byCharacter[s.charId] || 0) + 1;
     classes[cls] = {
       name: CLASS_NAMES[cls],
       dims,
-      total: den ? Math.round((num / den) * 10) / 10 : 50,
-      sessions: sessionsN,
-      feedback: feedback.filter((f) => f.classId === cls && !f.skipped).length,
+      // No total without your own play or answers: research alone never ranks a class.
+      total: played.length || answers ? Math.round((num / den) * 10) / 10 : null,
+      sessions: mine.length,
+      trialsPlayed: new Set(played.map((s) => s.trialId)).size,
+      feedback: answers,
+      byCharacter,
+      unlinkedRuns: mine.filter((s) => !s.charId).length,
     };
   }
-  const ranking = CLASSES.map((c) => ({ cls: c, name: CLASS_NAMES[c], total: classes[c].total })).sort((a, b) => b.total - a.total);
+  const ranking = CLASSES.map((c) => ({ cls: c, name: CLASS_NAMES[c], total: classes[c].total })).sort((a, b) => (b.total ?? -1) - (a.total ?? -1));
+  const contenders = ranking.filter((r) => r.total != null);
 
   // Coverage & gaps.
   const gaps = [];
@@ -561,8 +526,13 @@ export function analyze({ sessions = [], feedback = [], weights, trials } = {}) 
       classes: noFb,
       text: `No feedback answers yet for ${noFb.map((c) => CLASS_NAMES[c]).join(', ')} — your own words carry the most weight`,
     });
-  if (!sessions.some((s) => s.classId === 'priest' && s.role === 'healer'))
-    gaps.push({ kind: 'role', classes: ['priest'], text: 'Priest healing is untested (the Dungeon and Raid trials offer it)' });
+  for (const [cls, role, label] of [
+    ['priest', 'healer', 'Priest healing'],
+    ['shaman', 'healer', 'Shaman healing'],
+    ['warrior', 'tank', 'Warrior tanking'],
+  ])
+    if (!sessions.some((s) => s.classId === cls && s.role === role))
+      gaps.push({ kind: 'role', classes: [cls], text: `${label} is untested (the Dungeon and Raid trials offer it)` });
   for (const cls of CLASSES)
     if (!sessions.some((s) => s.classId === cls && s.level >= 60))
       gaps.push({ kind: 'level', classes: [cls], text: `${CLASS_NAMES[cls]} not played at level 60 yet — raid and PvP rows lean on facts and predictions` });
@@ -590,10 +560,39 @@ export function analyze({ sessions = [], feedback = [], weights, trials } = {}) 
   }
 
   // Recommendation.
-  const [first, second, third] = ranking;
-  const margin = first.total - second.total;
+  const [first, second, third] = contenders;
   const realEvidence = sessions.filter((s) => !s.abandoned).length;
-  const decided = realEvidence >= 6 && coverage >= 0.4;
+  const thinClasses = CLASSES.filter((c) => classes[c].trialsPlayed < MIN_TRIALS_PER_CLASS);
+  // A firm verdict needs all six classes, not only the ones you happened to play.
+  const decided = thinClasses.length === 0 && coverage >= MIN_COVERAGE;
+  if (!second) {
+    return {
+      classes,
+      ranking,
+      recommendation: {
+        main: null,
+        alt: null,
+        margin: null,
+        confident: false,
+        why: [],
+        strongestAlternative: null,
+        third: null,
+        whatWouldChange: [],
+        played: contenders.map((r) => r.cls),
+        thinClasses,
+        status: contenders.length ? 'single' : 'empty',
+      },
+      conflicts,
+      gaps,
+      coverage,
+      weights: w,
+      dimWeights: dw,
+      sessions: sessions.length,
+      feedback: feedback.length,
+      kinds: KIND_LABEL,
+    };
+  }
+  const margin = first.total - second.total;
   const diffDims = DIM_IDS.map((dim) => {
     const a = classes[first.cls].dims[dim];
     const b = classes[second.cls].dims[dim];
@@ -614,6 +613,7 @@ export function analyze({ sessions = [], feedback = [], weights, trials } = {}) 
     .map((x) => ({ dim: x.dim, text: `${DIM_NAMES[x.dim]}: ${x.b.score ?? 50} vs ${x.a.score ?? 50}` }));
   const whatWouldChange = [];
   if (margin < 4) whatWouldChange.push(`The top two are within ${margin.toFixed(1)} points: one more strong (or weak) answer could swap them.`);
+  if (thinClasses.length) whatWouldChange.push(`Too little played yet to compare: ${thinClasses.map((c) => CLASS_NAMES[c]).join(', ')}.`);
   for (const g of gaps.filter((g) => g.classes && (g.classes.includes(first.cls) || g.classes.includes(second.cls))).slice(0, 3)) whatWouldChange.push(g.text);
   if (w.attachment >= 0.5 && first.cls !== ATTACHMENT.cls)
     whatWouldChange.push('Your attachment setting is high — if that Priest matters more than gameplay, raise it further and see the ranking move.');
@@ -630,9 +630,11 @@ export function analyze({ sessions = [], feedback = [], weights, trials } = {}) 
         : `${CLASS_NAMES[second.cls]} is close behind without a clear standout row`,
       dims: altStrong,
     },
-    third: third.cls,
+    third: third ? third.cls : null,
     whatWouldChange,
-    status: !realEvidence ? 'empty' : decided ? 'ready' : 'early',
+    played: contenders.map((r) => r.cls),
+    thinClasses,
+    status: !realEvidence ? 'early' : decided ? 'ready' : 'early',
   };
   return {
     classes,

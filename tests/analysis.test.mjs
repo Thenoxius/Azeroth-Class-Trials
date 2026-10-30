@@ -7,11 +7,7 @@ import { createTracker } from '../src/telemetry/tracker.js';
 import { analyze } from '../src/analysis/analyze.js';
 import { DIM_IDS } from '../src/analysis/model.js';
 import { makeController } from './bots/harness.mjs';
-import * as mage from './bots/mage.mjs';
-import * as hunter from './bots/hunter.mjs';
-import * as priest from './bots/priest.mjs';
-
-const BOTS = { mage, hunter, priest };
+import { BOTS } from './bots/trial-suite.mjs';
 
 function play(classId, trialId, level, spec, role = 'dps', mode = 'competent', meta = {}) {
   const trial = trialById(trialId);
@@ -36,6 +32,9 @@ const sessions = [
   play('priest', 't2', 30, 'shadow', 'dps', 'careless'),
   play('priest', 't3', 30, 'disc', 'healer'),
   play('hunter', 't1', 10, null, 'dps', 'competent', { attempt: 2, afterWin: true }),
+  play('warrior', 't1', 10, null),
+  play('rogue', 't1', 10, null),
+  play('shaman', 't1', 10, null),
 ];
 
 // Records are complete.
@@ -91,8 +90,9 @@ const feedback = [
 ];
 const a = analyze({ sessions, feedback, trials: TRIALS });
 assert.equal(a.ranking.length, 6);
-for (const r of a.ranking) assert.ok(Number.isFinite(r.total), 'class total is a number');
-for (const cls of ['hunter', 'mage', 'priest']) {
+for (const r of a.ranking) assert.ok(Number.isFinite(r.total), `${r.cls}: played, so it has a total`);
+for (const s of sessions) assert.ok(s.barSize > 0, 'kit size recorded');
+for (const cls of ['hunter', 'mage', 'priest', 'warrior', 'rogue', 'shaman']) {
   for (const dim of DIM_IDS) {
     const c = a.classes[cls].dims[dim];
     assert.ok(c.score === null || (c.score >= 0 && c.score <= 100), `${cls}.${dim} score in range`);
@@ -106,7 +106,7 @@ const r12 = a.classes.priest.dims.soloIndependence.evidence.filter((e) => e.rule
 assert.ok(r12.length <= 1);
 // Skipped answers add nothing.
 assert.ok(!a.classes.hunter.dims.leveling.evidence.some((e) => e.kind === 'self'), 'skipped feedback is not evidence');
-assert.ok(['empty', 'early', 'ready'].includes(a.recommendation.status));
+assert.equal(a.recommendation.status, 'early', 'one trial per class is an early read');
 assert.ok(a.gaps.length > 0, 'unplayed trials are listed as gaps');
 // Weights are visible and move the totals.
 const b = analyze({ sessions, feedback, trials: TRIALS, weights: { raids: 3, pvp: 0, questing: 0.25, dungeons: 0.25 } });

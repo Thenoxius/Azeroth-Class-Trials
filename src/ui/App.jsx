@@ -112,7 +112,18 @@ export function App({ initial }) {
   const trial = sel ? trialById(sel.trialId) : null;
 
   const pick = useCallback(
-    (p) => {
+    (given) => {
+      // Progress belongs to a character: "play as Mage" from elsewhere uses your first Mage,
+      // and without one you create it first.
+      let p = given;
+      if (!p.charId) {
+        const ch = characters.find((c) => c.classId === p.classId);
+        if (!ch) {
+          setScreen('roster');
+          return;
+        }
+        p = { ...p, charId: ch.id, race: ch.race };
+      }
       setSel((old) => ({
         trialId: p.trialId,
         classId: p.classId,
@@ -124,7 +135,7 @@ export function App({ initial }) {
       }));
       setScreen('briefing');
     },
-    [progress],
+    [progress, characters],
   );
 
   const start = ({ spec, role, race }) => {
@@ -145,9 +156,15 @@ export function App({ initial }) {
     setScreen('battle');
   };
 
-  const priorSessions = sel ? evidence.sessions.filter((s) => s.trialId === sel.trialId && s.classId === sel.classId && s.level === sel.level) : [];
+  const priorSessions = sel
+    ? evidence.sessions.filter(
+        (s) => s.trialId === sel.trialId && s.classId === sel.classId && (s.charId || null) === (sel.charId || null) && s.level === sel.level,
+      )
+    : [];
   const sessionMeta = sel
     ? {
+        charId: sel.charId || null,
+        race: sel.race || null,
         attempt: priorSessions.length + 1,
         afterWin: priorSessions.some((s) => s.outcome === 'victory'),
         replayOfOtherClass: evidence.sessions.some((s) => s.trialId === sel.trialId && s.classId !== sel.classId),
@@ -175,7 +192,7 @@ export function App({ initial }) {
         }
       : null;
     setProgress((p) => {
-      const k = runKey(session.trialId, session.classId, session.level);
+      const k = runKey(session.trialId, session.classId, session.level, session.charId);
       const r = p.runs[k] || { attempts: 0, wins: 0 };
       const won = outcome && outcome.result === 'victory';
       const bestDps1m = entry ? Math.max(r.bestDps1m || 0, entry.dps) : r.bestDps1m;
@@ -291,6 +308,7 @@ export function App({ initial }) {
         evidence={evidence}
         kits={VIEW_KITS}
         trials={ANALYSIS_TRIALS}
+        characters={characters}
         classOrder={CLASS_ORDER}
         weights={progress.settings.weights}
         onWeights={(w) => updateSettings({ weights: w })}

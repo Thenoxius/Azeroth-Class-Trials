@@ -1,31 +1,15 @@
 // The Hall of Trials: trials × your characters, progress, coverage-aware suggestion.
-// Progress is kept per class (two characters of one class share it); a character whose class
-// cannot play a trial yet shows that instead of a button.
+// Progress belongs to the character (its id). Results from before characters existed stay
+// unlinked and are only counted per class; a character whose class cannot play a trial yet
+// shows that instead of a button.
 import { Portrait } from '../art/Portrait.jsx';
-import { runKey } from '../../telemetry/store.js';
+import { runKey, legacyRunCount } from '../../telemetry/store.js';
 import { CLASS_COLORS, CLASS_TEXT_ON_DARK, cx } from '../util.js';
 import { RACES } from '../../content/races.js';
 import { trialSupports } from '../../content/index.js';
+import { nextSuggestion, suggestedOrder } from './hall-next.js';
 
 const KIND_LABEL = { questing: 'Questing', danger: 'Unexpected danger', dungeon: 'Dungeon', pvp: 'PvP', raid: 'Raid', dummy: 'Target dummy' };
-
-// Rotate the class order per trial so no class always goes first (order effects).
-export function suggestedOrder(trialIndex, classOrder) {
-  const n = classOrder.length;
-  return classOrder.map((_, i) => classOrder[(i + trialIndex) % n]);
-}
-
-export function nextSuggestion(trials, characters, progress) {
-  for (let ti = 0; ti < trials.length; ti++) {
-    const t = trials[ti];
-    for (const ch of suggestedOrder(ti, characters)) {
-      if (!trialSupports(t.id, ch.classId)) continue;
-      const r = progress.runs[runKey(t.id, ch.classId, t.level)];
-      if (!r || !r.attempts) return { trialId: t.id, classId: ch.classId, level: t.level, race: ch.race, charId: ch.id };
-    }
-  }
-  return null;
-}
 
 export function Hall({ trials, kits, characters, progress, evidence, onPick, onCodex, onSettings, onTitle }) {
   const classOrder = [...new Set(characters.map((c) => c.classId))];
@@ -96,7 +80,7 @@ export function Hall({ trials, kits, characters, progress, evidence, onPick, onC
                   return (
                     <div key={ch.id} className="tc-cell">
                       {levels.map((lv) => {
-                        const r = progress.runs[runKey(t.id, c, lv)] || null;
+                        const r = progress.runs[runKey(t.id, c, lv, ch.id)] || null;
                         const isNext = next && next.trialId === t.id && next.charId === ch.id && next.level === lv;
                         const status = !r || !r.attempts ? 'new' : r.wins ? 'won' : 'tried';
                         return (
@@ -153,6 +137,16 @@ export function Hall({ trials, kits, characters, progress, evidence, onPick, onC
                 <span>{perClass[c].feedback} notes</span>
               </div>
             ))}
+            {classOrder.some((c) => legacyRunCount(progress, c) > 0) && (
+              <p className="muted small">
+                Earlier runs, not linked to a character:{' '}
+                {classOrder
+                  .filter((c) => legacyRunCount(progress, c) > 0)
+                  .map((c) => `${kits[c].name} ${legacyRunCount(progress, c)}`)
+                  .join(', ')}
+                .
+              </p>
+            )}
             <p className="muted small">
               The class order changes from trial to trial, so no class always gets your freshest attention. Replaying anything is fine — what you choose to
               replay counts as evidence.
@@ -172,8 +166,12 @@ export function Hall({ trials, kits, characters, progress, evidence, onPick, onC
             </button>
           ) : (
             <div className="panel">
-              <div className="panel-title">Every trial played</div>
-              <p>The analysis has full coverage. Replays still add evidence.</p>
+              <div className="panel-title">{characters.length ? 'Every trial played' : 'No characters yet'}</div>
+              <p>
+                {characters.length
+                  ? 'Your characters have played every trial they can. The analysis shows which classes it still has too little on.'
+                  : 'Create a character under Characters to start the trials.'}
+              </p>
             </div>
           )}
         </aside>

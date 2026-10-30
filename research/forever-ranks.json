@@ -2596,6 +2596,54 @@
     },
     "shaman.stormstrike": {
       "spell": "Stormstrike"
+    },
+    "priest.hex": {
+      "10": {
+        "rank": 1,
+        "level": 10,
+        "text": "-43 melee AP, -20% healing, 35 mana (spell 9035)",
+        "kit": {
+          "mana": 35
+        }
+      },
+      "30": {
+        "rank": 3,
+        "level": 30,
+        "text": "-85 melee AP, -20% healing, 90 mana (spell 19282)",
+        "kit": {
+          "mana": 90
+        }
+      },
+      "60": {
+        "rank": 6,
+        "level": 60,
+        "text": "-204 melee AP, -20% healing, 240 mana (spell 19285)",
+        "kit": {
+          "mana": 240
+        }
+      },
+      "spell": "Hex of Weakness"
+    },
+    "priest.shadowguard": {
+      "30": {
+        "rank": 2,
+        "level": 28,
+        "text": "22 Shadow, 85 mana (spell 19308)",
+        "kit": {
+          "td": 22,
+          "mana": 85
+        }
+      },
+      "60": {
+        "rank": 6,
+        "level": 60,
+        "text": "96 Shadow, 250 mana (spell 19312)",
+        "kit": {
+          "td": 96,
+          "mana": 250
+        }
+      },
+      "spell": "Shadowguard"
     }
   },
   "talents": {

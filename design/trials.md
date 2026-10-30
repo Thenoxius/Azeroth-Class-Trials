@@ -1,5 +1,7 @@
 # Trial design briefs
 
+> Written for the first three classes and T1–T5. All six classes now play every trial, and T6 The Proving Grounds is a fixed one-minute dummy test with a leaderboard (`content/encounters/t6-dummy.js`).
+
 Shared goals: each trial must be *mechanically interactive* (not text choices), give all three classes a fair chance to show their identity, produce `marker` events for telemetry, and be winnable by competent play at 1× speed (pause allowed) and losable by careless play. Real-time, but readable: telegraphs ≥ 1.5 s, casts that matter are visible on nameplates. Length targets are *fight time at 1×*.
 
 Naming: original place and NPC names (Warcraft-flavoured, not lifted wholesale from Blizzard content). Enemy portraits must use ids from the SPEC portrait list. Every enemy ability gets a `name`, `icon`, `school`, `desc`. Namespaced ids: `t1.*`, `t2.*` … for templates and abilities.

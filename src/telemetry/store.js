@@ -26,8 +26,9 @@ function write(key, value) {
 }
 
 export const emptyProgress = () => ({
-  version: 1,
-  runs: {}, // 't1:mage:10' -> { attempts, wins, bestTime, lastResult, lastAt }
+  version: 2,
+  runs: {}, // 't1:mage:10:<character id>' -> { attempts, wins, bestTime, lastResult, lastAt }
+  legacyRuns: {}, // 't1:mage:10' -> the same, from before progress belonged to a character
   last: { classId: null, spec: {}, role: {} },
   settings: { speed: 1, tips: true, wandMacro: true, reduceMotion: false },
   seenIntro: false,
@@ -41,7 +42,20 @@ export const emptyEvidence = () => ({
   ui: [], // light-weight screen visits: { t, screen, data }
 });
 
-export const loadProgress = () => read(KEYS.progress, emptyProgress());
+// Version 1 kept one result per class. Those results stay as they are under legacyRuns:
+// nothing says which character played them, so they are never assigned to one.
+export function migrateProgress(p) {
+  if (!p || (p.version || 1) >= 2) return p;
+  const runs = {};
+  const legacyRuns = { ...(p.legacyRuns || {}) };
+  for (const [k, r] of Object.entries(p.runs || {})) {
+    if (k.split(':').length === 3) legacyRuns[k] = r;
+    else runs[k] = r;
+  }
+  return { ...p, version: 2, runs, legacyRuns };
+}
+
+export const loadProgress = () => migrateProgress(read(KEYS.progress, emptyProgress()));
 export const saveProgress = (p) => write(KEYS.progress, p);
 export const loadEvidence = () => read(KEYS.evidence, emptyEvidence());
 export const saveEvidence = (e) => write(KEYS.evidence, e);
@@ -62,7 +76,15 @@ export function exportJSON(progress, evidence) {
 export function importJSON(text) {
   const v = JSON.parse(text);
   if (!v || v.app !== 'azeroth-class-trials') throw new Error('This is not an Azeroth Class Trials export.');
-  return { progress: { ...emptyProgress(), ...(v.progress || {}) }, evidence: { ...emptyEvidence(), ...(v.evidence || {}) } };
+  return { progress: migrateProgress({ ...emptyProgress(), version: 1, ...(v.progress || {}) }), evidence: { ...emptyEvidence(), ...(v.evidence || {}) } };
 }
 
-export const runKey = (trialId, classId, level) => `${trialId}:${classId}:${level}`;
+// Progress belongs to a character. A run started without one (developer links) is kept apart.
+export const runKey = (trialId, classId, level, charId) => `${trialId}:${classId}:${level}:${charId || 'no-character'}`;
+
+// Earlier runs of a class that are not linked to any character.
+export function legacyRunCount(progress, classId) {
+  return Object.entries(progress.legacyRuns || {})
+    .filter(([k]) => k.split(':')[1] === classId)
+    .reduce((n, [, r]) => n + (r.attempts || 0), 0);
+}

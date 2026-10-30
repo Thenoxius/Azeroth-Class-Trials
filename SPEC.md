@@ -1,5 +1,7 @@
 # Azeroth Class Trials — build spec & content contract
 
+> Original spec from the first three classes. For what the game does today see `design/phase4-progress.md`; the art pipeline and hosting below have changed too.
+
 A browser mini-RPG that helps one experienced WoW player decide whether to main **Hunter, Mage or Priest** in **World of Warcraft: Forever** (2026). It is *not* a quiz: the player plays real-time-with-pause combat trials with each class at level 10 / 30 / 60 snapshots, the game records what they actually do, and a final analysis separates (1) Forever facts, (2) observed behaviour, (3) self-reports, (4) predictions.
 
 Ships as one self-contained HTML page (Claude Artifact). React 18 UMD from cdnjs; everything else is bundled by esbuild into one inline script.
