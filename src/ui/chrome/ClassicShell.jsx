@@ -13,8 +13,7 @@ export const CLASSIC_NAV = [
 
 export function classicAssetVariables() {
   const names = {
-    'metal-top-tile': '--act-metal', 'forest-left': '--act-forest-left',
-    'forest-right': '--act-forest-right', 'night-elf-side-plate': '--act-side-plate',
+    'metal-top-tile': '--act-metal', 'enchanted-forest-background': '--act-background',
     'parchment-tile': '--act-paper', 'content-edge-left': '--act-edge-left',
     'content-edge-right': '--act-edge-right', 'blue-title-middle': '--act-title-middle',
     'blue-title-left': '--act-title-left', 'blue-title-right': '--act-title-right',
@@ -39,10 +38,8 @@ export function ClassicShell({ screen, children, onNavigate, hasCharacters = tru
   return h('div', { className: 'act-classic-shell', style: classicAssetVariables() },
     h('div', { className: 'act-classic-layout' },
       h('aside', { className: 'act-classic-sidebar' },
-        h('img', { className: 'act-classic-figure', src: A['night-elf-side-plate'], alt: '', 'aria-hidden': true, width: 196, height: 516 }),
-        h('div', { className: 'act-classic-logo', 'aria-label': 'World of Warcraft Class Trials' },
-          h('img', { src: A['wow-wordmark'], alt: 'World of Warcraft', width: 183, height: 73 }),
-          h('span', { className: 'act-classic-subtitle' }, 'Class Trials')),
+        h('div', { className: 'act-classic-logo' },
+          h('img', { src: A['class-trials-logo'], alt: 'Class Trials', width: 183, height: 73 })),
         h('nav', { className: 'act-classic-nav', 'aria-label': 'Main navigation' }, nav)),
       h('main', { className: 'act-classic-content', id: 'act-classic-content' }, children),
       h('div', { className: 'act-classic-bottom-rail', 'aria-hidden': true }),

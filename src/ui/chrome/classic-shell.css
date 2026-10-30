@@ -12,18 +12,17 @@
   color-scheme: light;
   font: 13px/1.5 Arial, Helvetica, sans-serif;
   background-color: #000;
-  background-image: var(--act-metal), var(--act-forest-left), var(--act-forest-right);
-  background-position: left top, left 87px, right 87px;
-  background-size: 280px 87px, 294px 253px, 503px 253px;
-  background-repeat: repeat-x, no-repeat, no-repeat;
+  background-image: var(--act-metal), var(--act-background);
+  background-position: left top, center top;
+  background-size: 280px 87px, cover;
+  background-repeat: repeat-x, no-repeat;
+  background-attachment: scroll, fixed;
 }
 .act-classic-shell *, .act-classic-shell *::before, .act-classic-shell *::after { box-sizing: border-box; }
 .act-classic-shell .act-classic-layout { width: min(925px, calc(100% - 36px)); margin: 0 auto; display: grid; grid-template-columns: 146px minmax(0, 1fr); align-items: start; }
 .act-classic-shell .act-classic-sidebar { position: relative; padding-top: 21px; min-height: 516px; }
-.act-classic-shell .act-classic-figure { position: absolute; left: -196px; top: -24px; pointer-events: none; max-width: none; }
 .act-classic-shell .act-classic-logo { position: absolute; top: -88px; left: -13px; width: 183px; z-index: 2; text-align: center; line-height: 1; }
-.act-classic-shell .act-classic-logo img { width: 183px; height: 73px; display: block; }
-.act-classic-shell .act-classic-subtitle { display: block; margin: 0 13px 0 17px; padding: 3px 0 5px; background: #080907; border-top: 1px solid #967031; color: #eac651; font: 18px/1.1 Georgia, 'Times New Roman', serif; }
+.act-classic-shell .act-classic-logo img { width: 183px; height: auto; display: block; }
 .act-classic-shell .act-classic-nav { position: relative; display: grid; gap: 8px; padding-right: 2px; }
 .act-classic-shell .act-classic-nav-link { min-height: 27px; margin: 0; padding: 3px 19px 3px 25px; border: 1px solid #ac944b; border-radius: 0; color: #f0d469; text-align: left; text-shadow: 0 1px #000; font: 13px/18px Georgia, 'Times New Roman', serif; background-color: #0a1422; background-image: var(--act-nav-left), var(--act-nav-right), var(--act-title-middle); background-position: left center, right center, center; background-size: 24px 24px, 18px 24px, auto 100%; background-repeat: no-repeat, no-repeat, repeat-x; cursor: pointer; }
 .act-classic-shell .act-classic-nav-link.is-active { outline: 1px solid #f1d787; outline-offset: 1px; }
@@ -63,9 +62,6 @@
 .act-classic-shell .race-card.on { outline: 2px solid #8b6322; outline-offset: 2px; }
 .act-classic-shell .act-classic-compat-links { margin-top: 20px; }
 .act-classic-shell .act-classic-compat-links a { color: #25466a; }
-@media (max-width: 1250px) {
-  .act-classic-shell .act-classic-figure { display: none; }
-}
 @media (max-width: 900px) {
   .act-classic-shell .roster-body { grid-template-columns: minmax(0, 1fr); }
 }
@@ -173,8 +169,8 @@
 /* Shared material around combat; all HUD descendants keep their own styles. */
 .act-classic-battle-frame {
   background-color: #050b10;
-  background-image: linear-gradient(180deg, #07131ce8, #020507ee), var(--act-forest-left), var(--act-forest-right);
-  background-position: center, left top, right top;
+  background-image: linear-gradient(180deg, #07131ce8, #020507ee);
+  background-position: center;
   background-repeat: no-repeat;
   box-shadow: inset 0 0 0 1px #c8a858, inset 0 0 0 3px #172c3b, inset 0 0 0 4px #6d5831;
 }
@@ -272,7 +268,6 @@
 @media (min-width: 1100px) {
   .act-classic-shell { font-size: 16px; }
   .act-classic-shell .act-classic-layout { width: min(1900px, calc(100% - 64px)); grid-template-columns: 200px minmax(0, 1fr); }
-  .act-classic-shell .act-classic-figure { display: none; }
   .act-classic-shell .act-classic-content { min-height: 0; padding: 28px 38px 40px 50px; }
   .act-classic-shell .act-classic-nav { gap: 12px; padding-right: 10px; }
   .act-classic-shell .act-classic-nav-link { min-height: 40px; padding-top: 9px; padding-bottom: 9px; font-size: 16px; }
@@ -290,16 +285,6 @@
   .act-classic-shell .hall-body { grid-template-columns: minmax(0, 1fr) 300px; gap: 28px; align-items: start; }
   .act-classic-shell .hall-side { grid-template-columns: minmax(0, 1fr); }
   .act-classic-shell .brief-body { grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 36px; align-items: start; }
-}
-@media (min-width: 1500px) {
-  .act-classic-shell .act-classic-layout { padding-left: 196px; }
-  .act-classic-shell .act-classic-figure { display: block; }
-}
-/* Join the native forest and figure locally; never tint the art or the page. */
-@media (min-width: 1500px) {
-  .act-classic-shell { background-image: var(--act-metal), var(--act-forest-right); background-position: left top, right 87px; background-size: 280px 87px, 503px 253px; background-repeat: repeat-x, no-repeat; }
-  .act-classic-shell .act-classic-sidebar::before { content: ''; position: absolute; left: -466px; top: -1px; width: 294px; height: 253px; pointer-events: none; background: var(--act-forest-left) left top / 294px 253px no-repeat; mask-image: linear-gradient(to right, transparent, #000 30px, #000 264px, transparent); }
-  .act-classic-shell .act-classic-figure { mask-image: linear-gradient(to right, transparent, #000 30px); }
 }
 .act-classic-shell .act-classic-bottom-rail { grid-column: 2; height: 26px; border-top: 1px solid #b59b57; border-bottom: 1px solid #79683f; background: #151714 var(--act-metal) left bottom / 280px 87px repeat-x; box-shadow: inset 0 2px #090a08, inset 0 -2px #070807; }
 @media (max-width: 760px) {

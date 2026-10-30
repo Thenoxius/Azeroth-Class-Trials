@@ -22,70 +22,6 @@
       "runtime_sha256": "9e64546910dc15cce63abc8048c48792038e7cf451ea8eb657583851a888b7b5"
     },
     {
-      "id": "forest-left",
-      "path": "assets/forest-left.png",
-      "source_crop_xyxy": [
-        0,
-        87,
-        294,
-        340
-      ],
-      "width": 294,
-      "height": 253,
-      "sha256": "50d3ed85816cf15404f89d233d7ee741ab76b4596055ad8255783ea3cec74c4d",
-      "role": "decorative chrome",
-      "runtime_path": "assets/forest-left.webp",
-      "runtime_sha256": "dc787bed5f58313737242745f6886a55c7b19215199a73d67b3cf4601f7a0e65"
-    },
-    {
-      "id": "forest-right",
-      "path": "assets/forest-right.png",
-      "source_crop_xyxy": [
-        1400,
-        87,
-        1903,
-        340
-      ],
-      "width": 503,
-      "height": 253,
-      "sha256": "2d214f0626c1fa465dff6f29b6cb59d21f21b6ae5d1e0ee44c624e647139a634",
-      "role": "decorative chrome",
-      "runtime_path": "assets/forest-right.webp",
-      "runtime_sha256": "fcd4456069dc8f9476c3dd5329642e61a569c78fc1d37f2f266162a4672d4501"
-    },
-    {
-      "id": "night-elf-side-plate",
-      "path": "assets/night-elf-side-plate.png",
-      "source_crop_xyxy": [
-        294,
-        64,
-        490,
-        580
-      ],
-      "width": 196,
-      "height": 516,
-      "sha256": "5286f7f3da5252b3fbc728db0e47d95edb704e5c8fe19bbb52072b4e0b1ec159",
-      "role": "decorative chrome",
-      "runtime_path": "assets/night-elf-side-plate.webp",
-      "runtime_sha256": "c333254214a367b63d97c21988f05162ed6cfa02140477066f4602e1dae20aac"
-    },
-    {
-      "id": "wow-wordmark",
-      "path": "assets/wow-wordmark.png",
-      "source_crop_xyxy": [
-        477,
-        0,
-        660,
-        73
-      ],
-      "width": 183,
-      "height": 73,
-      "sha256": "a96f5e603f83ca5390c73bc4e8a80c17e9f49701138a615f7a27a239bab08de3",
-      "role": "logo",
-      "runtime_path": "assets/wow-wordmark.webp",
-      "runtime_sha256": "6207a9da9eb683cfd26713cd3aa2403cdec28761e8784e264f4a92536fe6141c"
-    },
-    {
       "id": "parchment-tile",
       "path": "assets/parchment-tile.png",
       "source_crop_xyxy": [
@@ -209,15 +145,26 @@
       "runtime_sha256": "66d3ec459cbce237f7577e51259a99621060f842370f4ba9ff23d6ef6d404f6c"
     },
     {
-      "id": "world-of-warcraft-class-trials",
-      "path": "assets/world-of-warcraft-class-trials.svg",
-      "width": 183,
-      "height": 100,
-      "generation": "Original cropped wordmark plus live vector subtitle",
-      "sha256": "2c5b74e52a2e8bfa0b2f3ada6d7bc0593451c8aa1d0cce5acee26be6d0639def",
-      "role": "combined logo alternative",
-      "runtime_path": "assets/world-of-warcraft-class-trials.svg",
-      "runtime_sha256": "2c5b74e52a2e8bfa0b2f3ada6d7bc0593451c8aa1d0cce5acee26be6d0639def"
+      "id": "class-trials-logo",
+      "path": "assets/class-trials-logo.webp",
+      "width": null,
+      "height": null,
+      "sha256": "0c76dabaedc484e2ac141c31486e82886c5732d8d3e8ee5bdf3d50fb19558c47",
+      "role": "logo",
+      "source": "assets/original-branding-v1 (original, user-approved)",
+      "runtime_path": "assets/class-trials-logo.webp",
+      "runtime_sha256": "0c76dabaedc484e2ac141c31486e82886c5732d8d3e8ee5bdf3d50fb19558c47"
+    },
+    {
+      "id": "enchanted-forest-background",
+      "path": "assets/enchanted-forest-background.webp",
+      "width": null,
+      "height": null,
+      "sha256": "3e1e7314edf0379f760838e0fdb9f8c348460df86508f4412bb0b6f8e177fa88",
+      "role": "page background",
+      "source": "assets/original-branding-v1 (original, user-approved)",
+      "runtime_path": "assets/enchanted-forest-background.webp",
+      "runtime_sha256": "3e1e7314edf0379f760838e0fdb9f8c348460df86508f4412bb0b6f8e177fa88"
     }
   ]
 }
